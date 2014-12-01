@@ -143,7 +143,6 @@ example. You can type that directly into your terminal and try out the command.
 
 Prefer use to git and clone the repo? It is posted up for you at the following
 locations: https://github.com/rbrogan/Gen
-https://sourceforge.net/projects/sfgen/
 https://gitorious.org/gitorious-gen
 
 How to uninstall? To uninstall you can simply delete the directory. You can also
