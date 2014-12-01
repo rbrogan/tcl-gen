@@ -1,0 +1,36 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test LappendIfNotAlready-1 {Basic test} -body {
+set MyList [list one two three]
+LappendIfNotAlready MyList {four five}
+
+} -result {one two three four five} -output {} -returnCodes {0}
+
+
+::tcltest::test LappendIfNotAlready-2 {Variable not pre-existing} -body {
+unset -nocomplain NoSuchVar
+LappendIfNotAlready NoSuchVar {four five}
+
+} -result {four five} -output {} -returnCodes {0}
+
+
+::tcltest::test LappendIfNotAlready-3 {Append nothing} -body {
+set MyList [list one two three]
+LappendIfNotAlready MyList {}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test LappendIfNotAlready-4 {List already contains elements} -body {
+set MyList [list one two three]
+LappendIfNotAlready MyList {one three}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test LappendIfNotAlready-5 {Append list contains empty list} -body {
+set MyList [list one two three]
+LappendIfNotAlready MyList {four {} six}
+
+} -result {one two three four {} six} -output {} -returnCodes {0}
+

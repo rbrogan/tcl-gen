@@ -1,0 +1,35 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test MultiplyBy-1 {Basic test} -body {
+set MyVar 2
+MultiplyBy MyVar 2
+puts $MyVar
+} -result {} -output {4
+} -returnCodes {0}
+
+
+::tcltest::test MultiplyBy-2 {No such variable} -body {
+unset -nocomplain NoSuchVar
+MultiplyBy NoSuchVar 2
+
+} -result {Could not find variable NoSuchVar in caller.} -output {} -returnCodes {1}
+
+
+::tcltest::test MultiplyBy-3 {Non-numeric input} -body {
+set MyVar 12
+MultiplyBy MyVar asdf
+} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test MultiplyBy-4 {Empty string input 1} -body {
+MultiplyBy "" 2
+} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+
+
+::tcltest::test MultiplyBy-5 {Empty string input 2} -body {
+set MyVar 12
+MultiplyBy MyVar ""
+} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SurroundEach</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SurroundEach  &mdash;  Make a new list by surrounding each element with a string.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SurroundEach</b> <i>ListValue</i> <i>String</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A list where each element comes from one in the input list, except it is surrounded by the string.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListValue</i></td><td class='argument_right'>The input list from which to take elements and surround.</td></tr><tr class='table_row_a'><td class='argument_left'><i>String</i></td><td class='argument_right'>What to surround each list element with.</td></tr></table></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>This is how to surround each list element with double stars.</p><div class="code_sample"><pre>% set MyList [list first second third]<br>first second third<br>% <b>SurroundEach $MyList "**"</b><br>**first** **second** **third**</pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_list">list</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

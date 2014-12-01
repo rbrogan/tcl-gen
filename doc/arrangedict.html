@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ArrangeDict</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+ArrangeDict  &mdash;  Rearrange dict according to list that gives key order.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>ArrangeDict</b> <i>DictValue</i> <i>Arrangement</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+New dict value with entries in order of arrangement.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dict value to use to make rearranged dict.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Arrangement</i></td><td class='argument_right'>List with the keys in the order they should in the new dict.
+</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Elements of the arrangement that are not found in the input dict are ignored. Likewise, elements of the input dict that are not part of the arrangement will not show up in the dict that is returned.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>The following code will :<br><ol><li>Create a dictionary.</li><li>Print it out to show its original order.</li><li>Rearrange it with a call to ArrangeDict.</li><li>Print it out to show its new order.</li></ol></p><div class="code_sample"><pre>% set MyDict [dict create first one second two third three]<br>first one second two third three<br>% # Show original arrangement.<br>% dict for {Key Value} $MyDict { puts "$Key = $Value" }<br>first = one<br>second = two<br>third = three<br><b>% set Rearranged [ArrangeDict $MyDict {three two one}]</b><br>% dict for {Key Value} $Rearranged { puts "$Key = $Value" }<br>third = three<br>second = two<br>first = one</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arrangement">arrangement</a>, <a href="keyword-index.html#C_dict">dict</a>, <a href="keyword-index.html#C_ordering">ordering</a>
+</div>
+</body>
+</html>

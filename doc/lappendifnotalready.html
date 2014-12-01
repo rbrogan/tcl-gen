@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LappendIfNotAlready</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+LappendIfNotAlready  &mdash;  Check to see if value(s) are already in list, append if not.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>LappendIfNotAlready</b> <i>ListVarName</i> <i>Values</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+New contents of the list.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVarName</i></td><td class='argument_right'>Name of the list variable to append to.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Values</i></td><td class='argument_right'>Value or values to append to the list.</td></tr></table></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList [list one two three]<br>one two three<br>% <b>LappendIfNotAlready MyList three</b><br>one two three<br>% LappendIfNotAlready MyList {four five}<br>one two three four five<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/lappend.htm'>lappend</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/lsearch.htm'>lsearch</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_list">list</a>, <a href="keyword-index.html#C_modify">modify</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test Mash-1 {Basic test} -body {
+set DisplayName "Two Words"
+set FileName "[Mash $DisplayName].txt"
+} -result {twowords.txt} -output {} -returnCodes {0}
+
+
+::tcltest::test Mash-2 {Already mashed} -body {
+set DisplayName "twowords"
+set FileName "[Mash $DisplayName].txt"
+} -result {twowords.txt} -output {} -returnCodes {0}
+
+
+::tcltest::test Mash-3 {Empty string input} -body {
+Mash ""
+} -result {} -output {} -returnCodes {0}
+

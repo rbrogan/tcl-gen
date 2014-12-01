@@ -1,0 +1,33 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test AddTo-1 {Basic Test} -body {
+set MyNumber 123
+AddTo MyNumber 4
+puts $MyNumber
+} -result {} -output {127
+} -returnCodes {0}
+
+
+::tcltest::test AddTo-2 {No such variable test} -body {
+AddTo NoSuchVariable 123
+} -result {123} -output {} -returnCodes {0}
+
+
+::tcltest::test AddTo-3 {Non-numeric input} -body {
+set MyNumber 123
+AddTo MyNumber asdf
+} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test AddTo-4 {Empty string input 2} -body {
+set MyNumber 123
+AddTo MyNumber ""
+} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test AddTo-5 {Empty string input 1} -body {
+AddTo "" 123
+} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+

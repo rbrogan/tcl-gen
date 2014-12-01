@@ -1,0 +1,40 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test IsNumeric-1 {Basic test 1 - integer} -body {
+IsNumeric 1
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-2 {Basic test 2 - double} -body {
+IsNumeric 1.1
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-3 {Basic test 3 - wide integer} -body {
+IsNumeric  111111111111111111
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-4 {Negative test - Alphabetic} -body {
+IsNumeric asdf
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-5 {Negative test - Empty string} -body {
+IsNumeric ""
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-6 {Basic test - hex} -body {
+IsNumeric 0x10
+
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNumeric-7 {Basic test - octal} -body {
+IsNumeric 010
+
+} -result {1} -output {} -returnCodes {0}
+

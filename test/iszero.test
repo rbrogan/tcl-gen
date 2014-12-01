@@ -1,0 +1,23 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test IsZero-1 {Basic test - return 1} -body {
+IsZero 0.0
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsZero-2 {Basic test - return 0} -body {
+IsZero 1
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsZero-3 {Non-numeric input} -body {
+IsZero asdf
+} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test IsZero-4 {Empty string input} -body {
+IsZero ""
+} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+

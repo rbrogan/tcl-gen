@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MashB</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+MashB  &mdash;  Change variable contents to all lowercase and no spaces.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>MashB</b> <i>StringVarName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The new value the input variable now holds.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVarName</i></td><td class='argument_right'>Name of variable to change to be mashed.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input variable not found in caller.</td>
+<td class="error_code">-1</td>
+<td>Could not find variable $VarName.</td>
+</tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that unlike Mash, MashB takes a variable name as input and then modifies the contents of that variable.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyVar "Two Words"<br>Two Words<br>% MashB MyVar<br>twowords<br>% puts $MyVar<br>twowords</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'mash.html'>Mash</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

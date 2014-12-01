@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File2String</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+File2String  &mdash;  Read file into a string and return it.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>File2String</b> <i>InFilePath</i> <i>?StringVarName?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string with the contents of the file.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>InFilePath</i></td><td class='argument_right'>Where to find the file.</td></tr><tr class='table_row_a'><td class='argument_left'><i>StringVarName</i></td><td class='argument_right'>Name of the string variable to populate. Optional.
+If variable does not already exist then one will be created.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note this assumes UTF-8 encoding. Support for flags should come in a future release.<p>Note also that this returns the contents of the file, so the second argument is optional.</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyString 1-2-3<br>1-2-3<br>% String2File $MyString temp.txt<br>% <b>File2String temp.txt</b><br>1-2-3</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'file2list.html'>File2List</a>, <a href = 'list2file.html'>List2File</a>, <a href = 'string2file.html'>String2File</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_string">string</a>
+</div>
+</body>
+</html>

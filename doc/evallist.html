@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EvalList</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+EvalList  &mdash;  Take list and run eval on each element.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>EvalList</b> <i>ListValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListValue</i></td><td class='argument_right'>List with elements to evaluate.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Goes through each element of the list and runs eval on it.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {{puts One} {puts Two}}<br>{puts One} {puts Two}<br>% <b>EvalList $MyList</b><br>One<br>Two</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/eval.htm'>eval</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/foreach.htm'>foreach</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_eval">eval</a>, <a href="keyword-index.html#C_execute">execute</a>, <a href="keyword-index.html#C_list">list</a>
+</div>
+</body>
+</html>

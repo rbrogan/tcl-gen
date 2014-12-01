@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test IsNonNumeric-1 {Basic test - Alphabetic} -body {
+IsNonNumeric asdf
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNonNumeric-2 {Basic test - Empty string} -body {
+IsNonNumeric ""
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNonNumeric-3 {Negative test - Integer} -body {
+IsNonNumeric 1
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNonNumeric-4 {Negative test - Wide integer} -body {
+IsNonNumeric  111111111111111111
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNonNumeric-5 {Negative test - Double} -body {
+IsNonNumeric 1.1
+} -result {0} -output {} -returnCodes {0}
+

@@ -1,0 +1,285 @@
+body
+{
+	background-color:#c0c0c0;
+}	
+
+#AppTitle
+{
+     text-align: center;
+     font-size:125%;     
+     font-weight:bold;     
+     letter-spacing: 1px;
+	color:#ffffff;
+	background-color: #b8b8b8;	     
+     font-family: sans-serif;
+}
+
+#PageTitle
+{
+     text-align: center;
+     font-size:200%;
+     font-weight:bold;
+     text-decoration: none;
+     letter-spacing: 1px;     
+     color: #404040;
+     margin-top: 12px;
+     margin-bottom: 12px;
+}
+
+#center
+{
+	width:666px;
+	height:auto;
+	left:167px;
+	border-style:solid;
+	border-color:gray;
+	border-width:3px;
+	position:absolute;
+	overflow:auto;	
+	background-color:white;		
+     padding: 33px 33px 6px 33px;
+     
+}
+
+#content
+{
+     min-height: 575px;
+}
+
+#left
+{
+	width:143px;
+	height:360px;
+	left:0px;
+	top:166px;
+	border-style:none;
+	border-color:gray;
+	border-width: 3px 3px 3px 3px;
+	background-color: #c0c0c0;
+	position:absolute;				    
+}
+
+#footer
+{
+
+}
+
+#footer-content
+{
+     text-align: center;
+     font-size:125%;
+     font-weight: normal;
+     font-style: italic;
+     font-family: sans-serif;
+     letter-spacing: 1px;     
+	color:#ffffff;
+	background-color: #b8b8b8;	     
+     font-family: sans-serif;
+
+}
+
+#download_link
+{
+	color:#202020;
+	border-color:black;
+	background-color: #f8f8f8;	
+	border-width:2px 2px 2px 2px;     
+     padding: 2px;    
+     max-width: 143px;
+	display:block;
+	border-style:solid;
+	text-decoration: none;
+	font-weight:bold;
+	letter-spacing:2px;
+	text-align:center;
+     font-family: Sans-serif;
+     margin: 6px;    
+}
+
+.section-header
+{
+     display: table;
+     width: 100%;
+     
+     text-align: center;
+     font-size:125%;
+     font-weight: normal;
+     font-style: normal;
+     font-family: sans-serif;
+     letter-spacing: 1px;     
+	color:#5d5d5d;
+	background-color: #e8e8e8;	     
+     font-family: sans-serif;     
+}
+
+.section-header-left
+{
+     display: table-cell;
+     text-align: left;
+}
+
+.section-header-right
+{
+     display: table-cell;
+     text-align: right;
+}
+
+.section-content
+{
+     clear: left;
+}
+
+.section-content li
+{
+     //list-style-type: none;
+}
+
+
+
+.form_element
+{
+     margin-left: 20px;     
+}
+
+.form_header
+{
+     font-family: sans-serif;
+     font-weight: bold;
+}
+
+a
+{
+     font-family: sans-serif;
+}
+
+a.navbar
+{
+     max-width: 143px;
+	display:block;
+	border-style:solid;
+	border-color:#e0e0e0;
+     background-color: #404040;
+	border-width:1px 1px 1px 1px;
+	text-decoration: none;
+	font-weight:bold;
+	letter-spacing:2px;
+	text-align:center;
+     font-family: Sans-serif;
+     margin: 6px;
+     padding: 3px;
+}
+
+a.navbar:visited
+{
+	color:#f0f0f0;
+}
+a.navbar:link
+{
+	color:#f0f0f0;
+}
+a.navbar:hover
+{
+	color:#202020;
+	border-color:black;
+	background-color: #f8f8f8;	
+	border-width:2px 2px 2px 2px;     
+     padding: 2px;
+}
+
+a.navbar:active
+{
+	color:white;
+	border-color:white;
+	background-color:black;
+}
+
+a.navbar#current
+{
+	color:white;
+	border-color:white;
+	background-color:black;     
+}
+
+img.centered
+{
+    display: block;
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+p
+{
+	text-align:justify;
+}
+ol
+{
+	text-align:left;
+}
+ul
+{
+	text-align:left;
+     list-style-type: circle;     
+}
+
+table {
+    border: 1px solid;
+    border-color: #7d7d7d;
+    padding: 2px;
+}
+
+th, td {
+    border: 1px solid gray;
+    padding: 3px 6px 3px 6px;
+}
+
+.alternating_color_a
+{
+     background-color: #20aaf428;
+}
+
+.alternating_color_b
+{
+     background-color: #0d476428;
+}
+
+.quasi_table_left
+{
+     margin-left: 1em;
+     font-family: serif;
+     font-weight: bold;
+}
+
+.quasi_table_right
+{
+     margin-left: 3em;
+}
+
+p.quasi_table_left
+{
+     margin-top: 0em;
+     margin-bottom: 0em;
+}
+
+p.quasi_table_right
+{
+     margin-top: 0em;
+     margin-bottom: 0em;
+}
+
+.question
+{
+     color: #202020;
+     font-weight: bold;
+     font-style: italic;
+     font-size:100%;     
+     letter-spacing: .02em;
+}
+
+
+.email
+{
+     font-family: monospace;
+     font-size: 125%;
+}
+

@@ -1,0 +1,30 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test StringContains-1 {Basic test - returns 1} -body {
+StringContains "one two three" two
+
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test StringContains-2 {Basic test - returns 0} -body {
+StringContains "one two three" four
+
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StringContains-3 {Empty string input} -body {
+StringContains "" one
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StringContains-4 {Empty string input 2} -body {
+StringContains one ""
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StringContains-5 {Search string bigger than target string} -body {
+StringContains asd asdf
+} -result {0} -output {} -returnCodes {0}
+

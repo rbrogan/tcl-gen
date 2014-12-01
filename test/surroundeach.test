@@ -1,0 +1,33 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test SurroundEach-1 {Basic test} -body {
+set MyList {one two three}
+SurroundEach $MyList "*"
+} -result {*one* *two* *three*} -output {} -returnCodes {0}
+
+
+::tcltest::test SurroundEach-2 {Input list is empty} -body {
+set MyList {}
+SurroundEach $MyList "*"
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test SurroundEach-3 {Input string is empty} -body {
+set MyList {one two three}
+SurroundEach $MyList ""
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test SurroundEach-4 {Input list is one element} -body {
+set MyList {one}
+SurroundEach $MyList "*"
+} -result {*one*} -output {} -returnCodes {0}
+
+
+::tcltest::test SurroundEach-5 {Surround string is multiple characters} -body {
+set MyList {one two three}
+SurroundEach $MyList "**"
+} -result {**one** **two** **three**} -output {} -returnCodes {0}
+

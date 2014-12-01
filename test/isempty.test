@@ -1,0 +1,15 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test IsEmpty-1 {Basic positive} -body {
+set EmptyString ""
+IsEmpty $EmptyString
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsEmpty-2 {Basic negative} -body {
+set MyString 123
+IsEmpty $MyString
+} -result {0} -output {} -returnCodes {0}
+

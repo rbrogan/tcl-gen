@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reg2Dict</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Reg2Dict  &mdash;  Make Tcl dict from Windows registry key.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Reg2Dict</b> <i>CurrentRegKey</i> <i>CurrentDictName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A dict that matches the given registry key and everything under it.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>CurrentRegKey</i></td><td class='argument_right'>Registry key.</td></tr><tr class='table_row_a'><td class='argument_left'><i>CurrentDictName</i></td><td class='argument_right'>Name of dict to add to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Creates and returns a Tcl dictionary that corresponds to all the Windows registry values and subkeys under the given key. Each entry key is either a registry value name or a registry subkey name. Each entry value is either registry value data or the contents of a subkey (which makes it a subdictionary).</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>Reg2Dict $TargetRegKey MyDict</pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" hidden>
+KEYWORDS
+</div>
+<div class="section_content" hidden>
+
+</div>
+</body>
+</html>

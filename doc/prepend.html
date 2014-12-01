@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prepend</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Prepend  &mdash;  Modify string to add value to the front of it.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Prepend</b> <i>StringVarName</i> <i>Value</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+New contents of the string.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVarName</i></td><td class='argument_right'>Name of string variable to modify.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Value</i></td><td class='argument_right'>Value to prepend to the front of the string variable contents.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Works like append except value is put at the front.<p>Note also that, like <code>append</code>, this will not generate an error if the variable does not exist but rather will create a new variable.</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyString World<br>World<br>% <b>Prepend MyString "Hello "</b><br>Hello World<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/append.htm'>append</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_modify">modify</a>, <a href="keyword-index.html#C_string">string</a>
+</div>
+</body>
+</html>

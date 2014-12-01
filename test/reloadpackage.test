@@ -1,0 +1,18 @@
+package require tcltest
+package require gen
+
+::tcltest::test ReloadPackage-1 {Basic Test} -body {
+if {![lcontain $::auto_path [pwd]]} {lappend ::auto_path [pwd]}
+package forget test-reload-package
+file copy -force test-reload-package.tcl.1 test-reload-package.tcl
+package require test-reload-package
+Hello
+file copy -force test-reload-package.tcl.2 test-reload-package.tcl
+ReloadPackage test-reload-package
+Hello
+} -result {} -output {Aloha
+Hola
+} -returnCodes {0} -cleanup {
+file copy -force test-reload-package.tcl.1 test-reload-package.tcl
+package forget test-reload-package
+}

@@ -1,0 +1,29 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test StartsWith-1 {Basic test - return 1} -body {
+StartsWith asdf as
+
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test StartsWith-2 {Basic test - return 0} -body {
+StartsWith asdf df
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StartsWith-3 {Empty target string} -body {
+StartsWith "" asdf
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StartsWith-4 {Empty search string} -body {
+StartsWith asdf ""
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test StartsWith-5 {Search string bigger than target string} -body {
+StartsWith asd asdf
+} -result {0} -output {} -returnCodes {0}
+

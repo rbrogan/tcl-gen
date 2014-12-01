@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test File2String-1 {Basic test 1 - one line} -body {
+String2File "abc" test.txt
+set Result [File2String test.txt]
+puts $Result
+} -result {} -output {abc
+} -returnCodes {0}
+
+
+::tcltest::test File2String-2 {Basic test 2 - two lines} -body {
+String2File "abc\ndef" test.txt
+set Result [File2String test.txt]
+puts $Result
+} -result {} -output {abc
+def
+} -returnCodes {0}
+
+
+::tcltest::test File2String-3 {Empty string} -body {
+String2File "" test.txt
+set Result [File2String test.txt]
+puts $Result
+} -result {} -output {
+} -returnCodes {0}
+

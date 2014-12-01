@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SetZeroIfEmpty</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SetZeroIfEmpty  &mdash;  Take variable and make it zero if it is empty.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SetZeroIfEmpty</b> <i>VarName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The value that VarName now has.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to possibly set to zero.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set Nothing ""<br>% <b>SetZeroIfEmpty Nothing</b><br>0<br>% puts $Nothing<br>0</pre></div><div class="code_sample"><pre>% set Something "something"<br>something<br>% SetZeroIfEmpty Something<br>% puts $Something<br>something</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'isempty.html'>IsEmpty</a>, <a href = 'retzeroifempty.html'>RetZeroIfEmpty</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

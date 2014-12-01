@@ -1,0 +1,19 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test ToForwardSlashes-1 {Basic test - from backslashes} -body {
+ToForwardSlashes {c:\another\path}
+
+} -result {c:/another/path} -output {} -returnCodes {0}
+
+
+::tcltest::test ToForwardSlashes-2 {Basic test - from double backslashes} -body {
+ToForwardSlashes {c:\path\to\somefile.txt}
+} -result {c:/path/to/somefile.txt} -output {} -returnCodes {0}
+
+
+::tcltest::test ToForwardSlashes-3 {Empty string input} -body {
+ToForwardSlashes ""
+} -result {} -output {} -returnCodes {0}
+

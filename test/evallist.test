@@ -1,0 +1,24 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test EvalList-1 {Basic test} -body {
+set MyList {{puts One} {puts Two}}
+EvalList $MyList
+} -result {} -output {One
+Two
+} -returnCodes {0}
+
+
+::tcltest::test EvalList-2 {Empty list} -body {
+set MyList {}
+EvalList $MyList
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test EvalList-3 {One element} -body {
+set MyList {{puts One}}
+EvalList $MyList
+} -result {} -output {One
+} -returnCodes {0}
+

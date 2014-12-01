@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test List2File-1 {Basic test 2 - one element} -body {
+List2File {one} test.txt
+puts [File2String test.txt]
+} -result {} -output {one
+
+} -returnCodes {0}
+
+
+::tcltest::test List2File-2 {Basic test 1 - three elements} -body {
+List2File {one two three} test.txt
+puts [File2String test.txt]
+} -result {} -output {one
+two
+three
+
+} -returnCodes {0}
+
+
+::tcltest::test List2File-3 {Empty list} -body {
+List2File {} test.txt
+puts [File2String test.txt]
+} -result {} -output {
+} -returnCodes {0}
+

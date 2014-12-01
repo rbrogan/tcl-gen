@@ -1,0 +1,27 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test FindAndRemove-1 {Basic positive} -body {
+set MyList {one two three}
+FindAndRemove $MyList two
+
+} -result {one three} -output {} -returnCodes {0}
+
+
+::tcltest::test FindAndRemove-2 {Basic negative} -body {
+set MyList {one two three}
+FindAndRemove $MyList four
+
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test FindAndRemove-3 {Empty search string} -body {
+FindAndRemove "one two three" ""
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test FindAndRemove-4 {Empty target string} -body {
+FindAndRemove "" two
+} -result {} -output {} -returnCodes {0}
+

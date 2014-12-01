@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>List2File</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+List2File  &mdash;  Write list elements as lines to file.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>List2File</b> <i>ListValue</i> <i>OutFilePath</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListValue</i></td><td class='argument_right'>List of lines to write to file.</td></tr><tr class='table_row_a'><td class='argument_left'><i>OutFilePath</i></td><td class='argument_right'>Path of file to write to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Each list element is written as a line to the file and ends with a newline.<p>Note this does not yet support non-utf8 encoding.</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList [list one two three]<br>one two three<br>% <b>List2File $MyList test.txt</b><br>% cat test.txt<br>one<br>two<br>three</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'file2list.html'>File2List</a>, <a href = 'file2string.html'>File2String</a>, <a href = 'string2file.html'>String2File</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_list">list</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File2List</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+File2List  &mdash;  Read file line-by-line into a list.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>File2List</b> <i>InFilePath</i> <i>?ListVarName?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A list where each element was a line in the file.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>InFilePath</i></td><td class='argument_right'>Where to find the file.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ListVarName</i></td><td class='argument_right'>Name of the list variable to populate. Optional.
+If variable does not already exist then one will be created.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Each line in the file will be an element in the list (see example).<p>The lines in the list will not have newlines at the end.</p><p>Passing a list variable name is optional. Either way, the command will return a list value.</p><p>Note this assumes UTF-8 encoding. Support for flags should come in a future release.</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {{Element 1} {Element 2} {Element 3}}<br>{Element 1} {Element 2} {Element 3}<br>% List2File $MyList test.txt<br>% <b>File2List test.txt MyList2</b><br>{Element 1} {Element 2} {Element 3}<br>% puts $MyList2<br>{Element 1} {Element 2} {Element 3}<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'file2string.html'>File2String</a>, <a href = 'list2file.html'>List2File</a>, <a href = 'string2file.html'>String2File</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_list">list</a>
+</div>
+</body>
+</html>

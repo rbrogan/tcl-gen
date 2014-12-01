@@ -1,0 +1,23 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test IsNegative-1 {Basic positive} -body {
+IsNegative -1
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNegative-2 {Basic negative} -body {
+IsNegative 0
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test IsNegative-3 {Non-numeric input} -body {
+IsNegative asdf
+} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test IsNegative-4 {Empty string input} -body {
+IsNegative ""
+} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+

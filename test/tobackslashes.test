@@ -1,0 +1,19 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test ToBackslashes-1 {Basic test} -body {
+ToBackslashes c:/some/path/to/file.txt
+} -result {c:\some\path\to\file.txt} -output {} -returnCodes {0}
+
+
+::tcltest::test ToBackslashes-2 {Empty string input} -body {
+ToBackslashes ""
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test ToBackslashes-3 {Basic test - from double backslashes} -body {
+set MyVar c:\\path\\to\\somefile.txt
+ToBackslashes $MyVar
+} -result {c:\path\to\somefile.txt} -output {} -returnCodes {0}
+

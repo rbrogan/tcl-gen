@@ -1,0 +1,18 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test LastOf-1 {Basic test} -body {
+LastOf {abc def ghi}
+} -result {ghi} -output {} -returnCodes {0}
+
+
+::tcltest::test LastOf-2 {Empty list} -body {
+LastOf {}
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test LastOf-3 {One element} -body {
+LastOf {abc}
+} -result {abc} -output {} -returnCodes {0}
+

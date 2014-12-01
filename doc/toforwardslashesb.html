@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ToForwardSlashesB</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+ToForwardSlashesB  &mdash;  Take string, switch single/double backslashes to forward.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>ToForwardSlashesB</b> <i>PathVarName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string where the single/double backslashes are now forward slashes.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>PathVarName</i></td><td class='argument_right'>Variable holding a path to convert.</td></tr></table></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyPathVar {c:\path\to\somefile.txt}<br>c:\path\to\somefile.txt<br>% ToForwardSlashes MyPathVar<br>c:/path/to/somefile.txt<br></pre></div><div class="code_sample"><pre>% set MyPathVar {c:\another\path}<br>c:\another\path<br>% ToFowardSlashes MyPathVar <br>c:/another/path/</pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" hidden>
+KEYWORDS
+</div>
+<div class="section_content" hidden>
+
+</div>
+</body>
+</html>

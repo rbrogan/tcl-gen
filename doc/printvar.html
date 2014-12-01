@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PrintVar</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+PrintVar  &mdash;  Print out both the variable name and its value.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>PrintVar</b> <i>VarName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to print.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input variable not found in caller.</td>
+<td class="error_code">-1</td>
+<td>Could not find variable $VarName in caller.</td>
+</tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>A bit more convenient than having to type <code>puts "MyVar is $MyVar"</code> each time.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set x 123<br>% <b>PrintVar x</b><br>x is 123</pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_debug">debug</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test ChopLeft-1 {Basic test} -body {
+ChopLeft "abcd"
+} -result {bcd} -output {} -returnCodes {0}
+
+
+::tcltest::test ChopLeft-2 {Basic test - specify count} -body {
+ChopLeft "xyz" 2
+} -result {z} -output {} -returnCodes {0}
+
+
+::tcltest::test ChopLeft-3 {Chop count greater than string length} -body {
+ChopLeft "xyz" 4
+} -result {} -output {} -returnCodes {0}
+

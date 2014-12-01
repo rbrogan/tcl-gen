@@ -1,0 +1,63 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test ChangeCasing-1 {PascalCase to xxxx} -body {
+puts [ChangeCasing HelloWorld PascalCase mixedCase]
+puts [ChangeCasing HelloWorld PascalCase {Title Case}]
+puts [ChangeCasing HelloWorld PascalCase hyphenated-case]
+puts [ChangeCasing HelloWorld PascalCase {HYPHENATED-CASE}]
+puts [ChangeCasing HelloWorld PascalCase mashedcase]
+puts [ChangeCasing HelloWorld PascalCase MASHEDCASE]
+puts [ChangeCasing HelloWorld PascalCase {phrase case}]
+puts [ChangeCasing HelloWorld PascalCase {PHRASE UPPER}]
+puts [ChangeCasing HelloWorld PascalCase {snake_case}]
+puts [ChangeCasing HelloWorld PascalCase {SNAKE_CASE}]
+} -result {} -output {helloWorld
+Hello World
+hello-world
+HELLO-WORLD
+helloworld
+HELLOWORLD
+hello world
+HELLO WORLD
+hello_world
+HELLO_WORLD
+} -returnCodes {0}
+
+
+::tcltest::test ChangeCasing-2 {xxxx to PascalCase} -body {
+puts [ChangeCasing helloWorld mixedCase PascalCase]
+puts [ChangeCasing {Hello World} {Title Case} PascalCase]
+puts [ChangeCasing hello-world hyphenated-case PascalCase]
+puts [ChangeCasing HELLO-WORLD {HYPHENATED-CASE} PascalCase]
+puts [ChangeCasing {hello world} {phrase case} PascalCase]
+puts [ChangeCasing {HELLO WORLD} {PHRASE UPPER} PascalCase]
+puts [ChangeCasing hello_world {snake_case} PascalCase]
+puts [ChangeCasing HELLO_WORLD {SNAKE_CASE} PascalCase]
+} -result {} -output {HelloWorld
+HelloWorld
+HelloWorld
+HelloWorld
+HelloWorld
+HelloWorld
+HelloWorld
+HelloWorld
+} -returnCodes {0}
+
+
+::tcltest::test ChangeCasing-3 {Empty string for value} -body {
+ChangeCasing "" PascalCase snake_case
+
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test ChangeCasing-4 {Invalid from case} -body {
+ChangeCasing "Hello World" asdf snake_case
+} -result {From type asdf not supported. Consider using type none.} -output {} -returnCodes {1}
+
+
+::tcltest::test ChangeCasing-5 {Invalid to case} -body {
+ChangeCasing "Hello World" {Title Case} asdf
+} -result {To type asdf not supported.} -output {} -returnCodes {1}
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SubtractFrom</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SubtractFrom  &mdash;  Take variable and subtract amount from it.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SubtractFrom</b> <i>VarName</i> <i>Value</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Value of the variable after subtraction.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to subtract from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Value</i></td><td class='argument_right'>How much to subtract.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input value is non-numeric.</td>
+<td class="error_code">-2</td>
+<td>Got input value $Value. Expected numeric value.</td>
+</tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set SomeNumber 111<br>111<br>% <b>SubtractFrom SomeNumber 11</b><br>100</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'addto.html'>AddTo</a>, <a href = 'decr.html'>Decr</a>, <a href = 'divideby.html'>DivideBy</a>, <a href = 'multiplyby.html'>MultiplyBy</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/expr.htm'>expr</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_math">math</a>
+</div>
+</body>
+</html>

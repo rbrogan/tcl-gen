@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DivideBy</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DivideBy  &mdash;  Make variable become quotient after division.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DivideBy</b> <i>VarName</i> <i>Value</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+New value of variable after division.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to divide.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Value</i></td><td class='argument_right'>How much to divide by.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input variable not found in caller.</td>
+<td class="error_code">-1</td>
+<td>Could not find variable $VarName in caller.</td>
+</tr>
+<tr><td>Input value is non-numeric.</td>
+<td class="error_code">-2</td>
+<td>Got input value $Value. Expected numeric value.</td>
+</tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'><code>DivideBy x 2</code> is equivalent to <code>x /= 2</code> in other languages.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyVar 6<br>6<br>% <b>DivideBy MyVar 3</b><br>2<br>% puts $MyVar<br>2</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'addto.html'>AddTo</a>, <a href = 'multiplyby.html'>MultiplyBy</a>, <a href = 'subtractfrom.html'>SubtractFrom</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/expr.htm'>expr</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_math">math</a>, <a href="keyword-index.html#C_modify">modify</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

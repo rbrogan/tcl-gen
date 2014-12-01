@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RetZeroIfEmpty</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+RetZeroIfEmpty  &mdash;  Return zero if passed empty string.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>RetZeroIfEmpty</b> <i>Value</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Returns zero if the string is empty or the value passed in if not.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Value</i></td><td class='argument_right'>Value to check.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that unlike IsEmpty, this returns back the value passed if not empty (and probably not zero as IsEmpty would).</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set Nothing ""<br>% <b>RetZeroIfEmpty $Nothing</b><br>0<br></pre></div><div class="code_sample"><pre>% set Something 1<br>1<br>% RetZeroIfEmpty $Something<br>1</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'isempty.html'>IsEmpty</a>, <a href = 'setzeroifempty.html'>SetZeroIfEmpty</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

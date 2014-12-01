@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test ArrangeDict-1 {Illustration} -body {
+set MyDict [dict create one uno two dos three tres]
+dict for {Key Value} $MyDict { puts "$Key = $Value" }
+dict for {Key Value} [ArrangeDict $MyDict {three two one}] { puts "$Key = $Value" }
+
+} -result {} -output {one = uno
+two = dos
+three = tres
+three = tres
+two = dos
+one = uno
+} -returnCodes {0}
+
+
+::tcltest::test ArrangeDict-2 {Empty Dict} -body {
+ArrangeDict "" {one two three}
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test ArrangeDict-3 {Empty List} -body {
+set MyDict [dict create one uno two dos]
+ArrangeDict $MyDict {}
+} -result {} -output {} -returnCodes {0}
+

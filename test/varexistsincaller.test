@@ -1,0 +1,25 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test VarExistsInCaller-1 {Illustration} -body {
+proc Proc2 {} { \
+     puts [VarExistsInCaller abc]; \
+     puts [VarExistsInCaller def]; \
+     puts [VarExistsInCaller abc 2]; \
+     puts [VarExistsInCaller xyz 2] \
+}
+proc Proc1 {} { set abc 123; Proc2 }
+proc Proc0 {} { set xyz 789; Proc1 }
+Proc0
+} -result {} -output {1
+0
+0
+1
+} -returnCodes {0}
+
+
+::tcltest::test VarExistsInCaller-2 {Empty string input} -body {
+VarExistsInCaller "" 2
+} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+

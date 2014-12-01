@@ -1,0 +1,33 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test CommaSeparatedStringToList-1 {Basic test - 1} -body {
+CommaSeparatedStringToList {one, two, three}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test CommaSeparatedStringToList-2 {Basic test - 2} -body {
+CommaSeparatedStringToList {one ,two ,three}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test CommaSeparatedStringToList-3 {Basic test - 3} -body {
+CommaSeparatedStringToList {one,two,three}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test CommaSeparatedStringToList-4 {Basic test - 4} -body {
+CommaSeparatedStringToList {one  ,  two  ,  three}
+} -result {one two three} -output {} -returnCodes {0}
+
+
+::tcltest::test CommaSeparatedStringToList-5 {Empty list input} -body {
+CommaSeparatedStringToList {}
+} -result {} -output {} -returnCodes {0}
+
+
+::tcltest::test CommaSeparatedStringToList-6 {One element list} -body {
+CommaSeparatedStringToList {one}
+} -result {one} -output {} -returnCodes {0}
+

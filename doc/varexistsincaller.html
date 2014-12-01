@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VarExistsInCaller</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+VarExistsInCaller  &mdash;  Check if variable exists some levels up.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>VarExistsInCaller</b> <i>VarName</i> <i>?LevelOffset?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> It exists.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> It does not exist.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to check for.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LevelOffset</i></td><td class='argument_right'>Optional. How many levels up to go. Default is 1 and will check the immediate caller.
+</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command uses <code>uplevel</code> and <code>info exists</code> to determine if the variable exists in the context of a caller.</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>The following code demonstrates VarExistsInCaller in three ways: <br><ol><li>Variable does exist in immediate caller.</li><li>Variable does not exist in immediate caller.</li><li>It does not exist in preceding caller (though it does exist in immediate caller).</li></ol></p><div class="code_sample"><pre>proc Proc0 {} {<br>     Proc1<br>}<br>proc Proc1 {} {<br>     set abc 123<br>     Proc2<br>}<br>proc Proc2 {} {<br>     puts [<b>VarExistsInCaller abc</b>]<br>     puts [VarExistsInCaller def]<br>     puts [VarExistsInCaller abc 2]<br>}</pre></div><div class="code_sample"><pre>% Proc0<br>1<br>0<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'upvarexistingordie.html'>UpvarExistingOrDie</a>, <a href = 'upvarx.html'>UpvarX</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_variable">variable</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

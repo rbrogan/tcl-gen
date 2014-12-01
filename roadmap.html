@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="my.css">
+<link rel="icon" 
+      type="image/ico" 
+      href="favicon.ico">
+<title>Roadmap - Gen</title>
+</head>
+<body>
+<div id = "left">
+<a href="index.html" class="navbar" >Home</a>
+<a href="readme.html" class="navbar" >Readme</a>
+<a href="doc/readme-doc.html" class="navbar" >doc / Readme</a>
+<a href="test/readme-test.html" class="navbar" >test / Readme</a>
+<a href="doc/manual-home.html" class="navbar" >Manual</a>
+<a href="roadmap.html" class="navbar" id = "current">Roadmap</a>
+<a href="wishlist.html" class="navbar">Wishlist</a>
+<a href="license.html" class="navbar">License</a>
+</div>
+
+<div id = "center">
+<div id = "content">
+<div id = "AppTitle">Gen</div>
+<div id = "PageTitle">Roadmap</div>
+<p><i>Want to know what is coming up and when it will be out?</i> You can check the following for upcoming release versions, dates and their features. (Please note this schedule is subject to change.)</p>
+<div class="section-header">
+<div class="section-header-left">1.1.0</div><div class="section-header-right">2015.01.04</div>
+</div>
+<p>Commands for convenient SQLite interactions will come in this release.</p>
+<div class="section-content">
+<p class="quasi_table_left"><b>TableExists</b></p><p class="quasi_table_right">Check if a table can be found in the database.</p>
+<p class="quasi_table_left"><b>CopyTable</b></p><p class="quasi_table_right">Copy entries from one table to another.</p>
+<p class="quasi_table_left"><b>LastId</b></p><p class="quasi_table_right">Get the id of the last record.</p>
+<p class="quasi_table_left"><b>WhereClauseFromDict</b></p><p class="quasi_table_right">Convert a dict into a WHERE clause.</p>
+<p class="quasi_table_left"><b>SetClauseFromDict</b></p><p class="quasi_table_right">Convert a dict into a SET clause for use in an UPDATE.</p>
+<p class="quasi_table_left"><b>RecordExists</b></p><p class="quasi_table_right">Check whether a record matching the criteria exists.</p>
+<p class="quasi_table_left"><b>InsertIfDoesNotExist</b></p><p class="quasi_table_right">Insert a record if there is not already one.</p>
+<p class="quasi_table_left"><b>InsertOrUpdate</b></p><p class="quasi_table_right">Insert a record if none exists, but update it if it does.</p>
+<br>
+</div>
+<div class="section-header">
+<div class="section-header-left">1.2.0</div><div class="section-header-right">2015.02.01</div>
+</div>
+<p>Datetime functionality will be featured in this release. Further commands TBD, watch for update.</p>
+<div class="section-content">
+<p class="quasi_table_left"><b>Hhmmss2Seconds</b></p><p class="quasi_table_right">Convert a string of the form HH:MM:SS to seconds.</p>
+<p class="quasi_table_left"><b>Seconds2Hhmmss</b></p><p class="quasi_table_right">Convert some number of seconds to a string of the form HH:MM:SS.</p>
+<p class="quasi_table_left"><b>SumHhmmss</b></p><p class="quasi_table_right">Sum up a list of time strings.</p>
+<p class="quasi_table_left"><b>DiffHhmmss</b></p><p class="quasi_table_right">Like integer subtraction, except it is for hh:mm:ss strings.</p>
+<p class="quasi_table_left"><b>today</b></p><p class="quasi_table_right">Get today's date.</p>
+<p class="quasi_table_left"><b>yesterday</b></p><p class="quasi_table_right">Get yesterday's date.</p>
+<p class="quasi_table_left"><b>tomorrow</b></p><p class="quasi_table_right">Get tomorrow's date.</p>
+<p><i>Want to see what other features that may be coming?</i> Check out the <a href='wishlist.html'>wishlist</a>.</p>
+<p><i>Do you have a special request for something?</i> You can use <a href='http://www.robertbrogan.com/gen/feedback.html'>www.robertbrogan.com/feedback.html</a> and let us know. It never hurts to ask!</p>
+</div>
+</div>
+<div id = "footer">
+<p id = "footer-content">General Utilities For Tcl</p>
+</div>
+</div>
+</body>
+
+</html>

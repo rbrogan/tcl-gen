@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+
+::tcltest::test Flip-1 {Basic test - 0 to 1} -body {
+Flip 0
+} -result {1} -output {} -returnCodes {0}
+
+
+::tcltest::test Flip-2 {Basic test - 1 to 0} -body {
+Flip 1
+} -result {0} -output {} -returnCodes {0}
+
+
+::tcltest::test Flip-3 {Non-numeric input} -body {
+Flip asdf
+} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+
+
+::tcltest::test Flip-4 {Value out-of-range} -body {
+Flip 123
+} -result {Input value 123 is out-of-range.} -output {} -returnCodes {1}
+
+
+::tcltest::test Flip-5 {Empty string input} -body {
+Flip ""
+} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+
