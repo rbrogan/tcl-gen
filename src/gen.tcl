@@ -1457,5 +1457,5 @@ proc VarExistsInCaller {VarName {LevelOffset 1}} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.1.11
+     puts 1.1.0
 }
