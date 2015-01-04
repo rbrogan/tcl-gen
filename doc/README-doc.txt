@@ -86,10 +86,16 @@ chopleft.html
      Page for the command ChopLeft.
 chopright.html
      Page for the command ChopRight.
+coe.html
+     Page for the command Coe.
 commaseparatedstringtolist.html
      Page for the command CommaSeparatedStringToList.
+dbaseregsub.html
+     Page for the command DbaseRegsub.
 decr.html
      Page for the command Decr.
+decrdbglobal.html
+     Page for the command DecrDbGlobal.
 divideby.html
      Page for the command DivideBy.
 doublechop.html
@@ -108,6 +114,12 @@ firstof.html
      Page for the command FirstOf.
 flip.html
      Page for the command Flip.
+foreachrecord.html
+     Page for the command ForeachRecord.
+getdbglobal.html
+     Page for the command GetDbGlobal.
+incrdbglobal.html
+     Page for the command IncrDbGlobal.
 isempty.html
      Page for the command IsEmpty.
 isnegative.html
@@ -128,8 +140,12 @@ iszero.html
      Page for the command IsZero.
 lappendifnotalready.html
      Page for the command LappendIfNotAlready.
+lastid.html
+     Page for the command LastId.
 lastof.html
      Page for the command LastOf.
+linkvartodbglobal.html
+     Page for the command LinkVarToDbGlobal.
 list2file.html
      Page for the command List2File.
 mash.html
@@ -142,6 +158,10 @@ prepend.html
      Page for the command Prepend.
 printvar.html
      Page for the command PrintVar.
+q1.html
+     Page for the command Q1.
+qq.html
+     Page for the command QQ.
 raise.html
      Page for the command Raise.
 reloadpackage.html
@@ -150,10 +170,46 @@ retzeroifempty.html
      Page for the command RetZeroIfEmpty.
 run.html
      Page for the command Run.
+runsqlcreatetable.html
+     Page for the command RunSqlCreateTable.
+runsqlenter.html
+     Page for the command RunSqlEnter.
+runsqlinsertifdoesnotexist.html
+     Page for the command RunSqlInsertIfDoesNotExist.
+setdbglobal.html
+     Page for the command SetDbGlobal.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
 splitandtrim.html
      Page for the command SplitAndTrim.
+sqlcountstatement.html
+     Page for the command SqlCountStatement.
+sqlinsertstatement.html
+     Page for the command SqlInsertStatement.
+sqlrecordexists.html
+     Page for the command SqlRecordExists.
+sqlselectstatement.html
+     Page for the command SqlSelectStatement.
+sqlsetclause.html
+     Page for the command SqlSetClause.
+sqlupdatestatement.html
+     Page for the command SqlUpdateStatement.
+sqlwhereclause.html
+     Page for the command SqlWhereClause.
+sqlitecolumnnameandtypelist.html
+     Page for the command SqliteColumnNameAndTypeList.
+sqlitecolumnnamelist.html
+     Page for the command SqliteColumnNameList.
+sqlitecolumntype.html
+     Page for the command SqliteColumnType.
+sqlitecopytable.html
+     Page for the command SqliteCopyTable.
+sqliterenamecolumn.html
+     Page for the command SqliteRenameColumn.
+sqlitetableexists.html
+     Page for the command SqliteTableExists.
+startsandendswith.html
+     Page for the command StartsAndEndsWith.
 startswith.html
      Page for the command StartsWith.
 string2file.html
@@ -168,12 +224,18 @@ surroundeach.html
      Page for the command SurroundEach.
 swap.html
      Page for the command Swap.
+ter.html
+     Page for the command Ter.
 tobackslashes.html
      Page for the command ToBackslashes.
 todoublebackslashes.html
      Page for the command ToDoubleBackslashes.
 toforwardslashes.html
      Page for the command ToForwardSlashes.
+unlinkvarfromdbglobal.html
+     Page for the command UnlinkVarFromDbGlobal.
+unsetdbglobal.html
+     Page for the command UnsetDbGlobal.
 upvarexistingordie.html
      Page for the command UpvarExistingOrDie.
 upvarx.html

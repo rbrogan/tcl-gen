@@ -1,4 +1,4 @@
-package provide gen 1.0.1
+package provide gen 1.1.11
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -18,6 +18,9 @@ array set ErrorCode {
      INPUT_NON_POSITIVE -9
      SEARCH_STRING_EMPTY -10
      VARIABLE_CONTENTS_INVALID -11
+     VARIABLE_CONTENTS_EMPTY -12
+     DATABASE_VARIABLE_NOT_FOUND -13
+     TABLE_NOT_FOUND -14
 }
 
 array set ErrorMessage {
@@ -32,9 +35,19 @@ array set ErrorMessage {
      INPUT_NON_POSITIVE {Expected positive input value, got input value %s instead.}
      SEARCH_STRING_EMPTY {Got empty string for search value.}
      VARIABLE_CONTENTS_INVALID {Variable %s has invalid value %s.}
+     VARIABLE_CONTENTS_EMPTY {Variable %s has empty value.}
+     DATABASE_VARIABLE_NOT_FOUND {No variable called %s was found in the database globals table.}
+     TABLE_NOT_FOUND {Table %s not found.}
+}
+
+
+namespace eval GenNS {
+     variable DatabaseName "testdb"
+     variable GlobalsTable "globals"
 }
 
 proc AddTo {VarName Value} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -46,50 +59,62 @@ proc AddTo {VarName Value} {
      set Var [expr $Var + $Value]
 }
 
-proc ArrangeDict {DictValue Arrangement} {
+proc ArrangeDict {DictVariable Arrangement} {
+     if {[string first @ $DictVariable] == 0} {
+          UpvarExistingOrDie [string range $DictVariable 1 end] Dict
+     } else {
+          set Dict $DictVariable
+     }
+
      set Out [dict create]
      for {set i 0} {$i < [llength $Arrangement]} {incr i} {
           set Key [lindex $Arrangement $i]
-          if {[dict exists $DictValue $Key]} {
-               dict set Out $Key [dict get $DictValue $Key]
+          if {[dict exists $Dict $Key]} {
+               dict set Out $Key [dict get $Dict $Key]
           }
      }
      
-     return $Out
+     set Dict $Out
 }
 
-proc ChangeCasing {Value From To} {
+proc ChangeCasing {StringVariable From To} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
      set Components {}
      set FromOptions {PascalCase mixedCase {Title Case} {hyphenated-lower} {HYPHENATED-UPPER} {phrase lower} {PHRASE UPPER} {snake_lower} {SNAKE_UPPER} {none}}
      set ToOptions {PascalCase mixedCase {Title Case} {hyphenated-lower} {HYPHENATED-UPPER} {phrase lower} {PHRASE UPPER} {snake_lower} {SNAKE_UPPER} {mashedlower} {MASHEDUPPER}}     
      switch -regexp $From {
           {PascalCase} {
-               set Components [lreplace [split [regsub -all {([A-Z])} $Value { \1}] " "] 0 0]
+               set Components [lreplace [split [regsub -all {([A-Z])} $String { \1}] " "] 0 0]
           }
           {mixedCase} {
-               set Value [::textutil::string::cap $Value]
-               set Components [lreplace [split [regsub -all {([A-Z])} $Value { \1}] " "] 0 0]          
+               set String [::textutil::string::cap $String]
+               set Components [lreplace [split [regsub -all {([A-Z])} $String { \1}] " "] 0 0]          
           }
           {Title Case} {
-               set Components [split $Value " "]
+               set Components [split $String " "]
           }
           {hyphenated-lower|hyphenated-case} {
-               set Components [split $Value "-"]
+               set Components [split $String "-"]
           }
           {HYPHENATED-UPPER|HYPHENATED-CASE} {
-               set Components [split $Value "-"]
+               set Components [split $String "-"]
           }
           {(phrase lower)|(phrase case)} {
-               set Components [split $Value " "]
+               set Components [split $String " "]
           }
           {(PHRASE UPPER)|(PHRASE CASE)} {
-               set Components [split $Value " "]          
+               set Components [split $String " "]          
           }
           {snake_lower|snake_case} {
-               set Components [split $Value "_"]          
+               set Components [split $String "_"]          
           }
           {SNAKE_UPPER|SNAKE_CASE} {
-               set Components [split $Value "_"]
+               set Components [split $String "_"]
           }
           {none} {
                set Components $From
@@ -172,40 +197,136 @@ proc ChangeCasing {Value From To} {
                error "To type $To not supported." $::errorInfo $::ErrorCode(INPUT_INVALID)
           }
      }
+     set String $OutString
+}
+
+proc ChopLeft {StringVariable {Count 1}} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [string range $String $Count end]
+
+}
+
+proc ChopRight {StringVariable {Count 1}} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [string range $String 0 end-$Count]
+}
+
+proc Coe args {
+
+     set OutString ""
+     foreach arg $args {
+          if {[IsEmpty $arg]} {
+               return ""
+          } else {
+               append OutString $arg
+          }
+     }
      return $OutString
-}
-
-proc ChopLeft {TargetString {Count 1}} {
-     return [string range $TargetString $Count end]
 
 }
 
-proc ChopRight {TargetString {Count 1}} {
-     return [string range $TargetString 0 end-$Count]
-}
+proc CommaSeparatedStringToList StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
 
-proc CommaSeparatedStringToList {StringValue} {
-     set Stage1 [split $StringValue ","]
+     set Stage1 [split $String ","]
      set Stage2 {}
      foreach Element $Stage1 {
           lappend Stage2 [string trim $Element]
      }
-     return $Stage2
+     set String $Stage2
 }
 
-proc Decr {VarName} {
+proc DbaseRegsub {TableName ColumnName FindValue ReplaceValue {WhereDict ""}} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $ColumnName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) ColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $FindValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) FindValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     set WhereClause [Coe " WHERE " [SqlWhereClause $WhereDict]]
+     set sql "SELECT id, $ColumnName FROM $TableName[set WhereClause]"
+     set TotalReplacements 0
+     set Results [QQ $sql]
+     foreach {Id OldValue} $Results {
+          set NumReplacements [regsub -all $FindValue $OldValue $ReplaceValue NewValue]
+          if {$NumReplacements > 0} {
+               set sql "UPDATE $TableName SET $ColumnName = '$NewValue' WHERE id = $Id"
+               QQ $sql
+               incr TotalReplacements
+          }
+     }
+     return $TotalReplacements
+}
+
+proc Decr {VarName {IntegerValue ""}} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+     if {![string is integer $IntegerValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) IntegerValue $IntegerValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
      }
      UpvarX $VarName Var
      SetZeroIfEmpty Var
      if {[IsNonNumeric $Var]} {
           error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) $VarName $Var] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
      }
-     set Var [expr $Var - 1]
+     set Var [expr $Var - [Ter {[NotEmpty $IntegerValue]} {return $IntegerValue} {return 1}]]
+}
+
+proc DecrDbGlobal {VarName {Amount 1}} {
+
+     if {[IsEmpty $VarName]} {
+          error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Try to get the value, and if it does not exist then make it zero.
+     if {[SqlRecordExists $GenNS::GlobalsTable "desc '$VarName'"]} {
+          set sql "SELECT textvalue FROM $GenNS::GlobalsTable WHERE desc = \"$VarName\""               
+          set CurrentValue [Q1 $sql]
+     } else {
+          set CurrentValue 0
+     }
+          
+     if {[IsNonNumeric $CurrentValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) $VarName $CurrentValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     if {[IsNonNumeric $Amount]} {
+          error [format "Amount is invalid. $::ErrorMessage(INPUT_NON_NUMERIC)" $Amount] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
+     }
+
+     # Decrement the value by 1 and write it back to the database
+     set NewValue [expr $CurrentValue - $Amount]
+     SetDbGlobal $VarName $NewValue
+
+     # Return the now-current value.
+     return $NewValue
 }
 
 proc DivideBy {VarName Value} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -217,17 +338,29 @@ proc DivideBy {VarName Value} {
      return $Var
 }
 
-proc DoubleChop {StringValue {Count 1}} {
-     return [ChopRight [ChopLeft $StringValue $Count] $Count]
+proc DividesEvenly {Numerator Denominator} {
+
+     return [expr $Numerator % $Denominator == 0]
+}
+
+proc DoubleChop {StringVariable {Count 1}} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [ChopRight [ChopLeft $String $Count] $Count]
 
 }
 
-proc EndsWith {TargetString SearchValue} {
+proc EndsWith {StringValue SearchValue} {
+
      if {[IsEmpty $SearchValue]} {
           error $::ErrorMessage(SEARCH_STRING_EMPTY) $::errorInfo $::ErrorCode(SEARCH_STRING_EMPTY)
      }
-     set LastStart [expr [string length $TargetString] - [string length $SearchValue]]
-     set EndPart [string range $TargetString $LastStart end]
+     set LastStart [expr [string length $StringValue] - [string length $SearchValue]]
+     set EndPart [string range $StringValue $LastStart end]
      if {[string equal $EndPart $SearchValue]} {
           return 1
      } else {
@@ -235,13 +368,26 @@ proc EndsWith {TargetString SearchValue} {
      }
 }
 
-proc EvalList {ListValue} {
+proc EscapedSqlString StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     # Replace all single quotes in the string with double quotes and return the value.
+     set String [regsub -all {'} $String {''}]
+}
+
+proc EvalList ListValue {
+
 	foreach Element $ListValue {
 		eval $Element
 	}
 }
 
 proc File2List {InFilePath {ListVarName ""}} {
+
      if {[NotEmpty $ListVarName]} {
           upvar $ListVarName List
      }
@@ -266,6 +412,7 @@ proc File2List {InFilePath {ListVarName ""}} {
 }
 
 proc File2String {InFilePath {StringVarName ""}} {
+
      if {[NotEmpty $StringVarName]} {
           upvar $StringVarName String
      }
@@ -284,31 +431,123 @@ proc File2String {InFilePath {StringVarName ""}} {
      return $String
 }
 
-proc FindAndRemove {ListValue FindValue} {
-
-     while {[set Index [lsearch $ListValue $FindValue]] != -1} {
-          set ListValue [lreplace $ListValue $Index $Index]
+proc FindAndRemove {ListVariable FindValue} {
+     if {[string first @ $ListVariable] == 0} {
+          UpvarExistingOrDie [string range $ListVariable 1 end] List
+     } else {
+          set List $ListVariable
      }
-     return $ListValue
+
+
+     while {[set Index [lsearch $List $FindValue]] != -1} {
+          set List [lreplace $List $Index $Index]
+     }
+     return $List
 }
 
-proc FirstOf {ListValue} {
+proc FirstOf ListValue {
+
      return [lindex $ListValue 0]
 }
 
-proc Flip {Value} {
-     if {[IsNonNumeric $Value]} {
-          error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
-     } elseif {$Value == 1} {
-          set Value 0
-     } elseif {$Value == 0} {
-          set Value 1
+proc Flip TargetVariable {
+     if {[string first @ $TargetVariable] == 0} {
+          UpvarExistingOrDie [string range $TargetVariable 1 end] Target
      } else {
-          error [format $::ErrorMessage(INPUT_OUT_OF_RANGE) $Value] $::errorInfo $::ErrorCode(INPUT_OUT_OF_RANGE)      
+          set Target $TargetVariable
+     }
+
+     if {[IsNonNumeric $Target]} {
+          error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Target] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
+     } elseif {$Target == 1} {
+          set Target 0
+     } elseif {$Target == 0} {
+          set Target 1
+     } else {
+          error [format $::ErrorMessage(INPUT_OUT_OF_RANGE) $Target] $::errorInfo $::ErrorCode(INPUT_OUT_OF_RANGE)      
      }
 }
 
-proc IsEmpty {StringValue} {
+proc ForeachRecord {FieldNameList SelectStatement Body} {
+
+     if {[IsEmpty $FieldNameList]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) FieldNameList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $SelectStatement]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) SelectStatement] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set Results [QQ $SelectStatement]
+     uplevel "foreach {$FieldNameList} {$Results} {$Body}"
+}
+
+proc GetDbGlobal {VarName {Type text}} {
+
+     if {[IsEmpty $VarName]} {
+          error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+     # Determine name of column to query based on the type specified.
+     switch $Type {
+          text {
+               set ValueType textvalue
+          }
+          (int|integer) {
+               set ValueType intvalue
+          }
+          (real|float|double) {
+               set ValueType realvalue
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Type $Type] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+     # We have to verify that the record exists with an additional query,
+     # in order to differentiate instance where variable exists but has null string
+     # versus instance where it does not exist.
+     if {[SqlRecordExists $GenNS::GlobalsTable "desc '$VarName'"]} {
+          set sql "SELECT textvalue FROM $GenNS::GlobalsTable WHERE desc = \"$VarName\""               
+          return [Q1 $sql]
+     } else {
+          error [format $::ErrorMessage(DATABASE_VARIABLE_NOT_FOUND) $VarName] $::errorInfo $::ErrorCode(DATABASE_VARIABLE_NOT_FOUND)
+     }
+
+}
+
+proc IncrDbGlobal {VarName {Amount 1}} {
+
+     if {[IsEmpty $VarName]} {
+          error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Try to get the value of the variable,
+     # and if it does not already exist, make it zero.
+     # Try to get the value, and if it does not exist then make it zero.
+     if {[SqlRecordExists $GenNS::GlobalsTable "desc '$VarName'"]} {
+          set sql "SELECT textvalue FROM $GenNS::GlobalsTable WHERE desc = \"$VarName\""               
+          set CurrentValue [Q1 $sql]
+     } else {
+          set CurrentValue 0
+     }
+
+     if {[IsNonNumeric $CurrentValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) $VarName $CurrentValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     if {[IsNonNumeric $Amount]} {
+          error [format "Amount is invalid. $::ErrorMessage(INPUT_NON_NUMERIC)" $Amount] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
+     }
+
+     # Increment the value by one.
+     set NewValue [expr $CurrentValue + $Amount]
+
+     # The value back to the database.
+     SetDbGlobal $VarName $NewValue
+
+     # Return the now-current value.
+     return $NewValue
+}
+
+proc IsEmpty StringValue {
+
 	if {[string equal $StringValue ""]} {
 		return 1
 	} else {
@@ -316,7 +555,8 @@ proc IsEmpty {StringValue} {
 	}
 }
 
-proc IsNegative {Value} {
+proc IsNegative Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
      }
@@ -327,7 +567,8 @@ proc IsNegative {Value} {
      }
 }
 
-proc IsNonNegative {Value} {
+proc IsNonNegative Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }     
@@ -338,7 +579,8 @@ proc IsNonNegative {Value} {
      }
 }
 
-proc IsNonNumeric {StringValue} {
+proc IsNonNumeric StringValue {
+
      if {[IsEmpty $StringValue]} {
           return 1
      } elseif {[string is integer $StringValue]} {
@@ -352,7 +594,8 @@ proc IsNonNumeric {StringValue} {
      }
 }
 
-proc IsNonPositive {Value} {
+proc IsNonPositive Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }     
@@ -363,7 +606,8 @@ proc IsNonPositive {Value} {
      }
 }
 
-proc IsNonZero {Value} {
+proc IsNonZero Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }     
@@ -374,7 +618,8 @@ proc IsNonZero {Value} {
      }
 }
 
-proc IsNumeric {StringValue} {
+proc IsNumeric StringValue {
+
      if {[IsEmpty $StringValue]} {
           return 0
      } elseif {[string is integer $StringValue]} {
@@ -388,7 +633,8 @@ proc IsNumeric {StringValue} {
      }
 }
 
-proc IsPositive {Value} {
+proc IsPositive Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }     
@@ -399,7 +645,8 @@ proc IsPositive {Value} {
      }
 }
 
-proc IsZero {Value} {
+proc IsZero Value {
+
      if {[IsNonNumeric $Value]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }     
@@ -411,6 +658,7 @@ proc IsZero {Value} {
 }
 
 proc LappendIfNotAlready {ListVarName Values} {
+
      UpvarX $ListVarName List
      foreach Value $Values {
           if {[lsearch $List $Value] == -1} {
@@ -420,12 +668,36 @@ proc LappendIfNotAlready {ListVarName Values} {
      return $List
 }
 
-proc LastOf {ListValue} {
+proc LastId TableName {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     return [Q1 "SELECT id FROM $TableName ORDER BY id DESC LIMIT 1"]
+}
+
+proc LastOf ListValue {
+
      set Index [expr [llength $ListValue] - 1]
      return [lindex $ListValue $Index]
 }
 
+proc LinkVarToDbGlobal {VarName {DbGlobalName ""}} {
+
+     if {[IsEmpty $VarName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) VarName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $DbGlobalName]} {
+          set DbGlobalName $VarName
+     }
+     UpvarX $VarName Var
+     uplevel "SetDbGlobal $DbGlobalName {$Var}"
+     uplevel "trace add variable $VarName write \"UpdateDbGlobal $VarName $DbGlobalName\""
+}
+
 proc List2File {ListValue OutFilePath} {
+
      # Open for writing
      set FilePointer [open $OutFilePath w+]
      try {
@@ -442,11 +714,18 @@ proc List2File {ListValue OutFilePath} {
      }
 }
 
-proc Mash {StringValue} {
-     return [string tolower [join $StringValue ""]]
+proc Mash StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [string tolower [join $String ""]]
 }
 
 proc MultiplyBy {VarName Value} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -457,7 +736,8 @@ proc MultiplyBy {VarName Value} {
      set Var [expr $Var * $Value]
 }
 
-proc NotEmpty {StringValue} {
+proc NotEmpty StringValue {
+
 	if {[string equal $StringValue ""] == 0} {
 		return 1
 	} else {
@@ -466,12 +746,14 @@ proc NotEmpty {StringValue} {
 }
 
 proc Prepend {StringVarName Value} {
+
      UpvarX $StringVarName String
      set String "[set Value][set String]"
      return $String
 }
 
-proc PrintVar {VarName} {
+proc PrintVar VarName {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -481,28 +763,80 @@ proc PrintVar {VarName} {
      return
 }
 
-proc Raise {ListValue SublistLength} {
+proc Q1 QueryStatement {
+
+     if {[IsEmpty $QueryStatement]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) QueryStatement] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     return [FirstOf [$GenNS::DatabaseName eval $QueryStatement]]
+}
+
+proc QQ QueryStatement {
+
+     if {[IsEmpty $QueryStatement]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) QueryStatement] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     return [$GenNS::DatabaseName eval $QueryStatement]
+}
+
+proc QuoteIfColumnTypeIsText {TableName ColumnName TargetVariable} {
+     if {[string first @ $TargetVariable] == 0} {
+          UpvarExistingOrDie [string range $TargetVariable 1 end] Target
+     } else {
+          set Target $TargetVariable
+     }
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $ColumnName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) ColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $Target]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) Target] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     # Find the type of the target column.
+     # If it is text then escape and single quote the string, and return that.
+     # Otherwise, return back the same input, unchanged.
+     set ColumnType [SqliteColumnType $TableName $ColumnName]
+     if {$ColumnType eq "text"} {
+          set Target "'[EscapedSqlString $Target]'"
+     }
+
+     return $Target
+}
+
+proc Raise {ListVariable SublistLength} {
+     if {[string first @ $ListVariable] == 0} {
+          UpvarExistingOrDie [string range $ListVariable 1 end] List
+     } else {
+          set List $ListVariable
+     }
+
      if {![IsPositive $SublistLength]} {
           error [format $::ErrorMessage(INPUT_NON_POSITIVE) $SublistLength] $::errorInfo $::ErrorCode(INPUT_NON_POSITIVE)             
      }
-     if {[llength $ListValue] < $SublistLength} {
+     if {[llength $List] < $SublistLength} {
           error [format $::ErrorMessage(INPUT_OUT_OF_RANGE) $SublistLength] $::errorInfo $::ErrorCode(INPUT_OUT_OF_RANGE)
      }
-     if {[expr [llength $ListValue] % $SublistLength] != 0} {
+     if {[expr [llength $List] % $SublistLength] != 0} {
           error [format $::ErrorMessage(CANNOT_FACTOR_INPUT_LIST) $SublistLength] $::errorInfo $::ErrorCode(CANNOT_FACTOR_INPUT_LIST)
      }
-     set newlist {}
-     for {set i 0} {$i < [llength $ListValue]} {set i [expr $i + $SublistLength]} {
-          set nextlist {}
+     set NewList {}
+     for {set i 0} {$i < [llength $List]} {set i [expr $i + $SublistLength]} {
+          set NextList {}
           for {set n 0} {$n < $SublistLength} {incr n} {
-               lappend nextlist [lindex $ListValue [expr $i + $n]]			
+               lappend NextList [lindex $List [expr $i + $n]]			
           }
-          lappend newlist $nextlist
+          lappend NewList $NextList
      }
-     return $newlist
+     set List $NewList
 }
 
 proc ReloadPackage {Name {Version ""}} {
+
      if {[IsEmpty $Version]} {
           package forget $Name
           package require $Name
@@ -512,7 +846,8 @@ proc ReloadPackage {Name {Version ""}} {
      }
 }
 
-proc RetZeroIfEmpty {Value} {
+proc RetZeroIfEmpty Value {
+
      if {[IsEmpty $Value]} {
           return 0
      } else {
@@ -521,6 +856,7 @@ proc RetZeroIfEmpty {Value} {
 }
 
 proc Run {Script args} {
+
      # Clear and populate argv with args
      global argv
      set argv {}
@@ -533,7 +869,111 @@ proc Run {Script args} {
      source $Script
 }
 
-proc SetZeroIfEmpty {VarName} {
+proc RunSqlCreateTable {TableName ColumnNameTypeList} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $ColumnNameTypeList]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) ColumnNameTypeList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     # From the name-type list, make a string of the form:
+     # name1 type1, name2 type2, ...
+     set Flag 0
+     set StringList ""
+     foreach {Name Type} $ColumnNameTypeList {
+          if {$Flag == 0} {
+               set Flag 1
+          } else {
+               append StringList ", "
+          }
+          append StringList "$Name $Type"
+     }
+     # Construct a CREATE TABLE statement and execute it.
+     set sql "CREATE TABLE $TableName ($StringList)"
+     QQ $sql
+
+     return
+}
+
+proc RunSqlEnter {TableName WhereDict {SetDict ""}} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $WhereDict]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) WhereDict] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     # If we have just a WhereDict then this reduces to an insert if does not exist.
+     if {[IsEmpty $SetDict]} {
+          return [RunSqlInsertIfDoesNotExist $TableName $WhereDict]
+     }
+     # Otherwise we have to do the equivalent except that even when it does exist,
+     # we still do an update using the SetDict.
+     # Construct SELECT and determine if an entry exists
+     set sql "SELECT id FROM $TableName WHERE [SqlWhereClause $WhereDict]"
+     set Id [Q1 $sql]
+     if {[NotEmpty $Id]} {
+          # If so, construct an update
+          set sql [SqlUpdateStatement $TableName $SetDict $WhereDict]
+          QQ $sql
+     } else {
+          # If not, construct an insert
+          set sql [SqlInsertStatement $TableName [dict merge $WhereDict $SetDict]]
+          QQ $sql
+          set Id [LastId $TableName]
+     }
+     
+     return $Id
+}
+
+proc RunSqlInsertIfDoesNotExist {TableName DictValue} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $DictValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     # Get the ID of the record if it does exist.
+     set sql [SqlSelectStatement $TableName id $DictValue]
+     set Id [Q1 $sql]
+     if {[IsEmpty $Id]} {
+          # If no record was found then do an insert and get the ID.
+          set sql "INSERT INTO $TableName ([join [dict keys $DictValue] ","]) VALUES ([join [dict values $DictValue] ","])"
+          QQ $sql
+          set Id [LastId $TableName]
+     }
+     return $Id
+}
+
+proc SetDbGlobal {VarName {Value "DoGetDbGlobal"}} {
+
+     if {[IsEmpty $VarName]} {
+          error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+     if {$Value eq "DoGetDbGlobal"} {
+          return [GetDbGlobal $VarName]
+     } elseif {[IsEmpty $Value]} {
+          # Enter an empty string as empty text value with nulls for intvalue and realvalue.
+          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "textvalue '' intvalue null realvalue null"
+     } elseif {[string is double $Value]} {
+          # If it is a double then for the intvalue, enter a truncated value.
+          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "realvalue $Value intvalue [::tcl::mathfunc::floor $Value] textvalue '$Value'"
+     } elseif {[string is integer $Value]} {
+          # If it is an integer then for the realvalue add ".0"
+          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "intvalue $Value realvalue [set Value].0 textvalue '$Value'"
+     } else {
+          # Any other string enter as text with the intvalue and realvalue as null.
+          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "textvalue '$Value' intvalue null realvalue null"
+     }
+
+     return $Value
+}
+
+proc SetZeroIfEmpty VarName {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -546,18 +986,266 @@ proc SetZeroIfEmpty {VarName} {
      return $Var
 }
 
-proc SplitAndTrim {TargetString {SplitValue " "} {TrimValue " "}} {
+proc SplitAndTrim {StringVariable {SplitValue " "} {TrimValue " "}} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
      set OutList {}
-     foreach Element [split $TargetString $SplitValue] {
+     foreach Element [split $String $SplitValue] {
           set Trimmed [string trim $Element $TrimValue]
           if {[NotEmpty $Trimmed]} {
                lappend OutList $Trimmed
           }
      }
-     return $OutList
+     set String $OutList
+}
+
+proc SqlCountStatement {TableName DictValue} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set WhereClause [Coe " WHERE " [SqlWhereClause $DictValue]]
+     return "SELECT count(1) FROM $TableName$WhereClause"
+}
+
+proc SqlInsertStatement {TableName DictValue} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $DictValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set KeyList {}
+     set ValueList {}
+     dict for {Key Value} $DictValue {
+          lappend KeyList $Key
+          lappend ValueList $Value
+     }
+     set sql "INSERT INTO $TableName ([join $KeyList ", "]) VALUES ([join $ValueList ", "])"
+     return $sql
+}
+
+proc SqlRecordExists {TableName WhereDict} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $WhereDict]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) WhereDict] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set CountQuery [SqlCountStatement $TableName $WhereDict]
+     set Count [Q1 $CountQuery]
+     if {$Count > 0} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc SqlSelectStatement {TableName {TargetList *} {WhereDict ""}} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $TargetList]} {
+          set TargetList *
+     }
+     set TargetClause [join $TargetList ", "]
+     set WhereClause [Coe " WHERE " [SqlWhereClause $WhereDict]]
+     set sql "SELECT $TargetClause FROM $TableName$WhereClause"
+     return $sql
+}
+
+proc SqlSetClause DictValue {
+
+     if {[IsEmpty $DictValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set SetClause ""
+     set Flag 0
+     dict for {Key Value} $DictValue {
+          if {$Flag != 0} {
+               append SetClause ", "
+          } else {
+               set Flag 1
+          }
+          append SetClause "$Key = $Value"
+     }
+     
+     return $SetClause
+}
+
+proc SqlUpdateStatement {TableName SetDict {WhereDict ""}} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $SetDict]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) SetDict] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set WhereClause [Coe " WHERE " [SqlWhereClause $WhereDict]]
+     set sql "UPDATE $TableName SET [SqlSetClause $SetDict]$WhereClause"
+     return $sql
+}
+
+proc SqlWhereClause DictValue {
+
+     set WhereClause ""
+     set Flag 0
+     dict for {Key Value} $DictValue {
+          if {$Flag != 0} {
+               append WhereClause " AND "
+          } else {
+               set Flag 1
+          }
+          append WhereClause "$Key = $Value"
+     }
+     return $WhereClause
+}
+
+proc SqliteColumnNameAndTypeList TableName {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     # Get the CREATE TABLE statement used (or throw error if cannot find)
+     set sql "SELECT sql FROM sqlite_master WHERE tbl_name = '$TableName'"
+     set Result [Q1 $sql]
+     if {[IsEmpty $Result]} {
+          error [format $::ErrorMessage(TABLE_NOT_FOUND) $TableName] $::errorInfo $::ErrorCode(TABLE_NOT_FOUND)          
+     }
+     # Extract from the statement a list of name-type values for columns.
+     regexp {CREATE TABLE \w+\s?\((.+)\)} $Result All Fields
+     set FieldList [split $Fields ","]
+     # Construct a where each element is a name or type, suitable for use as a dict.
+     set NameTypePairList {}
+     foreach Element $FieldList {
+          set Name [lvarpop Element]
+          lappend NameTypePairList $Name $Element
+     }
+     return $NameTypePairList
+}
+
+proc SqliteColumnNameList TableName {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     # Get the CREATE TABLE statement used (or throw error if cannot find)
+     set sql "SELECT sql FROM sqlite_master WHERE tbl_name = '$TableName'"
+     set Result [Q1 $sql]
+     if {[IsEmpty $Result]} {
+          error [format $::ErrorMessage(TABLE_NOT_FOUND) $TableName] $::errorInfo $::ErrorCode(TABLE_NOT_FOUND)    
+     }
+     # Extract from the statement a list of name-type values for columns.
+     regexp {CREATE TABLE \w+ \((.+)\)} $Result All One
+     set Two [split $One ","]
+     # Construct a list with just the column names.
+     set Three {}
+     foreach Element $Two { 
+          lappend Three [lindex $Element 0] 
+     }
+     return $Three
+}
+
+proc SqliteColumnType {TableName ColumnName} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $ColumnName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) ColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set List [SqliteColumnNameAndTypeList $TableName]
+     return [dict get $List $ColumnName]
+}
+
+proc SqliteCopyTable {SourceTableName TargetTableName {ColumnNames ""}} {
+
+     if {[IsEmpty $SourceTableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) SourceTableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $TargetTableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TargetTableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     # Make sure target table does not already exist
+     if {[SqliteTableExists $TargetTableName]} {
+          error [format "$::ErrorMessage(INPUT_INVALID) Target table already exists." $TargetTableName] $::errorInfo $::ErrorCode(INPUT_INVALID)
+     }
+     set NameAndTypeList [SqliteColumnNameAndTypeList $SourceTableName]
+     # Verify NameAndTypeList and ColumnNames have congruent length.
+     if {([llength $ColumnNames] > 0) && ([llength $ColumnNames] * 2) != ([llength $NameAndTypeList])} {
+          error [format "$::ErrorMessage(VARIABLE_CONTENTS_INVALID) Number of elements does not match number of columns in table." ColumnNames $ColumnNames] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)          
+     }
+     for {set i 0} {$i < [llength $ColumnNames]} {incr i} {
+          lset NameAndTypeList [expr $i * 2] [lindex $ColumnNames $i]
+     }
+     RunSqlCreateTable $TargetTableName $NameAndTypeList
+     # Copy from source to target
+     set sql "INSERT INTO $TargetTableName SELECT * FROM $SourceTableName"
+     QQ $sql
+}
+
+proc SqliteRenameColumn {TableName OldColumnName NewColumnName} {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $OldColumnName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) OldColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $NewColumnName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) NewColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set NameAndTypeList [SqliteColumnNameAndTypeList $TableName]
+     set Index [lsearch $NameAndTypeList $NewColumnName]
+     if {$Index >= 0} {
+          error [format "$::ErrorMessage(VARIABLE_CONTENTS_INVALID) A column with that name already exists." NewColumnName $NewColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)          
+     }
+     set Index [lsearch $NameAndTypeList $OldColumnName]
+     if {$Index < 0} {
+          error [format "$::ErrorMessage(VARIABLE_CONTENTS_INVALID) No such column found." OldColumnName $OldColumnName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     lset NameAndTypeList $Index $NewColumnName
+     if {[SqliteTableExists gen_temp_rename_column_table]} {
+          set sql "DROP TABLE gen_temp_rename_column_table"
+          QQ $sql
+     }
+     RunSqlCreateTable gen_temp_rename_column_table $NameAndTypeList
+     # Copy from source to target
+     set sql "INSERT INTO gen_temp_rename_column_table SELECT * FROM $TableName"
+     QQ $sql
+     set sql "DROP TABLE $TableName"
+     QQ $sql
+     set sql "ALTER TABLE gen_temp_rename_column_table RENAME TO $TableName"
+     QQ $sql
+}
+
+proc SqliteTableExists TableName {
+
+     if {[IsEmpty $TableName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TableName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     set sql "SELECT count(*) FROM sqlite_master WHERE tbl_name = '$TableName'"
+     return [Q1 $sql]
+}
+
+proc StartsAndEndsWith {TargetString SearchValue} {
+
+     if {[StartsWith $TargetString $SearchValue] && [EndsWith $TargetString $SearchValue]} {
+          return 1
+     } else {
+          return 0
+     }
 }
 
 proc StartsWith {TargetString SearchValue} {
+
      if {[string first $SearchValue $TargetString] == 0} {
           return 1
      } else {
@@ -566,6 +1254,7 @@ proc StartsWith {TargetString SearchValue} {
 }
 
 proc String2File {StringValue OutFilePath} {
+
      # Open for writing
      set FilePointer [open $OutFilePath w]
      try {
@@ -581,6 +1270,7 @@ proc String2File {StringValue OutFilePath} {
 }
 
 proc StringContains {TargetString SearchValue} {
+
      if {[string first $SearchValue $TargetString] != -1} {
           return 1
      } else {
@@ -589,6 +1279,7 @@ proc StringContains {TargetString SearchValue} {
 }
 
 proc StringMid {TargetString Position {Count -1}} {
+
      if {[IsNonNumeric $Count]} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Count] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)          
      }      
@@ -607,6 +1298,7 @@ proc StringMid {TargetString Position {Count -1}} {
 }
 
 proc SubtractFrom {VarName Value} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -618,15 +1310,22 @@ proc SubtractFrom {VarName Value} {
      set Var [expr $Var - $Value]
 }
 
-proc SurroundEach {ListValue String} {
+proc SurroundEach {ListVariable String} {
+     if {[string first @ $ListVariable] == 0} {
+          UpvarExistingOrDie [string range $ListVariable 1 end] List
+     } else {
+          set List $ListVariable
+     }
+
      set OutList {}
-     foreach Element $ListValue {
+     foreach Element $List {
           lappend OutList "[set String][set Element][set String]"
      }
-     return $OutList
+     set List $OutList
 }
 
 proc Swap {VarNameA VarNameB} {
+
      UpvarX $VarNameA A
      UpvarX $VarNameB B
      set Temp $A
@@ -635,25 +1334,81 @@ proc Swap {VarNameA VarNameB} {
      return
 }
 
-proc ToBackslashes {PathValue} {
-     set PathValue [regsub -all {\\\\} $PathValue {\\}]     
-     set PathValue [regsub -all / $PathValue {\\}]
+proc Ter {Condition IfTrue IfFalse} {
+
+     set Result [uplevel 1 "expr $Condition"]
+     if {$Result} {
+          return [uplevel 1 "$IfTrue"]
+     } else {
+          return [uplevel 1 "$IfFalse"]
+     }
 }
 
-proc ToDoubleBackslashes {PathValue} {
-     set PathValue [regsub -all {\\} $PathValue {\\\\}]
-     set PathValue [regsub -all / $PathValue {\\\\}]
+proc ToBackslashes StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
 
-     return $PathValue
+     set String [regsub -all {\\\\} $String {\\}]     
+     set String [regsub -all / $String {\\}]
 }
 
-proc ToForwardSlashes {PathValue} {
-     set PathValue [regsub -all {\\\\} $PathValue /]
-     set PathValue [regsub -all {\\} $PathValue /]
-     return $PathValue
+proc ToDoubleBackslashes StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [regsub -all {\\} $String {\\\\}]
+     set String [regsub -all / $String {\\\\}]
+
+     return $String
+}
+
+proc ToForwardSlashes StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     set String [regsub -all {\\\\} $String /]
+     set String [regsub -all {\\} $String /]
+     return $String
+}
+
+proc UnlinkVarFromDbGlobal {VarName {DbGlobalName ""}} {
+
+     if {[IsEmpty $VarName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) VarName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsEmpty $DbGlobalName]} {
+          set DbGlobalName $VarName
+     }
+     uplevel "trace remove variable $VarName write \{UpdateDbGlobal $VarName $DbGlobalName\}"
+}
+
+proc UnsetDbGlobal VarName {
+
+     if {[IsEmpty $VarName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) VarName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     set ::sql "DELETE FROM $GenNS::GlobalsTable WHERE desc = '$VarName'"
+     QQ $::sql
+}
+
+proc UpdateDbGlobal {VarName DbGlobalName args} {
+
+     upvar #0 $VarName Var     
+     SetDbGlobal $DbGlobalName $Var
 }
 
 proc UpvarExistingOrDie {VarName Var} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -670,6 +1425,7 @@ proc UpvarExistingOrDie {VarName Var} {
 }
 
 proc UpvarX {VarName Var {DefaultValue ""}} {
+
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }
@@ -691,6 +1447,7 @@ proc UpvarX {VarName Var {DefaultValue ""}} {
 }
 
 proc VarExistsInCaller {VarName {LevelOffset 1}} {
+
      set Level [expr $LevelOffset + 1]
      if {[IsEmpty $VarName]} {
           error $::ErrorMessage(VARIABLE_NAME_EMPTY) $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
@@ -700,5 +1457,5 @@ proc VarExistsInCaller {VarName {LevelOffset 1}} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.0.0
+     puts 1.1.11
 }

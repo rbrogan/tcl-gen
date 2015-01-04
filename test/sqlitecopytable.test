@@ -1,0 +1,65 @@
+package require tcltest
+package require gen
+
+::tcltest::test SqliteCopyTable-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
+}  -body {SqliteCopyTable gen_temp_table gen_temp_table2
+ForeachRecord {Desc} {SELECT desc FROM gen_temp_table2} { puts $Desc }
+puts [SqliteColumnNameAndTypeList gen_temp_table]
+}  -cleanup {QQ {DROP TABLE gen_temp_table}
+QQ {DROP TABLE gen_temp_table2}
+}  -result {}  -output {one
+two
+three
+id {integer primary key} desc text
+}  -returnCodes {0}  
+
+
+::tcltest::test SqliteCopyTable-1 {SourceTableName is empty}  -setup {}  -body {SqliteCopyTable "" gen_temp_table2
+}  -cleanup {}  -result {Variable SourceTableName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteCopyTable-3 {TargetTableName is empty}  -setup {}  -body {SqliteCopyTable gen_temp_table ""
+}  -cleanup {}  -result {Variable TargetTableName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteCopyTable-4 {Target table with given name exists}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
+QQ {CREATE TABLE gen_temp_table2 (id integer primary key, desc text)}
+}  -body {SqliteCopyTable gen_temp_table gen_temp_table2}  -cleanup {QQ {DROP TABLE gen_temp_table}
+QQ {DROP TABLE gen_temp_table2}
+}  -result {Input value gen_temp_table2 is invalid. Target table already exists.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteCopyTable-5 {Columns renamed}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
+}  -body {SqliteCopyTable gen_temp_table gen_temp_table2 {id name}
+ForeachRecord {Name} {SELECT name FROM gen_temp_table2} { puts $Name }
+}  -cleanup {QQ {DROP TABLE gen_temp_table}
+QQ {DROP TABLE gen_temp_table2}
+}  -result {}  -output {one
+two
+three
+}  -returnCodes {0}  
+
+
+::tcltest::test SqliteCopyTable-6 {ColumnNames has wrong number of elements}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
+}  -body {SqliteCopyTable gen_temp_table gen_temp_table2 {desc}
+}  -cleanup {QQ {DROP TABLE gen_temp_table}
+}  -result {Variable ColumnNames has invalid value desc. Number of elements does not match number of columns in table.}  -output {}  -returnCodes {1}  
+
+

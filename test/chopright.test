@@ -1,18 +1,20 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test ChopRight-1 {Basic test} -body {
-ChopRight "abcd"
-} -result {abc} -output {} -returnCodes {0}
+::tcltest::test ChopRight-0 {Basic test}  -setup {}  -body {ChopRight "abcd"}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ChopRight-2 {Basic test - specify count} -body {
-ChopRight "xyz" 2
-} -result {x} -output {} -returnCodes {0}
+::tcltest::test ChopRight-1 {Basic test - specify count}  -setup {}  -body {ChopRight "xyz" 2}  -cleanup {}  -result {x}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ChopRight-3 {Chop count greater than string length} -body {
-ChopRight "xyz" 4
-} -result {} -output {} -returnCodes {0}
+::tcltest::test ChopRight-2 {Chop count greater than string length}  -setup {}  -body {ChopRight "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ChopRight-3 {Test at}  -setup {}  -body {set MyString abcd
+ChopRight @MyString 2
+puts $MyString
+
+}  -cleanup {}  -result {}  -output {ab
+}  -returnCodes {0}  
+
 

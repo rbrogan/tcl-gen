@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SqlInsertStatement</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SqlInsertStatement  &mdash;  Create an INSERT INTO statement.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SqlInsertStatement</b> <i>TableName</i> <i>DictValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A query string for an INSERT.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of table to do insert on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dict containing column names / values for insertion.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>TableName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>DictValue is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>SqlInsertStatement my_table {desc 'one' notes 'uno'}</b><br>INSERT INTO my_table (desc, notes) VALUES ('one', 'uno')<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'sqlsetclause.html'>SqlSetClause</a>, <a href = 'sqlupdatestatement.html'>SqlUpdateStatement</a>, <a href = 'sqlwhereclause.html'>SqlWhereClause</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

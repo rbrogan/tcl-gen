@@ -1,29 +1,19 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test EndsWith-1 {Basic test - return 1} -body {
-EndsWith 1-2-3 2-3
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test EndsWith-0 {Basic test - return 1}  -setup {}  -body {EndsWith 1-2-3 2-3}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test EndsWith-2 {Basic test - return 0} -body {
-EndsWith 4-5-6 7
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test EndsWith-1 {Basic test - return 0}  -setup {}  -body {EndsWith 4-5-6 7}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test EndsWith-3 {Empty target string} -body {
-EndsWith "" asdf
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test EndsWith-2 {Empty target string}  -setup {}  -body {EndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test EndsWith-4 {Empty search value} -body {
-EndsWith asdf ""
-} -result {Got empty string for search value.} -output {} -returnCodes {1}
+::tcltest::test EndsWith-3 {Empty search value}  -setup {}  -body {EndsWith asdf ""}  -cleanup {}  -result {Got empty string for search value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test EndsWith-5 {Search string bigger than target string} -body {
-EndsWith asd asdf
+::tcltest::test EndsWith-4 {Search string bigger than target string}  -setup {}  -body {EndsWith asd asdf
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
-} -result {0} -output {} -returnCodes {0}
 

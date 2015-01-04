@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SqlWhereClause</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SqlWhereClause  &mdash;  Create a WHERE clause using the values in dict.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SqlWhereClause</b> <i>DictValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string of the form Key1 = Value1 AND Key2 = Value2 AND ... where keys and values come from the dict.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Contains column name / value pairs to create a where clause.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>DictValue is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command will only combine elements using AND.<p>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>SqlWhereClause {desc 'first' notes '1-2-3'}</b><br>desc = 'first' AND notes = '1-2-3' <br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'sqlselectstatement.html'>SqlSelectStatement</a>, <a href = 'sqlsetclause.html'>SqlSetClause</a>, <a href = 'sqlupdatestatement.html'>SqlUpdateStatement</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

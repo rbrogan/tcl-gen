@@ -1,0 +1,109 @@
+Gen
+
+NEWS
+
+2015.01.04
+v1.1 Release
+
+This monthly update of Gen centers on SQL-related convenience commands. Also, several existing commands have been updated to add support for a new @ notation to designate input/output variables where values would normally be used:
+
+set MyString [DoubleChop $MyString]
+
+... becomes ...
+
+DoubleChop @MyString
+
+What follows is a listing of new commands:
+
+Coe
+     Concatenate the args but return empty if any is empty.
+
+DbaseRegsub
+     Do find/replace on a column of a SQL table.
+
+DecrDbGlobal
+     Find entry in the globals table and decrement it.
+
+ForeachRecord
+     Run a SELECT, map results to variables, and execute body.
+
+GetDbGlobal
+     Find and return value of entry in globals table.
+
+IncrDbGlobal
+     Increase the value of an entry in the global table by one.
+
+LastId
+     Find last id in the table and return it.
+
+LinkVarToDbGlobal
+     Put trace on variable so the database global gets writ also.
+
+Q1
+     Execute a query and return the first field of first record.
+
+QQ
+     Run the query with configured database and return result.
+
+RunSqlCreateTable
+     Create SQL table using table name and column names/types.
+
+RunSqlEnter
+     Do an update if an entry exists or an insert if not.
+
+RunSqlInsertIfDoesNotExist
+     Do an insert unless an entry already exists.
+
+SetDbGlobal
+     Finds an entry in the global table and sets it to a value.
+
+SqlCountStatement
+     Create a SELECT count(1) statement, use dict for WHERE.
+
+SqlInsertStatement
+     Create an INSERT INTO statement.
+
+SqlRecordExists
+     Tell if record exists in given table, matching criteria.
+
+SqlSelectStatement
+     Make and return a SQL SELECT statement.
+
+SqlSetClause
+     Derive a set clause for an update query, using a dict.
+
+SqlUpdateStatement
+     Create an UPDATE statement.
+
+SqlWhereClause
+     Create a WHERE clause using the values in dict.
+
+SqliteColumnNameAndTypeList
+     Return the names and types of the columns of some table.
+
+SqliteColumnNameList
+     Return a Tcl list with the names of the columns of a table.
+
+SqliteColumnType
+     Get the data type for the column in the table.
+
+SqliteCopyTable
+     Copy a table in a SQLite database.
+
+SqliteRenameColumn
+     Change name of a column in an SQLite table.
+
+SqliteTableExists
+     Determine if a table exists in the current database.
+
+StartsAndEndsWith
+     Check whether the string starts and ends with the value.
+
+Ter
+     Returns either first or second value.
+
+UnlinkVarFromDbGlobal
+     Stop making writes to the variable also write the database.
+
+UnsetDbGlobal
+     Unset / delete a variable in the globals table.

@@ -14,6 +14,8 @@
 <a href="doc/readme-doc.html" class="navbar" >doc / Readme</a>
 <a href="test/readme-test.html" class="navbar" >test / Readme</a>
 <a href="doc/manual-home.html" class="navbar" >Manual</a>
+<a href="news.html" class="navbar">News</a>
+<a href="changelog.html" class="navbar">Changelog</a>
 <a href="roadmap.html" class="navbar" id = "current">Roadmap</a>
 <a href="wishlist.html" class="navbar">Wishlist</a>
 <a href="license.html" class="navbar">License</a>
@@ -25,35 +27,75 @@
 <div id = "PageTitle">Roadmap</div>
 <p><i>Want to know what is coming up and when it will be out?</i> You can check the following for upcoming release versions, dates and their features. (Please note this schedule is subject to change.)</p>
 <div class="section-header">
-<div class="section-header-left">1.1.0</div><div class="section-header-right">2015.01.04</div>
+<div class="section-header-left">1.2.0</div><div class="section-header-right">2015.02.01</div>
 </div>
-<p>Commands for convenient SQLite interactions will come in this release.</p>
+<p>The next release will center on datetime convenience. Here is an initial, tenative list of commands (subject to change):</p>
 <div class="section-content">
-<p class="quasi_table_left"><b>TableExists</b></p><p class="quasi_table_right">Check if a table can be found in the database.</p>
-<p class="quasi_table_left"><b>CopyTable</b></p><p class="quasi_table_right">Copy entries from one table to another.</p>
-<p class="quasi_table_left"><b>LastId</b></p><p class="quasi_table_right">Get the id of the last record.</p>
-<p class="quasi_table_left"><b>WhereClauseFromDict</b></p><p class="quasi_table_right">Convert a dict into a WHERE clause.</p>
-<p class="quasi_table_left"><b>SetClauseFromDict</b></p><p class="quasi_table_right">Convert a dict into a SET clause for use in an UPDATE.</p>
-<p class="quasi_table_left"><b>RecordExists</b></p><p class="quasi_table_right">Check whether a record matching the criteria exists.</p>
-<p class="quasi_table_left"><b>InsertIfDoesNotExist</b></p><p class="quasi_table_right">Insert a record if there is not already one.</p>
-<p class="quasi_table_left"><b>InsertOrUpdate</b></p><p class="quasi_table_right">Insert a record if none exists, but update it if it does.</p>
+<p class="quasi_table_left"><b>tod</b></p>
+<p class="quasi_table_right">Get the current time-of-day in hh:mm:ss format.</p>
+<p class="quasi_table_left"><b>now</b></p>
+<p class="quasi_table_right">Get the current datetime.</p>
+<p class="quasi_table_left"><b>today</b></p>
+<p class="quasi_table_right">Get today's date.</p>
+<p class="quasi_table_left"><b>tomorrow</b></p>
+<p class="quasi_table_right">Get tomorrow's date.</p>
+<p class="quasi_table_left"><b>yesterday</b></p>
+<p class="quasi_table_right">Get yesterday's date.</p>
+<p class="quasi_table_left"><b>DatePlusDays</b></p>
+<p class="quasi_table_right">Return date n days after given date.</p>
+<p class="quasi_table_left"><b>DateMinusDays</b></p>
+<p class="quasi_table_right">Return date n days before given date.</p>
+<p class="quasi_table_left"><b>DayAfter</b></p>
+<p class="quasi_table_right">Return date just after given date.</p>
+<p class="quasi_table_left"><b>DayBefore</b></p>
+<p class="quasi_table_right">Return date just before given date.</p>
+<p class="quasi_table_left"><b>SumHhmmss</b></p>
+<p class="quasi_table_right">Add up time quantities of the form hh:mm:ss.</p>
+<p class="quasi_table_left"><b>DiffHhmmss</b></p>
+<p class="quasi_table_right">Find difference between time quantities of the form hh:mm:ss.</p>
+<p class="quasi_table_left"><b>Hhmmss2Seconds</b></p>
+<p class="quasi_table_right">Convert a time quantity of the form hh:mm:ss to an equivalent number of seconds.</p>
+<p class="quasi_table_left"><b>Seconds2Hhmmss</b></p>
+<p class="quasi_table_right">Convert some number of seconds to a time quantity of the form hh:mm:ss.</p>
+<p class="quasi_table_left"><b>IsDashedDateTime</b></p>
+<p class="quasi_table_right">Check whether the string is of the form YYYY-MM-DD hh:mm:ss.</p>
+<p class="quasi_table_left"><b>IsDottedDateTime</b></p>
+<p class="quasi_table_right">Check whether the string is of the form YYYY.MM.DD.hhmm.</p>
+<p class="quasi_table_left"><b>IsHhmmss</b></p>
+<p class="quasi_table_right">Check whether the string is of the form hh:mm:ss.</p>
+<p class="quasi_table_left"><b>MultiplyHhmmss</b></p>
+<p class="quasi_table_right">Multiply a time quantity expressed in the form hh:mm:ss by some factor.</p>
+<p class="quasi_table_left"><b>HhmmssIsAfter</b></p>
+<p class="quasi_table_right">Check whether the first time-of-day comes after the second.</p>
+<p class="quasi_table_left"><b>HhmmssIsBefore</b></p>
+<p class="quasi_table_right">Check whether the first time-of-day comes before the second.</p>
+<p class="quasi_table_left"><b>HhmmssIsBetween</b></p>
+<p class="quasi_table_right">Check whether the given time-of-day is between two others.</p>
+<p class="quasi_table_left"><b>DateIsBefore</b></p>
+<p class="quasi_table_right">Check whether the first date comes before the second.</p>
+<p class="quasi_table_left"><b>DateIsAfter</b></p>
+<p class="quasi_table_right">Check whether the first date comes after the second.</p>
+<p class="quasi_table_left"><b>DateIsBetween</b></p>
+<p class="quasi_table_right">Check whether the given date is between two others.</p>
+<p class="quasi_table_left"><b>DateTimeIsBefore</b></p>
+<p class="quasi_table_right">Check whether the first datetime comes before the second.</p>
+<p class="quasi_table_left"><b>DateTimeIsAfter</b></p>
+<p class="quasi_table_right">Check whether the first datetime comes after the second.</p>
+<p class="quasi_table_left"><b>DateTimeIsBetween</b></p>
+<p class="quasi_table_right">Check whether the given datetime is between two others.</p>
+<p class="quasi_table_left"><b>DashedDateTime2DottedDateTime</b></p>
+<p class="quasi_table_right">Convert datetime of form YYYY-MM-DD hh:mm:ss to YYYY.MM.DD.hhmm.</p>
+<p class="quasi_table_left"><b>DottedDateTime2DashedDateTime</b></p>
+<p class="quasi_table_right">Convert datetime of form YYYY.MM.DD.hhmm to YYYY-MM-DD hh:mm:ss.</p>
 <br>
 </div>
 <div class="section-header">
-<div class="section-header-left">1.2.0</div><div class="section-header-right">2015.02.01</div>
+<div class="section-header-left">1.3.0</div><div class="section-header-right">2015.03.02</div>
 </div>
-<p>Datetime functionality will be featured in this release. Further commands TBD, watch for update.</p>
-<div class="section-content">
-<p class="quasi_table_left"><b>Hhmmss2Seconds</b></p><p class="quasi_table_right">Convert a string of the form HH:MM:SS to seconds.</p>
-<p class="quasi_table_left"><b>Seconds2Hhmmss</b></p><p class="quasi_table_right">Convert some number of seconds to a string of the form HH:MM:SS.</p>
-<p class="quasi_table_left"><b>SumHhmmss</b></p><p class="quasi_table_right">Sum up a list of time strings.</p>
-<p class="quasi_table_left"><b>DiffHhmmss</b></p><p class="quasi_table_right">Like integer subtraction, except it is for hh:mm:ss strings.</p>
-<p class="quasi_table_left"><b>today</b></p><p class="quasi_table_right">Get today's date.</p>
-<p class="quasi_table_left"><b>yesterday</b></p><p class="quasi_table_right">Get yesterday's date.</p>
-<p class="quasi_table_left"><b>tomorrow</b></p><p class="quasi_table_right">Get tomorrow's date.</p>
+<p>This release is still being planned. Most likely it will feature commands for working with the Windows registry. It may also feature further SQL-related commands.</p>
+<br>
 <p><i>Want to see what other features that may be coming?</i> Check out the <a href='wishlist.html'>wishlist</a>.</p>
-<p><i>Do you have a special request for something?</i> You can use <a href='http://www.robertbrogan.com/gen/feedback.html'>www.robertbrogan.com/feedback.html</a> and let us know. It never hurts to ask!</p>
-</div>
+<p><i>Do you have a special request for something?</i> You can use the <a href='feedback.html'>feedback</a> page and let us know. It never hurts to ask!</p>
 </div>
 <div id = "footer">
 <p id = "footer-content">General Utilities For Tcl</p>

@@ -1,0 +1,19 @@
+package require tcltest
+package require gen
+
+::tcltest::test SqlRecordExists-0 {Basic case - return 1}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
+SqlRecordExists my_table {desc 'first'}
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SqlRecordExists-1 {Basic case - return 0}  -setup {}  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}
+SqlRecordExists my_table {desc 'first'}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SqlRecordExists-2 {Table name is empty}  -setup {}  -body {SqlRecordExists "" {desc 'first'}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqlRecordExists-3 {Where dict is empty}  -setup {}  -body {SqlRecordExists my_table {}}  -cleanup {}  -result {Variable WhereDict has empty value.}  -output {}  -returnCodes {1}  
+
+

@@ -1,27 +1,21 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test File2List-1 {Basic test 1 - three lines} -body {
-List2File {one two three} test.txt
+::tcltest::test File2List-0 {Basic test 1 - three lines}  -setup {}  -body {List2File {one two three} test.txt
 set MyList [File2List test.txt]
-puts $MyList
-} -result {} -output {one two three
-} -returnCodes {0}
+puts $MyList}  -cleanup {}  -result {}  -output {one two three
+}  -returnCodes {0}  
 
 
-::tcltest::test File2List-2 {Basic test 2 - one line} -body {
-List2File {one} test.txt
+::tcltest::test File2List-1 {Basic test 2 - one line}  -setup {}  -body {List2File {one} test.txt
 set MyList [File2List test.txt]
-puts $MyList
-} -result {} -output {one
-} -returnCodes {0}
+puts $MyList}  -cleanup {}  -result {}  -output {one
+}  -returnCodes {0}  
 
 
-::tcltest::test File2List-3 {Empty list} -body {
-List2File {} test.txt
+::tcltest::test File2List-2 {Empty list}  -setup {}  -body {List2File {} test.txt
 set MyList [File2List test.txt]
-puts $MyList
-} -result {} -output {
-} -returnCodes {0}
+puts $MyList}  -cleanup {}  -result {}  -output {
+}  -returnCodes {0}  
+
 

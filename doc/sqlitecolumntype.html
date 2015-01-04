@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SqliteColumnType</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SqliteColumnType  &mdash;  Get the data type for the column in the table.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SqliteColumnType</b> <i>TableName</i> <i>ColumnName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Either text, int, real, or blob.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of table the column is in.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ColumnName</i></td><td class='argument_right'>Name of column to get the type of.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>TableName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>ColumnName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% QQ [SqlInsertStatement my_table {desc 'one' notes 'uno'}]<br>% <b>SqliteColumnType my_table desc</b><br>text<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'sqlitecolumnnameandtypelist.html'>SqliteColumnNameAndTypeList</a>, <a href = 'sqlitecolumnnamelist.html'>SqliteColumnNameList</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

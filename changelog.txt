@@ -1,0 +1,40 @@
+Gen
+
+CHANGELOG
+
+
+
+No changes break existing command usage.
+
+By functionality
+. Monthly release of new commands, with corresponding files in test and doc directories.
+. @ designator support: Several existing commands have been updated to allow passing in the name of an in/out variable instead of a value. This should not affect existing usage.
+. Decr now supports taking an integer value as a second argument, which makes it more consistent with incr.
+. Updated test generator code (not included) and so tests have changed in format.
+. Added this CHANGELOG page and a NEWS page.
+
+By files
+/
+     README.html
+          . Minor change in wording.
+     README.txt
+          . Minor change in wording.
+
+/src
+     gen.tcl
+          . Commands added.
+          . Three error codes added.
+          . Added namespace variables for database command configuration.
+          . Several commands now support an @ designator for in/out variables. Existing usage should not be affected by this change.
+          . Decr now supports taking an integer value as a second argument, which makes it more consistent with incr.
+     pkgIndex.tcl
+          . Updated version.
+          
+/test
+     . Added tests for new commands.
+     . Existing tests modified because test generator software changed.
+
+/doc
+     . Added about pages for @ designator, database command configuration, and xxxdbglobal commands, in general.
+     . Added pages for new commands.
+     . Updated documentation for commands that gained support for @ designator.

@@ -1,33 +1,28 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test CommaSeparatedStringToList-1 {Basic test - 1} -body {
-CommaSeparatedStringToList {one, two, three}
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-0 {Basic test - 1}  -setup {}  -body {CommaSeparatedStringToList {one, two, three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test CommaSeparatedStringToList-2 {Basic test - 2} -body {
-CommaSeparatedStringToList {one ,two ,three}
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-1 {Basic test - 2}  -setup {}  -body {CommaSeparatedStringToList {one ,two ,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test CommaSeparatedStringToList-3 {Basic test - 3} -body {
-CommaSeparatedStringToList {one,two,three}
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-2 {Basic test - 3}  -setup {}  -body {CommaSeparatedStringToList {one,two,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test CommaSeparatedStringToList-4 {Basic test - 4} -body {
-CommaSeparatedStringToList {one  ,  two  ,  three}
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-3 {Basic test - 4}  -setup {}  -body {CommaSeparatedStringToList {one  ,  two  ,  three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test CommaSeparatedStringToList-5 {Empty list input} -body {
-CommaSeparatedStringToList {}
-} -result {} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-4 {Empty list input}  -setup {}  -body {CommaSeparatedStringToList {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test CommaSeparatedStringToList-6 {One element list} -body {
-CommaSeparatedStringToList {one}
-} -result {one} -output {} -returnCodes {0}
+::tcltest::test CommaSeparatedStringToList-5 {One element list}  -setup {}  -body {CommaSeparatedStringToList {one}}  -cleanup {}  -result {one}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test CommaSeparatedStringToList-6 {Test at}  -setup {}  -body {set String "one,two, three"
+CommaSeparatedStringToList @String
+puts $String
+}  -cleanup {}  -result {}  -output {one two three
+}  -returnCodes {0}  
+
 

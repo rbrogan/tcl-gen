@@ -14,7 +14,7 @@ DoubleChop  &mdash;  Return a string after taking out first and last characters.
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>DoubleChop</b> <i>StringValue</i> <i>?Count?</i>
+<b>DoubleChop</b> <i>StringVariable</i> <i>?Count?</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,13 +22,14 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-Same as input string but with characters removed from start and end.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringValue</i></td><td class='argument_right'>String to double chop.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Count</i></td><td class='argument_right'>Optional. How many characters to remove from the right and how many to remove from the left. Default is 1.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for something like removing brackets from a string.</div>
+Same as input string but with characters removed from start and end.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String to double chop. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>Count</i></td><td class='argument_right'>Optional. How many characters to remove from the right and how many to remove from the left. Default is 1.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for something like removing brackets from a string.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @. See <a href="at.html">About Using @</a> for details.
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% set MyString "{something}"<br>{something}<br>% <b>DoubleChop $MyString</b><br>something<br></pre></div>
+<div class="code_sample"><pre>% set MyString "{something}"<br>{something}<br>% <b>DoubleChop $MyString</b><br>something<br></pre></div><div class="code_sample"><pre>% set MyString "{{something}}"<br>{something}<br>% <b>DoubleChop @MyString 2</b><br>something<br>% puts $MyString<br>something<br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>

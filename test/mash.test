@@ -1,20 +1,21 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test Mash-1 {Basic test} -body {
-set DisplayName "Two Words"
-set FileName "[Mash $DisplayName].txt"
-} -result {twowords.txt} -output {} -returnCodes {0}
+::tcltest::test Mash-0 {Basic test}  -setup {}  -body {set DisplayName "Two Words"
+set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Mash-2 {Already mashed} -body {
-set DisplayName "twowords"
-set FileName "[Mash $DisplayName].txt"
-} -result {twowords.txt} -output {} -returnCodes {0}
+::tcltest::test Mash-1 {Already mashed}  -setup {}  -body {set DisplayName "twowords"
+set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Mash-3 {Empty string input} -body {
-Mash ""
-} -result {} -output {} -returnCodes {0}
+::tcltest::test Mash-2 {Empty string input}  -setup {}  -body {Mash ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test Mash-3 {Test at}  -setup {}  -body {set MyString "Mash ed"
+Mash @MyString
+puts $MyString
+}  -cleanup {}  -result {}  -output {mashed
+}  -returnCodes {0}  
+
 

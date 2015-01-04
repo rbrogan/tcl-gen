@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EscapedSqlString</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+EscapedSqlString  &mdash;  Escape each single quote by two consecutive ones.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>EscapedSqlString</b> <i>StringVariable</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string where each single quote is escaped by another.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String to be escaped. Can be either a value or @VarName (will upvar and read/write).</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @. See <a href="at.html">About Using @</a> for details.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% EscapedSqlString {x ' y ' z} x '' y '' z </pre></div><div class="code_sample"><pre>% set MyString {x ' y ' z}<br>x ' y ' z<br>% <b>EscapedSqlString @MyString</b><br>x '' y '' z<br>% puts $MyString<br>x '' y '' z<br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

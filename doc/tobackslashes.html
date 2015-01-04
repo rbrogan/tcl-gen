@@ -14,7 +14,7 @@ ToBackslashes  &mdash;  Take string value and return version with only backslash
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>ToBackslashes</b> <i>PathValue</i>
+<b>ToBackslashes</b> <i>StringVariable</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,13 +22,14 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-The new path with only backslashes, no forward slashes.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>PathValue</i></td><td class='argument_right'>The string value to convert into backslashes only version.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Changes the string so that all forward slashes and double backslashes are changed to single backslashes.</div>
+The new path with only backslashes, no forward slashes.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>What to convert into backslashes only version.  Can be either a value or @VarName (will upvar and read/write).</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Changes the string so that all forward slashes and double backslashes are changed to single backslashes.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% <b>ToBackslashes c:/some/path/to/file.txt</b><br>c:\some\path\to\file.txt</pre></div>
+<div class="code_sample"><pre>% <b>ToBackslashes c:/some/path/to/file.txt</b><br>c:\some\path\to\file.txt</pre></div><div class="code_sample"><pre>% set MyString c:/some/path/to/file.txt<br>c:/some/path/to/file.txt<br>% <b>ToBackslashes @MyString</b><br>c:\some\path\to\file.txt<br>% puts $MyString<br>c:\some\path\to\file.txt<br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>

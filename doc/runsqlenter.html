@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RunSqlEnter</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+RunSqlEnter  &mdash;  Do an update if an entry exists or an insert if not.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>RunSqlEnter</b> <i>TableName</i> <i>WhereDict</i> <i>?SetDict?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The id of the record just inserted or updated.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Table to do insert/update on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>WhereDict</i></td><td class='argument_right'>Dict containing column name / value pairs to search.</td></tr><tr class='table_row_b'><td class='argument_left'><i>SetDict</i></td><td class='argument_right'>Dict containing column name / value pairs to write. Optional (see below).</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>TableName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>WhereDict is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.<p>The SetDict argument may be omitted if the WhereDict covers all the relevant info. For instance, if entering into a table with just one column there is no point in having an additional dict.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% QQ [SqlInsertStatement my_table {desc 'one' notes 'uno'}]<br>% <b>RunSqlEnter my_table {desc 'one'} {notes '1-2-3'}</b><br>% QQ [SqlSelectStatement my_table]<br>one 1-2-3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'runsqlinsertifdoesnotexist.html'>RunSqlInsertIfDoesNotExist</a>, <a href = 'sqlcountstatement.html'>SqlCountStatement</a>, <a href = 'sqlinsertstatement.html'>SqlInsertStatement</a>, <a href = 'sqlupdatestatement.html'>SqlUpdateStatement</a>, <a href = 'sqlwhereclause.html'>SqlWhereClause</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

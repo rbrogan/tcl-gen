@@ -1,23 +1,15 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test IsNonPositive-1 {Basic test - return 1} -body {
-IsNonPositive 0
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNonPositive-0 {Basic test - return 1}  -setup {}  -body {IsNonPositive 0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonPositive-2 {Basic test - return 0} -body {
-IsNonPositive 1.1
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNonPositive-1 {Basic test - return 0}  -setup {}  -body {IsNonPositive 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonPositive-3 {Non-numeric input} -body {
-IsNonPositive asdf
-} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+::tcltest::test IsNonPositive-2 {Non-numeric input}  -setup {}  -body {IsNonPositive asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test IsNonPositive-4 {Empty string input} -body {
-IsNonPositive ""
-} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+::tcltest::test IsNonPositive-3 {Empty string input}  -setup {}  -body {IsNonPositive ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
+
 

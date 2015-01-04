@@ -1,0 +1,18 @@
+package require tcltest
+package require gen
+
+::tcltest::test StartsAndEndsWith-0 {Basic test}  -setup {}  -body {StartsAndEndsWith abba a}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StartsAndEndsWith-1 {TargetString empty}  -setup {}  -body {StartsAndEndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StartsAndEndsWith-2 {SearchValue empty}  -setup {}  -body {StartsAndEndsWith abba ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StartsAndEndsWith-3 {Basic test - negative}  -setup {}  -body {StartsAndEndsWith abba b}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StartsAndEndsWith-4 {Basic test - multiple characters}  -setup {}  -body {StartsAndEndsWith aabbaa aa}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+

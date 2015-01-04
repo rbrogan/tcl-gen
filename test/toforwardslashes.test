@@ -1,19 +1,20 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test ToForwardSlashes-1 {Basic test - from backslashes} -body {
-ToForwardSlashes {c:\another\path}
-
-} -result {c:/another/path} -output {} -returnCodes {0}
+::tcltest::test ToForwardSlashes-0 {Basic test - from backslashes}  -setup {}  -body {ToForwardSlashes {c:\another\path}
+}  -cleanup {}  -result {c:/another/path}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToForwardSlashes-2 {Basic test - from double backslashes} -body {
-ToForwardSlashes {c:\path\to\somefile.txt}
-} -result {c:/path/to/somefile.txt} -output {} -returnCodes {0}
+::tcltest::test ToForwardSlashes-1 {Basic test - from double backslashes}  -setup {}  -body {ToForwardSlashes {c:\\path\\to\\somefile.txt}}  -cleanup {}  -result {c:/path/to/somefile.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToForwardSlashes-3 {Empty string input} -body {
-ToForwardSlashes ""
-} -result {} -output {} -returnCodes {0}
+::tcltest::test ToForwardSlashes-2 {Empty string input}  -setup {}  -body {ToForwardSlashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ToForwardSlashes-3 {Test at}  -setup {}  -body {set MyString {c:\another\path}
+ToForwardSlashes @MyString
+puts $MyString
+}  -cleanup {}  -result {}  -output {c:/another/path
+}  -returnCodes {0}  
+
 

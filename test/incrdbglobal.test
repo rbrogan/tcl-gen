@@ -1,0 +1,39 @@
+package require tcltest
+package require gen
+
+::tcltest::test IncrDbGlobal-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SetDbGlobal MyVariable 11
+IncrDbGlobal MyVariable
+GetDbGlobal MyVariable
+}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IncrDbGlobal-1 {Variable not pre-existing}  -setup {}  -body {UnsetDbGlobal MyVariable
+IncrDbGlobal MyVariable
+GetDbGlobal MyVariable
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IncrDbGlobal-2 {Variable name empty}  -setup {}  -body {IncrDbGlobal ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test IncrDbGlobal-3 {Use amount}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SetDbGlobal MyVariable 11
+IncrDbGlobal MyVariable 2
+GetDbGlobal MyVariable
+}  -cleanup {}  -result {13}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IncrDbGlobal-4 {Try to use non-numeric amount}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SetDbGlobal MyVariable 11
+IncrDbGlobal MyVariable asdf
+GetDbGlobal MyVariable
+}  -cleanup {}  -result {Amount is invalid. Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test IncrDbGlobal-5 {Variable holds non-numeric value}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SetDbGlobal MyVariable asdf
+IncrDbGlobal MyVariable
+}  -cleanup {}  -result {Variable MyVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ter</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Ter  &mdash;  Return either first or second value.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Ter</b> <i>Condition</i> <i>IfTrue</i> <i>IfFalse</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Second argument if condition is true, third argument otherwise.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Condition</i></td><td class='argument_right'>Code to call eval on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>IfTrue</i></td><td class='argument_right'>Value to return if the code evaluates to non-zero.</td></tr><tr class='table_row_b'><td class='argument_left'><i>IfFalse</i></td><td class='argument_right'>Value to return if the code evaluates to zero.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that you will most likely want the IfTrue and IfFalse arguments to use <code>return</code>.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>set x 1<br>set y [<b>Ter {$x == 1} {return -1} {return 1}</b>]<br>-1<br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" hidden>
+KEYWORDS
+</div>
+<div class="section_content" hidden>
+
+</div>
+</body>
+</html>

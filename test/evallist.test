@@ -1,24 +1,18 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test EvalList-1 {Basic test} -body {
-set MyList {{puts One} {puts Two}}
-EvalList $MyList
-} -result {} -output {One
+::tcltest::test EvalList-0 {Basic test}  -setup {}  -body {set MyList {{puts One} {puts Two}}
+EvalList $MyList}  -cleanup {}  -result {}  -output {One
 Two
-} -returnCodes {0}
+}  -returnCodes {0}  
 
 
-::tcltest::test EvalList-2 {Empty list} -body {
-set MyList {}
-EvalList $MyList
-} -result {} -output {} -returnCodes {0}
+::tcltest::test EvalList-1 {Empty list}  -setup {}  -body {set MyList {}
+EvalList $MyList}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test EvalList-3 {One element} -body {
-set MyList {{puts One}}
-EvalList $MyList
-} -result {} -output {One
-} -returnCodes {0}
+::tcltest::test EvalList-2 {One element}  -setup {}  -body {set MyList {{puts One}}
+EvalList $MyList}  -cleanup {}  -result {}  -output {One
+}  -returnCodes {0}  
+
 

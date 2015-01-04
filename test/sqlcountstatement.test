@@ -1,0 +1,13 @@
+package require tcltest
+package require gen
+
+::tcltest::test SqlCountStatement-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SqlCountStatement my_table {desc 'first'}
+}  -cleanup {}  -result {SELECT count(1) FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SqlCountStatement-1 {Table name is empty}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {SqlCountStatement "" {desc first}
+}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+

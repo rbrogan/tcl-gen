@@ -1,42 +1,32 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test UpvarX-1 {Basic test} -body {
-unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-0 {Basic test}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var; puts "$VarName holds value $Var."}
 TestUpvarX NoSuchVar
+}  -cleanup {}  -result {}  -output {NoSuchVar holds value .
+}  -returnCodes {0}  
 
-} -result {} -output {NoSuchVar holds value .
-} -returnCodes {0}
 
-
-::tcltest::test UpvarX-2 {Basic test - set default value} -body {
-unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-1 {Basic test - set default value}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
-TestUpvarX NoSuchVar
-} -result {} -output {NoSuchVar holds value 0.
-} -returnCodes {0}
+TestUpvarX NoSuchVar}  -cleanup {}  -result {}  -output {NoSuchVar holds value 0.
+}  -returnCodes {0}  
 
 
-::tcltest::test UpvarX-3 {Basic test - variable already exists} -body {
-set MyVar 123
+::tcltest::test UpvarX-2 {Basic test - variable already exists}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
-TestUpvarX MyVar
-} -result {} -output {MyVar holds value 123.
-} -returnCodes {0}
+TestUpvarX MyVar}  -cleanup {}  -result {}  -output {MyVar holds value 123.
+}  -returnCodes {0}  
 
 
-::tcltest::test UpvarX-4 {First input is empty string} -body {
-set MyVar 123
+::tcltest::test UpvarX-3 {First input is empty string}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX "" Var 0; puts "$VarName holds value $Var."}
-TestUpvarX MyVar
-} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+TestUpvarX MyVar}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test UpvarX-5 {Second input is empty string} -body {
-set MyVar 123
+::tcltest::test UpvarX-4 {Second input is empty string}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName "" 0; puts "$VarName holds value $Var."}
-TestUpvarX MyVar
-} -result {Second argument is missing. Got empty string.} -output {} -returnCodes {1}
+TestUpvarX MyVar}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
+
 

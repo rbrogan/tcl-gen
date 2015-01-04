@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="my.css">
+<link rel="stylesheet" type="text/css" href="doc.css">
+<title>Features - Gen</title>
+</head>
+<body>
+<div id = "left">
+<a href="index.html" class="navbar" >Home</a>
+<a href="readme.html" class="navbar" >Readme</a>
+<a href="doc/readme-doc.html" class="navbar" >doc / Readme</a>
+<a href="test/readme-test.html" class="navbar" >test / Readme</a>
+<a href="doc/manual-home.html" class="navbar" >Manual</a>
+<a href="news.html" class="navbar" id = "current">News</a>
+<a href="changelog.html" class="navbar">Changelog</a>
+<a href="roadmap.html" class="navbar" >Roadmap</a>
+<a href="wishlist.html" class="navbar">Wishlist</a>
+<a href="license.html" class="navbar">License</a>
+</div>
+
+<div id = "center">
+<div id = "content">
+<div id = "AppTitle">Gen</div>
+<div id = "PageTitle">News</div>
+<div class="section-header">
+<div class="section-header-left">2015.01.04</div><div class="section-header-right">v1.1 Release</div>
+</div>
+<div class="section-content">
+<p>
+This monthly update of Gen centers on SQL-related convenience commands. Also, several existing commands have been updated to add support for a new @ notation to designate input/output variables where values would normally be used:<br>
+<br>
+<code>set MyString [DoubleChop $MyString]</code><br>
+<br>
+... becomes ...<br>
+<br>
+<code>DoubleChop @MyString</code><br>
+<br>
+</p>
+<p>
+What follows is a listing of new commands:<br>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="coe.html" class="command_link">Coe</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Concatenate the args but return empty if any is empty.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="dbaseregsub.html" class="command_link">DbaseRegsub</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Do find/replace on a column of a SQL table.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="decrdbglobal.html" class="command_link">DecrDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find entry in the globals table and decrement it.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="foreachrecord.html" class="command_link">ForeachRecord</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Run a SELECT, map results to variables, and execute body.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="getdbglobal.html" class="command_link">GetDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find and return value of entry in globals table.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="incrdbglobal.html" class="command_link">IncrDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Increase the value of an entry in the global table by one.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="lastid.html" class="command_link">LastId</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find last id in the table and return it.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="linkvartodbglobal.html" class="command_link">LinkVarToDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Put trace on variable so the database global gets writ also.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="q1.html" class="command_link">Q1</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Execute a query and return the first field of first record.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="qq.html" class="command_link">QQ</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Run the query with configured database and return result.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="runsqlcreatetable.html" class="command_link">RunSqlCreateTable</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Create SQL table using table name and column names/types.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="runsqlenter.html" class="command_link">RunSqlEnter</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Do an update if an entry exists or an insert if not.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="runsqlinsertifdoesnotexist.html" class="command_link">RunSqlInsertIfDoesNotExist</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Do an insert unless an entry already exists.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="setdbglobal.html" class="command_link">SetDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Finds an entry in the global table and sets it to a value.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlcountstatement.html" class="command_link">SqlCountStatement</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Create a SELECT count(1) statement, use dict for WHERE.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlinsertstatement.html" class="command_link">SqlInsertStatement</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Create an INSERT INTO statement.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlrecordexists.html" class="command_link">SqlRecordExists</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Tell if record exists in given table, matching criteria.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlselectstatement.html" class="command_link">SqlSelectStatement</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make and return a SQL SELECT statement.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlsetclause.html" class="command_link">SqlSetClause</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Derive a set clause for an update query, using a dict.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlupdatestatement.html" class="command_link">SqlUpdateStatement</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Create an UPDATE statement.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlwhereclause.html" class="command_link">SqlWhereClause</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Create a WHERE clause using the values in dict.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlitecolumnnameandtypelist.html" class="command_link">SqliteColumnNameAndTypeList</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Return the names and types of the columns of some table.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlitecolumnnamelist.html" class="command_link">SqliteColumnNameList</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Return a Tcl list with the names of the columns of a table.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlitecolumntype.html" class="command_link">SqliteColumnType</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Get the data type for the column in the table.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlitecopytable.html" class="command_link">SqliteCopyTable</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Copy a table in a SQLite database.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqliterenamecolumn.html" class="command_link">SqliteRenameColumn</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Change name of a column in an SQLite table.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlitetableexists.html" class="command_link">SqliteTableExists</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Determine if a table exists in the current database.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="startsandendswith.html" class="command_link">StartsAndEndsWith</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether the string starts and ends with the value.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="ter.html" class="command_link">Ter</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Returns either first or second value. </p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="unlinkvarfromdbglobal.html" class="command_link">UnlinkVarFromDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Stop making writes to the variable also write the database.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="unsetdbglobal.html" class="command_link">UnsetDbGlobal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Unset / delete a variable in the globals table.</p></div>
+</p>
+</div>
+<p>Want to know what is coming up next? Check out our <a href="roadmap.html">Roadmap</a> and <a href="wishlist.html">Wishlist</a> pages.</p>
+<p>We also have a <a href="changelog.html">Changelog</a> with more detailed information to help you with diffing commits.</p>
+<div id = "footer">
+<p id = "footer-content">General Utilities For Tcl</p>
+</div>
+</div>
+</body>
+</html>

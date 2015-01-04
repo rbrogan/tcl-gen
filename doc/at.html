@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Using @</title>
+</head>
+<body>
+<h1>About Using @</h1>
+<p>It can be tedious to write code like this:<br>
+<code>set MyVariable [SomeCommand $MyVariable]</code></p>
+<p>By using the @ designator, you mark an argument as the name of an in/out variable. An in/out variable both gives input and takes output. This simplifies, for example, the above code to this:<br>
+<code>SomeCommand @MyVariable</code><br>
+<code>MyVariable</code> has been modified.</p>
+<p>
+When can you use @? If you see an argument named XxxVariable (e.g. ListVariable, StringVariable, etc.) in the documentation then you can use @ for that argument. Arguments of the form XxxVariable can take <i>either</i> a normal value <i>or</i> the name of a variable to read/write, prefixed by @.
+</p>
+<p>For example, take the command <code>DoubleChop</code>. It has an argument <code>StringVariable</code>. That means you can pass in either the name of a variable or a value. You can do both: <br>
+<code>% puts [DoubleChop "{something}"]<br>
+something</code><br>
+... and you can do ...<br>
+<code>set MyVar "{something}"<br>
+DoubleChop @MyVar<br>
+puts $MyVar<br>
+something</code><br>
+</p>
+<p>Note that currently all commands where you can use @ will also return the value of the modified variable as well. However, this is not a guarantee for the future since there may be instances with multiple in/out variables or we may want to use a return code, etc. For now, it is best to think of the @ designator as an experimental bonus feature that adds convenience to some commands.</p>
+<p>Currently there is not anything set up for a situation where (1) there is an argument of the form <code>@xxx</code> and (2) the command code treats that as an in/out variable name but (3) the caller intends for it to be a normal value. In other words, there is currently no way to escape @ if you need to. We will address that in the near future.</p>
+</body>
+</html>

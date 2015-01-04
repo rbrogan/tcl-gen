@@ -1,0 +1,53 @@
+package require tcltest
+package require gen
+
+::tcltest::test LinkVarToDbGlobal-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {set MyVar 123
+LinkVarToDbGlobal MyVar
+puts [GetDbGlobal MyVar]
+set MyVar 345
+puts [GetDbGlobal MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal MyVar
+}  -result {}  -output {123
+345
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkVarToDbGlobal-1 {Variable does not exist}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {unset -nocomplain MyVar
+LinkVarToDbGlobal MyVar
+puts [GetDbGlobal MyVar]
+set MyVar 345
+puts [GetDbGlobal MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal MyVar
+}  -result {}  -output {
+345
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkVarToDbGlobal-2 {Database global not pre-existing}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {set MyVar 123
+UnsetDbGlobal MyVar
+LinkVarToDbGlobal MyVar
+puts [GetDbGlobal MyVar]
+SetDbGlobal MyVar 345
+puts [GetDbGlobal MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal MyVar
+}  -result {}  -output {123
+345
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkVarToDbGlobal-3 {VarName is empty}  -setup {}  -body {LinkVarToDbGlobal ""
+}  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test LinkVarToDbGlobal-4 {VarName and DbGlobalName are different}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {SetDbGlobal SomeVar 789
+set MyVar 123
+LinkVarToDbGlobal MyVar SomeVar
+puts [GetDbGlobal SomeVar]
+set MyVar 345
+puts [GetDbGlobal SomeVar]
+}  -cleanup {UnlinkVarFromDbGlobal MyVar SomeVar
+}  -result {}  -output {123
+345
+}  -returnCodes {0}  
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DbaseRegsub</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DbaseRegsub  &mdash;  Do find/replace on a column of a SQL table.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DbaseRegsub</b> <i>TableName</i> <i>ColumnName</i> <i>FindValue</i> <i>ReplaceValue</i> <i>?WhereDict?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Total number of replacements done.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Table the records are in.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ColumnName</i></td><td class='argument_right'>Name of the (text) column to go through.</td></tr><tr class='table_row_b'><td class='argument_left'><i>FindValue</i></td><td class='argument_right'>What to look for.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ReplaceValue</i></td><td class='argument_right'>What to replace it with.</td></tr><tr class='table_row_b'><td class='argument_left'><i>WhereDict</i></td><td class='argument_right'>Optional. Sequence of column name / column value pairs used to form a WHERE clause and do the regsub only on that.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>TableName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable TableName has empty value.</td>
+</tr>
+<tr><td>ColumnName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable ColumnName has empty value.</td>
+</tr>
+<tr><td>FindValue is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable FindValue has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command (currently) will only work for columns of type text.<p>While you do not have to put the find/replace values in quotes, you do have to put values in the WhereDict in quotes, unless they are targeting a non-text field (e.g. an integer id).</p><p>You may also want to take a look at <a href='https://www.sqlite.org/tclsqlite.html#function'><code>dbcmd function</code></a>. Possibly could duplicate this functionality using a stored procedure instead.</p><p>Note that the SELECT for this command will target both the given column name and a field called id. It is assumed that the table includes a field called id, which is the primary key.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>This code: (1) Creates a table and populates it, (2) Does a regsub over a column, (3) Shows how the values in multiple records have changed.</p><div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% SqlRunEnter my_table {desc 'regsubx1' notes 'regsub_target'}<br>% SqlRunEnter my_table {desc 'regsubx2' notes 'regsub_target'}<br>% <b>DbaseRegsub my_table desc x y</b><br>% QQ {SELECT desc FROM MyTable WHERE notes = 'regsub_target'}<br>regsuby1 regsuby2<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/regsub.htm'>regsub</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

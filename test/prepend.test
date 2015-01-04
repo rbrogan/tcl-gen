@@ -1,32 +1,24 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test Prepend-1 {Basic test} -body {
-set MyString World
+::tcltest::test Prepend-0 {Basic test}  -setup {}  -body {set MyString World
 Prepend MyString "Hello "
+}  -cleanup {}  -result {Hello World}  -output {}  -returnCodes {0}  
 
-} -result {Hello World} -output {} -returnCodes {0}
 
-
-::tcltest::test Prepend-2 {String variable not pre-existing} -body {
-unset -nocomplain NewVariable
+::tcltest::test Prepend-1 {String variable not pre-existing}  -setup {}  -body {unset -nocomplain NewVariable
 Prepend NewVariable "abc"
-puts $NewVariable
-} -result {} -output {abc
-} -returnCodes {0}
+puts $NewVariable}  -cleanup {}  -result {}  -output {abc
+}  -returnCodes {0}  
 
 
-::tcltest::test Prepend-3 {Empty name for string variable} -body {
-Prepend "" abc
-} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+::tcltest::test Prepend-2 {Empty name for string variable}  -setup {}  -body {Prepend "" abc}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Prepend-4 {Empty prepend value} -body {
-set MyVar abc
+::tcltest::test Prepend-3 {Empty prepend value}  -setup {}  -body {set MyVar abc
 Prepend MyVar ""
 puts $MyVar
+}  -cleanup {}  -result {}  -output {abc
+}  -returnCodes {0}  
 
-} -result {} -output {abc
-} -returnCodes {0}
 

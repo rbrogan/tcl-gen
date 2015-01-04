@@ -108,8 +108,8 @@ Gen is provided as a simple Tcl package and does not need to be built.
 
 If you are reading this you most likely have already successfully installed.
 
-To install, extract the contents of the zip file. That will result in the
-following files:
+To install, extract the contents of the archive file (.zip or .tar.gz). That
+will result in the following files:
 
 
 README.txt
@@ -142,8 +142,8 @@ file included in your download). Each command reference has at least one
 example. You can type that directly into your terminal and try out the command.
 
 Prefer use to git and clone the repo? It is posted up for you at the following
-locations: https://github.com/rbrogan/Gen
-https://gitorious.org/gitorious-gen
+locations: https://github.com/rbrogan/tcl-gen
+https://gitorious.org/tcl-gen
 
 How to uninstall? To uninstall you can simply delete the directory. You can also
 remove the lappend auto_path YOUR_DIR_PATH line from your Tcl init.

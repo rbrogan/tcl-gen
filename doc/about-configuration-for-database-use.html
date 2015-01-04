@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Configuration For Database Use</title>
+</head>
+<body>
+<h1>About Configuration For Database Use</h1>
+<p>
+To configure Gen for using the database-related commands, you need to do the following four steps:
+<ol>
+<li>Set up a database connection.</li>
+<li>Set name of the database connection to use.</li>
+<li>Set the name of the globals table to use (optional).</li>
+<li>Create the globals table.</li>
+</ol>
+</p>
+<p>Note that Gen is currently set only for SQLite usage and does not use TDBC.</p>
+<h3>1. Setting up a database connection</h3>
+<p>This is simply the command <a href="https://www.sqlite.org/tclsqlite.html"><code>sqlite3 dbcmd database-name</code></a>, for instance: <code>sqlite3 mydb c:/my.db</code>.</p>
+<p>Note that with Gen, you are responsible for opening and closing connections and telling Gen what connection to use (see next section).</p>
+<h3>2. Setting name of database connection to use.</h3>
+<p>Here you only have to give Gen the dbcmd you set up in the previous step. You want to set the <code>GenNS::DatabaseName</code> variable. For instance, <code>set GenNS::DatabaseName mydb</code>.<br>This is used whenever Gen has to interact with a database. Gen does not have capabilities to change around connections on a per-command basis (perhaps in the future we will add flags for that). However, you can yourself do a <code>set GenNS::DatabaseName</code> again to change the connection.</p>
+<h3>3. Setting the name of the globals table to use</h3>
+<p>If you want Gen to use something other than "globals" for the name of its globals table, then you set <code>GenNS::GlobalsTable</code>. For instance, you could do <code>set GenNS::GlobalsTable my_globals</code> or <code>set GenNS::GlobalsTable the_globals</code>, etc.</p>
+<h3>4. Creating the globals table</h3>
+<p>To do this you can run the following code:<br>
+<code>RunSqlCreateTable globals {id {integer primary key} desc text intvalue integer realvalue real textvalue text}</code></p>
+</body>
+</html>

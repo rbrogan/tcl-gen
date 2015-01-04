@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QQ</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+QQ  &mdash;  Run the query with configured database and return result.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>QQ</b> <i>QueryStatement</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Result of the query.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>QueryStatement</i></td><td class='argument_right'>Statement to run as a query.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>QueryStatement is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>To use this command, you must configure Gen for database use. You can read about that <a href="about-configuration-for-database-use.html">here</a>.<p>This command currently only supports SQLite database connections.</p><p>This is equivalent to <a href="https://www.sqlite.org/tclsqlite.html#eval"><code>dbcmd eval sql</code></a> but is shorter to type and uses the previously configured connection.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% QQ [SqlInsertStatement my_table {desc 'one' notes 'uno'}]<br>% <b>QQ "SELECT desc, notes FROM my_table WHERE id = 1"</b><br>one uno<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'q1.html'>Q1</a>, <a href = 'q1.html'>Q1</a>, <a href = 'q1.html'>Q1</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

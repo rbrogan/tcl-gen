@@ -1,35 +1,30 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test SplitAndTrim-1 {Basic test - 1} -body {
-SplitAndTrim "one ,two, three" ","
-
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-0 {Basic test - 1}  -setup {}  -body {SplitAndTrim "one ,two, three" ","
+}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SplitAndTrim-2 {Basic test - 2} -body {
-SplitAndTrim "one    two    three"
-} -result {one two three} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-1 {Basic test - 2}  -setup {}  -body {SplitAndTrim "one    two    three"}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SplitAndTrim-3 {Split misses} -body {
-SplitAndTrim "one, two, three" "/"
-} -result {{one, two, three}} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-2 {Split misses}  -setup {}  -body {SplitAndTrim "one, two, three" "/"}  -cleanup {}  -result {{one, two, three}}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SplitAndTrim-4 {Empty target string} -body {
-SplitAndTrim "" "/" " "
-	
-} -result {} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-3 {Empty target string}  -setup {}  -body {SplitAndTrim "" "/" " "
+	}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SplitAndTrim-5 {Empty split value} -body {
-SplitAndTrim abc ""
-} -result {a b c} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-4 {Empty split value}  -setup {}  -body {SplitAndTrim abc ""}  -cleanup {}  -result {a b c}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SplitAndTrim-6 {Empty trim value} -body {
-SplitAndTrim "one ,two, three" "," ""
-} -result {{one } two { three}} -output {} -returnCodes {0}
+::tcltest::test SplitAndTrim-5 {Empty trim value}  -setup {}  -body {SplitAndTrim "one ,two, three" "," ""}  -cleanup {}  -result {{one } two { three}}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitAndTrim-6 {Test at}  -setup {}  -body {set MyString "one    two    three"
+SplitAndTrim @MyString
+puts $MyString
+}  -cleanup {}  -result {}  -output {one two three
+}  -returnCodes {0}  
+
 

@@ -1,0 +1,21 @@
+package require tcltest
+package require gen
+
+::tcltest::test UnsetDbGlobal-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {SetDbGlobal MyUnsetVariable 123
+puts "[QQ [SqlCountStatement globals {desc 'MyUnsetVariable'}]]"
+UnsetDbGlobal MyUnsetVariable
+puts "[QQ [SqlCountStatement globals {desc 'MyUnsetVariable'}]]"
+}  -cleanup {}  -result {}  -output {1
+0
+}  -returnCodes {0}  
+
+
+::tcltest::test UnsetDbGlobal-1 {Variable to unset does not exist}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+}  -body {UnsetDbGlobal asdf
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test UnsetDbGlobal-2 {Variable name is empty}  -setup {}  -body {UnsetDbGlobal ""
+}  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
+
+

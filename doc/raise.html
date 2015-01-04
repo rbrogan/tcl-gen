@@ -14,7 +14,7 @@ Raise  &mdash;  Take a list and group its elements into sub-lists.
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>Raise</b> <i>ListValue</i> <i>SublistLength</i>
+<b>Raise</b> <i>ListVariable</i> <i>SublistLength</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,7 +22,7 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-A list where each element is a list of the given length.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListValue</i></td><td class='argument_right'>List to derive from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SublistLength</i></td><td class='argument_right'>How many elements each sublist should be.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+A list where each element is a list of the given length.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVariable</i></td><td class='argument_right'>List to derive from. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>SublistLength</i></td><td class='argument_right'>How many elements each sublist should be.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
 <div class= 'subsection_content'>
 <table>
 <tr>
@@ -40,13 +40,14 @@ A list where each element is a list of the given length.</div><div class='subsec
 <td>Expected positive input value, got input value $Value instead.</td>
 </tr>
 </table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for taking the flat, raw list one gets back from an sqlite eval and grouping the elements into records.</div>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for taking the flat, raw list one gets back from an sqlite eval and grouping the elements into records.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<p>This shows how to take a list and group it by 2s.</p><div class="code_sample"><pre>% set MyList [list id-1 name-1 id-2 name-2 id-3 name-3]<br>id-1 name-1 id-2 name-2 id-3 name-3<br>% <b>Raise $MyList 2</b><br>{id-1 name-1} {id-2 name-2} {id-3 name-3}</pre></div>
+<p>This shows how to take a list and group it by 2s.</p><div class="code_sample"><pre>% set MyList [list id-1 name-1 id-2 name-2 id-3 name-3]<br>id-1 name-1 id-2 name-2 id-3 name-3<br>% <b>Raise $MyList 2</b><br>{id-1 name-1} {id-2 name-2} {id-3 name-3}</pre></div><div class="code_sample"><pre>% set MyList [list id-1 name-1 id-2 name-2 id-3 name-3]<br>id-1 name-1 id-2 name-2 id-3 name-3<br>% <b>Raise @MyList 2</b><br>{id-1 name-1} {id-2 name-2} {id-3 name-3}<br>% puts $MyList<br>{id-1 name-1} {id-2 name-2} {id-3 name-3}<br></pre></div>
 <div class="section_header" hidden>
 SEE ALSO
 </div>

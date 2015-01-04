@@ -110,10 +110,16 @@ chopleft.test
      Tests for the command ChopLeft.
 chopright.test
      Tests for the command ChopRight.
+coe.test
+     Tests for the command Coe.
 commaseparatedstringtolist.test
      Tests for the command CommaSeparatedStringToList.
+dbaseregsub.test
+     Tests for the command DbaseRegsub.
 decr.test
      Tests for the command Decr.
+decrdbglobal.test
+     Tests for the command DecrDbGlobal.
 divideby.test
      Tests for the command DivideBy.
 doublechop.test
@@ -132,6 +138,12 @@ firstof.test
      Tests for the command FirstOf.
 flip.test
      Tests for the command Flip.
+foreachrecord.test
+     Tests for the command ForeachRecord.
+getdbglobal.test
+     Tests for the command GetDbGlobal.
+incrdbglobal.test
+     Tests for the command IncrDbGlobal.
 isempty.test
      Tests for the command IsEmpty.
 isnegative.test
@@ -152,8 +164,12 @@ iszero.test
      Tests for the command IsZero.
 lappendifnotalready.test
      Tests for the command LappendIfNotAlready.
+lastid.test
+     Tests for the command LastId.
 lastof.test
      Tests for the command LastOf.
+linkvartodbglobal.test
+     Tests for the command LinkVarToDbGlobal.
 list2file.test
      Tests for the command List2File.
 mash.test
@@ -166,6 +182,10 @@ prepend.test
      Tests for the command Prepend.
 printvar.test
      Tests for the command PrintVar.
+q1.test
+     Tests for the command Q1.
+qq.test
+     Tests for the command QQ.
 raise.test
      Tests for the command Raise.
 reloadpackage.test
@@ -174,10 +194,46 @@ retzeroifempty.test
      Tests for the command RetZeroIfEmpty.
 run.test
      Tests for the command Run.
+runsqlcreatetable.test
+     Tests for the command RunSqlCreateTable.
+runsqlenter.test
+     Tests for the command RunSqlEnter.
+runsqlinsertifdoesnotexist.test
+     Tests for the command RunSqlInsertIfDoesNotExist.
+setdbglobal.test
+     Tests for the command SetDbGlobal.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
 splitandtrim.test
      Tests for the command SplitAndTrim.
+sqlcountstatement.test
+     Tests for the command SqlCountStatement.
+sqlinsertstatement.test
+     Tests for the command SqlInsertStatement.
+sqlrecordexists.test
+     Tests for the command SqlRecordExists.
+sqlselectstatement.test
+     Tests for the command SqlSelectStatement.
+sqlsetclause.test
+     Tests for the command SqlSetClause.
+sqlupdatestatement.test
+     Tests for the command SqlUpdateStatement.
+sqlwhereclause.test
+     Tests for the command SqlWhereClause.
+sqlitecolumnnameandtypelist.test
+     Tests for the command SqliteColumnNameAndTypeList.
+sqlitecolumnnamelist.test
+     Tests for the command SqliteColumnNameList.
+sqlitecolumntype.test
+     Tests for the command SqliteColumnType.
+sqlitecopytable.test
+     Tests for the command SqliteCopyTable.
+sqliterenamecolumn.test
+     Tests for the command SqliteRenameColumn.
+sqlitetableexists.test
+     Tests for the command SqliteTableExists.
+startsandendswith.test
+     Tests for the command StartsAndEndsWith.
 startswith.test
      Tests for the command StartsWith.
 string2file.test
@@ -192,12 +248,18 @@ surroundeach.test
      Tests for the command SurroundEach.
 swap.test
      Tests for the command Swap.
+ter.test
+     Tests for the command Ter.
 tobackslashes.test
      Tests for the command ToBackslashes.
 todoublebackslashes.test
      Tests for the command ToDoubleBackslashes.
 toforwardslashes.test
      Tests for the command ToForwardSlashes.
+unlinkvarfromdbglobal.test
+     Tests for the command UnlinkVarFromDbGlobal.
+unsetdbglobal.test
+     Tests for the command UnsetDbGlobal.
 upvarexistingordie.test
      Tests for the command UpvarExistingOrDie.
 upvarx.test

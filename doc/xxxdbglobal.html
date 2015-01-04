@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About XxxDbGlobal</title>
+</head>
+<body>
+<h1>About XxxDbGlobal</h1>
+<p>
+This set of commands is designed to make working with variables in a database globals table be like working with Tcl variables.
+</p>
+<p>
+In order to use these commands, you have to configure the database connection and set up a globals table. See <a href="about-configuration-for-database-use.html">here</a> for details.
+</p>
+<p>
+The table has columns for a text value, integer value, and real value. Commands that write to the table will write to all three values. Commands that read from the table will read the text value by default but you can specify another value type instead (see the <a href="getdbglobal.html">GetDbGlobal</a> command documentation).
+</p>
+<p>Whenever you use SetDbGlobal, IncrDbGlobal, or DecrDbGlobal, those commands will set all three value types. IncrDbGlobal and DecrDbGlobal will read from the textvalue. If you write to these entries outside of the XxxDbGlobal commands, then it is recommended that you keep all three value types updated and in-sync.</p>
+</body>
+</html>

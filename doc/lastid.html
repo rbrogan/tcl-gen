@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LastId</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+LastId  &mdash;  Find last id in the table and return it.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>LastId</b> <i>TableName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The last id in the given table.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of table to get last id of.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>TableName is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command returns the last ID in terms of order. This is usually also the last ID entered. Note also this command assumes the name of the column is "id".<p>There is also the similar command <a href="https://www.sqlite.org/tclsqlite.html#onecolumn"><code>dbcmd onecolumn sql</code></a> in the SQLite package.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>This code: (1) Creates a table and puts a record in it, (2) Shows that LastId returns 1, (3) Adds another entry to the table, (4) Shows that LastId now returns 2.<br></p><div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% QQ [SqlInsertStatement my_table {desc 'one' notes 'uno'}]<br>% <b>LastId my_table</b><br>1<br>% QQ "INSERT INTO my_table (desc) VALUES ('two')"<br>% LastId my_table<br>2<br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

@@ -1,61 +1,51 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test Swap-1 {Basic test} -body {
-set X 111
+::tcltest::test Swap-0 {Basic test}  -setup {}  -body {set X 111
 set Y 222
 Swap X Y
 puts "X = $X, Y = $Y"
+}  -cleanup {}  -result {}  -output {X = 222, Y = 111
+}  -returnCodes {0}  
 
-} -result {} -output {X = 222, Y = 111
-} -returnCodes {0}
 
-
-::tcltest::test Swap-2 {First does not exist} -body {
-unset -nocomplain NoSuchVar
+::tcltest::test Swap-1 {First does not exist}  -setup {}  -body {unset -nocomplain NoSuchVar
 set Second 2
 Swap NoSuchVar Second
 puts $NoSuchVar
 puts $Second
+}  -cleanup {}  -result {}  -output {2
 
-} -result {} -output {2
-
-} -returnCodes {0}
+}  -returnCodes {0}  
 
 
-::tcltest::test Swap-3 {Second does not exist} -body {
-set First 1
+::tcltest::test Swap-2 {Second does not exist}  -setup {}  -body {set First 1
 unset -nocomplain NoSuchVar
 Swap First NoSuchVar
 puts $First
 puts $NoSuchVar
-
-} -result {} -output {
+}  -cleanup {}  -result {}  -output {
 1
-} -returnCodes {0}
+}  -returnCodes {0}  
 
 
-::tcltest::test Swap-4 {First empty} -body {
-set First ""
+::tcltest::test Swap-3 {First empty}  -setup {}  -body {set First ""
 set Second 2
 Swap First Second
 puts $First
 puts $Second
+}  -cleanup {}  -result {}  -output {2
 
-} -result {} -output {2
-
-} -returnCodes {0}
+}  -returnCodes {0}  
 
 
-::tcltest::test Swap-5 {Second empty} -body {
-set First 1
+::tcltest::test Swap-4 {Second empty}  -setup {}  -body {set First 1
 set Second ""
 Swap First Second
 puts $First
 puts $Second
-
-} -result {} -output {
+}  -cleanup {}  -result {}  -output {
 1
-} -returnCodes {0}
+}  -returnCodes {0}  
+
 

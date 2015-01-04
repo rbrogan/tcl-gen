@@ -1,28 +1,18 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test IsNonNumeric-1 {Basic test - Alphabetic} -body {
-IsNonNumeric asdf
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNonNumeric-0 {Basic test - Alphabetic}  -setup {}  -body {IsNonNumeric asdf}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonNumeric-2 {Basic test - Empty string} -body {
-IsNonNumeric ""
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNonNumeric-1 {Basic test - Empty string}  -setup {}  -body {IsNonNumeric ""}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonNumeric-3 {Negative test - Integer} -body {
-IsNonNumeric 1
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNonNumeric-2 {Negative test - Integer}  -setup {}  -body {IsNonNumeric 1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonNumeric-4 {Negative test - Wide integer} -body {
-IsNonNumeric  111111111111111111
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNonNumeric-3 {Negative test - Wide integer}  -setup {}  -body {IsNonNumeric  111111111111111111}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNonNumeric-5 {Negative test - Double} -body {
-IsNonNumeric 1.1
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNonNumeric-4 {Negative test - Double}  -setup {}  -body {IsNonNumeric 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
 

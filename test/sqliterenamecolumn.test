@@ -1,0 +1,47 @@
+package require tcltest
+package require gen
+
+::tcltest::test SqliteRenameColumn-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('three')}
+}  -body {SqliteRenameColumn my_temp_table desc name
+QQ "SELECT name FROM my_temp_table"
+}  -cleanup {QQ {DROP TABLE my_temp_table}
+}  -result {one two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SqliteRenameColumn-1 {TableName is empty}  -setup {}  -body {SqliteRenameColumn "" desc name
+}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteRenameColumn-3 {OldColumnName is empty}  -setup {}  -body {SqliteRenameColumn my_temp_table "" name
+}  -cleanup {}  -result {Variable OldColumnName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteRenameColumn-4 {NewColumnName is empty}  -setup {}  -body {SqliteRenameColumn my_temp_table desc ""
+}  -cleanup {}  -result {Variable NewColumnName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteRenameColumn-5 {OldColumnName does not match column in table}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('three')}
+}  -body {SqliteRenameColumn my_temp_table asdf name
+}  -cleanup {QQ {DROP TABLE my_temp_table}
+}  -result {Variable OldColumnName has invalid value asdf. No such column found.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqliteRenameColumn-7 {There is already a column with that name.}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}
+QQ {INSERT INTO my_temp_table (desc) VALUES ('three')}
+}  -body {SqliteRenameColumn my_temp_table desc desc
+QQ "SELECT name FROM my_temp_table"
+}  -cleanup {QQ {DROP TABLE my_temp_table}
+}  -result {Variable NewColumnName has invalid value desc. A column with that name already exists.}  -output {}  -returnCodes {1}  
+
+

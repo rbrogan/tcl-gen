@@ -1,26 +1,26 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test Decr-1 {Basic positive} -body {
-set x 4
-Decr x
-} -result {3} -output {} -returnCodes {0}
+::tcltest::test Decr-0 {Basic positive}  -setup {}  -body {set x 4
+Decr x}  -cleanup {}  -result {3}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Decr-2 {No such variable} -body {
-unset -nocomplain NoVariable
-Decr NoVariable
-} -result {-1} -output {} -returnCodes {0}
+::tcltest::test Decr-1 {No such variable}  -setup {}  -body {unset -nocomplain NoVariable
+Decr NoVariable}  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Decr-3 {Non-numeric input} -body {
-set x asdf
-Decr x
-} -result {Variable x has invalid value asdf.} -output {} -returnCodes {1}
+::tcltest::test Decr-2 {Non-numeric input}  -setup {}  -body {set x asdf
+Decr x}  -cleanup {}  -result {Variable x has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Decr-4 {Empty string input} -body {
-Decr ""
-} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+::tcltest::test Decr-3 {Empty string input}  -setup {}  -body {Decr ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test Decr-4 {Integer value specified}  -setup {}  -body {set x 4
+Decr x 2}  -cleanup {}  -result {2}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test Decr-5 {IntegerValue is not actually an integer}  -setup {}  -body {set x 4
+Decr x 2.2}  -cleanup {}  -result {Variable IntegerValue has invalid value 2.2.}  -output {}  -returnCodes {1}  
+
 

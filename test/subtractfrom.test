@@ -1,34 +1,24 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test SubtractFrom-1 {Basic test} -body {
-set SomeNumber 111
+::tcltest::test SubtractFrom-0 {Basic test}  -setup {}  -body {set SomeNumber 111
 SubtractFrom SomeNumber 11
-puts $SomeNumber
-} -result {} -output {100
-} -returnCodes {0}
+puts $SomeNumber}  -cleanup {}  -result {}  -output {100
+}  -returnCodes {0}  
 
 
-::tcltest::test SubtractFrom-2 {No such variable} -body {
-unset -nocomplain NoVariable
-SubtractFrom NoVariable 1
-} -result {-1} -output {} -returnCodes {0}
+::tcltest::test SubtractFrom-1 {No such variable}  -setup {}  -body {unset -nocomplain NoVariable
+SubtractFrom NoVariable 1}  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SubtractFrom-3 {Empty string input} -body {
-SubtractFrom "" 123
-} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+::tcltest::test SubtractFrom-2 {Empty string input}  -setup {}  -body {SubtractFrom "" 123}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SubtractFrom-4 {Empty string input 2} -body {
-set SomeNumber 111
-SubtractFrom SomeNumber ""
-} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
+::tcltest::test SubtractFrom-3 {Empty string input 2}  -setup {}  -body {set SomeNumber 111
+SubtractFrom SomeNumber ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SubtractFrom-5 {Non-numeric value input} -body {
-set SomeNumber 111
-SubtractFrom SomeNumber asdf
-} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
+::tcltest::test SubtractFrom-4 {Non-numeric value input}  -setup {}  -body {set SomeNumber 111
+SubtractFrom SomeNumber asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+
 

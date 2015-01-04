@@ -1,0 +1,19 @@
+package require tcltest
+package require gen
+
+::tcltest::test RunSqlCreateTable-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+QQ {DROP TABLE temp_table}
+}  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text notes text}
+QQ [SqlInsertStatement temp_table {desc 'first' notes '1-2-3'}]
+SqlRecordExists temp_table {desc 'first'}
+}  -cleanup {QQ {DROP TABLE temp_table}
+}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RunSqlCreateTable-1 {Table name is empty}  -setup {}  -body {RunSqlCreateTable "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RunSqlCreateTable-2 {Attributes empty}  -setup {}  -body {RunSqlCreateTable temp_table {}
+}  -cleanup {}  -result {Variable ColumnNameTypeList has empty value.}  -output {}  -returnCodes {1}  
+
+

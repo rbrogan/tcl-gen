@@ -1,41 +1,29 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test DoubleChop-1 {Basic test} -body {
-set MyString "{something}"
+::tcltest::test DoubleChop-0 {Basic test}  -setup {}  -body {set MyString "{something}"
 DoubleChop $MyString
-
-} -result {something} -output {} -returnCodes {0}
-
-
-::tcltest::test DoubleChop-2 {One character} -body {
-set MyString "1"
-DoubleChop $MyString
-} -result {} -output {} -returnCodes {0}
+}  -cleanup {}  -result {something}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-3 {Empty string} -body {
-set MyString ""
-DoubleChop $MyString
-} -result {} -output {} -returnCodes {0}
+::tcltest::test DoubleChop-1 {One character}  -setup {}  -body {set MyString "1"
+DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-4 {Two characters} -body {
-set MyString "11"
-DoubleChop $MyString
-} -result {} -output {} -returnCodes {0}
+::tcltest::test DoubleChop-2 {Empty string}  -setup {}  -body {set MyString ""
+DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-5 {Three characters} -body {
-set MyString "ABA"
-DoubleChop $MyString
-} -result {B} -output {} -returnCodes {0}
+::tcltest::test DoubleChop-3 {Two characters}  -setup {}  -body {set MyString "11"
+DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-6 {Basic test - use count} -body {
-set MyString "AABBAA"
+::tcltest::test DoubleChop-4 {Three characters}  -setup {}  -body {set MyString "ABA"
+DoubleChop $MyString}  -cleanup {}  -result {B}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DoubleChop-5 {Basic test - use count}  -setup {}  -body {set MyString "AABBAA"
 DoubleChop $MyString 2
+}  -cleanup {}  -result {BB}  -output {}  -returnCodes {0}  
 
-} -result {BB} -output {} -returnCodes {0}
 

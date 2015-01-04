@@ -1,40 +1,26 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test IsNumeric-1 {Basic test 1 - integer} -body {
-IsNumeric 1
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-0 {Basic test 1 - integer}  -setup {}  -body {IsNumeric 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-2 {Basic test 2 - double} -body {
-IsNumeric 1.1
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-1 {Basic test 2 - double}  -setup {}  -body {IsNumeric 1.1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-3 {Basic test 3 - wide integer} -body {
-IsNumeric  111111111111111111
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-2 {Basic test 3 - wide integer}  -setup {}  -body {IsNumeric  111111111111111111}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-4 {Negative test - Alphabetic} -body {
-IsNumeric asdf
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-3 {Negative test - Alphabetic}  -setup {}  -body {IsNumeric asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-5 {Negative test - Empty string} -body {
-IsNumeric ""
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-4 {Negative test - Empty string}  -setup {}  -body {IsNumeric ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-6 {Basic test - hex} -body {
-IsNumeric 0x10
-
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test IsNumeric-5 {Basic test - hex}  -setup {}  -body {IsNumeric 0x10
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsNumeric-7 {Basic test - octal} -body {
-IsNumeric 010
+::tcltest::test IsNumeric-6 {Basic test - octal}  -setup {}  -body {IsNumeric 010
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
-} -result {1} -output {} -returnCodes {0}
 

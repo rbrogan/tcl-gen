@@ -1,20 +1,16 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test Run-1 {Basic positive} -body {
-set QuickScript {puts "[expr [lindex $argv 0] + [lindex $argv 1]]"}
+::tcltest::test Run-0 {Basic positive}  -setup {}  -body {set QuickScript {puts "[expr [lindex $argv 0] + [lindex $argv 1]]"}
 String2File $QuickScript adder.tcl
 Run adder.tcl 1 2
+}  -cleanup {}  -result {}  -output {3
+}  -returnCodes {0}  
 
-} -result {} -output {3
-} -returnCodes {0}
 
-
-::tcltest::test Run-2 {No args} -body {
-set QuickScript {puts "Hello World"}
+::tcltest::test Run-1 {No args}  -setup {}  -body {set QuickScript {puts "Hello World"}
 String2File $QuickScript helloworld.tcl
-Run helloworld.tcl
-} -result {} -output {Hello World
-} -returnCodes {0}
+Run helloworld.tcl}  -cleanup {}  -result {}  -output {Hello World
+}  -returnCodes {0}  
+
 

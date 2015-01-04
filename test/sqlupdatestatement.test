@@ -1,0 +1,14 @@
+package require tcltest
+package require gen
+
+::tcltest::test SqlUpdateStatement-0 {Basic test}  -setup {}  -body {SqlUpdateStatement my_table {intvalue 1} {realvalue 1.1}
+}  -cleanup {}  -result {UPDATE my_table SET intvalue = 1 WHERE realvalue = 1.1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SqlUpdateStatement-1 {SetDict is empty}  -setup {}  -body {SqlUpdateStatement my_table {} {desc 'first'}
+}  -cleanup {}  -result {Variable SetDict has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SqlUpdateStatement-3 {Table name is empty}  -setup {}  -body {SqlUpdateStatement "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+

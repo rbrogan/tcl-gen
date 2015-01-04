@@ -14,7 +14,7 @@ ChangeCasing  &mdash;  Change the casing from one kind to another.
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>ChangeCasing</b> <i>Value</i> <i>From</i> <i>To</i>
+<b>ChangeCasing</b> <i>StringVariable</i> <i>From</i> <i>To</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,7 +22,7 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-String using the new casing.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Value</i></td><td class='argument_right'>String value to change casing of.</td></tr><tr class='table_row_a'><td class='argument_left'><i>From</i></td><td class='argument_right'>Name of case to interpret passed value as having.</td></tr><tr class='table_row_b'><td class='argument_left'><i>To</i></td><td class='argument_right'>Name of case returned value should have.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The following forms of casing are supported:<br>
+String using the new casing.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String to change casing of.</td></tr><tr class='table_row_a'><td class='argument_left'><i>From</i></td><td class='argument_right'>Name of case to interpret passed value as having.</td></tr><tr class='table_row_b'><td class='argument_left'><i>To</i></td><td class='argument_right'>Name of case returned value should have.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The following forms of casing are supported:<br>
 - PascalCase<br>
 - mixedCase<br>
 - Title Case (space between)<br>
@@ -33,13 +33,13 @@ String using the new casing.</div><div class='subsection_header'>Arguments</div>
 - phrase case<br>
 - PHRASE CASE<br>
 - snake_case<br>
-- SNAKE_CASE<br><p>Note that mashedcase can only be converted to and not from since there is loss of information as to where the words separate.</p><p>Note also, this command will not test to determine if the input value actually has the from casing specified. If the casing of the input value and the from parameter do not match then behavior is undefined. (It is expected that in a future version we will be able to automatically detect casing.)</p></div>
+- SNAKE_CASE<br><p>Note that mashedcase can only be converted to and not from since there is loss of information as to where the words separate.</p><p>Note also, this command will not test to determine if the input value actually has the from casing specified. If the casing of the input value and the from parameter do not match then behavior is undefined. (It is expected that in a future version we will be able to automatically detect casing.)</p><p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% <b>ChangeCasing HelloWorld PascalCase mixedCase</b><br>helloWorld<br>% ChangeCasing {How Are You} {Title Case} {hyphenated-case}<br>how-are-you</pre></div>
+<div class="code_sample"><pre>% <b>ChangeCasing HelloWorld PascalCase mixedCase</b><br>helloWorld<br>% ChangeCasing {How Are You} {Title Case} {hyphenated-case}<br>how-are-you</pre></div><div class="code_sample"><pre>% set MyString {snake_case}<br>% <b>ChangeCasing @MyString snake_lower SNAKE_UPPER</b><br>SNAKE_CASE<br>% puts $MyString<br>SNAKE_CASE<br><br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>

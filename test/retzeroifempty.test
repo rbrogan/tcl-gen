@@ -1,15 +1,11 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test RetZeroIfEmpty-1 {Basic positive} -body {
-set Something 1
-RetZeroIfEmpty $Something
-} -result {1} -output {} -returnCodes {0}
+::tcltest::test RetZeroIfEmpty-0 {Basic positive}  -setup {}  -body {set Something 1
+RetZeroIfEmpty $Something}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RetZeroIfEmpty-2 {Basic negative} -body {
-set Nothing ""
-RetZeroIfEmpty $Nothing
-} -result {0} -output {} -returnCodes {0}
+::tcltest::test RetZeroIfEmpty-1 {Basic negative}  -setup {}  -body {set Nothing ""
+RetZeroIfEmpty $Nothing}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
 

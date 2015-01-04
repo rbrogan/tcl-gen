@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>GenCurrentVersion</title>
+<title>Coe</title>
 <link rel="stylesheet" type="text/css" href="doc.css">
 <body>
 <div class="section_header">
 NAME
 </div>
 <div class="section_content">
-GenCurrentVersion  &mdash;  
+Coe  &mdash;  Concatenate the args but return empty if any is empty.
 </div>
 <div class="section_header">
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>GenCurrentVersion</b>
+<b>Coe</b> <i>?args ...?</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,13 +22,13 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-</div>
+Concatenation of all arguments or empty string if any one is empty.</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>COE = <b>C</b>oncatenation <b>O</b>r <b>E</b>mpty.<p>Can be useful for forming optional clauses in a statement (e.g. a WHERE clause).</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-
+<div class="code_sample"><pre>% set MyDict {}<br>% set sql "SELECT * FROM my_table<b>[Coe \" WHERE \"  [SqlWhereClause $MyDict]]</b>"<br>SELECT * FROM my_table<br></pre></div>
 <div class="section_header" hidden>
 SEE ALSO
 </div>

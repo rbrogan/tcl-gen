@@ -1,37 +1,27 @@
 package require tcltest
 package require gen
 
-
-::tcltest::test DivideBy-1 {Basic test} -body {
-set MyVar 6
+::tcltest::test DivideBy-0 {Basic test}  -setup {}  -body {set MyVar 6
 DivideBy MyVar 3
-puts $MyVar
-} -result {} -output {2
-} -returnCodes {0}
+puts $MyVar}  -cleanup {}  -result {}  -output {2
+}  -returnCodes {0}  
 
 
-::tcltest::test DivideBy-2 {No such variable} -body {
-unset -nocomplain NoSuchVariable
-DivideBy NoSuchVariable 2
-} -result {Could not find variable NoSuchVariable in caller.} -output {} -returnCodes {1}
+::tcltest::test DivideBy-1 {No such variable}  -setup {}  -body {unset -nocomplain NoSuchVariable
+DivideBy NoSuchVariable 2}  -cleanup {}  -result {Could not find variable NoSuchVariable in caller.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DivideBy-3 {Non-numeric input} -body {
-set MyVar 12
+::tcltest::test DivideBy-2 {Non-numeric input}  -setup {}  -body {set MyVar 12
 DivideBy MyVar asdf
-
-} -result {Got input value asdf. Expected numeric value.} -output {} -returnCodes {1}
-
-
-::tcltest::test DivideBy-4 {Empty string input 1} -body {
-DivideBy "" 2
-
-} -result {Variable name is missing. Got empty string.} -output {} -returnCodes {1}
+}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DivideBy-5 {Empty string input 2} -body {
-set MyVar 12
+::tcltest::test DivideBy-3 {Empty string input 1}  -setup {}  -body {DivideBy "" 2
+}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DivideBy-4 {Empty string input 2}  -setup {}  -body {set MyVar 12
 DivideBy MyVar ""
+}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
-} -result {Got input value . Expected numeric value.} -output {} -returnCodes {1}
 
