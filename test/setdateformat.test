@@ -1,0 +1,24 @@
+package require tcltest
+package require gen
+
+::tcltest::test SetDateFormat-0 {Set to default}  -setup {}  -body {SetDateFormat %Y-%m-%d
+puts [IsDate 2000-01-02]
+puts [IsDate 02/01/2000]
+}  -cleanup {}  -result {}  -output {1
+0
+}  -returnCodes {0}  
+
+
+::tcltest::test SetDateFormat-1 {Set to something other than default}  -setup {}  -body {SetDateFormat %m/%d/%Y
+puts [IsDate 2000-01-02]
+puts [IsDate 01/02/2000]
+}  -cleanup {SetDateFormat {%Y-%m-%d}
+}  -result {}  -output {0
+1
+}  -returnCodes {0}  
+
+
+::tcltest::test SetDateFormat-2 {Invalid input}  -setup {}  -body {SetDateFormat asdf
+}  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+

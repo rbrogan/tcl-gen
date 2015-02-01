@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatetimeIsBetween</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatetimeIsBetween  &mdash;  Check whether the given datetime is between others.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatetimeIsBetween</b> <i>FirstDatetime</i> <i>SecondDatetime</i> <i>ThirdDatetime</i> <i>?Option?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> FirstDatetime is between the others.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> FirstDatetime is not between the others.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_b'><td class='argument_left'><i>ThirdDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Option</i></td><td class='argument_right'>Whether to count a datetime that happens the beginning or end as being between.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of FirstDateTime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of SecondDateTime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of ThirdDateTime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Second datetime is after third datetime.</td>
+<td class="error_code">-15</td>
+<td>Arguments SecondDatetime and ThirdDatetime have incoherent values $SecondDatetime and $ThirdDatetime.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Options are:<br>
+1. BothExclusive (Second &lt; First &lt; Third).<br>
+2. BothInclusive (Second &lt;= First &lt;= Third).<br>
+3. LeftExclusive (Second &lt; First &lt;= Third).<br>
+4. LeftInclusive (Second &lt;= First &lt; Third).<br>
+5. RightExclusive (Second &lt;= First &lt; Third).<br>
+6. RightInclusive (Second &lt; First &lt;= Third).<br><p>For information about how to configure the format, look <a href='about-date-and-time-commands.html'>here</a>.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DateTimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}</b><br>1<br></pre></div><div class="code_sample"><pre>% DateTimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06}<br>0<br><br></pre></div><div class="code_sample"><pre>% DateTimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} LeftInclusive<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateisbetween.html'>DateIsBetween</a>, <a href = 'datetimeisafter.html'>DatetimeIsAfter</a>, <a href = 'datetimeisat.html'>DatetimeIsAt</a>, <a href = 'datetimeisatorafter.html'>DatetimeIsAtOrAfter</a>, <a href = 'datetimeisatorbefore.html'>DatetimeIsAtOrBefore</a>, <a href = 'datetimeisbefore.html'>DatetimeIsBefore</a>, <a href = 'setdatetimeformat.html'>SetDatetimeFormat</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

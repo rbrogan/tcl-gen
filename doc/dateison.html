@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DateIsOn</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DateIsOn  &mdash;  Check if first date and second date are equal.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DateIsOn</b> <i>FirstDate</i> <i>SecondDate</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> First date is on the second.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> First date is not on the second.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDate</i></td><td class='argument_right'>String in date format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDate</i></td><td class='argument_right'>String in date format.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of FirstDate are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of SecondDate are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this is basically just <code>string equal</code> but is included for the sake of completeness. It does check to verify both inputs are dates.<p>For information about how to configure the format, look <a href='about-date-and-time-commands.html'>here</a>.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DateIsOn 2000-01-01 2000-01-01</b><br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateisafter.html'>DateIsAfter</a>, <a href = 'dateisbefore.html'>DateIsBefore</a>, <a href = 'dateisbetween.html'>DateIsBetween</a>, <a href = 'dateisonorafter.html'>DateIsOnOrAfter</a>, <a href = 'dateisonorbefore.html'>DateIsOnOrBefore</a>, <a href = 'datetimeisat.html'>DatetimeIsAt</a>, <a href = 'setdateformat.html'>SetDateFormat</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_date">date</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

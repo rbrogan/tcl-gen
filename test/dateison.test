@@ -1,0 +1,23 @@
+package require tcltest
+package require gen
+
+::tcltest::test DateIsOn-0 {Basic test - return 1}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-01
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DateIsOn-1 {Basic test - return 0}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-02
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DateIsOn-2 {First is invalid}  -setup {}  -body {DateIsOn asdf 2000-01-01
+}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsOn-3 {Second is invalid}  -setup {}  -body {DateIsOn 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsOn-4 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+DateIsOn {January 02, 2000} {January 02, 2000}
+}  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
+
+

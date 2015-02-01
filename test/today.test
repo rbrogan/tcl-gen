@@ -1,0 +1,7 @@
+package require tcltest
+package require gen
+
+::tcltest::test Today-0 {Basic test}  -setup {}  -body {Ter {[IsDate [Today]]} {return 1} {return 0}
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+

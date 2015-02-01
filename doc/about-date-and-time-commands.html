@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Date and Time Commands</title>
+</head>
+<body>
+<h1>About Date and Time Commands</h1>
+<p>
+Configuring Gen for date and time command usage is optional. Gen is preconfigured to use the following formats:<br>
+<ol>
+<li>Date: <code>%Y-%m-%d -> 2000-01-02, 2009-08-07, etc.</code></li>
+<li>Datetime: <code>%Y-%m-%d %H:%M:%S -> 2000-01-02 03:04:05, 2009-08-07 06:05:04, etc.</code></li>
+<li>TimeOfDay: <code>%H:%M:%S -> 00:01:02, 12:13:14, etc.</code></li>
+</ol>
+But if you like, you can configure the formats Gen will expect and use for date, time, and datetime strings.
+</p>
+<p>
+Gen currently uses the <a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm"><code>clock</code></a> command as its basis for date and time commands. Configuring Gen for date and time commands means telling it what to use for flags in its arguments to the clock command. For instance, if we say:<br>
+<pre>SetDateFormat %Y-%m-%d
+IsDate 2000-01-02</pre>
+... then Gen, within <code>IsDate</code>, will make a call to <code>clock scan 2000-01-02 -format %Y-%m-%d</code>.
+</p>
+<p>
+Note that the contents of <code>GenNS::DateFormat</code>, <code>GenNS::DatetimeFormat</code>, and <code>GenNS::TimeOfDateFormat</code> will be appended to strings of the form <code>clock format $Seconds -format</code> or <code>clock scan {$String} -format</code> before making the call. This means that you will want to group arguments with braces {} and will also to include flags for timezone, locale, etc. The following examples will make this more clear.
+</p>
+<h3>1. Date Format</h3>
+<p>Call <a href="setdateformat.html"><code>SetDateFormat</code></a> with the format to use in date commands (e.g. <code>DateIsOn</code>). For example:
+<ol>
+<li>
+<code>% SetDateFormat %Y-%m-%d</code><br>
+<code>% Today</code><br>
+<code>2000-01-02</code>
+</li>
+<li>
+<code>% SetDateFormat {{%B %d, %Y}}</code><br>
+<code>% Today</code><br>
+<code>January 01, 2000</code>
+</li>
+</ol>
+</p>
+<h3>2. Datetime Format</h3>
+<p>Call <a href="setdatetimeformat.html"><code>SetDatetimeFormat</code></a> with the format to use in datetime commands (e.g. <code>DatetimeIsAt</code>). For example:
+<ol>
+<li>
+<code>% SetDatetimeFormat {%Y-%m-%d %H:%M:%S}</code><br>
+<code>% Now</code><br>
+<code>2000-01-02 03:04:05</code>
+</li>
+<li>
+<code>% SetDatetimeFormat {{%m/%d/%Y %H:%M} -locale en_US -timezone :America/New_York}</code><br>
+<code>% Now</code><br>
+<code>01/02/2000 03:04</code>
+</li>
+</ol>
+</p>
+<h3>3. Time Of Day Format</h3>
+<p>Call <a href="settimeofdayformat.html"><code>SetTimeOfDayFormat</code></a> with the format to use in time-of-day commands (e.g. <code>TimeOfDayIsAt</code>). For example:
+<ol>
+<li>
+<code>% SetTimeOfDayFormat %H:%M:%S</code><br>
+<code>% CurrentTimeOfDay</code><br>
+<code>12:11:10</code>
+</li>
+<li>
+<code>% SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}</code><br>
+<code>% CurrentTimeOfDay</code><br>
+<code>1211 PM</code>
+</li>
+</ol>
+</p>
+</body>
+</html>

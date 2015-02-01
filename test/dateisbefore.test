@@ -1,0 +1,36 @@
+package require tcltest
+package require gen
+
+::tcltest::test DateIsBefore-0 {Basic test - return 1}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-03}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DateIsBefore-1 {Basic test - return 0}  -setup {}  -body {DateIsBefore {2000-01-03} {2000-01-02}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DateIsBefore-2 {FirstDate is empty}  -setup {}  -body {DateIsBefore "" {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-3 {SecondDate is empty}  -setup {}  -body {DateIsBefore {2000-01-03} ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-4 {FirstDate has invalid format}  -setup {}  -body {DateIsBefore asdf {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-5 {SecondDate has invalid format}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
+}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-6 {First date has invalid values}  -setup {}  -body {DateIsBefore asdf {2000-01-02}
+}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-7 {Second date has invalid values}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
+}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateIsBefore-8 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+DateIsBefore {January 02, 2000} {January 03, 2000}
+}  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
+
+

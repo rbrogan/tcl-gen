@@ -1,0 +1,28 @@
+package require tcltest
+package require gen
+
+::tcltest::test TimeOfDayIsAfter-0 {First is after second}  -setup {}  -body {TimeOfDayIsAfter 01:02:03 01:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsAfter-1 {Second is  after first}  -setup {}  -body {TimeOfDayIsAfter 01:00:00 01:02:03
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsAfter-2 {First and second are equal}  -setup {}  -body {TimeOfDayIsAfter 01:02:03 01:02:03
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsAfter-3 {First is invalid}  -setup {}  -body {TimeOfDayIsAfter asdf 01:02:03
+}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsAfter-4 {Second is invalid}  -setup {}  -body {TimeOfDayIsAfter 01:02:03 asdf
+}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsAfter-5 {Use alternate format}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+TimeOfDayIsAfter {0102 PM} {0100 PM}
+}  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
+}  -result {1}  -output {}  -returnCodes {0}  
+
+

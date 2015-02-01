@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatetimeIsAt</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatetimeIsAt  &mdash;  Check whether the first datetime happens at the second.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatetimeIsAt</b> <i>FirstDatetime</i> <i>SecondDatetime</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> First datetime happens when second does.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> First and second datetime are different.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of FirstDatetime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of SecondDatetime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this is basically just <code>string equal</code> but is included for the sake of completeness. It does check to verify both inputs are dates.<p>For information about how to configure the format, look <a href='about-date-and-time-commands.html'>here</a>.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set FirstDatetime {2000-01-02 03:04:05}<br>% set SecondDatetime {2000-01-02 03:04:05}<br>% <b>DatetimeIsAt $FirstDatetime $SecondDatetime</b><br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateison.html'>DateIsOn</a>, <a href = 'datetimeisafter.html'>DatetimeIsAfter</a>, <a href = 'datetimeisatorafter.html'>DatetimeIsAtOrAfter</a>, <a href = 'datetimeisatorbefore.html'>DatetimeIsAtOrBefore</a>, <a href = 'datetimeisbefore.html'>DatetimeIsBefore</a>, <a href = 'datetimeisbetween.html'>DatetimeIsBetween</a>, <a href = 'setdateformat.html'>SetDateFormat</a>, <a href = 'setdatetimeformat.html'>SetDatetimeFormat</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

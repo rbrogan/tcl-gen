@@ -1,0 +1,29 @@
+package require tcltest
+package require gen
+
+::tcltest::test DatetimeIsAt-0 {Datetime is at}  -setup {}  -body {DatetimeIsAt {2000-01-01 00:00:00} {2000-01-01 00:00:00}
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DatetimeIsAt-1 {Datetime is before}  -setup {}  -body {DatetimeIsAt {2000-01-01 00:00:00} {2000-01-01 00:00:01}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DatetimeIsAt-2 {Datetime is after}  -setup {}  -body {DatetimeIsAt {2000-01-01 00:00:01} {2000-01-01 00:00:00}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DatetimeIsAt-3 {First is invalid}  -setup {}  -body {DatetimeIsAt asdf {2000-01-01 00:00:00}
+}  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DatetimeIsAt-4 {Second is invalid}  -setup {}  -body {DatetimeIsAt {2000-01-01 00:00:00} asdf
+}  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DatetimeIsAt-5 {Use alternate format}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
+DatetimeIsAt {01/02/2000 0304} {01/02/2000 0304}
+}  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
+}  -result {1}  -output {}  -returnCodes {0}  
+
+

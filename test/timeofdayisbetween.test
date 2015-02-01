@@ -1,0 +1,38 @@
+package require tcltest
+package require gen
+
+::tcltest::test TimeOfDayIsBetween-0 {First is between second and third}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-1 {First is before second and third}  -setup {}  -body {TimeOfDayIsBetween 01:02:01 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-2 {First is after second and third}  -setup {}  -body {TimeOfDayIsBetween 01:02:05 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-3 {First equals second}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-4 {First equals third}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-5 {Second is after third}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:04 01:02:02}  -cleanup {}  -result {Arguments SecondTimeOfDay and ThirdTimeOfDay have incoherent values 01:02:04 and 01:02:02.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsBetween-6 {First is invalid}  -setup {}  -body {TimeOfDayIsBetween asdf 01:02:02 01:02:04}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsBetween-7 {Second is invalid}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 asdf 01:02:04}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsBetween-8 {Third is invalid}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 asdf}  -cleanup {}  -result {Variable ThirdTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsBetween-9 {Use alternate format}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+TimeOfDayIsBetween {0101 PM} {0100 PM} {0102 PM}
+}  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
+}  -result {1}  -output {}  -returnCodes {0}  
+
+

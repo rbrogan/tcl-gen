@@ -2,6 +2,104 @@ Gen
 
 NEWS
 
+2015.02.01
+v1.2 Release
+
+For this month we have date and time commands. More commands are in the works. Look for another batch of date and time commands in the future (and use the feedback page to let us know what you would like).
+
+Also note that we have made a slight upgrade to the documentation. Commands are now organized by category, for ease-of-navigation.
+
+What follows is a listing of new commands:
+
+CurrentTimeOfDay
+     Get the current time-of-day.
+
+DateIsAfter
+     Check if first date comes after the second date.
+
+DateIsBefore
+     Check whether the first date comes before the second.
+
+DateIsBetween
+     Check whether the first date comes between second and third.
+
+DateIsOn
+     Check if first date and second date are equal.
+
+DateIsOnOrAfter
+     Check if first date comes on or after the second date.
+
+DateIsOnOrBefore
+     Check if first date comes on or before the second date.
+
+DateMinusDays
+     Get the date some number of days before the given one.
+
+DatePlusDays
+     Add some number of days to a date.
+
+DatetimeIsAfter
+     Check whether the first datetime is after the second one.
+
+DatetimeIsAt
+     Check whether the first datetime happens at the second.
+
+DatetimeIsAtOrAfter
+     Check whether first datetime happens at or after second.
+
+DatetimeIsAtOrBefore
+     Check whether first datetime happens at or before second.
+
+DatetimeIsBefore
+     Check whether the first datetime is before the second.
+
+DatetimeIsBetween
+     Check whether the given datetime is between others.
+
+IsTimeOfDay
+     Check whether given string is of the form hh:mm:ss.
+
+Now
+     Get the current datetime as formatted string.
+
+SetDateFormat
+     Set the format dates will be in (e.g. YYYY-MM-DD).
+
+SetDatetimeFormat
+     Set format that datetimes will be in.
+
+SetTimeOfDayFormat
+     Set format that the time-of-day will be presented in.
+
+TimeOfDayIsAfter
+     Check whether the given time-of-day is after the second.
+
+TimeOfDayIsAt
+     Check whether the given time-of-day is at the second.
+
+TimeOfDayIsAtOrAfter
+     Check whether given time-of-day is at or after the second.
+
+TimeOfDayIsAtOrBefore
+     Check whether given time-of-day is at or before the second.
+
+TimeOfDayIsBefore
+     Check whether the first time-of-day is before the second.
+
+TimeOfDayIsBetween
+     Check whether given time-of-day is between the others.
+
+Today
+     Get the current date.
+
+Tomorrow
+     Get tomorrow's date.
+
+Yesterday
+     Get yesterday's date.
+
+     
+     
 2015.01.04
 v1.1 Release
 

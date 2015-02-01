@@ -1,0 +1,23 @@
+package require tcltest
+package require gen
+
+::tcltest::test SetDatetimeFormat-0 {Set to default}  -setup {}  -body {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
+puts [IsDatetime {2000-01-02 03:04:05}]
+puts [IsDatetime {02/01/2000 03:04:05}]
+}  -cleanup {}  -result {}  -output {1
+0
+}  -returnCodes {0}  
+
+
+::tcltest::test SetDatetimeFormat-1 {Set to something other than default}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H:%M:%S}}
+puts [IsDatetime {2000-01-02 03:04:05}]
+puts [IsDatetime {02/01/2000 03:04:05}]
+}  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}}  -result {}  -output {0
+1
+}  -returnCodes {0}  
+
+
+::tcltest::test SetDatetimeFormat-2 {Invalid input}  -setup {}  -body {SetDatetimeFormat asdf
+}  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+

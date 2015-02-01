@@ -2,7 +2,50 @@ Gen
 
 CHANGELOG
 
+2014.02.01
+v1.2
 
+No changes break existing command usage.
+
+Changes by functionality
+
+    Monthly release of new commands, with corresponding files in test and doc directories.
+    Documentation now organized according to category, for ease-of-navigation.
+    Added favicon to html pages.
+
+By files
+
+    /
+        Added favicon.ico.
+        All .html pages
+            Added link to favicon.
+        changelog.html, changelog.txt
+            Updated with latest info.
+        news.html, news.txt
+            Updated with latest info.
+        README.html
+            Update Recent Changes section.
+        README.txt
+            Update Recent Changes section.
+        roadmap.html
+            Updated with latest info.
+        wishlist.html
+            Revised to remove items now on Roadmap.
+    /src
+        gen.tcl
+            Commands added.
+            Three config variables added to support date and time commands.
+        pkgIndex.tcl
+            Updated version.
+    /test
+        Added tests for new commands.
+    /doc
+        Added pages for new commands.
+        Added index pages for each category.
+        Added About Date and Time Commands page.
+
+2014.01.04
+v1.1
 
 No changes break existing command usage.
 

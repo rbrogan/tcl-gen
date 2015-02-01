@@ -1,0 +1,23 @@
+package require tcltest
+package require gen
+
+::tcltest::test SetTimeOfDayFormat-0 {Set to default}  -setup {}  -body {SetTimeOfDayFormat %H:%M:%S
+puts [IsTimeOfDay 00:00:00]
+puts [IsTimeOfDay 0000]
+}  -cleanup {}  -result {}  -output {1
+0
+}  -returnCodes {0}  
+
+
+::tcltest::test SetTimeOfDayFormat-1 {Set to something other than default}  -setup {}  -body {SetTimeOfDayFormat %H%M
+puts [IsTimeOfDay 00:00:00]
+puts [IsTimeOfDay 0000]
+}  -cleanup {}  -result {}  -output {0
+1
+}  -returnCodes {0}  
+
+
+::tcltest::test SetTimeOfDayFormat-2 {Invalid input}  -setup {}  -body {SetTimeOfDayFormat asdf
+}  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+

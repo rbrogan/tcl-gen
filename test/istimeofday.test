@@ -1,0 +1,20 @@
+package require tcltest
+package require gen
+
+::tcltest::test IsTimeOfDay-0 {Basic test - return 0}  -setup {}  -body {IsTimeOfDay asdf
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsTimeOfDay-1 {Basic test - return 1}  -setup {SetTimeOfDayFormat %H:%M:%S}  -body {IsTimeOfDay 01:02:03
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsTimeOfDay-3 {String is empty}  -setup {}  -body {IsTimeOfDay ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsTimeOfDay-4 {Use alternate format}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+IsTimeOfDay {0100 PM}
+}  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
+}  -result {1}  -output {}  -returnCodes {0}  
+
+

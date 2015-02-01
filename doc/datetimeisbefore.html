@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatetimeIsBefore</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatetimeIsBefore  &mdash;  Check whether the first datetime is before the second.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatetimeIsBefore</b> <i>FirstDatetime</i> <i>SecondDatetime</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> First is before the second.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> First is not before the second.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of FirstDateTime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of SecondDateTime are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is like less than (&lt;).<p>For information about how to configure the format, look <a href='about-date-and-time-commands.html'>here</a>.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DateTimeIsBefore {2000-01-02 03:04:05} {2000-01-02 03:04:06}</b><br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateisbefore.html'>DateIsBefore</a>, <a href = 'datetimeisafter.html'>DatetimeIsAfter</a>, <a href = 'datetimeisat.html'>DatetimeIsAt</a>, <a href = 'datetimeisatorafter.html'>DatetimeIsAtOrAfter</a>, <a href = 'datetimeisatorbefore.html'>DatetimeIsAtOrBefore</a>, <a href = 'datetimeisbetween.html'>DatetimeIsBetween</a>, <a href = 'setdatetimeformat.html'>SetDatetimeFormat</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

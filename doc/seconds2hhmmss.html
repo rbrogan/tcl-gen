@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Seconds2Hhmmss</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Seconds2Hhmmss  &mdash;  Convert a number of seconds to a string with form hh:mm:ss.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Seconds2Hhmmss</b> <i>StringVariable</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string of the form hh:mm:ss.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>Quantity of seconds to convert.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of StringVariable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>StringVariable is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <a href='seconds2hhmmss.html'>Seconds2Hhmmss</a> 60<br>00:01:00<br>% Seconds2Hhmmss 3600<br>01:00:00</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'hhmmss2seconds.html'>Hhmmss2Seconds</a>, <a href = 'hhmmss2seconds.html'>Hhmmss2Seconds</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

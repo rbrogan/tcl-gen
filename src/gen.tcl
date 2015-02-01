@@ -1,4 +1,4 @@
-package provide gen 1.1.0
+package provide gen 1.2.0
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -21,6 +21,7 @@ array set ErrorCode {
      VARIABLE_CONTENTS_EMPTY -12
      DATABASE_VARIABLE_NOT_FOUND -13
      TABLE_NOT_FOUND -14
+     ARGUMENTS_INCOHERENT -15
 }
 
 array set ErrorMessage {
@@ -38,12 +39,15 @@ array set ErrorMessage {
      VARIABLE_CONTENTS_EMPTY {Variable %s has empty value.}
      DATABASE_VARIABLE_NOT_FOUND {No variable called %s was found in the database globals table.}
      TABLE_NOT_FOUND {Table %s not found.}
+     ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
 }
 
-
-namespace eval GenNS {
+ namespace eval GenNS {
      variable DatabaseName "testdb"
      variable GlobalsTable "globals"
+     variable DateFormat %Y-%m-%d     
+     variable DatetimeFormat {{%Y-%m-%d %H:%M:%S}}
+     variable TimeOfDayFormat %H:%M:%S
 }
 
 proc AddTo {VarName Value} {
@@ -248,6 +252,259 @@ proc CommaSeparatedStringToList StringVariable {
           lappend Stage2 [string trim $Element]
      }
      set String $Stage2
+}
+
+proc CurrentTimeOfDay {} {
+
+     return [eval "clock format [clock seconds] -format $GenNS::TimeOfDayFormat"]
+}
+
+proc DateIsAfter {FirstDate SecondDate} {
+
+     if {![IsDate $FirstDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDate $FirstDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDate $SecondDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDate $SecondDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set FirstSeconds [eval "clock scan {$FirstDate} -format $GenNS::DateFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDate} -format $GenNS::DateFormat"]
+     if {$SecondSeconds < $FirstSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc DateIsBefore {FirstDate SecondDate} {
+
+     if {![IsDate $FirstDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDate $FirstDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDate $SecondDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDate $SecondDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set FirstSeconds [eval "clock scan {$FirstDate} -format $GenNS::DateFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDate} -format $GenNS::DateFormat"]
+     if {$SecondSeconds > $FirstSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc DateIsBetween {FirstDate SecondDate ThirdDate {Option BothExclusive}} {
+
+     if {![IsDate $FirstDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDate $FirstDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDate $SecondDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDate $SecondDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDate $ThirdDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ThirdDate $ThirdDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     switch -regexp $Option {
+          BothExclusive {
+               set Sign1 <
+               set Sign2 <
+          }
+          BothInclusive {
+               set Sign1 <=
+               set Sign2 <=
+          }
+          (LeftExclusive|RightInclusive) {
+               set Sign1 <
+               set Sign2 <=
+          }
+          (LeftInclusive|RightExclusive) {
+               set Sign1 <=
+               set Sign2 <
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Option $Option] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)]
+          }
+     }
+
+     set FirstSeconds [eval "clock scan {$FirstDate} -format $GenNS::DateFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDate} -format $GenNS::DateFormat"]
+     set ThirdSeconds [eval "clock scan {$ThirdDate} -format $GenNS::DateFormat"]
+
+     if {$SecondSeconds > $ThirdSeconds} {
+          error [format $::ErrorMessage(ARGUMENTS_INCOHERENT) SecondDate ThirdDate $SecondDate $ThirdDate] $::errorInfo $::ErrorCode(ARGUMENTS_INCOHERENT)
+     }
+
+     set Expression "($SecondSeconds $Sign1 $FirstSeconds) && ($FirstSeconds $Sign2 $ThirdSeconds)"
+     if {[expr $Expression]} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc DateIsOn {FirstDate SecondDate} {
+
+     if {![IsDate $FirstDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDate $FirstDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDate $SecondDate]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDate $SecondDate] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     return [string equal $FirstDate $SecondDate]
+}
+
+proc DateIsOnOrAfter {FirstDate SecondDate} {
+
+     return [expr ![DateIsBefore $FirstDate $SecondDate]]
+}
+
+proc DateIsOnOrBefore {FirstDate SecondDate} {
+
+     return [expr ![DateIsAfter $FirstDate $SecondDate]]
+}
+
+proc DateMinusDays {DateVariable NumDays} {
+     if {[string first @ $DateVariable] == 0} {
+          UpvarExistingOrDie [string range $DateVariable 1 end] Date
+     } else {
+          set Date $DateVariable
+     }
+
+     if {![IsDate $Date]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) DateVariable $Date] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {[IsNonNumeric $NumDays]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) NumDays $NumDays] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set DateSeconds [eval "clock scan {$Date} -format $GenNS::DateFormat"]
+     set Date [eval "clock format [expr $DateSeconds - (86400*$NumDays)]  -format $GenNS::DateFormat"]
+}
+
+proc DatePlusDays {DateVariable NumDays} {
+     if {[string first @ $DateVariable] == 0} {
+          UpvarExistingOrDie [string range $DateVariable 1 end] Date
+     } else {
+          set Date $DateVariable
+     }
+
+     if {![IsDate $Date]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) DateVariable $Date] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {[IsNonNumeric $NumDays]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) NumDays $NumDays] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set DateSeconds [eval "clock scan {$Date} -format $GenNS::DateFormat"]
+     set Date [eval "clock format [expr $DateSeconds + (86400*$NumDays)]  -format $GenNS::DateFormat"]
+}
+
+proc DatetimeIsAfter {FirstDatetime SecondDatetime} {
+
+     if {![IsDatetime $FirstDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDatetime $FirstDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDatetime $SecondDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDatetime $SecondDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set FirstSeconds [eval "clock scan {$FirstDatetime} -format $GenNS::DatetimeFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDatetime} -format $GenNS::DatetimeFormat"]
+     if {$FirstSeconds > $SecondSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc DatetimeIsAt {FirstDatetime SecondDatetime} {
+
+     if {![IsDatetime $FirstDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDatetime $FirstDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDatetime $SecondDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDatetime $SecondDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     return [string equal $FirstDatetime $SecondDatetime]
+}
+
+proc DatetimeIsAtOrAfter {FirstDatetime SecondDatetime} {
+
+     return [expr ![DatetimeIsBefore $FirstDatetime $SecondDatetime]]
+}
+
+proc DatetimeIsAtOrBefore {FirstDatetime SecondDatetime} {
+
+     return [expr ![DatetimeIsAfter $FirstDatetime $SecondDatetime]]
+}
+
+proc DatetimeIsBefore {FirstDatetime SecondDatetime} {
+
+     if {![IsDatetime $FirstDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDatetime $FirstDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsDatetime $SecondDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDatetime $SecondDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+
+     set FirstSeconds [eval "clock scan {$FirstDatetime} -format $GenNS::DatetimeFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDatetime} -format $GenNS::DatetimeFormat"]
+     if {$SecondSeconds > $FirstSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc DatetimeIsBetween {FirstDatetime SecondDatetime ThirdDatetime {Option BothExclusive}} {
+
+     if {![IsDatetime $FirstDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstDatetime $FirstDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)]
+     }
+     if {![IsDatetime $SecondDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondDatetime $SecondDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)]
+     }
+     if {![IsDatetime $ThirdDatetime]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ThirdDatetime $ThirdDatetime] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)]
+     }
+
+     switch -regexp $Option {
+          BothExclusive {
+               set Sign1 <
+               set Sign2 <
+          }
+          BothInclusive {
+               set Sign1 <=
+               set Sign2 <=
+          }
+          (LeftExclusive|RightInclusive) {
+               set Sign1 <
+               set Sign2 <=
+          }
+          (LeftInclusive|RightExclusive) {
+               set Sign1 <=
+               set Sign2 <
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Option $Option] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)]
+          }
+     }
+
+     set FirstSeconds [eval "clock scan {$FirstDatetime} -format $GenNS::DatetimeFormat"]
+     set SecondSeconds [eval "clock scan {$SecondDatetime} -format $GenNS::DatetimeFormat"]
+     set ThirdSeconds [eval "clock scan {$ThirdDatetime} -format $GenNS::DatetimeFormat"]
+     if {$SecondSeconds > $ThirdSeconds} {
+          error [format $::ErrorMessage(ARGUMENTS_INCOHERENT) SecondDatetime ThirdDatetime $SecondDatetime $ThirdDatetime]
+     }
+
+     set Expression "($SecondSeconds $Sign1 $FirstSeconds) && ($FirstSeconds $Sign2 $ThirdSeconds)"
+     if {[expr $Expression]} {
+          return 1
+     } else {
+          return 0
+     }
 }
 
 proc DbaseRegsub {TableName ColumnName FindValue ReplaceValue {WhereDict ""}} {
@@ -546,6 +803,25 @@ proc IncrDbGlobal {VarName {Amount 1}} {
      return $NewValue
 }
 
+proc IsDate StringValue {
+
+     if {[catch {eval "clock scan {$StringValue} -format $GenNS::DateFormat"}]} {
+          return 0
+     } else {
+          return 1
+     }
+}
+
+proc IsDatetime StringValue {
+
+     set CommandString "clock scan {$StringValue} -format $GenNS::DatetimeFormat"
+     if {[catch $CommandString Temp]} {
+          return 0
+     } else {
+          return 1
+     }
+}
+
 proc IsEmpty StringValue {
 
 	if {[string equal $StringValue ""]} {
@@ -642,6 +918,15 @@ proc IsPositive Value {
           return 1
      } else {
           return 0
+     }
+}
+
+proc IsTimeOfDay StringValue {
+
+     if {[catch {eval "clock scan {$StringValue} -format $GenNS::TimeOfDayFormat"}]} {
+          return 0
+     } else {
+          return 1
      }
 }
 
@@ -743,6 +1028,11 @@ proc NotEmpty StringValue {
 	} else {
 		return 0
 	}
+}
+
+proc Now {} {
+
+     return [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"]
 }
 
 proc Prepend {StringVarName Value} {
@@ -948,6 +1238,26 @@ proc RunSqlInsertIfDoesNotExist {TableName DictValue} {
      return $Id
 }
 
+proc SetDateFormat FormatString {
+
+     if {[catch {eval "clock format 0 -format $FormatString"} Result]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     } elseif {[string equal $Result $FormatString]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set GenNS::DateFormat $FormatString
+}
+
+proc SetDatetimeFormat FormatString {
+
+     if {[catch {eval "clock format 0 -format \{$FormatString\}"} Result]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     } elseif {[string equal $Result $FormatString]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set GenNS::DatetimeFormat $FormatString
+}
+
 proc SetDbGlobal {VarName {Value "DoGetDbGlobal"}} {
 
      if {[IsEmpty $VarName]} {
@@ -970,6 +1280,16 @@ proc SetDbGlobal {VarName {Value "DoGetDbGlobal"}} {
      }
 
      return $Value
+}
+
+proc SetTimeOfDayFormat FormatString {
+
+     if {[catch {eval "clock format 0 -format $FormatString"} Result]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     } elseif {[string equal $Result $FormatString]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FormatString $FormatString] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set GenNS::TimeOfDayFormat $FormatString
 }
 
 proc SetZeroIfEmpty VarName {
@@ -1344,6 +1664,104 @@ proc Ter {Condition IfTrue IfFalse} {
      }
 }
 
+proc TimeOfDay2Seconds StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     if {[catch {eval "clock scan {$String} -format $GenNS::TimeOfDayFormat"} String]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) StringVariable $StringVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     return $String
+}
+
+proc TimeOfDayIsAfter {FirstTimeOfDay SecondTimeOfDay} {
+
+     if {![IsTimeOfDay $FirstTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstTimeOfDay $FirstTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsTimeOfDay $SecondTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondTimeOfDay $SecondTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set FirstSeconds [TimeOfDay2Seconds $FirstTimeOfDay]
+     set SecondSeconds [TimeOfDay2Seconds $SecondTimeOfDay]
+     if {$FirstSeconds > $SecondSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc TimeOfDayIsAt {FirstTimeOfDay SecondTimeOfDay} {
+
+     if {![IsTimeOfDay $FirstTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstTimeOfDay $FirstTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsTimeOfDay $SecondTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondTimeOfDay $SecondTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     return [string equal $FirstTimeOfDay $SecondTimeOfDay]
+}
+
+proc TimeOfDayIsAtOrAfter {FirstTimeOfDay SecondTimeOfDay} {
+
+     return [expr ![TimeOfDayIsBefore $FirstTimeOfDay $SecondTimeOfDay]]
+}
+
+proc TimeOfDayIsAtOrBefore {FirstTimeOfDay SecondTimeOfDay} {
+
+     return [expr ![TimeOfDayIsAfter $FirstTimeOfDay $SecondTimeOfDay]]
+}
+
+proc TimeOfDayIsBefore {FirstTimeOfDay SecondTimeOfDay} {
+
+     if {![IsTimeOfDay $FirstTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstTimeOfDay $FirstTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsTimeOfDay $SecondTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondTimeOfDay $SecondTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set FirstSeconds [TimeOfDay2Seconds $FirstTimeOfDay]
+     set SecondSeconds [TimeOfDay2Seconds $SecondTimeOfDay]
+     if {$FirstSeconds < $SecondSeconds} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc TimeOfDayIsBetween {FirstTimeOfDay SecondTimeOfDay ThirdTimeOfDay} {
+
+     if {![IsTimeOfDay $FirstTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstTimeOfDay $FirstTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsTimeOfDay $SecondTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SecondTimeOfDay $SecondTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsTimeOfDay $ThirdTimeOfDay]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ThirdTimeOfDay $ThirdTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set FirstSeconds [TimeOfDay2Seconds $FirstTimeOfDay]
+     set SecondSeconds [TimeOfDay2Seconds $SecondTimeOfDay]
+     set ThirdSeconds [TimeOfDay2Seconds $ThirdTimeOfDay]
+
+     if {$SecondSeconds > $ThirdSeconds} {
+          error [format $::ErrorMessage(ARGUMENTS_INCOHERENT) SecondTimeOfDay ThirdTimeOfDay $SecondTimeOfDay $ThirdTimeOfDay] $::errorInfo $::ErrorCode(ARGUMENTS_INCOHERENT)
+     }
+
+     if {($FirstSeconds > $SecondSeconds) && ($FirstSeconds < $ThirdSeconds)} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
 proc ToBackslashes StringVariable {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
@@ -1378,6 +1796,16 @@ proc ToForwardSlashes StringVariable {
      set String [regsub -all {\\\\} $String /]
      set String [regsub -all {\\} $String /]
      return $String
+}
+
+proc Today {} {
+
+     return [eval "clock format [clock seconds] -format $GenNS::DateFormat"]
+}
+
+proc Tomorrow {} {
+
+     return [eval "clock format [expr [clock seconds] + (3600*24)] -format $GenNS::DateFormat"]
 }
 
 proc UnlinkVarFromDbGlobal {VarName {DbGlobalName ""}} {
@@ -1456,6 +1884,12 @@ proc VarExistsInCaller {VarName {LevelOffset 1}} {
      return [uplevel $Level $command]
 }
 
+proc Yesterday {} {
+
+     set SecondsPerDay [expr 60*60*24]
+     return [eval "clock format [expr [clock seconds] - $SecondsPerDay] -format $GenNS::DateFormat"]
+}
+
 proc GenCurrentVersion {} {
-     puts 1.1.0
+     puts 1.2.0
 }

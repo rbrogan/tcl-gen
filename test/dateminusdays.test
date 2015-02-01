@@ -1,0 +1,20 @@
+package require tcltest
+package require gen
+
+::tcltest::test DateMinusDays-0 {Basic test}  -setup {}  -body {DateMinusDays {2000-01-02} 1
+}  -cleanup {}  -result {2000-01-01}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DateMinusDays-1 {Date is invalid}  -setup {}  -body {DateMinusDays asdf 1
+}  -cleanup {}  -result {Variable DateVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateMinusDays-2 {NumDays is non-numeric}  -setup {}  -body {DateMinusDays {2000-01-02} asdf
+}  -cleanup {}  -result {Variable NumDays has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DateMinusDays-3 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+DateMinusDays {January 02, 2000} 1
+}  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {January 01, 2000}  -output {}  -returnCodes {0}  
+
+

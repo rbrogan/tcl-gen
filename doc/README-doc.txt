@@ -90,6 +90,36 @@ coe.html
      Page for the command Coe.
 commaseparatedstringtolist.html
      Page for the command CommaSeparatedStringToList.
+currenttimeofday.html
+     Page for the command CurrentTimeOfDay.
+dateisafter.html
+     Page for the command DateIsAfter.
+dateisbefore.html
+     Page for the command DateIsBefore.
+dateisbetween.html
+     Page for the command DateIsBetween.
+dateison.html
+     Page for the command DateIsOn.
+dateisonorafter.html
+     Page for the command DateIsOnOrAfter.
+dateisonorbefore.html
+     Page for the command DateIsOnOrBefore.
+dateminusdays.html
+     Page for the command DateMinusDays.
+dateplusdays.html
+     Page for the command DatePlusDays.
+datetimeisafter.html
+     Page for the command DatetimeIsAfter.
+datetimeisat.html
+     Page for the command DatetimeIsAt.
+datetimeisatorafter.html
+     Page for the command DatetimeIsAtOrAfter.
+datetimeisatorbefore.html
+     Page for the command DatetimeIsAtOrBefore.
+datetimeisbefore.html
+     Page for the command DatetimeIsBefore.
+datetimeisbetween.html
+     Page for the command DatetimeIsBetween.
 dbaseregsub.html
      Page for the command DbaseRegsub.
 decr.html
@@ -120,6 +150,10 @@ getdbglobal.html
      Page for the command GetDbGlobal.
 incrdbglobal.html
      Page for the command IncrDbGlobal.
+isdate.html
+     Page for the command IsDate.
+isdatetime.html
+     Page for the command IsDatetime.
 isempty.html
      Page for the command IsEmpty.
 isnegative.html
@@ -136,6 +170,8 @@ isnumeric.html
      Page for the command IsNumeric.
 ispositive.html
      Page for the command IsPositive.
+istimeofday.html
+     Page for the command IsTimeOfDay.
 iszero.html
      Page for the command IsZero.
 lappendifnotalready.html
@@ -154,6 +190,8 @@ multiplyby.html
      Page for the command MultiplyBy.
 notempty.html
      Page for the command NotEmpty.
+now.html
+     Page for the command Now.
 prepend.html
      Page for the command Prepend.
 printvar.html
@@ -176,8 +214,14 @@ runsqlenter.html
      Page for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
+setdateformat.html
+     Page for the command SetDateFormat.
+setdatetimeformat.html
+     Page for the command SetDatetimeFormat.
 setdbglobal.html
      Page for the command SetDbGlobal.
+settimeofdayformat.html
+     Page for the command SetTimeOfDayFormat.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
 splitandtrim.html
@@ -226,12 +270,28 @@ swap.html
      Page for the command Swap.
 ter.html
      Page for the command Ter.
+timeofdayisafter.html
+     Page for the command TimeOfDayIsAfter.
+timeofdayisat.html
+     Page for the command TimeOfDayIsAt.
+timeofdayisatorafter.html
+     Page for the command TimeOfDayIsAtOrAfter.
+timeofdayisatorbefore.html
+     Page for the command TimeOfDayIsAtOrBefore.
+timeofdayisbefore.html
+     Page for the command TimeOfDayIsBefore.
+timeofdayisbetween.html
+     Page for the command TimeOfDayIsBetween.
 tobackslashes.html
      Page for the command ToBackslashes.
 todoublebackslashes.html
      Page for the command ToDoubleBackslashes.
 toforwardslashes.html
      Page for the command ToForwardSlashes.
+today.html
+     Page for the command Today.
+tomorrow.html
+     Page for the command Tomorrow.
 unlinkvarfromdbglobal.html
      Page for the command UnlinkVarFromDbGlobal.
 unsetdbglobal.html
@@ -242,6 +302,8 @@ upvarx.html
      Page for the command UpvarX.
 varexistsincaller.html
      Page for the command VarExistsInCaller.
+yesterday.html
+     Page for the command Yesterday.
 
 ---05| CREDITS
 

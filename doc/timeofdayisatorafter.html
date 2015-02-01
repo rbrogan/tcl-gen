@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeOfDayIsAtOrAfter</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeOfDayIsAtOrAfter  &mdash;  Check whether given time-of-day is at or after the second.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeOfDayIsAtOrAfter</b> <i>FirstTimeOfDay</i> <i>SecondTimeOfDay</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> First time-of-day happens at or after the second.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> First time-of-day does not happen at or after the second.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstTimeOfDay</i></td><td class='argument_right'>String in time-of-day format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondTimeOfDay</i></td><td class='argument_right'>String in time-of-day format.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of FirstTimeOfDay are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of SecondTimeOfDay are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is like greater than or equal to (&gt;=).
+Note this command is effectively <code>![TimeOfDayIsBefore $FirstTimeOfDay $SecondTimeOfDay]</code> but still we include it for the sake of convenience / expressiveness.<p>For information about how to configure the format, look <a href='about-date-and-time-commands.html'>here</a>.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>TimeOfDayIsAtOrAfter 01:02:03 01:02:03</b><br>1<br></pre></div><div class="code_sample"><pre>% TimeOfDayIsAtOrAfter 01:02:03 01:00:00<br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'settimeofdayformat.html'>SetTimeOfDayFormat</a>, <a href = 'timeofdayisafter.html'>TimeOfDayIsAfter</a>, <a href = 'timeofdayisat.html'>TimeOfDayIsAt</a>, <a href = 'timeofdayisatorbefore.html'>TimeOfDayIsAtOrBefore</a>, <a href = 'timeofdayisbefore.html'>TimeOfDayIsBefore</a>, <a href = 'timeofdayisbetween.html'>TimeOfDayIsBetween</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_time">time</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

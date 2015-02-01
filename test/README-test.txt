@@ -114,6 +114,36 @@ coe.test
      Tests for the command Coe.
 commaseparatedstringtolist.test
      Tests for the command CommaSeparatedStringToList.
+currenttimeofday.test
+     Tests for the command CurrentTimeOfDay.
+dateisafter.test
+     Tests for the command DateIsAfter.
+dateisbefore.test
+     Tests for the command DateIsBefore.
+dateisbetween.test
+     Tests for the command DateIsBetween.
+dateison.test
+     Tests for the command DateIsOn.
+dateisonorafter.test
+     Tests for the command DateIsOnOrAfter.
+dateisonorbefore.test
+     Tests for the command DateIsOnOrBefore.
+dateminusdays.test
+     Tests for the command DateMinusDays.
+dateplusdays.test
+     Tests for the command DatePlusDays.
+datetimeisafter.test
+     Tests for the command DatetimeIsAfter.
+datetimeisat.test
+     Tests for the command DatetimeIsAt.
+datetimeisatorafter.test
+     Tests for the command DatetimeIsAtOrAfter.
+datetimeisatorbefore.test
+     Tests for the command DatetimeIsAtOrBefore.
+datetimeisbefore.test
+     Tests for the command DatetimeIsBefore.
+datetimeisbetween.test
+     Tests for the command DatetimeIsBetween.
 dbaseregsub.test
      Tests for the command DbaseRegsub.
 decr.test
@@ -144,6 +174,10 @@ getdbglobal.test
      Tests for the command GetDbGlobal.
 incrdbglobal.test
      Tests for the command IncrDbGlobal.
+isdate.test
+     Tests for the command IsDate.
+isdatetime.test
+     Tests for the command IsDatetime.
 isempty.test
      Tests for the command IsEmpty.
 isnegative.test
@@ -160,6 +194,8 @@ isnumeric.test
      Tests for the command IsNumeric.
 ispositive.test
      Tests for the command IsPositive.
+istimeofday.test
+     Tests for the command IsTimeOfDay.
 iszero.test
      Tests for the command IsZero.
 lappendifnotalready.test
@@ -178,6 +214,8 @@ multiplyby.test
      Tests for the command MultiplyBy.
 notempty.test
      Tests for the command NotEmpty.
+now.test
+     Tests for the command Now.
 prepend.test
      Tests for the command Prepend.
 printvar.test
@@ -200,8 +238,14 @@ runsqlenter.test
      Tests for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
+setdateformat.test
+     Tests for the command SetDateFormat.
+setdatetimeformat.test
+     Tests for the command SetDatetimeFormat.
 setdbglobal.test
      Tests for the command SetDbGlobal.
+settimeofdayformat.test
+     Tests for the command SetTimeOfDayFormat.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
 splitandtrim.test
@@ -250,12 +294,28 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+timeofdayisafter.test
+     Tests for the command TimeOfDayIsAfter.
+timeofdayisat.test
+     Tests for the command TimeOfDayIsAt.
+timeofdayisatorafter.test
+     Tests for the command TimeOfDayIsAtOrAfter.
+timeofdayisatorbefore.test
+     Tests for the command TimeOfDayIsAtOrBefore.
+timeofdayisbefore.test
+     Tests for the command TimeOfDayIsBefore.
+timeofdayisbetween.test
+     Tests for the command TimeOfDayIsBetween.
 tobackslashes.test
      Tests for the command ToBackslashes.
 todoublebackslashes.test
      Tests for the command ToDoubleBackslashes.
 toforwardslashes.test
      Tests for the command ToForwardSlashes.
+today.test
+     Tests for the command Today.
+tomorrow.test
+     Tests for the command Tomorrow.
 unlinkvarfromdbglobal.test
      Tests for the command UnlinkVarFromDbGlobal.
 unsetdbglobal.test
@@ -266,6 +326,8 @@ upvarx.test
      Tests for the command UpvarX.
 varexistsincaller.test
      Tests for the command VarExistsInCaller.
+yesterday.test
+     Tests for the command Yesterday.
 
 ---07| CREDITS
 

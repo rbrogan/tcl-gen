@@ -263,7 +263,9 @@ to subscribe will be put on the above page.
 
 ---17| RECENT CHANGES
 
-Initial revision. No changes yet.
+Version 1.2. No changes are known to affect existing API usage. You can find a
+change summary in news.txt / news.html and details in changelog.txt /
+changelog.html.
 
 ---18| LICENSE
 
