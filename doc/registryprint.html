@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RegistryPrint</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+RegistryPrint  &mdash;  Print the contents of a registry key.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>RegistryPrint</b> <i>RegistryKeyPath</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>RegistryKeyPath</i></td><td class='argument_right'>Key to print the contents of.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Registry key or value not found.</td>
+<td class="error_code">-16</td>
+<td>Registry key/value $Element not found.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% registry set {HKEY_CURRENT_USER\Software\My\GenTest}<br>% registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno<br>% registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos<br>% <b>RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}</b><br>one uno<br>two dos<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'printdict.html'>PrintDict</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_print">print</a>, <a href="keyword-index.html#C_registry">registry</a>
+</div>
+</body>
+</html>

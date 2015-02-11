@@ -1,0 +1,37 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryTree2Dict-0 {Basic test}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 333 three
+set MyDict [RegistryTree2Dict {HKEY_CURRENT_USER\Software\My\GenTest}]
+PrintDict $MyDict
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
+
+}  -cleanup {}  -result {Registry key/value HKEY_LOCAL_MACHINE\asdfasdf not found.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
+
+}  -cleanup {}  -result {Variable CurrentRegKey has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+set MyDict [RegistryTree2Dict {HKEY_CURRENT_USER\Software\My\GenTest}]
+PrintDict $MyDict
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {}  -returnCodes {0}  
+
+

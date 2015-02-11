@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LinkTclVariableToRegistryValue</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+LinkTclVariableToRegistryValue  &mdash;  Make link to propagate changes from Tcl var to registry.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>LinkTclVariableToRegistryValue</b> <i>VarName</i> <i>RegistryKeyPath</i> <i>RegistryValueName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of the variable to link.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RegistryKeyPath</i></td><td class='argument_right'>Path for registry key that the value is under.</td></tr><tr class='table_row_b'><td class='argument_left'><i>ValueName</i></td><td class='argument_right'>Name of the value to link.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input value is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Does not support types other than sz.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% registry set {HKEY_CURRENT_USER\Software\My} testy 123<br>% puts [registry get {HKEY_CURRENT_USER\Software\My} testy]<br>123<br>% set MyVar 345<br>% <b>LinkTclVariableToRegistryValue MyVar {HKEY_CURRENT_USER\Software\My} testy</b><br>% puts [registry get {HKEY_CURRENT_USER\Software\My} testy]<br>345<br>% set MyVar 456<br>% puts [registry get {HKEY_CURRENT_USER\Software\My} testy]<br>456<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'unlinktclvariablefromregistryvalue.html'>UnlinkTclVariableFromRegistryValue</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_link">link</a>, <a href="keyword-index.html#C_registry">registry</a>, <a href="keyword-index.html#C_trace">trace</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

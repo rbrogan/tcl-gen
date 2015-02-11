@@ -1,0 +1,94 @@
+package require tcltest
+package require gen
+
+::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 345
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]}  -cleanup {UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy}  -result {}  -output {123
+345
+456
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-1 {Registry value does not already exist}  -setup {}  -body {registry delete "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+set MyVar 345
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+}  -cleanup {UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy}  -result {}  -output {345
+456
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-2 {Tcl variable does not already exist}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {unset -nocomplain MyVar
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]}  -cleanup {UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy}  -result {}  -output {
+456
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-3 {Invalid value for Tcl variable name}  -setup {}  -body {LinkTclVariableToRegistryValue {} "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -cleanup {
+}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-4 {Invalid value for registry value path}  -setup {}  -body {LinkTclVariableToRegistryValue MyVar {} testy
+}  -cleanup {}  -result {Variable RegistryKeyPath has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-5 {Registry value is deleted then Tcl variable is updated}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 345
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+registry delete "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+}  -cleanup {UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -result {}  -output {123
+345
+456
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-6 {Tcl variable is deleted}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 345
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+unset MyVar
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+}  -cleanup {UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -result {}  -output {123
+345
+345
+345
+}  -returnCodes {0}  
+
+
+::tcltest::test LinkTclVariableToRegistryValue-7 {Tcl variable is update after call to unlink}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 345
+LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+set MyVar 456
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+set MyVar 567
+puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
+}  -cleanup {}  -result {}  -output {123
+345
+456
+456
+}  -returnCodes {0}  
+
+

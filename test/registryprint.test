@@ -1,0 +1,93 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {puts {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
+RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {one uno
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos
+RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {one uno
+two dos
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 333 three
+RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\My\GenTest}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 333 three
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\four}
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\four} aaa 1
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\four} bbb 2
+registry set {HKEY_CURRENT_USER\Software\My\GenTest\four} ccc 3
+RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {  one uno
+  two dos
+four 
+      aaa 1
+      bbb 2
+      ccc 3
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-6 {No registry key found}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}
+}  -cleanup {}  -result {Registry key/value HKEY_CURRENT_USER\Software\My\GenTest not found.}  -output {}  -returnCodes {1}  
+
+

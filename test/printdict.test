@@ -1,0 +1,65 @@
+package require tcltest
+package require gen
+
+::tcltest::test PrintDict-0 {Empty dict}  -setup {}  -body {PrintDict {}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-1 {Dict has one entry}  -setup {}  -body {set MyDict [dict create one uno]
+PrintDict $MyDict
+}  -cleanup {}  -result {}  -output {one uno
+}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-2 {Dict has multiple entries}  -setup {}  -body {set MyDict [dict create one uno two dos]
+PrintDict $MyDict
+}  -cleanup {}  -result {}  -output {one uno
+two dos
+}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-3 {Dict has one nested dict}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three]]
+PrintDict $MyDict
+}  -cleanup {}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-4 {Dict has multiple nested dicts}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three] four [dict create aaa 1 bbb 2 ccc 2]]
+PrintDict $MyDict
+}  -cleanup {}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+four 
+      aaa 1
+      bbb 2
+      ccc 3
+}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-5 {Dict has nested dict two levels deep}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3]]]
+PrintDict $MyDict
+}  -cleanup {}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+}  -returnCodes {0}  
+
+
+::tcltest::test PrintDict-6 {Input is not a dict}  -setup {}  -body {PrintDict {not a dict}
+}  -cleanup {}  -result {Variable DictValue has invalid value not a dict.}  -output {}  -returnCodes {1}  
+
+

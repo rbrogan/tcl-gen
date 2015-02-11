@@ -4,6 +4,9 @@ WARNING
 
 What follows are advisories intended to help prevent surprises. This should be considered a supplement to other documentation and should not be considered comprehensive.
 
+FAILING TESTS
+At this time there are several tests (for RegistryPrint and PrintDict) which fail and yet on inspection the expected output and actual output appear to be identical. The commands work as expected. I have left these tests in for now and will later investigate.
+
 PERMISSIVE VS. STRICT COMMAND BEHAVIOR
 Various commands may not behave as expected in uncommon scenarios. A good example is when the user passes a name of a variable that does not exist. Is this intentional or a bug? For unset it is a bug (unless -nocomplain is added) but for upvar it is not. Likewise, the Tcl command string and list commands will take indices that are out-of-range and convert them to be in range rather than throw an error. In many places Tcl commands are permissive and in some places they are not. We were initially inclined to make commands be strict and throw errors (rather than silently accept buggy code) but then had to reconsider that by making commands strict, it could cause unexpected behavior for a user accustomed to the behavior of permissive commands. We have tried to handle this as well as possible for this version and plan to implement a comprehensive solution, that allows the user to specify policies, in a future version. We will try to make this solution be such that default behavior will match existing code and not require changes.
 

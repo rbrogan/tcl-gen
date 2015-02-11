@@ -1,0 +1,21 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryExists-0 {Basic test - return 1}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+}  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryExists-1 {Basic test - return 0}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryExists-2 {ValueName is empty}  -setup {}  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen"
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryExists-3 {KeyName is empty}  -setup {}  -body {RegistryExists {} testy
+}  -cleanup {}  -result {Variable KeyName has empty value.}  -output {}  -returnCodes {1}  
+
+

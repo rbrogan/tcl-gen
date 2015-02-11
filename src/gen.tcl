@@ -1,4 +1,4 @@
-package provide gen 1.2.0
+package provide gen 1.3.0
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -22,6 +22,7 @@ array set ErrorCode {
      DATABASE_VARIABLE_NOT_FOUND -13
      TABLE_NOT_FOUND -14
      ARGUMENTS_INCOHERENT -15
+     REGISTRY_ELEMENT_NOT_FOUND -16
 }
 
 array set ErrorMessage {
@@ -40,6 +41,7 @@ array set ErrorMessage {
      DATABASE_VARIABLE_NOT_FOUND {No variable called %s was found in the database globals table.}
      TABLE_NOT_FOUND {Table %s not found.}
      ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
+     REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
 }
 
  namespace eval GenNS {
@@ -582,6 +584,50 @@ proc DecrDbGlobal {VarName {Amount 1}} {
      return $NewValue
 }
 
+proc Dict2RegistryTree {DictValue RegistryRootKey {DeleteUnmatched 0}} {
+
+     if {[IsEmpty $RegistryRootKey]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) RegistryRootKey] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {![IsDict $DictValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) DictValue $DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     dict for {Name Value} $DictValue {
+          set FullName "$RegistryRootKey\\$Name"
+          # Check if the value is itself a dict
+          if {[IsDict $Value]} {
+               # If so, make a subkey and recurse
+               registry set $FullName
+               Dict2RegistryTree $Value $FullName $DeleteUnmatched
+          } else {
+               if {[RegistryExists $RegistryRootKey $Name]} {
+                    set Type [registry type $RegistryRootKey $Name]
+                    registry set $RegistryRootKey $Name $Value $Type
+               } else {
+                    registry set $RegistryRootKey $Name $Value
+               }
+          }
+     }
+     
+     if {$DeleteUnmatched} {
+          # If any keys/value are in the registry but not the dict,
+          # delete them from the registry.
+          foreach RegKey [registry keys $RegistryRoot] {
+               if {![dict exists $DictValue $RegKey]} {
+                    registry delete "$RegistryRoot\\$RegKey"
+               }
+          }
+          
+          foreach RegValueName [registry values $RegistryRoot] {
+               if {![dict exists $DictValue $RegValueName]} {
+                    registry delete $RegistryRoot $RegValueName
+               }
+          }
+     }
+}
+
 proc DivideBy {VarName Value} {
 
      if {[IsEmpty $VarName]} {
@@ -822,6 +868,15 @@ proc IsDatetime StringValue {
      }
 }
 
+proc IsDict StringValue {
+
+          if {![catch {dict size $StringValue}]} {
+               return 1
+          } else {
+               return 0
+          }
+}
+
 proc IsEmpty StringValue {
 
 	if {[string equal $StringValue ""]} {
@@ -968,6 +1023,31 @@ proc LastOf ListValue {
      return [lindex $ListValue $Index]
 }
 
+proc LinkTclVariableToRegistryValue {VarName RegistryKeyPath RegistryValueName} {
+
+     if {[IsEmpty $VarName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) VarName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $RegistryKeyPath]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) RegistryKeyPath] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $RegistryValueName]} {
+          set ValueName $VarName
+     }
+
+     UpvarX $VarName Var
+     if {[RegistryExists $RegistryKeyPath $RegistryValueName]} {
+          set Type [registry type $RegistryKeyPath $RegistryValueName]
+     } else {
+          set Type sz
+     }
+
+     registry set $RegistryKeyPath $RegistryValueName $Var $Type
+     uplevel "trace add variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} {$RegistryValueName}\""
+}
+
 proc LinkVarToDbGlobal {VarName {DbGlobalName ""}} {
 
      if {[IsEmpty $VarName]} {
@@ -1040,6 +1120,28 @@ proc Prepend {StringVarName Value} {
      UpvarX $StringVarName String
      set String "[set Value][set String]"
      return $String
+}
+
+proc PrintDict {DictValue {IndentationSpaces 0}} {
+
+     if {![IsDict $DictValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) DictValue $DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set Spaces [string repeat " " $IndentationSpaces]
+     set MaxKeyLength 0
+     dict for {Key Value} $DictValue {
+          set CurrentKeyLength [string length $Key]
+          set MaxKeyLength [Ter {$CurrentKeyLength > $MaxKeyLength} {return $CurrentKeyLength} {return $MaxKeyLength}]
+     }
+     dict for {Key Value} $DictValue {
+          if {[IsDict $Value]} {
+               puts [format "$Spaces%[set MaxKeyLength]s " $Key]
+               PrintDict $Value [expr $MaxKeyLength + $IndentationSpaces + 1]
+          } else {
+               puts [format "$Spaces%[set MaxKeyLength]s $Value" $Key]
+          }
+     }
 }
 
 proc PrintVar VarName {
@@ -1123,6 +1225,64 @@ proc Raise {ListVariable SublistLength} {
           lappend NewList $NextList
      }
      set List $NewList
+}
+
+proc RegistryExists {KeyName {ValueName ""}} {
+
+     if {[IsEmpty $KeyName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) KeyName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $ValueName]} {
+          if {![catch {registry values $KeyName $ValueName}]} {
+               return 1
+          } else {
+               return 0
+          }
+     } else {
+          if {![catch {registry get $KeyName $ValueName}]} {
+               return 1
+          } else {
+               return 0
+          }
+     }
+}
+
+proc RegistryPrint RegistryKeyPath {
+
+     if {![RegistryExists $RegistryKeyPath]} {
+          error [format $::ErrorMessage(REGISTRY_ELEMENT_NOT_FOUND) $RegistryKeyPath] $::errorInfo $::ErrorCode(REGISTRY_ELEMENT_NOT_FOUND)
+     }
+
+     set Dict [RegistryTree2Dict $RegistryKeyPath]
+     PrintDict $Dict
+
+}
+
+proc RegistryTree2Dict {CurrentRegKey {CurrentDictName ""}} {
+
+     if {[IsEmpty $CurrentRegKey]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) CurrentRegKey] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {![RegistryExists $CurrentRegKey]} {
+          error [format $::ErrorMessage(REGISTRY_ELEMENT_NOT_FOUND) $CurrentRegKey] $::errorInfo $::ErrorCode(REGISTRY_ELEMENT_NOT_FOUND)
+     }
+
+     set CurrentDict [dict create]
+
+     foreach RegValueName [registry values $CurrentRegKey] {
+          set RegValueData [registry get $CurrentRegKey $RegValueName]
+          dict set CurrentDict $RegValueName $RegValueData
+     }
+
+     foreach RegKey [registry keys $CurrentRegKey] {
+          set DictValue [RegistryTree2Dict "$CurrentRegKey\\$RegKey"]
+          dict set CurrentDict $RegKey $DictValue
+     }
+   
+   
+     return $CurrentDict
 }
 
 proc ReloadPackage {Name {Version ""}} {
@@ -1808,6 +1968,22 @@ proc Tomorrow {} {
      return [eval "clock format [expr [clock seconds] + (3600*24)] -format $GenNS::DateFormat"]
 }
 
+proc UnlinkTclVariableFromRegistryValue {VarName RegistryKeyPath {RegistryValueName ""}} {
+
+     if {[IsEmpty $VarName]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) VarName] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $RegistryKeyPath]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) RegistryKeyPath] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $RegistryValueName]} {
+          set RegistryValueName $VarName
+     }
+     uplevel "trace remove variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} {$RegistryValueName}\""
+}
+
 proc UnlinkVarFromDbGlobal {VarName {DbGlobalName ""}} {
 
      if {[IsEmpty $VarName]} {
@@ -1833,6 +2009,15 @@ proc UpdateDbGlobal {VarName DbGlobalName args} {
 
      upvar #0 $VarName Var     
      SetDbGlobal $DbGlobalName $Var
+}
+
+proc UpdateRegistryValue {VarName RegistryKeyPath {RegistryValueName ""} args} {
+
+     if {[IsEmpty $RegistryValueName]} {
+          set RegistryValueName $VarName
+     }
+     upvar #0 $VarName Var     
+     registry set $RegistryKeyPath $RegistryValueName $Var
 }
 
 proc UpvarExistingOrDie {VarName Var} {
@@ -1891,5 +2076,5 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.2.0
+     puts 1.3.0
 }

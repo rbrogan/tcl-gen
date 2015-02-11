@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<title>About Registry Commands</title>
+</head>
+<body>
+<h1>About Registry Commands</h1>
+<h2>Terminology</h2>
+<p>
+The most confusing thing is the use of the term "value". In Tcl, the value is the contents of a variable. In the Windows Registry, the value is the variable. So in Tcl we would say we have a variable <code>abc</code> with value <code>123</code>. With the Windows Registry, we would say we have a value with name <code>abc</code> and data <code>123</code>.
+</p>
+<p>
+We hope the table below will help you get the terminology straight. 
+</p>
+<table>
+<tr><td class="table_column_a" style="font-size: 125%"><b>Tcl</b></td><td class="table_column_b" style="font-size: 125%"><b>Windows Registry</b></td></tr>
+<tr><td class="table_column_a">Variable</td><td class="table_column_b">Value</td></tr>
+<tr><td class="table_column_a">Variable Name</td><td class="table_column_b">Value Name</td></tr>
+<tr><td class="table_column_a">Variable Value</td><td class="table_column_b">Value Data</td></tr>
+<tr><td class="table_column_a">Dict</td><td class="table_column_b">Key/Tree</td></tr>
+<tr><td class="table_column_a">Dict Key</td><td class="table_column_b">Subkey or Value Name</td></tr>
+<tr><td class="table_column_a">Dict Value</td><td class="table_column_b">Subtree or Value Data</td></tr>
+<tr><td class="table_column_a">Nested Dict</td><td class="table_column_b">Subkey/Subtree</td></tr>
+</table>
+</body>
+</html>

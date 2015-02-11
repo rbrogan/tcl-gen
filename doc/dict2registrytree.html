@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dict2RegistryTree</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Dict2RegistryTree  &mdash;  Write to registry from dict.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Dict2RegistryTree</b> <i>DictValue</i> <i>RegistryRootKey</i> <i>?DeleteUnmatched?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dictionary value to use to write registry.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RegistryRootKey</i></td><td class='argument_right'>Registry key to begin writing under.</td></tr><tr class='table_row_b'><td class='argument_left'><i>DeleteUnmatched</i></td><td class='argument_right'>Optional. Tells whether to delete elements in the registry that are not found in the dict. Defaults to 0 (no delete).</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of variable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Input value is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that there is currently no way to specify the type to use for value data. If the registry values already exist then this command will keep them and write data that is of the same type. So, for instance, if a 1 is in the dict value and the registry value has type REG_BINARY then that will be maintained. But if there is no value already in the registry then the command will make a new value of type REG_SZ.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyDict [dict create test 1-2-3]<br>test 1-2-3<br>% dict get $MyDict test<br>1-2-3<br>% <b>Dict2RegistryTree MyDict {HKEY_CURRENT_USER\Software\My}</b><br>% registry get {HKEY_CURRENT_USER\Software\My} test<br>1-2-3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/RegistryKey2Dict.htm'>RegistryKey2Dict</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_dict">dict</a>, <a href="keyword-index.html#C_registry">registry</a>
+</div>
+</body>
+</html>

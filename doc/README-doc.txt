@@ -126,6 +126,8 @@ decr.html
      Page for the command Decr.
 decrdbglobal.html
      Page for the command DecrDbGlobal.
+dict2registrytree.html
+     Page for the command Dict2RegistryTree.
 divideby.html
      Page for the command DivideBy.
 doublechop.html
@@ -154,6 +156,8 @@ isdate.html
      Page for the command IsDate.
 isdatetime.html
      Page for the command IsDatetime.
+isdict.html
+     Page for the command IsDict.
 isempty.html
      Page for the command IsEmpty.
 isnegative.html
@@ -180,6 +184,8 @@ lastid.html
      Page for the command LastId.
 lastof.html
      Page for the command LastOf.
+linktclvariabletoregistryvalue.html
+     Page for the command LinkTclVariableToRegistryValue.
 linkvartodbglobal.html
      Page for the command LinkVarToDbGlobal.
 list2file.html
@@ -194,6 +200,8 @@ now.html
      Page for the command Now.
 prepend.html
      Page for the command Prepend.
+printdict.html
+     Page for the command PrintDict.
 printvar.html
      Page for the command PrintVar.
 q1.html
@@ -202,6 +210,12 @@ qq.html
      Page for the command QQ.
 raise.html
      Page for the command Raise.
+registryexists.html
+     Page for the command RegistryExists.
+registryprint.html
+     Page for the command RegistryPrint.
+registrytree2dict.html
+     Page for the command RegistryTree2Dict.
 reloadpackage.html
      Page for the command ReloadPackage.
 retzeroifempty.html
@@ -292,6 +306,8 @@ today.html
      Page for the command Today.
 tomorrow.html
      Page for the command Tomorrow.
+unlinktclvariablefromregistryvalue.html
+     Page for the command UnlinkTclVariableFromRegistryValue.
 unlinkvarfromdbglobal.html
      Page for the command UnlinkVarFromDbGlobal.
 unsetdbglobal.html

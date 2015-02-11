@@ -9,7 +9,8 @@ test/README
 04| BUG REPORTING
 05| CONTRIBUTING
 06| CATALOG
-07| CREDITS
+07| OTHER
+08| CREDITS
 
 ---01| HOW TO USE THIS DOCUMENT
 
@@ -150,6 +151,8 @@ decr.test
      Tests for the command Decr.
 decrdbglobal.test
      Tests for the command DecrDbGlobal.
+dict2registrytree.test
+     Tests for the command Dict2RegistryTree.
 divideby.test
      Tests for the command DivideBy.
 doublechop.test
@@ -178,6 +181,8 @@ isdate.test
      Tests for the command IsDate.
 isdatetime.test
      Tests for the command IsDatetime.
+isdict.test
+     Tests for the command IsDict.
 isempty.test
      Tests for the command IsEmpty.
 isnegative.test
@@ -204,6 +209,8 @@ lastid.test
      Tests for the command LastId.
 lastof.test
      Tests for the command LastOf.
+linktclvariabletoregistryvalue.test
+     Tests for the command LinkTclVariableToRegistryValue.
 linkvartodbglobal.test
      Tests for the command LinkVarToDbGlobal.
 list2file.test
@@ -218,6 +225,8 @@ now.test
      Tests for the command Now.
 prepend.test
      Tests for the command Prepend.
+printdict.test
+     Tests for the command PrintDict.
 printvar.test
      Tests for the command PrintVar.
 q1.test
@@ -226,6 +235,12 @@ qq.test
      Tests for the command QQ.
 raise.test
      Tests for the command Raise.
+registryexists.test
+     Tests for the command RegistryExists.
+registryprint.test
+     Tests for the command RegistryPrint.
+registrytree2dict.test
+     Tests for the command RegistryTree2Dict.
 reloadpackage.test
      Tests for the command ReloadPackage.
 retzeroifempty.test
@@ -316,6 +331,8 @@ today.test
      Tests for the command Today.
 tomorrow.test
      Tests for the command Tomorrow.
+unlinktclvariablefromregistryvalue.test
+     Tests for the command UnlinkTclVariableFromRegistryValue.
 unlinkvarfromdbglobal.test
      Tests for the command UnlinkVarFromDbGlobal.
 unsetdbglobal.test
@@ -329,7 +346,14 @@ varexistsincaller.test
 yesterday.test
      Tests for the command Yesterday.
 
----07| CREDITS
+---07| OTHER
+
+At this time there are several tests (for RegistryPrint and PrintDict) which
+fail and yet on inspection the expected output and actual output appear to be
+identical. The commands work as expected. I have left these tests in for now and
+will later investigate.
+
+---08| CREDITS
 
 Testing was done using the tcltest package.
 
