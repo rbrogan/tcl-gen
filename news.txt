@@ -33,6 +33,16 @@ IsDict
 PrintDict
      Print the contents of a dict on the screen.
 
+Foreach
+     Use replacement foreach to access special commands.
+
+OnFirstIteration
+     Check whether this the first iteration of the loop.
+
+OnLastIteration
+     Check whether on last iteration of the loop.
+
+
 
 2015.02.01
 v1.2 Release

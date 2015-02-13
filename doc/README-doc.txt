@@ -146,6 +146,8 @@ firstof.html
      Page for the command FirstOf.
 flip.html
      Page for the command Flip.
+foreach.html
+     Page for the command Foreach.
 foreachrecord.html
      Page for the command ForeachRecord.
 getdbglobal.html
@@ -198,6 +200,10 @@ notempty.html
      Page for the command NotEmpty.
 now.html
      Page for the command Now.
+onfirstiteration.html
+     Page for the command OnFirstIteration.
+onlastiteration.html
+     Page for the command OnLastIteration.
 prepend.html
      Page for the command Prepend.
 printdict.html

@@ -1,0 +1,48 @@
+package require tcltest
+package require gen
+
+::tcltest::test Foreach-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+Foreach Element $MyList { puts $Element  }
+}  -cleanup {}  -result {}  -output {1
+2
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test Foreach-1 {Empty list}  -setup {}  -body {set MyList {}
+Foreach Element $MyList { puts $Element }
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test Foreach-2 {Assign to two variables}  -setup {}  -body {set MyList {1 2 3 4}
+Foreach {aa bb} $MyList { puts "$aa $bb" }
+}  -cleanup {}  -result {}  -output {1 2
+3 4
+}  -returnCodes {0}  
+
+
+::tcltest::test Foreach-3 {Two variable and odd number for list length}  -setup {}  -body {set MyList {1 2 3 4 5}
+Foreach {aa bb} $MyList { puts "*$aa* *$bb*" }
+}  -cleanup {}  -result {}  -output {*1* *2*
+*3* *4*
+*5* **
+}  -returnCodes {0}  
+
+
+::tcltest::test Foreach-4 {Two lists}  -setup {}  -body {set MyList1 {1 2 3 4}
+set MyList2 {55 66}
+Foreach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
+}  -cleanup {}  -result {}  -output {*1* *2* *55*
+*3* *4* *66*
+}  -returnCodes {0}  
+
+
+::tcltest::test Foreach-5 {Two lists, one finished before the other}  -setup {}  -body {set MyList1 {1 2 3 4}
+set MyList2 {55 66 77}
+Foreach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
+}  -cleanup {}  -result {}  -output {*1* *2* *55*
+*3* *4* *66*
+** ** *77*
+}  -returnCodes {0}  
+
+

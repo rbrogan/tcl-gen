@@ -771,6 +771,43 @@ proc Flip TargetVariable {
      }
 }
 
+proc Foreach args {
+
+     set Body [LastOf $args]
+     set MaxIterations 0
+     set NumLists 0
+     set Counters {}
+     for {set i 0} {$i < [llength $args] - 1} {incr i 2} {
+          set VarValueList [lindex $args [expr $i + 1]]
+          set VarNameList [lindex $args $i]
+          set Iterations [expr [llength $VarValueList] / [llength $VarNameList]]
+          if {[expr [llength $VarValueList] % [llength $VarNameList]] != 0} {
+               incr Iterations
+          }
+          if {$Iterations > $MaxIterations} {
+               set MaxIterations $Iterations
+          }
+          lvarpush Counters 0
+          incr NumLists
+     }
+     for {set i 0} {$i < $MaxIterations} {incr i} {
+          for {set j 0} {$j < $NumLists} {incr j} {
+               set VarNameList [lindex $args [expr $j * 2]]
+               set VarValueList [lindex $args [expr ($j*2) + 1]]              
+               for {set k 0} {$k < [llength $VarNameList]} {incr k} {
+                    set Counter [lindex $Counters $j]                
+                    if {$Counter >= [llength $VarValueList]} {
+                         set [lindex $VarNameList $k] ""
+                    } else {
+                         set [lindex $VarNameList $k] [lindex $VarValueList $Counter]
+                         lset Counters $j [expr $Counter + 1]
+                    }
+               }
+          }
+          eval $Body
+     }
+}
+
 proc ForeachRecord {FieldNameList SelectStatement Body} {
 
      if {[IsEmpty $FieldNameList]} {
@@ -1113,6 +1150,24 @@ proc NotEmpty StringValue {
 proc Now {} {
 
      return [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"]
+}
+
+proc OnFirstIteration {} {
+
+     if {[uplevel {expr $i == 0}]} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc OnLastIteration {} {
+
+     if {[uplevel {expr $i == [expr $MaxIterations - 1]}]} {
+          return 1
+     } else {
+          return 0
+     }
 }
 
 proc Prepend {StringVarName Value} {

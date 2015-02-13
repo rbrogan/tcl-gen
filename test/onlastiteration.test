@@ -1,0 +1,12 @@
+package require tcltest
+package require gen
+
+::tcltest::test OnLastIteration-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+Foreach Element $MyList { if {[OnLastIteration]} {puts "Last one"}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+2
+Last one
+3
+}  -returnCodes {0}  
+
+

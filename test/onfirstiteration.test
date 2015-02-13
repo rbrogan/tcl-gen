@@ -1,0 +1,12 @@
+package require tcltest
+package require gen
+
+::tcltest::test OnFirstIteration-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+Foreach Element $MyList { if {[OnFirstIteration]} {puts "First one"}; puts $Element }
+}  -cleanup {}  -result {}  -output {First one
+1
+2
+3
+}  -returnCodes {0}  
+
+

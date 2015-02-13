@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OnLastIteration</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+OnLastIteration  &mdash;  Check whether on last iteration of the loop.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>OnLastIteration</b>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> On last iteration of the loop.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Not on last iteration of the loop.</td></tr>
+</table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is designed to make it easier to write readable code. It combines with Foreach, and you can do the equivalent with a regular for loop and counters.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {1 2 3}<br>% Foreach Element $MyList { if {<b>[OnLastIteration]</b>} {puts "Last one"}; puts $Element }<br>1<br>2<br>Last one<br>3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'foreach.html'>Foreach</a>, <a href = 'onfirstiteration.html'>OnFirstIteration</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_control">control</a>, <a href="keyword-index.html#C_loop">loop</a>
+</div>
+</body>
+</html>

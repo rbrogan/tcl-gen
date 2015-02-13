@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Foreach</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Foreach  &mdash;  Use replacement foreach to access special commands.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Foreach</b> <i>?args ...?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>args</i></td><td class='argument_right'>Same as original foreach. See documentation for original foreach for details.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The purpose of this command is to write foreach as a proc and make available information that can then be used to create internal control structures which can use uplevel (e.g. IfOnFirst, IfOnLast).
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {1 2 3}<br>% <b>Foreach Element $MyList { puts $Element  }</b><br>1<br>2<br>3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/IfOnFirst.htm'>IfOnFirst</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/IfOnLast.htm'>IfOnLast</a>, <a href = 'foreach.html'>foreach</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_control">control</a>, <a href="keyword-index.html#C_loop">loop</a>
+</div>
+</body>
+</html>

@@ -171,6 +171,8 @@ firstof.test
      Tests for the command FirstOf.
 flip.test
      Tests for the command Flip.
+foreach.test
+     Tests for the command Foreach.
 foreachrecord.test
      Tests for the command ForeachRecord.
 getdbglobal.test
@@ -223,6 +225,10 @@ notempty.test
      Tests for the command NotEmpty.
 now.test
      Tests for the command Now.
+onfirstiteration.test
+     Tests for the command OnFirstIteration.
+onlastiteration.test
+     Tests for the command OnLastIteration.
 prepend.test
      Tests for the command Prepend.
 printdict.test
