@@ -32,18 +32,33 @@ None</div><div class='subsection_header'>Arguments</div><div class='subsection_c
 <td>Variable $VarName has invalid value $Value.</td>
 </tr>
 </table>
-</div>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The keys will be right aligned with the longest key. When there is a nested dict, the key is in the normal position and the value begins the next line down, indented to the value column. No effort is made to make all nested dicts align.<p>The following is sample output:
+<pre>
+  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+      555
+          x 9
+          y 8
+          z 7</p><p></pre></p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
 <div class="code_sample"><pre>% set MyDict [dict create one uno two dos]<br>% <b>PrintDict $MyDict</b><br>one uno<br>two dos<br></pre></div>
-<div class="section_header" hidden>
+<div class="section_header" >
 SEE ALSO
 </div>
-<div class="section_content" hidden>
-
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
 </div>
 <div class="section_header" >
 KEYWORDS

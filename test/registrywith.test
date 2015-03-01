@@ -1,0 +1,46 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryWith-0 {Basic test - read only}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryWith-1 {Basic test - modify}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {puts "$aa | $bb"; incr aa; incr bb; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+12 | 23
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryWith-3 {Body empty}  -setup {}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryWith-4 {Use break in body}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {if {$aa eq "11"} {break}; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryWith-5 {Use continue in body}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {if {$aa eq "11"} {continue}; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryWith-6 {Use return in body}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {if {$aa eq "11"} {return 123}; puts "$aa | $bb"}
+}  -cleanup {}  -result {123}  -output {}  -returnCodes {2}  
+
+
+::tcltest::test RegistryWith-7 {Error thrown within body}  -setup {registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 aa 11
+registry set HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 bb 22
+}  -body {RegistryWith HKEY_CURRENT_USER\\Software\\My\\RegistryWithEachTests\\1 {error "test error"}
+}  -cleanup {}  -result {test error}  -output {}  -returnCodes {1}  
+
+

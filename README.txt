@@ -92,7 +92,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.0
+1.3.0
 % set Number 1
 1
 % AddTo Number 2

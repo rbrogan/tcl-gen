@@ -1,0 +1,21 @@
+package require tcltest
+package require gen
+
+::tcltest::test ThisIsLastIteration-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {[ThisIsLastIteration]} {puts "Last one"}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+2
+Last one
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test ThisIsLastIteration-1 {Nested}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {1} {if {[ThisIsLastIteration]} {puts "Last one"}}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+2
+Last one
+3
+}  -returnCodes {0}  
+
+

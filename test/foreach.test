@@ -1,48 +1,74 @@
 package require tcltest
 package require gen
 
-::tcltest::test Foreach-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
-Foreach Element $MyList { puts $Element  }
+::tcltest::test ForEach-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { puts $Element  }
 }  -cleanup {}  -result {}  -output {1
 2
 3
 }  -returnCodes {0}  
 
 
-::tcltest::test Foreach-1 {Empty list}  -setup {}  -body {set MyList {}
-Foreach Element $MyList { puts $Element }
+::tcltest::test ForEach-1 {Empty list}  -setup {}  -body {set MyList {}
+ForEach Element $MyList { puts $Element }
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Foreach-2 {Assign to two variables}  -setup {}  -body {set MyList {1 2 3 4}
-Foreach {aa bb} $MyList { puts "$aa $bb" }
+::tcltest::test ForEach-2 {Assign to two variables}  -setup {}  -body {set MyList {1 2 3 4}
+ForEach {aa bb} $MyList { puts "$aa $bb" }
 }  -cleanup {}  -result {}  -output {1 2
 3 4
 }  -returnCodes {0}  
 
 
-::tcltest::test Foreach-3 {Two variable and odd number for list length}  -setup {}  -body {set MyList {1 2 3 4 5}
-Foreach {aa bb} $MyList { puts "*$aa* *$bb*" }
+::tcltest::test ForEach-3 {Two variable and odd number for list length}  -setup {}  -body {set MyList {1 2 3 4 5}
+ForEach {aa bb} $MyList { puts "*$aa* *$bb*" }
 }  -cleanup {}  -result {}  -output {*1* *2*
 *3* *4*
 *5* **
 }  -returnCodes {0}  
 
 
-::tcltest::test Foreach-4 {Two lists}  -setup {}  -body {set MyList1 {1 2 3 4}
+::tcltest::test ForEach-4 {Two lists}  -setup {}  -body {set MyList1 {1 2 3 4}
 set MyList2 {55 66}
-Foreach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
+ForEach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
 }  -cleanup {}  -result {}  -output {*1* *2* *55*
 *3* *4* *66*
 }  -returnCodes {0}  
 
 
-::tcltest::test Foreach-5 {Two lists, one finished before the other}  -setup {}  -body {set MyList1 {1 2 3 4}
+::tcltest::test ForEach-5 {Two lists, one finished before the other}  -setup {}  -body {set MyList1 {1 2 3 4}
 set MyList2 {55 66 77}
-Foreach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
+ForEach {aa bb} $MyList1 cc $MyList2 { puts "*$aa* *$bb* *$cc*" }
 }  -cleanup {}  -result {}  -output {*1* *2* *55*
 *3* *4* *66*
 ** ** *77*
 }  -returnCodes {0}  
+
+
+::tcltest::test ForEach-6 {Use break within body}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {$Element eq "3"} break; puts $Element  }
+}  -cleanup {}  -result {}  -output {1
+2
+}  -returnCodes {0}  
+
+
+::tcltest::test ForEach-7 {Use continue within body}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {$Element eq "1"} continue; puts $Element  }
+}  -cleanup {}  -result {}  -output {2
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test ForEach-8 {Use return within body}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {$Element eq "2"} return; puts $Element  }
+}  -cleanup {}  -result {}  -output {1
+}  -returnCodes {0}  
+
+
+::tcltest::test ForEach-9 {Error thrown within body}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {$Element eq "2"} {error "test error"}; puts $Element  }
+}  -cleanup {}  -result {test error}  -output {1
+}  -returnCodes {1}  
 
 

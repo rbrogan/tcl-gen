@@ -1,0 +1,21 @@
+package require tcltest
+package require gen
+
+::tcltest::test ThisIsFirstIteration-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {[ThisIsFirstIteration]} {puts "First one"}; puts $Element }
+}  -cleanup {}  -result {}  -output {First one
+1
+2
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test ThisIsFirstIteration-1 {Nested}  -setup {}  -body {set MyList {1 2 3}
+ForEach Element $MyList { if {1} {if {[ThisIsFirstIteration]} {puts "First one"}}; puts $Element }
+}  -cleanup {}  -result {}  -output {First one
+1
+2
+3
+}  -returnCodes {0}  
+
+

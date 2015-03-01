@@ -105,6 +105,8 @@ addto.test
      Tests for the command AddTo.
 arrangedict.test
      Tests for the command ArrangeDict.
+breakif.test
+     Tests for the command BreakIf.
 changecasing.test
      Tests for the command ChangeCasing.
 chopleft.test
@@ -153,6 +155,8 @@ decrdbglobal.test
      Tests for the command DecrDbGlobal.
 dict2registrytree.test
      Tests for the command Dict2RegistryTree.
+dictwitheach.test
+     Tests for the command DictWithEach.
 divideby.test
      Tests for the command DivideBy.
 doublechop.test
@@ -172,7 +176,7 @@ firstof.test
 flip.test
      Tests for the command Flip.
 foreach.test
-     Tests for the command Foreach.
+     Tests for the command ForEach.
 foreachrecord.test
      Tests for the command ForeachRecord.
 getdbglobal.test
@@ -225,10 +229,6 @@ notempty.test
      Tests for the command NotEmpty.
 now.test
      Tests for the command Now.
-onfirstiteration.test
-     Tests for the command OnFirstIteration.
-onlastiteration.test
-     Tests for the command OnLastIteration.
 prepend.test
      Tests for the command Prepend.
 printdict.test
@@ -243,10 +243,16 @@ raise.test
      Tests for the command Raise.
 registryexists.test
      Tests for the command RegistryExists.
+registryforeach.test
+     Tests for the command RegistryForEach.
 registryprint.test
      Tests for the command RegistryPrint.
 registrytree2dict.test
      Tests for the command RegistryTree2Dict.
+registrywith.test
+     Tests for the command RegistryWith.
+registrywitheach.test
+     Tests for the command RegistryWithEach.
 reloadpackage.test
      Tests for the command ReloadPackage.
 retzeroifempty.test
@@ -269,6 +275,8 @@ settimeofdayformat.test
      Tests for the command SetTimeOfDayFormat.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
+skiptonextif.test
+     Tests for the command SkipToNextIf.
 splitandtrim.test
      Tests for the command SplitAndTrim.
 sqlcountstatement.test
@@ -315,6 +323,10 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+thisisfirstiteration.test
+     Tests for the command ThisIsFirstIteration.
+thisislastiteration.test
+     Tests for the command ThisIsLastIteration.
 timeofdayisafter.test
      Tests for the command TimeOfDayIsAfter.
 timeofdayisat.test
@@ -354,10 +366,7 @@ yesterday.test
 
 ---07| OTHER
 
-At this time there are several tests (for RegistryPrint and PrintDict) which
-fail and yet on inspection the expected output and actual output appear to be
-identical. The commands work as expected. I have left these tests in for now and
-will later investigate.
+Nothing else to note at this time.
 
 ---08| CREDITS
 

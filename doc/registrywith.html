@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RegistryWith</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+RegistryWith  &mdash;  Run script with Tcl variables mapped to registry values.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>RegistryWith</b> <i>RegistryKeyPath</i> <i>Body</i> <i>?SubkeyHandlingOption?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>RegistryKeyPath</i></td><td class='argument_right'>Path to registry key with values to use.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Body</i></td><td class='argument_right'>Script to execute.</td></tr><tr class='table_row_b'><td class='argument_left'><i>SubkeyHandlingOption</i></td><td class='argument_right'>Tell whether to process subkeys or no. Defaults to values only.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command works much the same as <code><a href='https://www.tcl.tk/man/tcl/TclCmd/dict.htm#M27'>dict with</a></code>, on which it is based.<p>Each value in the given registry key is mapped to a corresponding Tcl variable with the value name and the value data. The body is executed and within the body you can use any of those variables (see example). Once the body is finished, any changes you made to any of the variables will get written back to the registry.</p><p>To handle keys, we have the following two options:<br>
+1. <code>--values-only</code> : Default option. Do not process subkeys. Iterate over values only.<br>
+2. <code>--subkeys-dicts</code> : Iterate over subkeys and set value data to be the dict returned from calling <code>RegistryTree2Dict</code>, using the subkey as argument.<br>
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% registry set HKEY_CURRENT_USER\Software\My\RegistryWithEachTests\1 aa 11<br>% registry set HKEY_CURRENT_USER\Software\My\RegistryWithEachTests\1 bb 22<br>% <b>RegistryWith HKEY_CURRENT_USER\Software\My\RegistryWithEachTests\1 {puts "$aa | $bb"}</b><br>11 | 22<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'registrywitheach.html'>RegistryWithEach</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_control">control</a>, <a href="keyword-index.html#C_registry">registry</a>
+</div>
+</body>
+</html>

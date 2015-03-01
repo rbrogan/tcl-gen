@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DictWithEach</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DictWithEach  &mdash;  Run dict with successively for each key.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DictWithEach</b> <i>DictionaryVarName</i> <i>Body</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DictionaryVarName</i></td><td class='argument_right'>Name of dictionary variable to use.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Body</i></td><td class='argument_right'>Script to execute for each dict value.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Input variable not found in caller.</td>
+<td class="error_code">-1</td>
+<td>Could not find variable $VarName in caller.</td>
+</tr>
+<tr><td>Contents of variable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is useful when you have a dict where each value is itself both a dict and represents a record. Each record has the same fields (see example). It will take each "record" and map each key/value pair to a Tcl variable and then run the script.<p>Note that this command will create a variable <code>DictWithEach_Key</code> in its caller. This variable can be accessed in the script body, if desired.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Data for one employee<br>% dict set employeeInfo 12345-A forenames "Joe" <br>% dict set employeeInfo 12345-A surname "Schmoe" <br>% dict set employeeInfo 12345-A phone "555-1234" # Data for another employee <br>% dict set employeeInfo 98372-J forenames "Anne" <br>% dict set employeeInfo 98372-J surname "Other" <br>% dict set employeeInfo 98372-J phone "555-8765" <br>% <b>DictWithEach employeeInfo {puts "$forenames $surname -- $phone"}</b><br>Joe Schmoe -- 555-1234<br>Anne Other -- 555-8765<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_control">control</a>, <a href="keyword-index.html#C_dict">dict</a>, <a href="keyword-index.html#C_loop">loop</a>
+</div>
+</body>
+</html>

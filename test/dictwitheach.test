@@ -1,0 +1,69 @@
+package require tcltest
+package require gen
+
+::tcltest::test DictWithEach-0 {Basic test - print only}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+33 | 44
+55 | 66
+}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-1 {Basic test - modify}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {puts "$aa | $bb"; incr aa; incr bb; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+12 | 23
+33 | 44
+34 | 45
+55 | 66
+56 | 67
+}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-2 {No such variable}  -setup {}  -body {DictWithEach asdf {puts "$aa | $bb"}
+}  -cleanup {}  -result {Could not find variable asdf in caller.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DictWithEach-3 {Variable is not a dict}  -setup {}  -body {set MyDict {not a dict}
+DictWithEach MyDict {puts "$aa | $bb"}
+}  -cleanup {}  -result {Variable MyDict has invalid value not a dict.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test DictWithEach-5 {Empty dict}  -setup {}  -body {set MyDict [dict create]
+DictWithEach MyDict {puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-6 {Error thrown within body}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {if {$aa eq "33"} {error "test error"}; puts "$aa | $bb"}
+}  -cleanup {}  -result {test error}  -output {11 | 22
+}  -returnCodes {1}  
+
+
+::tcltest::test DictWithEach-7 {Break within body}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {if {$aa eq "33"} {break}; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-8 {Continue within body}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {if {$aa eq "33"} {continue}; puts "$aa | $bb"}
+}  -cleanup {}  -result {}  -output {11 | 22
+55 | 66
+}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-9 {Return within body}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {if {$aa eq "33"} {return 123}; puts "$aa | $bb"}
+}  -cleanup {}  -result {123}  -output {11 | 22
+}  -returnCodes {0}  
+
+
+::tcltest::test DictWithEach-10 {Use DictWithEach_Key}  -setup {}  -body {set MyDict [dict create 1 [dict create aa 11 bb 22] 2 [dict create aa 33 bb 44] 3 [dict create aa 55 bb 66]]
+DictWithEach MyDict {puts "$DictWithEach_Key -- $aa | $bb"}
+}  -cleanup {}  -result {}  -output {1 -- 11 | 22
+2 -- 33 | 44
+3 -- 55 | 66
+}  -returnCodes {0}  
+
+

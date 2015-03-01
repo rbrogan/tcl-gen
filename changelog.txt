@@ -18,14 +18,13 @@ By files
             Updated with latest info.
         news.html, news.txt
             Updated with latest info.
+            Fix misprint in title.
         README.html
             Update Recent Changes section.
         README.txt
             Update Recent Changes section.
         roadmap.html
             Updated with latest info.
-        WARNING.txt
-            Add notice that several commands work fine but tests fail for unknown reason and will investigate later.
         wishlist.html
             Revised to remove items now on Roadmap or in the software.
 
@@ -34,6 +33,7 @@ By files
         Updated index pages with version number.
         Updated Platform-specific and Dictionary Related index pages with new commands.
         Added About Registry Commands page.
+        Changed wording of argument descriptions for Ter command.        
 
      /src
         gen.tcl

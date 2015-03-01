@@ -1,0 +1,25 @@
+package require tcltest
+package require gen
+
+::tcltest::test BreakIf-0 {Basic test - condition true}  -setup {}  -body {set MyList {1 2 3}
+foreach Element $MyList { BreakIf {$Element eq "3"}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+2
+}  -returnCodes {0}  
+
+
+::tcltest::test BreakIf-1 {Basic test - condition false}  -setup {}  -body {set MyList {1 2 3}
+foreach Element $MyList { BreakIf {$Element eq "4"}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+2
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test BreakIf-2 {Command used}  -setup {}  -body {proc MyCommand {Number} { if {$Number eq "2"} {return 1} else {return 0} }
+set MyList {1 2 3}
+foreach Element $MyList { BreakIf {[MyCommand $Element]}; puts $Element }
+}  -cleanup {}  -result {}  -output {1
+}  -returnCodes {0}  
+
+

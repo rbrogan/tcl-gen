@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Foreach</title>
+<title>ForEach</title>
 <link rel="stylesheet" type="text/css" href="doc.css">
 <body>
 <div class="section_header">
 NAME
 </div>
 <div class="section_content">
-Foreach  &mdash;  Use replacement foreach to access special commands.
+ForEach  &mdash;  Use replacement foreach to access special commands.
 </div>
 <div class="section_header">
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>Foreach</b> <i>?args ...?</i>
+<b>ForEach</b> <i>?args ...?</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,19 +22,22 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>args</i></td><td class='argument_right'>Same as original foreach. See documentation for original foreach for details.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The purpose of this command is to write foreach as a proc and make available information that can then be used to create internal control structures which can use uplevel (e.g. IfOnFirst, IfOnLast).
-</div>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>args</i></td><td class='argument_right'>Same as original foreach. See documentation for original foreach for details.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The purpose of this command is to write <code><a href='https://www.tcl.tk/man/tcl/TclCmd/foreach.htm'>foreach</a></code> as a proc and make available information that can then be used to create internal control structures which can use with  upvar/uplevel (e.g. <code><a href='thisisfirstiteration.html'>ThisIsFirstIteration</a></code>, <code><a href='thisislastiteration.html'>ThisIsLastIteration</a></code>).<p>The command will create two variables within its caller which other commands can expect to find: (1) <code>ForEachMaxIterations</code> is the number of times the loop is expected to execute, based on the size(s) of the list(s) and (2) <code>ForEachCurrentIteration</code> is the number of the current iteration. See the source code of <code>ThisIsLastIteration</code> for an example usage.</p><p>Note that, if you like, you can replace the original foreach like this:<pre>
+rename foreach oldforeach
+rename ForEach foreach
+</pre>
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% set MyList {1 2 3}<br>% <b>Foreach Element $MyList { puts $Element  }</b><br>1<br>2<br>3<br></pre></div>
+<div class="code_sample"><pre>% set MyList {1 2 3}<br>% <b>ForEach Element $MyList { puts $Element  }</b><br>1<br>2<br>3<br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>
 <div class="section_content" >
-<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/IfOnFirst.htm'>IfOnFirst</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/IfOnLast.htm'>IfOnLast</a>, <a href = 'foreach.html'>foreach</a>
+<a href = 'thisisfirstiteration.html'>ThisIsFirstIteration</a>, <a href = 'thisislastiteration.html'>ThisIsLastIteration</a>
 </div>
 <div class="section_header" >
 KEYWORDS

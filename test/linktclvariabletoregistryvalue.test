@@ -1,7 +1,7 @@
 package require tcltest
 package require gen
 
-::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123
+::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -setup {registry set "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy 123 dword
 }  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy]
 set MyVar 345
 LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\Robert Brogan\\gen" testy

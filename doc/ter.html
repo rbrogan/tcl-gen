@@ -22,7 +22,7 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-Second argument if condition is true, third argument otherwise.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Condition</i></td><td class='argument_right'>Code to call eval on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>IfTrue</i></td><td class='argument_right'>Value to return if the code evaluates to non-zero.</td></tr><tr class='table_row_b'><td class='argument_left'><i>IfFalse</i></td><td class='argument_right'>Value to return if the code evaluates to zero.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that you will most likely want the IfTrue and IfFalse arguments to use <code>return</code>.
+Second argument if condition is true, third argument otherwise.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Condition</i></td><td class='argument_right'>Script to evaluate.</td></tr><tr class='table_row_a'><td class='argument_left'><i>IfTrue</i></td><td class='argument_right'>Script to evaluate and return value of if condition evaluates to true.</td></tr><tr class='table_row_b'><td class='argument_left'><i>IfFalse</i></td><td class='argument_right'>Script to evaluate and return value of if condition evaluates to false.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that you will most likely want the IfTrue and IfFalse arguments to use <code>return</code>.
 </div>
 </div>
 <div class="section_header">
@@ -30,17 +30,17 @@ EXAMPLES
 </div>
 <div class="section_content">
 <div class="code_sample"><pre>set x 1<br>set y [<b>Ter {$x == 1} {return -1} {return 1}</b>]<br>-1<br></pre></div>
-<div class="section_header" hidden>
+<div class="section_header" >
 SEE ALSO
 </div>
-<div class="section_content" hidden>
-
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/if.htm'>if</a>
 </div>
-<div class="section_header" hidden>
+<div class="section_header" >
 KEYWORDS
 </div>
-<div class="section_content" hidden>
-
+<div class="section_content" >
+<a href="keyword-index.html#C_conditional">conditional</a>, <a href="keyword-index.html#C_control">control</a>
 </div>
 </body>
 </html>

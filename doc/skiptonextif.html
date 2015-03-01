@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SkipToNextIf</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SkipToNextIf  &mdash;  Skip to next loop iteration (continue) of condition is true.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SkipToNextIf</b> <i>Condition</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Condition</i></td><td class='argument_right'>Condition to evaluate if true.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This is equivalent to <code>if {[expr $Condition]} {continue}</code> but is closer to natural language. <p>The command is not called <code>ContinueIf</code> because we are trying to follow a general policy of making command names match natural language usage. "Continue if ..." sounds as if the command is going to continue processing if the condition is true, but will halt if the condition is false.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {1 2 3}<br>1 2 3<br>% <b>foreach Element $MyList { SkipToNextIf {$Element eq "1"}; puts $Element }</b><br>2<br>3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'breakif.html'>BreakIf</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conditional">conditional</a>, <a href="keyword-index.html#C_control">control</a>
+</div>
+</body>
+</html>

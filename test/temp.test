@@ -1,9 +1,0 @@
-registry delete {HKEY_CURRENT_USER\Software\My\GenTest}
-registry set {HKEY_CURRENT_USER\Software\My\GenTest}
-registry set {HKEY_CURRENT_USER\Software\My\GenTest} one uno
-registry set {HKEY_CURRENT_USER\Software\My\GenTest} two dos
-registry set {HKEY_CURRENT_USER\Software\My\GenTest\three}
-registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 111 one
-registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 222 two
-registry set {HKEY_CURRENT_USER\Software\My\GenTest\three} 333 three
-RegistryPrint {HKEY_CURRENT_USER\Software\My\GenTest}

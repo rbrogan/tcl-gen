@@ -1,0 +1,18 @@
+package require tcltest
+package require gen
+
+::tcltest::test SkipToNextIf-0 {Basic test}  -setup {}  -body {set MyList {1 2 3}
+foreach Element $MyList { SkipToNextIf {$Element eq "1"}; puts $Element }
+}  -cleanup {}  -result {}  -output {2
+3
+}  -returnCodes {0}  
+
+
+::tcltest::test SkipToNextIf-1 {Command used}  -setup {}  -body {proc MyCommand {Number} { if {$Number eq "1"} {return 1} else {return 0} }
+set MyList {1 2 3}
+foreach Element $MyList { SkipToNextIf {[MyCommand $Element]}; puts $Element }
+}  -cleanup {}  -result {}  -output {2
+3
+}  -returnCodes {0}  
+
+

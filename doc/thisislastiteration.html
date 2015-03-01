@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>OnLastIteration</title>
+<title>ThisIsLastIteration</title>
 <link rel="stylesheet" type="text/css" href="doc.css">
 <body>
 <div class="section_header">
 NAME
 </div>
 <div class="section_content">
-OnLastIteration  &mdash;  Check whether on last iteration of the loop.
+ThisIsLastIteration  &mdash;  Check whether this the last iteration of the loop.
 </div>
 <div class="section_header">
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>OnLastIteration</b>
+<b>ThisIsLastIteration</b>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -24,19 +24,19 @@ DESCRIPTION
 <div class='subsection_content'>
 <table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> On last iteration of the loop.</td></tr>
 <tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Not on last iteration of the loop.</td></tr>
-</table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is designed to make it easier to write readable code. It combines with ForEach, and you can do the equivalent with a regular for loop and counters.
+</table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is designed to make it easier to write readable code. You must use <code><a href='foreach.html'>ForEach</a></code> for this command to work.
 </div>
 </div>
 <div class="section_header">
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% set MyList {1 2 3}<br>% ForEach Element $MyList { if {<b>[OnLastIteration]</b>} {puts "Last one"}; puts $Element }<br>1<br>2<br>Last one<br>3<br></pre></div>
+<div class="code_sample"><pre>% set MyList {1 2 3}<br>% ForEach Element $MyList { if {<b>[ThisIsLastIteration]</b>} {puts "Last one"}; puts $Element }<br>1<br>2<br>Last one<br>3<br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>
 <div class="section_content" >
-<a href = 'foreach.html'>Foreach</a>, <a href = 'onfirstiteration.html'>OnFirstIteration</a>
+<a href = 'foreach.html'>ForEach</a>, <a href = 'thisisfirstiteration.html'>ThisIsFirstIteration</a>
 </div>
 <div class="section_header" >
 KEYWORDS

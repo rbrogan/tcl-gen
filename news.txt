@@ -5,9 +5,33 @@ NEWS
 2015.03.02
 v1.3 Release
 
-This month focuses on the Windows Registry, but also includes some dict commands.
+This month focuses on the Windows Registry, though it also includes some dict commands and control commands as well.
 
 What follows is a listing of new commands:
+
+BreakIf
+     Break if the condition is true.
+
+ForEach
+     Use replacement foreach to access special commands.
+
+SkipToNextIf
+     Skip to next loop iteration (continue) if condition is true.
+
+ThisIsFirstIteration
+     Check whether this the first iteration of the loop.
+
+ThisIsLastIteration
+     Check whether this the last iteration of the loop.
+
+DictWithEach
+     Run dict with successively for each key.
+
+IsDict
+     Check whether string can be used as a dict.
+
+PrintDict
+     Print the contents of dict on the screen.
 
 Dict2RegistryTree
      Write to registry from dict.
@@ -18,30 +42,23 @@ LinkTclVariableToRegistryValue
 RegistryExists
      Check whether a registry key or value exists.
 
+RegistryForEach
+     Iterate over names, data, and types in a way like dict for.
+
 RegistryPrint
      Print the contents of a registry key.
 
 RegistryTree2Dict
-     Make Tcl dict from Windows registry key.
+     Make Tcl dict from Windows registry tree.
+
+RegistryWith
+     Run script with Tcl variables mapped to registry values.
+
+RegistryWithEach
+     Execute script with registry values mapped to Tcl variables.
 
 UnlinkTclVariableFromRegistryValue
      Stop propagating changes set up by previous link.
-
-IsDict
-     Check whether contents of string form a dict.
-
-PrintDict
-     Print the contents of a dict on the screen.
-
-Foreach
-     Use replacement foreach to access special commands.
-
-OnFirstIteration
-     Check whether this the first iteration of the loop.
-
-OnLastIteration
-     Check whether on last iteration of the loop.
-
 
 
 2015.02.01

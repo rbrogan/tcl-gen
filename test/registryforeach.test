@@ -1,0 +1,69 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryForEach-0 {Basic test}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" }
+}  -cleanup {}  -result {}  -output {one (1) sz
+two (2) dword
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-1 {VarNameList does not have three variable names}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" }
+}  -cleanup {}  -result {Variable VarNameList has invalid value ValueName ValueData.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryForEach-4 {No such registry key}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\asdf}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" }
+}  -cleanup {}  -result {Registry key/value HKEY_CURRENT_USER\Software\My\asdf not found.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryForEach-5 {Body is empty}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath {}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-6 {Break is executed within body}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { break }
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-7 {Continue is executed within body}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { if {$ValueName eq "one"} {continue};  puts "$ValueName ($ValueData) $ValueType"}
+}  -cleanup {}  -result {}  -output {two (2) dword
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-8 {Error thrown in body}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { if {$ValueName eq "two"} {error "test error"};  puts "$ValueName ($ValueData) $ValueType"}
+}  -cleanup {}  -result {test error}  -output {one (1) sz
+}  -returnCodes {1}  
+
+
+::tcltest::test RegistryForEach-9 {Return used within body}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { if {$ValueName eq "two"} {return 123};  puts "$ValueName ($ValueData) $ValueType"}
+}  -cleanup {}  -result {123}  -output {one (1) sz
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-10 {Invalid subkey option}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" } --asdfasdf
+}  -cleanup {}  -result {Variable SubkeyHandlingOption has invalid value --asdfasdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryForEach-11 {Subkeys empty option}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" } --subkeys-empty
+}  -cleanup {}  -result {}  -output {one (1) sz
+two (2) dword
+three () key
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryForEach-12 {Subkeys dicts option}  -setup {}  -body {set MyRegKeyPath {HKEY_CURRENT_USER\Software\My\RegistryForeachTests\1}
+RegistryForEach {ValueName ValueData ValueType} $MyRegKeyPath { puts "$ValueName ($ValueData) $ValueType" } --subkeys-dicts
+}  -cleanup {}  -result {}  -output {one (1) sz
+two (2) dword
+three (aa 11 bb 22) key
+}  -returnCodes {0}  
+
+

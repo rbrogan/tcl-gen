@@ -83,6 +83,11 @@ proc ArrangeDict {DictVariable Arrangement} {
      set Dict $Out
 }
 
+proc BreakIf Condition {
+
+     tailcall if "$Condition" {break}
+}
+
 proc ChangeCasing {StringVariable From To} {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
@@ -614,17 +619,30 @@ proc Dict2RegistryTree {DictValue RegistryRootKey {DeleteUnmatched 0}} {
      if {$DeleteUnmatched} {
           # If any keys/value are in the registry but not the dict,
           # delete them from the registry.
-          foreach RegKey [registry keys $RegistryRoot] {
+          foreach RegKey [registry keys $RegistryRootKey] {
                if {![dict exists $DictValue $RegKey]} {
-                    registry delete "$RegistryRoot\\$RegKey"
+                    registry delete "$RegistryRootKey\\$RegKey"
                }
           }
           
-          foreach RegValueName [registry values $RegistryRoot] {
+          foreach RegValueName [registry values $RegistryRootKey] {
                if {![dict exists $DictValue $RegValueName]} {
-                    registry delete $RegistryRoot $RegValueName
+                    registry delete $RegistryRootKey $RegValueName
                }
           }
+     }
+}
+
+proc DictWithEach {DictionaryVarName Body} {
+
+     UpvarExistingOrDie $DictionaryVarName Dictionary
+     if {![IsDict $Dictionary]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) $DictionaryVarName $Dictionary] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     UpvarX DictWithEach_Key Key ""
+     foreach Key [dict keys $Dictionary] {
+          uplevel 1 "dict with $DictionaryVarName $Key {$Body}"
      }
 }
 
@@ -771,10 +789,11 @@ proc Flip TargetVariable {
      }
 }
 
-proc Foreach args {
+proc ForEach args {
 
      set Body [LastOf $args]
-     set MaxIterations 0
+     upvar ForEachMaxIterations ForEachMaxIterations
+     set ForEachMaxIterations 0
      set NumLists 0
      set Counters {}
      for {set i 0} {$i < [llength $args] - 1} {incr i 2} {
@@ -784,27 +803,28 @@ proc Foreach args {
           if {[expr [llength $VarValueList] % [llength $VarNameList]] != 0} {
                incr Iterations
           }
-          if {$Iterations > $MaxIterations} {
-               set MaxIterations $Iterations
+          if {$Iterations > $ForEachMaxIterations} {
+               set ForEachMaxIterations $Iterations
           }
           lvarpush Counters 0
           incr NumLists
      }
-     for {set i 0} {$i < $MaxIterations} {incr i} {
+     upvar ForEachCurrentIteration ForEachCurrentIteration
+     for {set ForEachCurrentIteration 0} {$ForEachCurrentIteration < $ForEachMaxIterations} {incr ForEachCurrentIteration} {
           for {set j 0} {$j < $NumLists} {incr j} {
                set VarNameList [lindex $args [expr $j * 2]]
                set VarValueList [lindex $args [expr ($j*2) + 1]]              
                for {set k 0} {$k < [llength $VarNameList]} {incr k} {
                     set Counter [lindex $Counters $j]                
                     if {$Counter >= [llength $VarValueList]} {
-                         set [lindex $VarNameList $k] ""
+                         uplevel 1 [list set [lindex $VarNameList $k] ""]
                     } else {
-                         set [lindex $VarNameList $k] [lindex $VarValueList $Counter]
+                         uplevel 1 [list set [lindex $VarNameList $k] [lindex $VarValueList $Counter]]
                          lset Counters $j [expr $Counter + 1]
                     }
                }
           }
-          eval $Body
+          uplevel 1 $Body
      }
 }
 
@@ -1076,13 +1096,13 @@ proc LinkTclVariableToRegistryValue {VarName RegistryKeyPath RegistryValueName} 
 
      UpvarX $VarName Var
      if {[RegistryExists $RegistryKeyPath $RegistryValueName]} {
-          set Type [registry type $RegistryKeyPath $RegistryValueName]
+          set RegistryValueType [registry type $RegistryKeyPath $RegistryValueName]
      } else {
-          set Type sz
+          set RegistryValueType sz
      }
 
-     registry set $RegistryKeyPath $RegistryValueName $Var $Type
-     uplevel "trace add variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} {$RegistryValueName}\""
+     registry set $RegistryKeyPath $RegistryValueName $Var $RegistryValueType
+     uplevel 1 "trace add variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} $RegistryValueType {$RegistryValueName}\""
 }
 
 proc LinkVarToDbGlobal {VarName {DbGlobalName ""}} {
@@ -1152,24 +1172,6 @@ proc Now {} {
      return [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"]
 }
 
-proc OnFirstIteration {} {
-
-     if {[uplevel {expr $i == 0}]} {
-          return 1
-     } else {
-          return 0
-     }
-}
-
-proc OnLastIteration {} {
-
-     if {[uplevel {expr $i == [expr $MaxIterations - 1]}]} {
-          return 1
-     } else {
-          return 0
-     }
-}
-
 proc Prepend {StringVarName Value} {
 
      UpvarX $StringVarName String
@@ -1183,17 +1185,25 @@ proc PrintDict {DictValue {IndentationSpaces 0}} {
           error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) DictValue $DictValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
      }
 
+     # Create string full of spaces to indent
      set Spaces [string repeat " " $IndentationSpaces]
+
+     # Make first pass to figure out the length of the greatest key
      set MaxKeyLength 0
      dict for {Key Value} $DictValue {
           set CurrentKeyLength [string length $Key]
           set MaxKeyLength [Ter {$CurrentKeyLength > $MaxKeyLength} {return $CurrentKeyLength} {return $MaxKeyLength}]
      }
+
+     # Make another pass to print each key and value.
      dict for {Key Value} $DictValue {
           if {[IsDict $Value]} {
-               puts [format "$Spaces%[set MaxKeyLength]s " $Key]
+               # This is a dict so, print the key and recurse.
+               puts [format "$Spaces%[set MaxKeyLength]s" $Key]
+               # Add to the length the space needed for the largest key plus one.
                PrintDict $Value [expr $MaxKeyLength + $IndentationSpaces + 1]
           } else {
+               # Otherwise, just print key and value on one line.
                puts [format "$Spaces%[set MaxKeyLength]s $Value" $Key]
           }
      }
@@ -1303,6 +1313,58 @@ proc RegistryExists {KeyName {ValueName ""}} {
      }
 }
 
+proc RegistryForEach {VarNameList RegistryKeyPath Body {SubkeyHandlingOption --values-only}} {
+
+     if {[llength $VarNameList] != 3} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) VarNameList $VarNameList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     if {![RegistryExists $RegistryKeyPath]} {
+          error [format $::ErrorMessage(REGISTRY_ELEMENT_NOT_FOUND) $RegistryKeyPath] $::errorInfo $::ErrorCode(REGISTRY_ELEMENT_NOT_FOUND)
+     }
+
+     switch $SubkeyHandlingOption {
+          --values-only {
+               set ProcessSubkeys 0
+          }
+          --subkeys-empty {
+               set ProcessSubkeys 1
+               set LeaveDataEmpty 1
+          }
+          --subkeys-dicts {
+               set ProcessSubkeys 1
+               set LeaveDataEmpty 0
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SubkeyHandlingOption $SubkeyHandlingOption] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+
+     foreach ValueName [registry values $RegistryKeyPath] {
+          set ValueData [registry get $RegistryKeyPath $ValueName]
+          set ValueType [registry type $RegistryKeyPath $ValueName]
+
+          uplevel 1 "set [lindex $VarNameList 0] $ValueName"
+          uplevel 1 "set [lindex $VarNameList 1] $ValueData"
+          uplevel 1 "set [lindex $VarNameList 2] $ValueType"
+
+          uplevel 1 $Body
+     }
+     
+     if {$ProcessSubkeys} {
+          foreach KeyName [registry keys $RegistryKeyPath] {
+               uplevel 1 "set [lindex $VarNameList 0] $KeyName"
+               if {$LeaveDataEmpty} {
+                    uplevel 1 "set [lindex $VarNameList 1] {}"
+               } else {
+                    uplevel 1 "set [lindex $VarNameList 1] {[RegistryTree2Dict $RegistryKeyPath\\$KeyName]}"
+               }
+               uplevel 1 "set [lindex $VarNameList 2] key"
+               uplevel 1 $Body          
+          }
+     }
+}
+
 proc RegistryPrint RegistryKeyPath {
 
      if {![RegistryExists $RegistryKeyPath]} {
@@ -1326,18 +1388,129 @@ proc RegistryTree2Dict {CurrentRegKey {CurrentDictName ""}} {
 
      set CurrentDict [dict create]
 
+     # Go through each value in the current registry key.
      foreach RegValueName [registry values $CurrentRegKey] {
+          # Get the data from the registry for the current value.
           set RegValueData [registry get $CurrentRegKey $RegValueName]
+          # Add an entry to the current dict with the name and data of the value.
           dict set CurrentDict $RegValueName $RegValueData
      }
 
+     # Go through each subkey under the current registry key.
      foreach RegKey [registry keys $CurrentRegKey] {
+          # Recurse and get a dict.
           set DictValue [RegistryTree2Dict "$CurrentRegKey\\$RegKey"]
+          # Add an entry to the current dict the with name of the subkey,
+          # and the dict as the value
           dict set CurrentDict $RegKey $DictValue
      }
    
    
      return $CurrentDict
+}
+
+proc RegistryWith {RegistryKeyPath Body {SubkeyHandlingOption --values-only}} {
+
+     switch $SubkeyHandlingOption {
+          --values-only {
+               set ProcessSubkeys 0
+          }
+          --subkeys-dicts {
+               set ProcessSubkeys 1
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SubkeyHandlingOption $SubkeyHandlingOption] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+
+     set VarNameList [registry values $RegistryKeyPath]
+     foreach VarName $VarNameList {
+          upvar 1 $VarName $VarName
+          set $VarName [registry get $RegistryKeyPath $VarName]
+     }
+
+     if {$ProcessSubkeys} {
+          foreach KeyName [registry keys $RegistryKeyPath] {
+               upvar 1 $KeyName $KeyName
+               set $KeyName [RegistryTree2Dict $RegistryKeyPath\\$KeyName]
+          }
+     }
+     
+     set Code [catch {uplevel 1 $Body} Message]
+
+     foreach VarName $VarNameList {
+          registry set $RegistryKeyPath $VarName [set $VarName]
+          unset $VarName
+     }
+
+     if {$ProcessSubkeys} {
+          foreach KeyName [registry keys $RegistryKeyPath] {
+               Dict2RegistryTree $KeyName $RegistryKeyPath\\$KeyName
+          }
+     }
+     
+     switch -- $Code {
+          0 {}
+          1 { return -code error  -errorinfo $::errorInfo  -errorcode $::errorCode $Message }
+          2 { return -code return $Message }
+          3 return
+          4 {}
+          default { return -code $Code $Message }
+     }
+}
+
+proc RegistryWithEach {RegistryKeyPath Body {SubkeyHandlingOption --values-only}} {
+
+     switch $SubkeyHandlingOption {
+          --values-only {
+               set ProcessSubkeys 0
+          }
+          --subkeys-dicts {
+               set ProcessSubkeys 1
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) SubkeyHandlingOption $SubkeyHandlingOption] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+
+     UpvarX RegistryWithEach_Subkey Subkey ""
+     foreach Subkey [registry keys $RegistryKeyPath] {
+          set VarNameList [registry values $RegistryKeyPath\\$Subkey]
+          foreach VarName $VarNameList {
+               upvar 1 $VarName $VarName
+               set $VarName [registry get $RegistryKeyPath\\$Subkey $VarName]
+          }
+
+          if {$ProcessSubkeys} {
+               foreach KeyName [registry keys $RegistryKeyPath] {
+                    upvar 1 $KeyName $KeyName
+                    set $KeyName [RegistryTree2Dict $RegistryKeyPath\\$KeyName]
+               }
+          }          
+
+          set Code [catch {uplevel 1 $Body} Message]
+
+          foreach VarName $VarNameList {
+               registry set $RegistryKeyPath\\$Subkey $VarName [set $VarName]
+               unset $VarName
+          }
+          
+          if {$ProcessSubkeys} {
+               foreach KeyName [registry keys $RegistryKeyPath] {
+                    Dict2RegistryTree $KeyName $RegistryKeyPath\\$KeyName
+               }
+          }    
+
+          switch -- $Code {
+               0 {}
+               1 { return  -code error  -errorinfo $::errorInfo  -errorcode $::errorCode $Message }
+               2 { return -code return $Message }
+               3 return
+               4 {}
+               default { return -code $Code $Message }
+          }
+     }
+
 }
 
 proc ReloadPackage {Name {Version ""}} {
@@ -1519,6 +1692,11 @@ proc SetZeroIfEmpty VarName {
      }
      
      return $Var
+}
+
+proc SkipToNextIf Condition {
+
+     tailcall if "$Condition" {continue}
 }
 
 proc SplitAndTrim {StringVariable {SplitValue " "} {TrimValue " "}} {
@@ -1871,11 +2049,29 @@ proc Swap {VarNameA VarNameB} {
 
 proc Ter {Condition IfTrue IfFalse} {
 
-     set Result [uplevel 1 "expr $Condition"]
+     set Result [uplevel 1 "expr {$Condition}"]
      if {$Result} {
           return [uplevel 1 "$IfTrue"]
      } else {
           return [uplevel 1 "$IfFalse"]
+     }
+}
+
+proc ThisIsFirstIteration {} {
+
+     if {[uplevel 1 {expr {$ForEachCurrentIteration == 0}}]} {
+          return 1
+     } else {
+          return 0
+     }
+}
+
+proc ThisIsLastIteration {} {
+
+     if {[uplevel 1 {expr {$ForEachCurrentIteration == [expr $ForEachMaxIterations - 1]}}]} {
+          return 1
+     } else {
+          return 0
      }
 }
 
@@ -2036,7 +2232,10 @@ proc UnlinkTclVariableFromRegistryValue {VarName RegistryKeyPath {RegistryValueN
      if {[IsEmpty $RegistryValueName]} {
           set RegistryValueName $VarName
      }
-     uplevel "trace remove variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} {$RegistryValueName}\""
+
+     set RegistryValueType [registry type $RegistryKeyPath $RegistryValueName]
+
+     uplevel 1 "trace remove variable $VarName write \"UpdateRegistryValue $VarName {[ToDoubleBackslashes $RegistryKeyPath]} $RegistryValueType {$RegistryValueName}\""
 }
 
 proc UnlinkVarFromDbGlobal {VarName {DbGlobalName ""}} {
@@ -2066,13 +2265,13 @@ proc UpdateDbGlobal {VarName DbGlobalName args} {
      SetDbGlobal $DbGlobalName $Var
 }
 
-proc UpdateRegistryValue {VarName RegistryKeyPath {RegistryValueName ""} args} {
+proc UpdateRegistryValue {VarName RegistryKeyPath RegistryValueType {RegistryValueName ""} args} {
 
      if {[IsEmpty $RegistryValueName]} {
           set RegistryValueName $VarName
      }
      upvar #0 $VarName Var     
-     registry set $RegistryKeyPath $RegistryValueName $Var
+     registry set $RegistryKeyPath $RegistryValueName $Var $RegistryValueType
 }
 
 proc UpvarExistingOrDie {VarName Var} {
@@ -2101,13 +2300,13 @@ proc UpvarX {VarName Var {DefaultValue ""}} {
           error "Second argument is missing. Got empty string." $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
      }     
      if {[VarExistsInCaller $VarName 2]} {
-          uplevel "upvar $VarName $Var"
+          uplevel 1 "upvar $VarName $Var"
      } else {
-          uplevel "upvar $VarName $Var"
+          uplevel 1 "upvar $VarName $Var"
           if {[NotEmpty $DefaultValue]} {
-               uplevel "set $Var $DefaultValue"
+               uplevel 1 "set $Var $DefaultValue"
           } else {
-               uplevel "set $Var {}"
+               uplevel 1 "set $Var {}"
           }
      }
      

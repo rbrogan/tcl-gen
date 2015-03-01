@@ -8,7 +8,7 @@
 NAME
 </div>
 <div class="section_content">
-RegistryTree2Dict  &mdash;  Make Tcl dict from Windows registry key.
+RegistryTree2Dict  &mdash;  Make Tcl dict from Windows registry tree.
 </div>
 <div class="section_header">
 SYNOPSIS
@@ -36,7 +36,8 @@ A dict that matches the given registry key and everything under it.</div><div cl
 <td>Registry key/value $Element not found.</td>
 </tr>
 </table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Creates and returns a Tcl dictionary that corresponds to all the Windows registry values and subkeys under the given key. Each entry key is either a registry value name or a registry subkey name. Each entry value is either registry value data or the contents of a subkey (which makes it a subdictionary).</div>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Creates and returns a Tcl dictionary that corresponds to all the Windows registry values and subkeys under the given key. Each entry key is either a registry value name or a registry subkey name. Each entry value is either registry value data or the contents of a subkey (which makes it a subdictionary).<p>This command is currently set up to firstly add all registry values to the dict, and secondly add all subkeys and their contents. There is, as yet, no option to mix keys and values in alphabetical order.
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES

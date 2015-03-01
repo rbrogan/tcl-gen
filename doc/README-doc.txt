@@ -80,6 +80,8 @@ addto.html
      Page for the command AddTo.
 arrangedict.html
      Page for the command ArrangeDict.
+breakif.html
+     Page for the command BreakIf.
 changecasing.html
      Page for the command ChangeCasing.
 chopleft.html
@@ -128,6 +130,8 @@ decrdbglobal.html
      Page for the command DecrDbGlobal.
 dict2registrytree.html
      Page for the command Dict2RegistryTree.
+dictwitheach.html
+     Page for the command DictWithEach.
 divideby.html
      Page for the command DivideBy.
 doublechop.html
@@ -147,7 +151,7 @@ firstof.html
 flip.html
      Page for the command Flip.
 foreach.html
-     Page for the command Foreach.
+     Page for the command ForEach.
 foreachrecord.html
      Page for the command ForeachRecord.
 getdbglobal.html
@@ -200,10 +204,6 @@ notempty.html
      Page for the command NotEmpty.
 now.html
      Page for the command Now.
-onfirstiteration.html
-     Page for the command OnFirstIteration.
-onlastiteration.html
-     Page for the command OnLastIteration.
 prepend.html
      Page for the command Prepend.
 printdict.html
@@ -218,10 +218,16 @@ raise.html
      Page for the command Raise.
 registryexists.html
      Page for the command RegistryExists.
+registryforeach.html
+     Page for the command RegistryForEach.
 registryprint.html
      Page for the command RegistryPrint.
 registrytree2dict.html
      Page for the command RegistryTree2Dict.
+registrywith.html
+     Page for the command RegistryWith.
+registrywitheach.html
+     Page for the command RegistryWithEach.
 reloadpackage.html
      Page for the command ReloadPackage.
 retzeroifempty.html
@@ -244,6 +250,8 @@ settimeofdayformat.html
      Page for the command SetTimeOfDayFormat.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
+skiptonextif.html
+     Page for the command SkipToNextIf.
 splitandtrim.html
      Page for the command SplitAndTrim.
 sqlcountstatement.html
@@ -290,6 +298,10 @@ swap.html
      Page for the command Swap.
 ter.html
      Page for the command Ter.
+thisisfirstiteration.html
+     Page for the command ThisIsFirstIteration.
+thisislastiteration.html
+     Page for the command ThisIsLastIteration.
 timeofdayisafter.html
      Page for the command TimeOfDayIsAfter.
 timeofdayisat.html

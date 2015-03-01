@@ -36,8 +36,8 @@ None</div><div class='subsection_header'>Arguments</div><div class='subsection_c
 <td>Variable $VarName has empty value.</td>
 </tr>
 </table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that there is currently no way to specify the type to use for value data. If the registry values already exist then this command will keep them and write data that is of the same type. So, for instance, if a 1 is in the dict value and the registry value has type REG_BINARY then that will be maintained. But if there is no value already in the registry then the command will make a new value of type REG_SZ.
-</div>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Unless the DeleteUnmatched argument is set, then anything already in the registry tree and not in the dict will remain just as it is. You must set DeleteUnmatched to 1 in order to make it delete registry elements (values and subtrees) that do not have a corresponding dict element.<p>If there is no existing registry key, this command will create one.</p><p>Note that there is currently no way to specify the type to use for value data. If the registry values already exist then this command will keep them and write data that is of the same type. So, for instance, if a 1 is in the dict value and the registry value has type REG_BINARY then that will be maintained. But if there is no value already in the registry then the command will make a new value of type REG_SZ.
+</p></div>
 </div>
 <div class="section_header">
 EXAMPLES
@@ -48,7 +48,7 @@ EXAMPLES
 SEE ALSO
 </div>
 <div class="section_content" >
-<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/RegistryKey2Dict.htm'>RegistryKey2Dict</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
+<a href = 'registrytree2dict.html'>RegistryTree2Dict</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/dict.htm'>dict</a>
 </div>
 <div class="section_header" >
 KEYWORDS
