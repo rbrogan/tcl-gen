@@ -1,0 +1,169 @@
+package require tcltest
+package require gen
+
+::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest}
+}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {one uno
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest} three tres
+RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+}  -result {}  -output {  one uno
+  two dos
+three tres
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 333 three
+RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 333 three
+registry set {HKEY_CURRENT_USER\Software\GenTest\four}
+registry set {HKEY_CURRENT_USER\Software\GenTest\four} aaa 1
+registry set {HKEY_CURRENT_USER\Software\GenTest\four} bbb 2
+registry set {HKEY_CURRENT_USER\Software\GenTest\four} ccc 3
+RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {  one uno
+  two dos
+ four
+      aaa 1
+      bbb 2
+      ccc 3
+three
+      111 one
+      222 two
+      333 three
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 333 three
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} a 1
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} b 2
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} c 3
+}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-6 {No registry key found}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {}  -result {Registry key/value HKEY_CURRENT_USER\Software\GenTest not found.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test RegistryPrint-7 {Multiple subkeys two levels deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 333 three
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} a 1
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} b 2
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} c 3
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\555}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\555} x 9
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\555} y 8
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\555} z 7
+}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+      555
+          x 9
+          y 8
+          z 7
+}  -returnCodes {0}  
+
+
+::tcltest::test RegistryPrint-8 {Subkey three levels deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest}
+registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
+registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
+registry set {HKEY_CURRENT_USER\Software\GenTest\three}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 111 one
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 222 two
+registry set {HKEY_CURRENT_USER\Software\GenTest\three} 333 three
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} a 1
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} b 2
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444} c 3
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444\d}
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444\d} nn mm
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444\d} oo pp
+registry set {HKEY_CURRENT_USER\Software\GenTest\three\444\d} qq rr
+}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+}  -result {}  -output {  one uno
+  two dos
+three
+      111 one
+      222 two
+      333 three
+      444
+          a 1
+          b 2
+          c 3
+          d
+            nn mm
+            oo pp
+            qq rr
+}  -returnCodes {0}  
+
+

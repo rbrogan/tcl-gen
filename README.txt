@@ -92,7 +92,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.0
+1.3.0
 % set Number 1
 1
 % AddTo Number 2
@@ -258,12 +258,14 @@ Nothing formal has been set up for governing this project, yet.
 The latest version can be found at
 http://www.robertbrogan.com/gen/download.html.
 
-No announcements mechanism has been set up yet. When it is, information for how
-to subscribe will be put on the above page.
+Want to receive notifications about changes to Gen? You can subscribe to the
+announcements mailing list by sending an email to gen-announce@robertbrogan.com.
+Put subscribe for the subject. You will then get an email every time we have a
+new release.
 
 ---17| RECENT CHANGES
 
-Version 1.2. No changes are known to affect existing API usage. You can find a
+Version 1.3. No changes are known to affect existing API usage. You can find a
 change summary in news.txt / news.html and details in changelog.txt /
 changelog.html.
 

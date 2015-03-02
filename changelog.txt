@@ -2,7 +2,52 @@ Gen
 
 CHANGELOG
 
-2014.02.01
+2015.03.02
+v1.3
+
+No changes break existing command usage.
+
+Changes by functionality
+
+     Monthly release of new commands, with corresponding files in test and doc directories.
+
+By files
+
+     /
+        changelog.html, changelog.txt
+            Updated with latest info.
+        news.html, news.txt
+            Updated with latest info.
+            Fix misprint in title.
+        README.html
+            Update Recent Changes section.
+        README.txt
+            Update Recent Changes section.
+        roadmap.html
+            Updated with latest info.
+        wishlist.html
+            Revised to remove items now on Roadmap or in the software.
+
+     /doc
+        Added pages for new commands.
+        Updated index pages with version number.
+        Updated Platform-specific and Dictionary Related index pages with new commands.
+        Added About Registry Commands page.
+        Changed wording of argument descriptions for Ter command.        
+
+     /src
+        gen.tcl
+            Commands added.
+            New error code for when registry element not found.
+        pkgIndex.tcl
+            Updated version.
+            
+    /test
+        Added tests for new commands.
+                  
+        
+        
+2015.02.01
 v1.2
 
 No changes break existing command usage.
@@ -44,7 +89,7 @@ By files
         Added index pages for each category.
         Added About Date and Time Commands page.
 
-2014.01.04
+2015.01.04
 v1.1
 
 No changes break existing command usage.

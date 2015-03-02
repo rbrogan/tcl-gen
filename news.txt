@@ -2,6 +2,38 @@ Gen
 
 NEWS
 
+2015.03.02
+v1.3 Release
+
+This month focuses on the Windows Registry, though it also includes some dict commands as well.
+
+What follows is a listing of new commands:
+
+IsDict
+     Check whether string can be used as a dict.
+
+PrintDict
+     Print the contents of dict on the screen.
+
+Dict2RegistryTree
+     Write to registry from dict.
+
+LinkTclVariableToRegistryValue
+     Make link to propagate changes from Tcl var to registry.
+
+RegistryExists
+     Check whether a registry key or value exists.
+
+RegistryPrint
+     Print the contents of a registry key.
+
+RegistryTree2Dict
+     Make Tcl dict from Windows registry tree.
+
+UnlinkTclVariableFromRegistryValue
+     Stop propagating changes set up by previous link.
+
+
 2015.02.01
 v1.2 Release
 
