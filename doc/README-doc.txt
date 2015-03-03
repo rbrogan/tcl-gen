@@ -78,6 +78,8 @@ doc.css
 
 addto.html
      Page for the command AddTo.
+appendstring2file.html
+     Page for the command AppendString2File.
 arrangedict.html
      Page for the command ArrangeDict.
 changecasing.html

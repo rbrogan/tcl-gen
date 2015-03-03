@@ -1,4 +1,4 @@
-package provide gen 1.3.0
+package provide gen 1.4.0
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -63,6 +63,26 @@ proc AddTo {VarName Value} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
      }
      set Var [expr $Var + $Value]
+}
+
+proc AppendString2File {StringValue FilePath} {
+
+     if {[IsEmpty $FilePath]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) FilePath] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     # Open for writing
+     set FilePointer [open $FilePath a]
+     try {
+          fconfigure $FilePointer -encoding utf-8
+          
+          # Write string to file
+          puts -nonewline $FilePointer $StringValue
+          # Clean up
+          flush $FilePointer          
+     } finally {
+          close $FilePointer         
+     }
 }
 
 proc ArrangeDict {DictVariable Arrangement} {
@@ -2115,5 +2135,5 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.3.0
+     puts 1.4.0
 }

@@ -2,6 +2,44 @@ Gen
 
 CHANGELOG
 
+2015.04.04
+v1.4
+
+No changes break existing command usage.
+
+Changes by functionality
+
+     Monthly release of new commands, with corresponding files in test and doc directories.
+
+By files
+
+     /
+        changelog.html, changelog.txt
+            Updated with latest info.
+        news.html, news.txt
+            Updated with latest info.
+        README.html
+            Update Recent Changes section.
+        README.txt
+            Update Recent Changes section.
+        roadmap.html
+            Updated with latest info.
+
+     /doc
+        Added pages for new commands.
+        Updated index pages with version number.
+        Updated index pages with new commands.
+
+     /src
+        gen.tcl
+            Commands added.
+        pkgIndex.tcl
+            Updated version.
+            
+    /test
+        Added tests for new commands.
+
+
 2015.03.02
 v1.3
 

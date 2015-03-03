@@ -103,6 +103,8 @@ all.tcl
      Test suite.
 addto.test
      Tests for the command AddTo.
+appendstring2file.test
+     Tests for the command AppendString2File.
 arrangedict.test
      Tests for the command ArrangeDict.
 changecasing.test
