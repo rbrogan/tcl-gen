@@ -276,6 +276,8 @@ string2file.html
      Page for the command String2File.
 stringcontains.html
      Page for the command StringContains.
+stringinsert.html
+     Page for the command StringInsert.
 stringmid.html
      Page for the command StringMid.
 subtractfrom.html

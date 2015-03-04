@@ -2,6 +2,19 @@ Gen
 
 NEWS
 
+
+2015.04.04
+v1.4 Release
+
+This month features miscellaneous commands across multiple categories.
+
+AppendString2File
+     Open a file and write a string at the end, then close file.
+
+StringInsert
+     Insert value into target string, starting from a location.
+
+     
 2015.03.02
 v1.3 Release
 

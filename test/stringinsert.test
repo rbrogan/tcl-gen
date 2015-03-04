@@ -1,0 +1,42 @@
+package require tcltest
+package require gen
+
+::tcltest::test StringInsert-0 {Basic test}  -setup {}  -body {StringInsert "01245" 3 3
+}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-1 {Insert at beginning}  -setup {}  -body {StringInsert "12345" 0 0}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-2 {Insert at end}  -setup {}  -body {StringInsert 0123 45 4}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-3 {Insert location less than zero}  -setup {}  -body {StringInsert 1234 0 -1}  -cleanup {}  -result {Variable WhereAt has invalid value -1.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test StringInsert-4 {Insert location past end}  -setup {}  -body {StringInsert 01234 5 10
+}  -cleanup {}  -result {01234     5}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-5 {Insert empty string}  -setup {}  -body {StringInsert 01234 "" 0}  -cleanup {}  -result {01234}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-6 {Insert into empty string}  -setup {}  -body {StringInsert "" 123 0}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test StringInsert-7 {Insert location empty}  -setup {}  -body {StringInsert "01245" 3 ""
+}  -cleanup {}  -result {Variable WhereAt has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test StringInsert-8 {Insert location non-numeric}  -setup {}  -body {StringInsert "01245" 3 asdf
+
+}  -cleanup {}  -result {Variable WhereAt has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test StringInsert-9 {Use @ designator}  -setup {}  -body {set MyString 01245
+StringInsert @MyString 3 3
+puts $MyString
+}  -cleanup {}  -result {}  -output {012345
+}  -returnCodes {0}  
+
+

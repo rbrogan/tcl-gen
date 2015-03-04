@@ -301,6 +301,8 @@ string2file.test
      Tests for the command String2File.
 stringcontains.test
      Tests for the command StringContains.
+stringinsert.test
+     Tests for the command StringInsert.
 stringmid.test
      Tests for the command StringMid.
 subtractfrom.test
