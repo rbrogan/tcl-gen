@@ -1120,6 +1120,11 @@ proc List2File {ListValue OutFilePath} {
      }
 }
 
+proc ListEndIndex ListValue {
+
+     return [expr [llength $ListValue] - 1]
+}
+
 proc ListRemoveAt {ListVariable Index {Count 1}} {
      if {[string first @ $ListVariable] == 0} {
           UpvarExistingOrDie [string range $ListVariable 1 end] List

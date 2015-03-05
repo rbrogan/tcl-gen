@@ -192,6 +192,8 @@ linkvartodbglobal.html
      Page for the command LinkVarToDbGlobal.
 list2file.html
      Page for the command List2File.
+listendindex.html
+     Page for the command ListEndIndex.
 listremoveat.html
      Page for the command ListRemoveAt.
 mash.html

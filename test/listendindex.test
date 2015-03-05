@@ -1,0 +1,15 @@
+package require tcltest
+package require gen
+
+::tcltest::test ListEndIndex-0 {Basic test - length 2}  -setup {}  -body {ListEndIndex [list one two]
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListEndIndex-1 {One element}  -setup {}  -body {ListEndIndex [list one]
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListEndIndex-2 {Empty}  -setup {}  -body {ListEndIndex {}
+}  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
+
+
