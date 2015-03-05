@@ -217,6 +217,8 @@ linkvartodbglobal.test
      Tests for the command LinkVarToDbGlobal.
 list2file.test
      Tests for the command List2File.
+listremoveat.test
+     Tests for the command ListRemoveAt.
 mash.test
      Tests for the command Mash.
 multiplyby.test

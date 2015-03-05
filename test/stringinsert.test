@@ -8,7 +8,7 @@ package require gen
 ::tcltest::test StringInsert-1 {Insert at beginning}  -setup {}  -body {StringInsert "12345" 0 0}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringInsert-2 {Insert at end}  -setup {}  -body {StringInsert 0123 45 4}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
+::tcltest::test StringInsert-2 {Insert at end}  -setup {}  -body {StringInsert 0123 45 end}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
 
 
 ::tcltest::test StringInsert-3 {Insert location less than zero}  -setup {}  -body {StringInsert 1234 0 -1}  -cleanup {}  -result {Variable WhereAt has invalid value -1.}  -output {}  -returnCodes {1}  

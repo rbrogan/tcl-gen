@@ -11,6 +11,9 @@ This month features miscellaneous commands across multiple categories.
 AppendString2File
      Open a file and write a string at the end, then close file.
 
+ListRemoveAt
+     From a list, remove element(s) starting at a given index.     
+     
 StringInsert
      Insert value into target string, starting from a location.
 

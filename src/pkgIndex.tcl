@@ -8,12 +8,5 @@
 # script is sourced, the variable $dir must contain the
 # full path name of this file's directory.
 
-package ifneeded gen 0.2.0 [list source [file join $dir 0.2.0/gen.tcl]]
-package ifneeded gen 0.5.0 [list source [file join $dir 0.5.0/gen.tcl]]
-package ifneeded gen 0.6.0 [list source [file join $dir 0.6.0/gen.tcl]]
-package ifneeded gen 0.7.0 [list source [file join $dir 0.7.0/gen.tcl]]
-package ifneeded gen 0.8.0 [list source [file join $dir 0.8.0/gen.tcl]]
-package ifneeded gen 0.8.0 [list source [file join $dir 0.8.0/gen.tcl]]
-package ifneeded gen 0.9.0 [list source [file join $dir 0.9.0/gen.tcl]]
-package ifneeded gen 1.0.0 [list source [file join $dir 1.0.0/gen.tcl]]
 package ifneeded gen 1.4.0 [list source [file join $dir gen.tcl]]
+          
