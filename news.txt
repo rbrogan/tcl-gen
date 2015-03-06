@@ -16,6 +16,9 @@ ListEndIndex
 
 ListRemoveAt
      From a list, remove element(s) starting at a given index.     
+
+PrintMatrix
+     Print out a table/matrix (e.g. query results).
      
 StringInsert
      Insert value into target string, starting from a location.

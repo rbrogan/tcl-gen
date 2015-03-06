@@ -233,6 +233,8 @@ prepend.test
      Tests for the command Prepend.
 printdict.test
      Tests for the command PrintDict.
+printmatrix.test
+     Tests for the command PrintMatrix.
 printvar.test
      Tests for the command PrintVar.
 q1.test

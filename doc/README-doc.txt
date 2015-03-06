@@ -208,6 +208,8 @@ prepend.html
      Page for the command Prepend.
 printdict.html
      Page for the command PrintDict.
+printmatrix.html
+     Page for the command PrintMatrix.
 printvar.html
      Page for the command PrintVar.
 q1.html
