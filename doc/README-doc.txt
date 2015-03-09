@@ -162,6 +162,8 @@ isdict.html
      Page for the command IsDict.
 isempty.html
      Page for the command IsEmpty.
+ismatrix.html
+     Page for the command IsMatrix.
 isnegative.html
      Page for the command IsNegative.
 isnonnegative.html

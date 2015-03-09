@@ -11,6 +11,9 @@ This month features miscellaneous commands across multiple categories.
 AppendString2File
      Open a file and write a string at the end, then close file.
 
+IsMatrix
+     Check whether list value is a matrix.
+     
 ListEndIndex
      Return index of last element in list.
 

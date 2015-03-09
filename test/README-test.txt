@@ -187,6 +187,8 @@ isdict.test
      Tests for the command IsDict.
 isempty.test
      Tests for the command IsEmpty.
+ismatrix.test
+     Tests for the command IsMatrix.
 isnegative.test
      Tests for the command IsNegative.
 isnonnegative.test
