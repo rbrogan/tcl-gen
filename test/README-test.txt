@@ -271,6 +271,8 @@ settimeofdayformat.test
      Tests for the command SetTimeOfDayFormat.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
+sliceleft.test
+     Tests for the command SliceLeft.
 splitandtrim.test
      Tests for the command SplitAndTrim.
 sqlcountstatement.test

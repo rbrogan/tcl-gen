@@ -1,0 +1,41 @@
+package require tcltest
+package require gen
+
+::tcltest::test SliceLeft-0 {Basic test}  -setup {}  -body {SliceLeft ababa b
+}  -cleanup {}  -result {a ba ba}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-1 {First character is target}  -setup {}  -body {SliceLeft bababa b
+}  -cleanup {}  -result {ba ba ba}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-2 {Last character is target}  -setup {}  -body {SliceLeft ababab b}  -cleanup {}  -result {a ba ba b}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-3 {Empty string}  -setup {}  -body {SliceLeft {} b}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-4 {Multiple target characters}  -setup {}  -body {SliceLeft abcd {bc}
+}  -cleanup {}  -result {a b cd}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-5 {Character list is empty}  -setup {}  -body {SliceLeft abba {}
+}  -cleanup {}  -result {abba}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-6 {No target characters found}  -setup {}  -body {SliceLeft ababa x
+}  -cleanup {}  -result {ababa}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-7 {Just one character and it is target}  -setup {}  -body {SliceLeft b b
+}  -cleanup {}  -result {b}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-8 {Multiple target characters in a row}  -setup {}  -body {SliceLeft bbbb b
+}  -cleanup {}  -result {b b b b}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SliceLeft-9 {Characters repeated in target character list}  -setup {}  -body {SliceLeft ababa {bb}
+}  -cleanup {}  -result {a ba ba}  -output {}  -returnCodes {0}  
+
+

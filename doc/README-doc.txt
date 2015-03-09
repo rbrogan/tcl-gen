@@ -246,6 +246,8 @@ settimeofdayformat.html
      Page for the command SetTimeOfDayFormat.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
+sliceleft.html
+     Page for the command SliceLeft.
 splitandtrim.html
      Page for the command SplitAndTrim.
 sqlcountstatement.html
