@@ -275,6 +275,8 @@ setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
 sliceleft.test
      Tests for the command SliceLeft.
+sliceright.test
+     Tests for the command SliceRight.
 splitandtrim.test
      Tests for the command SplitAndTrim.
 sqlcountstatement.test

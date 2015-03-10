@@ -250,6 +250,8 @@ setzeroifempty.html
      Page for the command SetZeroIfEmpty.
 sliceleft.html
      Page for the command SliceLeft.
+sliceright.html
+     Page for the command SliceRight.
 splitandtrim.html
      Page for the command SplitAndTrim.
 sqlcountstatement.html

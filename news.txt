@@ -22,9 +22,12 @@ ListRemoveAt
 
 PrintMatrix
      Print out a table/matrix (e.g. query results).
-
+     
 SliceLeft
-     Like split, except it keeps the characters it splits on.
+     Divide string by matching and separating to the left.
+
+SliceRight
+     Divide string by matching and separating to the right.
      
 StringInsert
      Insert value into target string, starting from a location.
