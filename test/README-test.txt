@@ -101,6 +101,8 @@ work listed in the above two sites.
 
 all.tcl
      Test suite.
+addprologue.test
+     Tests for the command AddPrologue.
 addto.test
      Tests for the command AddTo.
 appendstring2file.test

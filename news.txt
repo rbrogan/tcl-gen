@@ -8,29 +8,33 @@ v1.4 Release
 
 This month features miscellaneous commands across multiple categories.
 
+AddPrologue
+     Add code to the beginning of a proc.
+     
 AppendString2File
      Open a file and write a string at the end, then close file.
-
+     
 IsMatrix
      Check whether list value is a matrix.
      
 ListEndIndex
      Return index of last element in list.
-
+     
 ListRemoveAt
-     From a list, remove element(s) starting at a given index.     
-
+     From a list, remove element(s) starting at a given index.
+     
 PrintMatrix
      Print out a table/matrix (e.g. query results).
      
 SliceLeft
      Divide string by matching and separating to the left.
-
+     
 SliceRight
      Divide string by matching and separating to the right.
      
 StringInsert
      Insert value into target string, starting from a location.
+     
 
      
 2015.03.02

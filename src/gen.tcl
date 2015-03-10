@@ -23,6 +23,7 @@ array set ErrorCode {
      TABLE_NOT_FOUND -14
      ARGUMENTS_INCOHERENT -15
      REGISTRY_ELEMENT_NOT_FOUND -16
+     PROC_NOT_FOUND -17
 }
 
 array set ErrorMessage {
@@ -42,6 +43,7 @@ array set ErrorMessage {
      TABLE_NOT_FOUND {Table %s not found.}
      ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
      REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
+     PROC_NOT_FOUND {Could not find proc %s.}
 }
 
  namespace eval GenNS {
@@ -50,6 +52,23 @@ array set ErrorMessage {
      variable DateFormat %Y-%m-%d     
      variable DatetimeFormat {{%Y-%m-%d %H:%M:%S}}
      variable TimeOfDayFormat %H:%M:%S
+}
+
+proc AddPrologue {ProcName Prologue} {
+
+     # Verify proc exists
+     if {[info commands $ProcName] ne $ProcName} {
+          error [format $::ErrorMessage(PROC_NOT_FOUND) $ProcName] $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Get proc args     
+     set ProcArgs [info args $ProcName]
+     # Combine body and prologue
+     set NewBody "$Prologue\n[info body $ProcName]"
+     # Delete old proc
+     rename $ProcName ""
+     # Create new proc with same name
+     proc $ProcName $ProcArgs $NewBody
 }
 
 proc AddTo {VarName Value} {

@@ -1,0 +1,34 @@
+package require tcltest
+package require gen
+
+::tcltest::test AddPrologue-0 {Basic test}  -setup {}  -body {proc Tester {one two} {puts "$one $two"}
+Tester a b
+AddPrologue Tester {puts "123"}
+Tester c d
+}  -cleanup {}  -result {}  -output {a b
+123
+c d
+}  -returnCodes {0}  
+
+
+::tcltest::test AddPrologue-1 {No such proc}  -setup {}  -body {catch {rename NoSuchProc ""}
+AddPrologue NoSuchProc {puts 123}
+}  -cleanup {}  -result {Could not find proc NoSuchProc.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test AddPrologue-2 {Proc has empty body}  -setup {}  -body {proc Tester {} {}
+AddPrologue Tester {puts "123"}
+Tester
+}  -cleanup {}  -result {}  -output {123
+}  -returnCodes {0}  
+
+
+::tcltest::test AddPrologue-3 {Prologue is empty}  -setup {}  -body {proc Tester {one two} {puts "$one $two"}
+Tester a b
+AddPrologue Tester {}
+Tester c d
+}  -cleanup {}  -result {}  -output {a b
+c d
+}  -returnCodes {0}  
+
+

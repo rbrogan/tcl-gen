@@ -76,6 +76,8 @@ frames-intro.html
 doc.css
      Styles the manual pages.
 
+addprologue.html
+     Page for the command AddPrologue.
 addto.html
      Page for the command AddTo.
 appendstring2file.html
