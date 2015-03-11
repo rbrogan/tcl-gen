@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AddPrologue</title>
+<title>AddEpilogue</title>
 <link rel="stylesheet" type="text/css" href="doc.css">
 <body>
 <div class="section_header">
 NAME
 </div>
 <div class="section_content">
-AddPrologue  &mdash;  Add code to the beginning of a proc.
+AddEpilogue  &mdash;  Add code to the end of a proc.
 </div>
 <div class="section_header">
 SYNOPSIS
 </div>
 <div class="section_content">
-<b>AddPrologue</b> <i>ProcName</i> <i>Prologue</i>
+<b>AddEpilogue</b> <i>ProcName</i> <i>Epilogue</i>
 </div>
 <div class="section_header">
 DESCRIPTION
@@ -22,7 +22,7 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-None</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ProcName</i></td><td class='argument_right'>Name of proc to add prologue to.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Prologue</i></td><td class='argument_right'>Code to add to the start of the proc body.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+None</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ProcName</i></td><td class='argument_right'>Name of proc to add epilogue to.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Epilogue</i></td><td class='argument_right'>Code to add to the end of the proc body.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
 <div class= 'subsection_content'>
 <table>
 <tr>
@@ -39,12 +39,12 @@ None</div><div class='subsection_header'>Arguments</div><div class='subsection_c
 EXAMPLES
 </div>
 <div class="section_content">
-<div class="code_sample"><pre>% proc Tester {one two} {puts "$one $two"}<br>% Tester a b<br>a b<br>% <b>AddPrologue Tester {puts "123"}</b><br>% Tester c d<br>123<br>c d<br></pre></div>
+<div class="code_sample"><pre>% proc Tester {one two} {puts "$one $two"}<br>% Tester a b<br>a b<br>% <b>AddEpilogue Tester {puts "123"}</b><br>% Tester c d<br>c d<br>123<br></pre></div>
 <div class="section_header" >
 SEE ALSO
 </div>
 <div class="section_content" >
-<a href = 'addepilogue.html'>AddEpilogue</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/trace.htm'>trace</a>
+<a href = 'addprologue.html'>AddPrologue</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/trace.htm'>trace</a>
 </div>
 <div class="section_header" >
 KEYWORDS

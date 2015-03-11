@@ -54,6 +54,23 @@ array set ErrorMessage {
      variable TimeOfDayFormat %H:%M:%S
 }
 
+proc AddEpilogue {ProcName Epilogue} {
+
+     # Verify proc exists
+     if {[info commands $ProcName] ne $ProcName} {
+          error [format $::ErrorMessage(PROC_NOT_FOUND) $ProcName] $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Get proc args     
+     set ProcArgs [info args $ProcName]
+     # Combine body and prologue
+     set NewBody "[info body $ProcName]\n$Epilogue"
+     # Delete old proc
+     rename $ProcName ""
+     # Create new proc with same name
+     proc $ProcName $ProcArgs $NewBody
+}
+
 proc AddPrologue {ProcName Prologue} {
 
      # Verify proc exists

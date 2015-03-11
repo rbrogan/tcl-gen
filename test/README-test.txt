@@ -101,6 +101,8 @@ work listed in the above two sites.
 
 all.tcl
      Test suite.
+addepilogue.test
+     Tests for the command AddEpilogue.
 addprologue.test
      Tests for the command AddPrologue.
 addto.test

@@ -8,6 +8,9 @@ v1.4 Release
 
 This month features miscellaneous commands across multiple categories.
 
+AddEpilogue
+     Add code to the end of a proc.
+     
 AddPrologue
      Add code to the beginning of a proc.
      
