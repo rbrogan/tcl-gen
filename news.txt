@@ -29,6 +29,9 @@ ListRemoveAt
 Matrix2HtmlTable
      Takes a list of lists, returns string encoding HTML table.
      
+MultiSet
+     Take list and copy values to variables, like lassign.
+     
 PrintMatrix
      Print out a table/matrix (e.g. query results).
      

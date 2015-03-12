@@ -206,6 +206,8 @@ mash.html
      Page for the command Mash.
 matrix2htmltable.html
      Page for the command Matrix2HtmlTable.
+multiset.html
+     Page for the command MultiSet.
 multiplyby.html
      Page for the command MultiplyBy.
 notempty.html

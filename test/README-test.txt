@@ -231,6 +231,8 @@ mash.test
      Tests for the command Mash.
 matrix2htmltable.test
      Tests for the command Matrix2HtmlTable.
+multiset.test
+     Tests for the command MultiSet.
 multiplyby.test
      Tests for the command MultiplyBy.
 notempty.test
