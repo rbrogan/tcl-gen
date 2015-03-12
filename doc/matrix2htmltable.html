@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Matrix2HtmlTable</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Matrix2HtmlTable  &mdash;  Takes a list of lists, returns string encoding HTML table.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Matrix2HtmlTable</b> <i>MatrixValue</i> <i>?FirstRowOption?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+String encoding HTML table. Each row corresponds to one of the lists.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Matrix</i></td><td class='argument_right'>List of lists where each one has the same number of elements.</td></tr><tr class='table_row_a'><td class='argument_left'><i>FirstRowOption</i></td><td class='argument_right'>Optional. Put --first-row-is-header if you want the first row to use <th> tags.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of variable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>A matrix here is simply a list of lists, where each of the lists has the same number of elements.<p>Note that if you input an empty string then this command will not throw an error but will return a table without any rows or columns.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}<br>{1 2 3} {4 5 6} {7 8 9}<br>% <b>Matrix2HtmlTable $MyMatrix</b>
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ismatrix.html'>IsMatrix</a>, <a href = 'printmatrix.html'>PrintMatrix</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_list">list</a>
+</div>
+</body>
+</html>

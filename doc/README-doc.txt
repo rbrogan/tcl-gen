@@ -204,6 +204,8 @@ listremoveat.html
      Page for the command ListRemoveAt.
 mash.html
      Page for the command Mash.
+matrix2htmltable.html
+     Page for the command Matrix2HtmlTable.
 multiplyby.html
      Page for the command MultiplyBy.
 notempty.html

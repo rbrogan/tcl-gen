@@ -1,0 +1,91 @@
+package require tcltest
+package require gen
+
+::tcltest::test Matrix2HtmlTable-0 {Basic test}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {}  -output {<table>
+<tr>
+<td>1</td><td>2</td><td>3</td>
+</tr>
+<tr>
+<td>4</td><td>5</td><td>6</td>
+</tr>
+<tr>
+<td>7</td><td>8</td><td>9</td>
+</tr>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-1 {Empty input}  -setup {}  -body {set MyMatrix {}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {}  -output {<table>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-2 {One list with one element}  -setup {}  -body {set MyMatrix {1}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {}  -output {<table>
+<tr>
+<td>1</td>
+</tr>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-3 {One row only}  -setup {}  -body {set MyMatrix {{1 2 3}}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {}  -output {<table>
+<tr>
+<td>1</td><td>2</td><td>3</td>
+</tr>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-4 {One column only}  -setup {}  -body {set MyMatrix {1 2 3}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {}  -output {<table>
+<tr>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+</tr>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-5 {Input is not a matrix}  -setup {}  -body {set MyMatrix {1 {2 2} {3 3 3}}
+puts [Matrix2HtmlTable $MyMatrix]
+}  -cleanup {}  -result {Variable MatrixValue has invalid value 1 {2 2} {3 3 3}.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test Matrix2HtmlTable-6 {First row is header}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
+puts [Matrix2HtmlTable $MyMatrix --first-row-is-header]
+}  -cleanup {}  -result {}  -output {<table>
+<tr>
+<th>Col1</th><th>Col2</th><th>Col3</th>
+</tr>
+<tr>
+<td>1</td><td>2</td><td>3</td>
+</tr>
+<tr>
+<td>4</td><td>5</td><td>6</td>
+</tr>
+<tr>
+<td>7</td><td>8</td><td>9</td>
+</tr>
+</table>
+}  -returnCodes {0}  
+
+
+::tcltest::test Matrix2HtmlTable-7 {Invalid value for FirstRowOption}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
+puts [Matrix2HtmlTable $MyMatrix --first-row-header]
+}  -cleanup {}  -result {Variable FirstRowOption has invalid value --first-row-header.}  -output {}  -returnCodes {1}  
+
+

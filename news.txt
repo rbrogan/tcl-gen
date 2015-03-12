@@ -26,6 +26,9 @@ ListEndIndex
 ListRemoveAt
      From a list, remove element(s) starting at a given index.
      
+Matrix2HtmlTable
+     Takes a list of lists, returns string encoding HTML table.
+     
 PrintMatrix
      Print out a table/matrix (e.g. query results).
      

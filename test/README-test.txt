@@ -229,6 +229,8 @@ listremoveat.test
      Tests for the command ListRemoveAt.
 mash.test
      Tests for the command Mash.
+matrix2htmltable.test
+     Tests for the command Matrix2HtmlTable.
 multiplyby.test
      Tests for the command MultiplyBy.
 notempty.test
