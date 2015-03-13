@@ -20,6 +20,9 @@ AppendString2File
 IsMatrix
      Check whether list value is a matrix.
      
+IsValidListIndex
+     Check whether the given value works as an index.
+     
 ListEndIndex
      Return index of last element in list.
      

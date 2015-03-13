@@ -184,6 +184,8 @@ ispositive.html
      Page for the command IsPositive.
 istimeofday.html
      Page for the command IsTimeOfDay.
+isvalidlistindex.html
+     Page for the command IsValidListIndex.
 iszero.html
      Page for the command IsZero.
 lappendifnotalready.html

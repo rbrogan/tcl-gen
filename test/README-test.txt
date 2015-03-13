@@ -209,6 +209,8 @@ ispositive.test
      Tests for the command IsPositive.
 istimeofday.test
      Tests for the command IsTimeOfDay.
+isvalidlistindex.test
+     Tests for the command IsValidListIndex.
 iszero.test
      Tests for the command IsZero.
 lappendifnotalready.test
