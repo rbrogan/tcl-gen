@@ -264,6 +264,8 @@ sliceright.html
      Page for the command SliceRight.
 splitandtrim.html
      Page for the command SplitAndTrim.
+splitntimes.html
+     Page for the command SplitNTimes.
 sqlcountstatement.html
      Page for the command SqlCountStatement.
 sqlinsertstatement.html

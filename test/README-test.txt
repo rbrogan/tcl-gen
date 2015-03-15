@@ -289,6 +289,8 @@ sliceright.test
      Tests for the command SliceRight.
 splitandtrim.test
      Tests for the command SplitAndTrim.
+splitntimes.test
+     Tests for the command SplitNTimes.
 sqlcountstatement.test
      Tests for the command SqlCountStatement.
 sqlinsertstatement.test

@@ -44,6 +44,9 @@ SliceLeft
 SliceRight
      Divide string by matching and separating to the right.
      
+SplitNTimes
+     Like split, except stops after a certain number of splits.
+     
 StringInsert
      Insert value into target string, starting from a location.
      
