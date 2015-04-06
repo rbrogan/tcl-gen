@@ -36,3 +36,58 @@ TimeOfDayIsBetween {0101 PM} {0100 PM} {0102 PM}
 }  -result {1}  -output {}  -returnCodes {0}  
 
 
+::tcltest::test TimeOfDayIsBetween-10 {Option is invalid}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 asdf}  -cleanup {}  -result {Variable Option has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test TimeOfDayIsBetween-11 {First is equal to second and both inclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 BothInclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-12 {First is equal to second and LeftInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftInclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-13 {First is equal to second and LeftExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftExclusive
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-14 {First is equal to third and BothInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 BothInclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-15 {First is equal to third and LeftInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftInclusive
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-16 {First is equal to third and LeftExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftExclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-17 {First is equal to second and RightInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightInclusive
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-18 {First is equal to second and RightExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightExclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-19 {First is equal to third and RightInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightInclusive
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-20 {First is equal to third and RightExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightExclusive
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-21 {First is between second and third, BothInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 BothInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-22 {First is between second and third, LeftExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 LeftExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-23 {First is between second and third, RightInclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test TimeOfDayIsBetween-24 {First is between second and third, RightExclusive}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+

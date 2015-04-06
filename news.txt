@@ -2,10 +2,61 @@ Gen
 
 NEWS
 
+
+2015.04.06
+v1.4 Release
+
+This month features miscellaneous commands across multiple categories.
+
+AddEpilogue
+     Add code to the end of a proc.
+     
+AddPrologue
+     Add code to the beginning of a proc.
+     
+AppendString2File
+     Open a file and write a string at the end, then close file.
+     
+IsMatrix
+     Check whether list value is a matrix.
+     
+IsValidListIndex
+     Check whether the given value works as an index.
+     
+ListEndIndex
+     Return index of last element in list.
+     
+ListRemoveAt
+     From a list, remove element(s) starting at a given index.
+     
+Matrix2HtmlTable
+     Takes a list of lists, returns string encoding HTML table.
+     
+MultiSet
+     Take list and copy values to variables, like lassign.
+     
+PrintMatrix
+     Print out a table/matrix (e.g. query results).
+     
+SliceLeft
+     Divide string by matching and separating to the left.
+     
+SliceRight
+     Divide string by matching and separating to the right.
+     
+SplitNTimes
+     Like split, except stops after a certain number of splits.
+     
+StringInsert
+     Insert value into target string, starting from a location.
+     
+
+     
 2015.03.02
 v1.3 Release
 
-This month focuses on the Windows Registry, though it also includes some dict commands as well.
+This month focuses on the Windows Registry, though it also includes some dict
+commands as well.
 
 What follows is a listing of new commands:
 
@@ -37,9 +88,12 @@ UnlinkTclVariableFromRegistryValue
 2015.02.01
 v1.2 Release
 
-For this month we have date and time commands. More commands are in the works. Look for another batch of date and time commands in the future (and use the feedback page to let us know what you would like).
+For this month we have date and time commands. More commands are in the works.
+Look for another batch of date and time commands in the future (and use the
+feedback page to let us know what you would like).
 
-Also note that we have made a slight upgrade to the documentation. Commands are now organized by category, for ease-of-navigation.
+Also note that we have made a slight upgrade to the documentation. Commands are
+now organized by category, for ease-of-navigation.
 
 What follows is a listing of new commands:
 
@@ -135,7 +189,9 @@ Yesterday
 2015.01.04
 v1.1 Release
 
-This monthly update of Gen centers on SQL-related convenience commands. Also, several existing commands have been updated to add support for a new @ notation to designate input/output variables where values would normally be used:
+This monthly update of Gen centers on SQL-related convenience commands. Also,
+several existing commands have been updated to add support for a new @ notation
+to designate input/output variables where values would normally be used:
 
 set MyString [DoubleChop $MyString]
 

@@ -2,6 +2,64 @@ Gen
 
 CHANGELOG
 
+2015.04.06
+v1.4
+
+No changes break existing command usage.
+
+Changes by functionality
+
+     Monthly release of new commands, with corresponding files in test and doc
+directories.
+     Moved configurable variables into separate config file.
+     Added support for helpx-cli. Check for package, load if it exists, and register
+documentation database.
+
+By files
+
+     /
+        changelog.html, changelog.txt
+            Updated with latest info.
+        news.html, news.txt
+            Updated with latest info.
+        README.html
+            Update Recent Changes section.
+            Added DEPENDENCIES section.
+        README.txt
+            Update Recent Changes section.
+            Added DEPENDENCIES section.
+        roadmap.html
+            Updated with latest info.
+        *.txt
+            Adjusted line lengths to be <= 80 characters.
+        *.html
+            Changed casing of README links.
+
+     /doc
+        Added pages for new commands.
+        Updated index pages with version number.
+        Updated index pages with new commands.
+        helpx-cli-for-cli-based-help.html
+            Help page with information about helpx-cli.
+        Various documentation pages touched up, but without changes to the code.
+
+     /src
+        gen.tcl
+            Commands added.
+            Added check for helpx-cli and, if found, registration of database.
+            Moved configuration out to file gen-config.tcl.
+        pkgIndex.tcl
+            Updated version.
+            Added gen-config.tcl to list of files to source.
+        gen-config.tcl
+            Contains configurable variables.
+        gen-helpx.db
+            New file -- documentation database for use with helpx-cli.
+            
+    /test
+        Added tests for new commands.
+
+
 2015.03.02
 v1.3
 
@@ -9,7 +67,8 @@ No changes break existing command usage.
 
 Changes by functionality
 
-     Monthly release of new commands, with corresponding files in test and doc directories.
+     Monthly release of new commands, with corresponding files in test and doc
+directories.
 
 By files
 
@@ -33,7 +92,7 @@ By files
         Updated index pages with version number.
         Updated Platform-specific and Dictionary Related index pages with new commands.
         Added About Registry Commands page.
-        Changed wording of argument descriptions for Ter command.        
+        Changed wording of argument descriptions for Ter command.
 
      /src
         gen.tcl
@@ -54,7 +113,8 @@ No changes break existing command usage.
 
 Changes by functionality
 
-    Monthly release of new commands, with corresponding files in test and doc directories.
+    Monthly release of new commands, with corresponding files in test and doc
+directories.
     Documentation now organized according to category, for ease-of-navigation.
     Added favicon to html pages.
 
@@ -95,10 +155,15 @@ v1.1
 No changes break existing command usage.
 
 By functionality
-. Monthly release of new commands, with corresponding files in test and doc directories.
-. @ designator support: Several existing commands have been updated to allow passing in the name of an in/out variable instead of a value. This should not affect existing usage.
-. Decr now supports taking an integer value as a second argument, which makes it more consistent with incr.
-. Updated test generator code (not included) and so tests have changed in format.
+. Monthly release of new commands, with corresponding files in test and doc
+directories.
+. @ designator support: Several existing commands have been updated to allow
+passing in the name of an in/out variable instead of a value. This should not
+affect existing usage.
+. Decr now supports taking an integer value as a second argument, which makes it
+more consistent with incr.
+. Updated test generator code (not included) and so tests have changed in
+format.
 . Added this CHANGELOG page and a NEWS page.
 
 By files
@@ -113,8 +178,10 @@ By files
           . Commands added.
           . Three error codes added.
           . Added namespace variables for database command configuration.
-          . Several commands now support an @ designator for in/out variables. Existing usage should not be affected by this change.
-          . Decr now supports taking an integer value as a second argument, which makes it more consistent with incr.
+          . Several commands now support an @ designator for in/out variables. Existing
+usage should not be affected by this change.
+          . Decr now supports taking an integer value as a second argument, which makes it
+more consistent with incr.
      pkgIndex.tcl
           . Updated version.
           
@@ -123,6 +190,7 @@ By files
      . Existing tests modified because test generator software changed.
 
 /doc
-     . Added about pages for @ designator, database command configuration, and xxxdbglobal commands, in general.
+     . Added about pages for @ designator, database command configuration, and
+xxxdbglobal commands, in general.
      . Added pages for new commands.
      . Updated documentation for commands that gained support for @ designator.

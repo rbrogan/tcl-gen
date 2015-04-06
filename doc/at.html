@@ -5,11 +5,11 @@
 </head>
 <body>
 <h1>About Using @</h1>
-<p>It can be tedious to write code like this:<br>
-<code>set MyVariable [SomeCommand $MyVariable]</code></p>
-<p>By using the @ designator, you mark an argument as the name of an in/out variable. An in/out variable both gives input and takes output. This simplifies, for example, the above code to this:<br>
-<code>SomeCommand @MyVariable</code><br>
-<code>MyVariable</code> has been modified.</p>
+<p>It can be tedious to write code like this:</p>
+<p><code>set MyVariable [SomeCommand $MyVariable]</code></p>
+<p>By using the @ designator, you mark an argument as the name of an in/out variable. An in/out variable both gives input and takes output. This simplifies, for example, the above code to this:</p>
+<p><code>SomeCommand @MyVariable</code></p>
+<p><code>MyVariable</code> will now have been modified.</p>
 <p>
 When can you use @? If you see an argument named XxxVariable (e.g. ListVariable, StringVariable, etc.) in the documentation then you can use @ for that argument. Arguments of the form XxxVariable can take <i>either</i> a normal value <i>or</i> the name of a variable to read/write, prefixed by @.
 </p>

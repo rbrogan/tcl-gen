@@ -32,3 +32,7 @@ DateIsAfter {January 02, 2000} {January 01, 2000}
 }  -result {1}  -output {}  -returnCodes {0}  
 
 
+::tcltest::test DateIsAfter-7 {Dates are equal}  -setup {}  -body {DateIsAfter {2000-01-01} {2000-01-01}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+

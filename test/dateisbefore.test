@@ -34,3 +34,6 @@ DateIsBefore {January 02, 2000} {January 03, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
 
+::tcltest::test DateIsBefore-9 {Dates are equal}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-02}}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+

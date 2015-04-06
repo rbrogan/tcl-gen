@@ -1,0 +1,50 @@
+package require tcltest
+package require gen
+
+::tcltest::test SplitNTimes-0 {Basic test}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-1 {Count is not a positive integer}  -setup {}  -body {SplitNTimes "one,two,three" , 0
+}  -cleanup {}  -result {Variable Count has invalid value 0.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SplitNTimes-2 {SplitChars is empty}  -setup {}  -body {SplitNTimes "one,two,three" "" 1
+}  -cleanup {}  -result {one,two,three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-3 {StringValue is empty}  -setup {}  -body {SplitNTimes "" , 1
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-4 {More characters to split than count}  -setup {}  -body {SplitNTimes "one,two,three" , 1
+}  -cleanup {}  -result {one two,three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-5 {Characters to split on matches count}  -setup {}  -body {SplitNTimes "one,two,three" , 2
+
+}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-6 {No split characters in StringValue}  -setup {}  -body {SplitNTimes "one,two,three" . 1
+}  -cleanup {}  -result {one,two,three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-7 {Split character at beginning of string}  -setup {}  -body {SplitNTimes ",one,two,three" , 4
+}  -cleanup {}  -result {{} one two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-8 {Split character at end of string}  -setup {}  -body {SplitNTimes "one,two,three," , 4
+}  -cleanup {}  -result {one two three {}}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-9 {Multiple split characters in a row}  -setup {}  -body {SplitNTimes "one,,two,,three" , 4
+}  -cleanup {}  -result {one {} two {} three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-10 {Multiple characters to split on}  -setup {}  -body {SplitNTimes "one.two,three" ,. 2
+}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SplitNTimes-11 {Less characters to split than count}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+
+

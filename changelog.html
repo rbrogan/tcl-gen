@@ -9,9 +9,9 @@
 <body>
 <div id = "left">
 <a href="index.html" class="navbar" >Home</a>
-<a href="readme.html" class="navbar" >Readme</a>
-<a href="doc/readme-doc.html" class="navbar" >doc / Readme</a>
-<a href="test/readme-test.html" class="navbar" >test / Readme</a>
+<a href="README.html" class="navbar" >Readme</a>
+<a href="doc/README-doc.html" class="navbar" >doc / Readme</a>
+<a href="test/README-test.html" class="navbar" >test / Readme</a>
 <a href="doc/manual-home.html" class="navbar" >Manual</a>
 <a href="news.html" class="navbar">News</a>
 <a href="changelog.html" class="navbar" id = "current">Changelog</a>
@@ -25,7 +25,110 @@
 <div id = "AppTitle">Gen</div>
 <div id = "PageTitle">Recent Changes</div>
 <p>This changelog is in-between the update information on the <a href="news.html">news page</a> and a diff of  current and previous versions' source. It is intended to act like code comments. It should help the reader make sense of diffs, rather than restate them.</p>
-<p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce@robertbrogan.com</code>. Put <code>subscribe</code> for the subject. You will then get an email every time we have a new release.</p>
+<p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
+
+<div class="section-header">
+<div class="section-header-left">1.4</div><div class="section-header-right">2015.04.06</div>
+</div>
+<div class="section-content">
+<p>No changes break existing command usage.</p>
+<p>
+Changes by functionality<br>
+<ul>
+<li>Monthly release of new commands, with corresponding files in test and doc directories.</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>README.html
+<ul>
+<li>Update Recent Changes section.</li>
+<li>Added DEPENDENCIES section.</li>
+</ul>
+</li>
+<li>
+README.txt
+<ul>
+<li>Update Recent Changes section.</li>
+<li>Added DEPENDENCIES section.</li>
+</ul>
+</li>
+<li>roadmap.html
+<ul><li>Updated with latest info.</li></ul>
+</li>
+</li>
+<li>wishlist.html
+<ul><li>Revised to remove items now on Roadmap or in the software.</li></ul>
+</li>
+<li>*.txt
+<ul><li>Adjusted line lengths to be &lt;= 80 characters.</li></ul>
+</li>
+<li>*.html
+<ul><li>Changed casing of README links.</li></ul>
+</li>
+</ul>
+</li>
+<li>/doc
+<ul>
+<li>Added pages for new commands.</li>
+<li>Added index pages with new version number.</li>
+<li>Updated index pages with new commands.</li>
+<li>helpx-cli-for-cli-based-help.html
+<li>Various documentation pages touched up, but without changes to the code.</li>
+<ul>
+<li>Help page with information about helpx-cli.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>gen.tcl
+<ul>
+<li>Commands added.</li>
+<li>Added check for helpx-cli and, if found, registration of database.</li>
+<li>Moved configuration out to file gen-config.tcl.</li>
+</ul>
+</li>
+<li>pkgIndex.tcl
+<ul>
+<li>Updated version.</li>
+<li>Added gen-config.tcl to list of files to source.</li>
+</ul>
+<li>gen-config.tcl
+<ul>
+<li>Contains configurable variables.</li>
+</ul>
+</li>
+<li>gen-helpx.db
+<ul>
+<li>New file -- documentation database for use with helpx-cli.</li>
+</ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/test
+<ul>
+<li>Added tests for new commands.</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
 <div class="section-header">
 <div class="section-header-left">1.3</div><div class="section-header-right">2015.03.02</div>
 </div>

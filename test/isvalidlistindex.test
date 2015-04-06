@@ -1,0 +1,25 @@
+package require tcltest
+package require gen
+
+::tcltest::test IsValidListIndex-0 {Basic test}  -setup {}  -body {IsValidListIndex {1 2 3} 1
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsValidListIndex-1 {List is empty}  -setup {}  -body {IsValidListIndex {} 0}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsValidListIndex-2 {List is length 1}  -setup {}  -body {IsValidListIndex 1 0
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsValidListIndex-3 {Index is not an integer}  -setup {}  -body {IsValidListIndex {1 2 3} 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsValidListIndex-4 {Index is negative}  -setup {}  -body {IsValidListIndex {1 2 3} -1
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsValidListIndex-5 {Index is length of list}  -setup {}  -body {IsValidListIndex {1 2 3} 3
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+

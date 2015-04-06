@@ -1,0 +1,67 @@
+package require tcltest
+package require gen
+
+::tcltest::test ListRemoveAt-0 {Basic positive}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 1
+}  -cleanup {}  -result {one three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListRemoveAt-1 {Index out-of-range}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 3}  -cleanup {}  -result {Variable Index has invalid value 3.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-2 {Input empty string}  -setup {}  -body {ListRemoveAt "" 0}  -cleanup {}  -result {Variable ListVariable has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-3 {Count is empty}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 1 ""
+
+
+}  -cleanup {}  -result {Variable Count has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-4 {Index is empty}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList ""
+
+}  -cleanup {}  -result {Variable Index has empty value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-5 {Index is non-numeric value}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList asdf
+
+}  -cleanup {}  -result {Variable Index has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-6 {Count is invalid value}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 1 asdf
+}  -cleanup {}  -result {Variable Count has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test ListRemoveAt-7 {Remove two}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 1 2
+}  -cleanup {}  -result {one}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListRemoveAt-8 {Remove from start}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList 0
+}  -cleanup {}  -result {two three}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListRemoveAt-9 {Remove from end}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt $MyList end
+}  -cleanup {}  -result {one two}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ListRemoveAt-10 {At designator used}  -setup {}  -body {set MyList {one two three}
+ListRemoveAt @MyList 1
+puts $MyList
+}  -cleanup {}  -result {}  -output {one three
+}  -returnCodes {0}  
+
+
+::tcltest::test ListRemoveAt-11 {List has only one element}  -setup {}  -body {set MyList {one}
+ListRemoveAt $MyList end
+
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+

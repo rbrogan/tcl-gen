@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>helpx-cli for CLI-based Help</title>
+</head>
+<body>
+<h1>helpx-cli for CLI-based Help</h1>
+<p>
+<i>Want to get help info while at your CLI?</i> You can access the same help information that is in this manual by installing <a href='http://www.robertbrogan.com/helpx'>helpx-cli</a>. You can get a <a href='http://www.robertbrogan.com/helpx/download.html'>download package</a> in <b>.zip</b> or <b>.tar.gz</b> format or you can use the git repo at <a href='https://www.github.com/rbrogan/tcl-helpx'>GitHub</a>.
+</p>
+<p>
+Once you have helpx-cli installed, Gen will automatically register its help information with helpx-cli when it loads (this should not do much to affect load time). You can then query that from the CLI, as shown in the following example:
+</p>
+<p>
+<pre>
+% package require gen
+1.4
+% # Gen will have found help-cli and registered its documentation database with it.
+% helpx String2File
+SIGNATURE
+    String2File {StringValue OutFilePath}
+
+DESCRIPTION
+    Create a file, write string to it, and close the file.
+
+RETURNS
+    None.
+
+ARGUMENTS
+    StringValue
+         String to write from.
+    OutFilePath
+         Filepath to write to.
+
+MORE INFO
+
+SEE ALSO
+    File2String List2File File2List
+
+EXAMPLE(S)
+
+% String2File "abc" test.txt
+% cat test.txt
+abc
+</pre>
+</p>
+</body>
+</html>

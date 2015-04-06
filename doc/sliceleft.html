@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SliceLeft</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SliceLeft  &mdash;  Divide string by matching and separating to the left.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SliceLeft</b> <i>TargetString</i> <i>Characters</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A list of slices.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetString</i></td><td class='argument_right'>String to slice.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Characters</i></td><td class='argument_right'>Characters to slice on.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command makes its cut to the left of the characters it finds. If there are multiple cut characters in a row then it cuts on each of them (e.g. axxxb, cut on x to the left -> a x x xb).
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>SliceLeft "010" "1"</b><br>0 {10}<br>% SliceLeft "001" "1"<br>{00} 1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'sliceright.html'>SliceRight</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/split.htm'>split</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_string">string</a>
+</div>
+</body>
+</html>

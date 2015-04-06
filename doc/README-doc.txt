@@ -76,8 +76,14 @@ frames-intro.html
 doc.css
      Styles the manual pages.
 
+addepilogue.html
+     Page for the command AddEpilogue.
+addprologue.html
+     Page for the command AddPrologue.
 addto.html
      Page for the command AddTo.
+appendstring2file.html
+     Page for the command AppendString2File.
 arrangedict.html
      Page for the command ArrangeDict.
 changecasing.html
@@ -160,6 +166,8 @@ isdict.html
      Page for the command IsDict.
 isempty.html
      Page for the command IsEmpty.
+ismatrix.html
+     Page for the command IsMatrix.
 isnegative.html
      Page for the command IsNegative.
 isnonnegative.html
@@ -176,6 +184,8 @@ ispositive.html
      Page for the command IsPositive.
 istimeofday.html
      Page for the command IsTimeOfDay.
+isvalidlistindex.html
+     Page for the command IsValidListIndex.
 iszero.html
      Page for the command IsZero.
 lappendifnotalready.html
@@ -190,8 +200,16 @@ linkvartodbglobal.html
      Page for the command LinkVarToDbGlobal.
 list2file.html
      Page for the command List2File.
+listendindex.html
+     Page for the command ListEndIndex.
+listremoveat.html
+     Page for the command ListRemoveAt.
 mash.html
      Page for the command Mash.
+matrix2htmltable.html
+     Page for the command Matrix2HtmlTable.
+multiset.html
+     Page for the command MultiSet.
 multiplyby.html
      Page for the command MultiplyBy.
 notempty.html
@@ -202,6 +220,8 @@ prepend.html
      Page for the command Prepend.
 printdict.html
      Page for the command PrintDict.
+printmatrix.html
+     Page for the command PrintMatrix.
 printvar.html
      Page for the command PrintVar.
 q1.html
@@ -238,8 +258,14 @@ settimeofdayformat.html
      Page for the command SetTimeOfDayFormat.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
+sliceleft.html
+     Page for the command SliceLeft.
+sliceright.html
+     Page for the command SliceRight.
 splitandtrim.html
      Page for the command SplitAndTrim.
+splitntimes.html
+     Page for the command SplitNTimes.
 sqlcountstatement.html
      Page for the command SqlCountStatement.
 sqlinsertstatement.html
@@ -274,6 +300,8 @@ string2file.html
      Page for the command String2File.
 stringcontains.html
      Page for the command StringContains.
+stringinsert.html
+     Page for the command StringInsert.
 stringmid.html
      Page for the command StringMid.
 subtractfrom.html

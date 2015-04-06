@@ -1,4 +1,4 @@
-package provide gen 1.3.0
+package provide gen 1.4.0
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -23,6 +23,7 @@ array set ErrorCode {
      TABLE_NOT_FOUND -14
      ARGUMENTS_INCOHERENT -15
      REGISTRY_ELEMENT_NOT_FOUND -16
+     PROC_NOT_FOUND -17
 }
 
 array set ErrorMessage {
@@ -42,14 +43,41 @@ array set ErrorMessage {
      TABLE_NOT_FOUND {Table %s not found.}
      ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
      REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
+     PROC_NOT_FOUND {Could not find proc %s.}
 }
 
- namespace eval GenNS {
-     variable DatabaseName "testdb"
-     variable GlobalsTable "globals"
-     variable DateFormat %Y-%m-%d     
-     variable DatetimeFormat {{%Y-%m-%d %H:%M:%S}}
-     variable TimeOfDayFormat %H:%M:%S
+proc AddEpilogue {ProcName Epilogue} {
+
+     # Verify proc exists
+     if {[catch {info body $ProcName} Body]} {
+          error [format $::ErrorMessage(PROC_NOT_FOUND) $ProcName] $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Get proc args     
+     set ProcArgs [info args $ProcName]
+     # Combine body and prologue
+     set NewBody "$Body\n$Epilogue"
+     # Delete old proc
+     rename $ProcName ""
+     # Create new proc with same name
+     proc $ProcName $ProcArgs $NewBody
+}
+
+proc AddPrologue {ProcName Prologue} {
+
+     # Verify proc exists
+     if {[catch {info body $ProcName} Body]} {
+          error [format $::ErrorMessage(PROC_NOT_FOUND) $ProcName] $::errorInfo $::ErrorCode(VARIABLE_NAME_EMPTY)
+     }
+
+     # Get proc args     
+     set ProcArgs [info args $ProcName]
+     # Combine body and prologue
+     set NewBody "$Prologue\n$Body"
+     # Delete old proc
+     rename $ProcName ""
+     # Create new proc with same name
+     proc $ProcName $ProcArgs $NewBody
 }
 
 proc AddTo {VarName Value} {
@@ -63,6 +91,26 @@ proc AddTo {VarName Value} {
           error [format $::ErrorMessage(INPUT_NON_NUMERIC) $Value] $::errorInfo $::ErrorCode(INPUT_NON_NUMERIC)
      }
      set Var [expr $Var + $Value]
+}
+
+proc AppendString2File {StringValue FilePath} {
+
+     if {[IsEmpty $FilePath]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) FilePath] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     # Open for writing
+     set FilePointer [open $FilePath a]
+     try {
+          fconfigure $FilePointer -encoding utf-8
+          
+          # Write string to file
+          puts -nonewline $FilePointer $StringValue
+          # Clean up
+          flush $FilePointer          
+     } finally {
+          close $FilePointer         
+     }
 }
 
 proc ArrangeDict {DictVariable Arrangement} {
@@ -213,6 +261,10 @@ proc ChopLeft {StringVariable {Count 1}} {
           set String $StringVariable
      }
 
+     if {![string is integer $Count]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Count $Count] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)          
+     }
+
      set String [string range $String $Count end]
 
 }
@@ -222,6 +274,10 @@ proc ChopRight {StringVariable {Count 1}} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
      } else {
           set String $StringVariable
+     }
+
+     if {![string is integer $Count]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Count $Count] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)          
      }
 
      set String [string range $String 0 end-$Count]
@@ -907,6 +963,19 @@ proc IsEmpty StringValue {
 	}
 }
 
+proc IsMatrix ListValue {
+
+     set TargetLength [llength [lindex $ListValue 0]]
+     foreach Element $ListValue {
+          if {[llength $Element] != $TargetLength} {
+               return 0
+          }
+     }
+
+     return 1
+
+}
+
 proc IsNegative Value {
 
      if {[IsNonNumeric $Value]} {
@@ -1000,6 +1069,19 @@ proc IsPositive Value {
 proc IsTimeOfDay StringValue {
 
      if {[catch {eval "clock scan {$StringValue} -format $GenNS::TimeOfDayFormat"}]} {
+          return 0
+     } else {
+          return 1
+     }
+}
+
+proc IsValidListIndex {ListValue Index} {
+
+     if {![string is integer $Index]} {
+          return 0
+     } elseif {[IsNegative $Index]} {
+          return 0
+     } elseif {[llength $ListValue] <= $Index} {
           return 0
      } else {
           return 1
@@ -1100,6 +1182,45 @@ proc List2File {ListValue OutFilePath} {
      }
 }
 
+proc ListEndIndex ListValue {
+
+     return [expr [llength $ListValue] - 1]
+}
+
+proc ListRemoveAt {ListVariable Index {Count 1}} {
+     if {[string first @ $ListVariable] == 0} {
+          UpvarExistingOrDie [string range $ListVariable 1 end] List
+     } else {
+          set List $ListVariable
+     }
+
+     if {[IsEmpty $List]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) ListVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $Index]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) Index] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $Count]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) Count] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {$Index eq "end"} {
+          set Index [expr [llength $List] - 1]
+     }
+
+     if {[IsNonNumeric $Index] || ($Index < 0) || ($Index > ([llength $List] - 1))} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Index $Index] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     if {[IsNonNumeric $Count] || [IsNonPositive $Count]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Count $Count] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set List [lreplace $List $Index [expr $Index + $Count - 1]]
+}
+
 proc Mash StringVariable {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
@@ -1108,6 +1229,67 @@ proc Mash StringVariable {
      }
 
      set String [string tolower [join $String ""]]
+}
+
+proc Matrix2HtmlTable {MatrixValue {FirstRowOption --first-row-is-not-header}} {
+
+     if {![IsMatrix $MatrixValue]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) MatrixValue $MatrixValue] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     switch $FirstRowOption {
+          --first-row-is-header {
+               set FirstRowIsHeader 1
+          }
+          --first-row-is-not-header {
+               set FirstRowIsHeader 0
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstRowOption $FirstRowOption] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+
+     set Flag 1
+
+     set OutString "<table>\n"
+     foreach Row $MatrixValue {
+          append OutString "<tr>\n"
+          foreach Cell $Row {
+               if {$Flag && $FirstRowIsHeader} {
+                    append OutString "<th>$Cell</th>"
+               } else {
+                    append OutString "<td>$Cell</td>"
+               }
+          }
+          append OutString "\n</tr>\n"
+
+          if {$Flag} {
+               set Flag 0
+          }
+     }
+     append OutString "</table>"
+     return $OutString
+}
+
+proc MultiSet {VarNameList {ValueList ""}} {
+
+     set OutList {}
+     set NumVariables [llength $VarNameList]
+     for {set i 0} {($i < [llength $ValueList]) && ($i < $NumVariables)} {incr i} {
+          set VarName [lindex $VarNameList $i]
+          UpvarX $VarName Var
+          set Var [lindex $ValueList $i]
+          lappend OutList $Var
+     }
+
+     # In case there are more variables than list elements, make the rest be empty.
+     for {set i [llength $ValueList]} {$i < $NumVariables} {incr i} {
+          set VarName [lindex $VarNameList $i]
+          UpvarX $VarName Var
+          lappend OutList $Var
+     }
+
+     return $OutList
 }
 
 proc MultiplyBy {VarName Value} {
@@ -1169,6 +1351,63 @@ proc PrintDict {DictValue {IndentationSpaces 0}} {
           } else {
                # Otherwise, just print key and value on one line.
                puts [format "$Spaces%[set MaxKeyLength]s $Value" $Key]
+          }
+     }
+}
+
+proc PrintMatrix {Matrix {HeaderList ""} {ColumnMaxWidthList ""}} {
+
+     if {![IsMatrix $Matrix]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Matrix $Matrix] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set NumColumns [llength [lindex $Matrix 0]]
+
+     if {[NotEmpty $HeaderList]} {
+          if {[llength $HeaderList] != $NumColumns} {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) HeaderList $HeaderList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+          set Matrix [linsert $Matrix 0 $HeaderList]
+     }
+
+     if {[IsEmpty $ColumnMaxWidthList]} {
+          set ColumnMaxWidthList [lrepeat $NumColumns max]
+     } else {
+          if {[llength $ColumnMaxWidthList] != $NumColumns} {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ColumnMaxWidthList $ColumnMaxWidthList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+          for {set i 0} {$i < $NumColumns} {incr i} {
+               set CurrentWidth [lindex $ColumnMaxWidthList $i]
+               if {($CurrentWidth ne "max") && ([IsNonNumeric $CurrentWidth] || [IsNonPositive $CurrentWidth])} {
+                    error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ColumnMaxWidthList $ColumnMaxWidthList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)                    
+               }
+          }
+     }
+
+     for {set ColumnNumber 0} {$ColumnNumber < $NumColumns} {incr ColumnNumber} {
+          if {[lindex $ColumnMaxWidthList $ColumnNumber] eq "max"} {
+               set Max 0
+               for {set RowNumber 0} {$RowNumber < [llength $Matrix]} {incr RowNumber} {
+                    set Cell [lindex [lindex $Matrix $RowNumber] $ColumnNumber]
+                    set CellWidth [string length $Cell]
+                    if {$CellWidth > $Max} {
+                         set Max $CellWidth
+                    }
+               }
+               lset ColumnMaxWidthList $ColumnNumber $Max
+          }
+     }
+
+     foreach Row $Matrix {
+          set Count 0
+          for {set i 0} {$i < $NumColumns} {incr i} {
+               set Width [lindex $ColumnMaxWidthList $i]
+               set String [format "%[set Width].[set Width]s" [lindex $Row $i]]
+               if {$i != [expr $NumColumns - 1]} {
+                    puts -nonewline "$String | "
+               } else {
+                    puts $String
+               }
           }
      }
 }
@@ -1502,6 +1741,78 @@ proc SetZeroIfEmpty VarName {
      return $Var
 }
 
+proc SliceLeft {TargetString Characters} {
+
+     set List {}
+     set Left -1
+     set Right -1
+     for {set i 0} {$i < [string length $TargetString]} {incr i} {
+          # Check whether the current character is one of the match characters
+          set Result [string first [string index $TargetString $i] $Characters]
+          if {$Result >= 0} {
+               # Found one
+               # Because we are cutting to the left, 
+               # previous character will be end of current string,
+               # the found character will be start of next string
+               set Right [expr $i - 1]
+               if {$Right == -1} {
+                    set Left $i               
+                    continue
+               }
+               lappend List [string range $TargetString $Left $Right]
+               set Left $i
+          }
+     }
+     
+     if {($Left != [string length $TargetString]) && ($Right != -1)} {
+          lappend List [string range $TargetString $Left [expr [string length $TargetString] - 1]]
+     } elseif {($Left == 0) && ($Right == -1)} {
+          # Special case: just one character and it is target
+          lappend List [string index $TargetString 0]
+     } elseif {($Left == -1) && ($Right == -1)} {
+          # Nothing found
+          return $TargetString
+     }
+     
+     return $List
+}
+
+proc SliceRight {TargetString Characters} {
+
+     set List {}
+     set Left -1
+     set Right -1
+     for {set i 0} {$i < [string length $TargetString]} {incr i} {
+          # Check whether the current character is one of the match characters
+          set Result [string first [string index $TargetString $i] $Characters]
+          if {$Result >= 0} {
+               # Found one
+               # Because we are cutting to the right, 
+               # the found character will be end of current string
+               # next character will be start of next string,
+
+               set Right $i
+               if {$Right == -1} {
+                    # Hit it on first index
+                    lappend List [string range $TargetString 0 0]
+                    set Left 1
+               } else {
+                    lappend List [string range $TargetString $Left $Right]
+                    set Left [expr $i + 1]
+               }
+          }
+     }
+          
+     if {($Left == -1) && ($Right == -1)} {
+          # Nothing found
+          return $TargetString     
+     } elseif {($Right != [expr [string length $TargetString] - 1])} {
+          lappend List [string range $TargetString $Left [expr [string length $TargetString] - 1]]
+     } 
+     
+     return $List
+}
+
 proc SplitAndTrim {StringVariable {SplitValue " "} {TrimValue " "}} {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
@@ -1517,6 +1828,38 @@ proc SplitAndTrim {StringVariable {SplitValue " "} {TrimValue " "}} {
           }
      }
      set String $OutList
+}
+
+proc SplitNTimes {StringValue SplitChars Count} {
+
+     if {[IsNonNumeric $Count] || [IsNonPositive $Count]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Count $Count] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set OutList {}
+     set Left 0
+     set Right 0
+     for {set i 0} {$i < [string length $StringValue] && ($Count > 0)} {incr i} {
+          for {set j 0} {$j < [string length $SplitChars] && ($Count > 0)} {incr j} {
+               if {[string index $StringValue $i] eq [string index $SplitChars $j]} {
+                    set Right [expr $i - 1]
+                    lappend OutList [string range $StringValue $Left $Right]
+                    set Left [expr $i + 1]
+                    Decr Count
+               }      
+          }
+     }
+
+     if {$Left < [string length $StringValue]} {
+          lappend OutList [string range $StringValue $Left end]
+     } else {
+          set LastCharacter [string index $StringValue end]
+          if {[string first $SplitChars $LastCharacter] != -1} {
+               lappend OutList {}
+          }
+     }
+
+     return $OutList
 }
 
 proc SqlCountStatement {TableName DictValue} {
@@ -1794,6 +2137,36 @@ proc StringContains {TargetString SearchValue} {
      }
 }
 
+proc StringInsert {StringVariable InsertValue WhereAt} {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     if {[IsEmpty $WhereAt]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) WhereAt] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {$WhereAt eq "end"} {
+          set WhereAt [expr [string length $String] - 1]
+     }
+
+     if {[IsNonNumeric $WhereAt]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) WhereAt $WhereAt] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)          
+     }
+
+     if {[IsNegative $WhereAt]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) WhereAt $WhereAt] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set FirstPart [string range $String 0 [expr $WhereAt - 1]]
+     set LastPart [string range $String $WhereAt end]
+     set IndexDifference [expr $WhereAt - [string length $String]]
+     set Spaces [string repeat " " [Ter [IsPositive $IndexDifference] {return $IndexDifference} {return 0}]]
+     set String "[set FirstPart][set Spaces][set InsertValue][set LastPart]"
+}
+
 proc StringMid {TargetString Position {Count -1}} {
 
      if {[IsNonNumeric $Count]} {
@@ -1931,7 +2304,7 @@ proc TimeOfDayIsBefore {FirstTimeOfDay SecondTimeOfDay} {
      }
 }
 
-proc TimeOfDayIsBetween {FirstTimeOfDay SecondTimeOfDay ThirdTimeOfDay} {
+proc TimeOfDayIsBetween {FirstTimeOfDay SecondTimeOfDay ThirdTimeOfDay {Option BothExclusive}} {
 
      if {![IsTimeOfDay $FirstTimeOfDay]} {
           error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) FirstTimeOfDay $FirstTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
@@ -1943,15 +2316,38 @@ proc TimeOfDayIsBetween {FirstTimeOfDay SecondTimeOfDay ThirdTimeOfDay} {
           error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ThirdTimeOfDay $ThirdTimeOfDay] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
      }
 
+     switch -regexp $Option {
+          BothExclusive {
+               set Sign1 <
+               set Sign2 <
+          }
+          BothInclusive {
+               set Sign1 <=
+               set Sign2 <=
+          }
+          (LeftExclusive|RightInclusive) {
+               set Sign1 <
+               set Sign2 <=
+          }
+          (LeftInclusive|RightExclusive) {
+               set Sign1 <=
+               set Sign2 <
+          }
+          default {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Option $Option] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+     }
+
+
      set FirstSeconds [TimeOfDay2Seconds $FirstTimeOfDay]
      set SecondSeconds [TimeOfDay2Seconds $SecondTimeOfDay]
      set ThirdSeconds [TimeOfDay2Seconds $ThirdTimeOfDay]
 
-     if {$SecondSeconds > $ThirdSeconds} {
+     if {[expr $SecondSeconds > $ThirdSeconds]} {
           error [format $::ErrorMessage(ARGUMENTS_INCOHERENT) SecondTimeOfDay ThirdTimeOfDay $SecondTimeOfDay $ThirdTimeOfDay] $::errorInfo $::ErrorCode(ARGUMENTS_INCOHERENT)
      }
 
-     if {($FirstSeconds > $SecondSeconds) && ($FirstSeconds < $ThirdSeconds)} {
+     if {[expr ($SecondSeconds $Sign1 $FirstSeconds) && ($FirstSeconds $Sign2 $ThirdSeconds)]} {
           return 1
      } else {
           return 0
@@ -2115,5 +2511,13 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.3.0
+     puts 1.4.0
 }
+
+     
+if {$GenNS::LoadHelpx && ![catch {package require helpx-cli}]} {
+     set GenDirectory [file dirname [info script]]
+     sqlite3 gen-helpxdb $GenDirectory/gen-helpx.db
+     HelpxCliNS::RegisterDatabase gen-helpxdb
+}
+     

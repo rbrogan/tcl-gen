@@ -18,3 +18,7 @@ puts $MyString
 }  -returnCodes {0}  
 
 
+::tcltest::test ChopRight-4 {Count is not an integer}  -setup {}  -body {ChopRight "abcd" 1.2
+}  -cleanup {}  -result {Variable Count has invalid value 1.2.}  -output {}  -returnCodes {1}  
+
+

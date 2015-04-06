@@ -23,7 +23,8 @@ To configure Gen for using the database-related commands, you need to do the fol
 <h3>3. Setting the name of the globals table to use</h3>
 <p>If you want Gen to use something other than "globals" for the name of its globals table, then you set <code>GenNS::GlobalsTable</code>. For instance, you could do <code>set GenNS::GlobalsTable my_globals</code> or <code>set GenNS::GlobalsTable the_globals</code>, etc.</p>
 <h3>4. Creating the globals table</h3>
-<p>To do this you can run the following code:<br>
-<code>RunSqlCreateTable globals {id {integer primary key} desc text intvalue integer realvalue real textvalue text}</code></p>
+<p>To do this you can run the following code:</p>
+<p><code>RunSqlCreateTable globals {id {integer primary key} desc text intvalue integer realvalue real textvalue text}</code></p>
+<p>Note that you can, alternatively edit <code>gen-config.tcl</code> by hand to set the variables (though you must take care when you upgrade to a new version of Gen, since those values may be overwritten).</p>
 </body>
 </html>

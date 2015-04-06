@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ListRemoveAt</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+ListRemoveAt  &mdash;  From a list, remove element(s) starting at a given index.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>ListRemoveAt</b> <i>ListVariable</i> <i>Index</i> <i>?Count?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Version of the list with element at target index removed.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVariable</i></td><td class='argument_right'>List to find and remove elements from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Index</i></td><td class='argument_right'>Where element to be removed is.</td></tr><tr class='table_row_b'><td class='argument_left'><i>Count</i></td><td class='argument_right'>Optional. How many elements to remove. Defaults to 1.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Index is not a non-negative integer that is in-range.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Count is not a positive integer.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Index is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>Count is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>ListVariable is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList [list a b c]<br>a b c<br>% <b>ListRemove $MyList 2</b><br>a b<br>% ListRemove {1 2 3} 0 2<br>3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'findandremove.html'>FindAndRemove</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/lreplace.htm'>lreplace</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_list">list</a>
+</div>
+</body>
+</html>

@@ -2,21 +2,61 @@ Gen
 
 WARNING
 
-What follows are advisories intended to help prevent surprises. This should be considered a supplement to other documentation and should not be considered comprehensive.
+What follows are advisories intended to help prevent surprises. This should be
+considered a supplement to other documentation and should not be considered
+comprehensive.
 
 PERMISSIVE VS. STRICT COMMAND BEHAVIOR
-Various commands may not behave as expected in uncommon scenarios. A good example is when the user passes a name of a variable that does not exist. Is this intentional or a bug? For unset it is a bug (unless -nocomplain is added) but for upvar it is not. Likewise, the Tcl command string and list commands will take indices that are out-of-range and convert them to be in range rather than throw an error. In many places Tcl commands are permissive and in some places they are not. We were initially inclined to make commands be strict and throw errors (rather than silently accept buggy code) but then had to reconsider that by making commands strict, it could cause unexpected behavior for a user accustomed to the behavior of permissive commands. We have tried to handle this as well as possible for this version and plan to implement a comprehensive solution, that allows the user to specify policies, in a future version. We will try to make this solution be such that default behavior will match existing code and not require changes.
+Various commands may not behave as expected in uncommon scenarios. A good
+example is when the user passes a name of a variable that does not exist. Is
+this intentional or a bug? For unset it is a bug (unless -nocomplain is added)
+but for upvar it is not. Likewise, the Tcl command string and list commands will
+take indices that are out-of-range and convert them to be in range rather than
+throw an error. In many places Tcl commands are permissive and in some places
+they are not. We were initially inclined to make commands be strict and throw
+errors (rather than silently accept buggy code) but then had to reconsider that
+by making commands strict, it could cause unexpected behavior for a user
+accustomed to the behavior of permissive commands. We have tried to handle this
+as well as possible for this version and plan to implement a comprehensive
+solution, that allows the user to specify policies, in a future version. We will
+try to make this solution be such that default behavior will match existing code
+and not require changes.
 
 COMMAND NAMESPACES AND CASE
-Gen currently has commands in PascalCase format and does not use a namespace. This is a conscious design choice. It is expected that in a future release, the user will gain the ability to give commands a case of their own choosing (e.g. snake_case) and will also be able to choose whether to put the commands into a namespace and/or ensemble. If it is important for the user to have the commands within a namespace, it is recommended that they edit the source code (or elect not to make use of Gen). The edit should be relatively simple and painless and should also become unnecessary once the aforementioned packaging feature is added.
+Gen currently has commands in PascalCase format and does not use a namespace.
+This is a conscious design choice. It is expected that in a future release, the
+user will gain the ability to give commands a case of their own choosing (e.g.
+snake_case) and will also be able to choose whether to put the commands into a
+namespace and/or ensemble. If it is important for the user to have the commands
+within a namespace, it is recommended that they edit the source code (or elect
+not to make use of Gen). The edit should be relatively simple and painless and
+should also become unnecessary once the aforementioned packaging feature is
+added.
 
 STATE OF THE PROJECT
-Gen is currently in an early and unfunded state. We plan to do consistent monthly releases, with hard dates, and make modest, incremental improvements with omissions (e.g. currently no logo, no mailing list). We plan to do this rather than not have dates and instead only release once all the omitted features can be included. 
+Gen is currently in an early and unfunded state. We plan to do consistent
+monthly releases, with hard dates, and make modest, incremental improvements
+with omissions (e.g. currently no logo, no mailing list). We plan to do this
+rather than not have dates and instead only release once all the omitted
+features can be included.
 
 TESTING AND ERRORS
-As discussed in test/README-test.txt, at this point, most of the time we will not test input to ensure that calls to Tcl core commands will succeed. Rather, we will pass the input to those commands and they will throw errors if there is something wrong. For instance, if you make a call "File2String asdf.txt" and file "asdf.txt" does not exist then you will receive the following error: 'couldn't open "asdf.txt": no such file or directory'. This does not come from Gen code but rather Tcl core code. Also, there is no corresponding test in Gen code to ensure that Tcl core code will correctly throw an error when the file does not exist.
+As discussed in test/README-test.txt, at this point, most of the time we will
+not test input to ensure that calls to Tcl core commands will succeed. Rather,
+we will pass the input to those commands and they will throw errors if there is
+something wrong. For instance, if you make a call "File2String asdf.txt" and
+file "asdf.txt" does not exist then you will receive the following error:
+'couldn't open "asdf.txt": no such file or directory'. This does not come from
+Gen code but rather Tcl core code. Also, there is no corresponding test in Gen
+code to ensure that Tcl core code will correctly throw an error when the file
+does not exist.
 
 OTHER
-* MultiplyBy and DivideBy will not accept a variable that does not exist. This is consistent with the behavior of [expr "" / 2] and [expr * 2] (for instance). AddTo, SubtractFrom, and Decr do accept non-existent variables and will create one. This is consistent with the behavior of [incr NoSuchVariable]
-* Many string and list commands will (currently) accept inputs that may (or may not) represent an error. This is consistent with the well-defined, permissive behavior of the [string] and [list] commands used in Gen code.
+* MultiplyBy and DivideBy will not accept a variable that does not exist. This
+is consistent with the behavior of [expr "" / 2] and [expr * 2] (for instance).
+AddTo, SubtractFrom, and Decr do accept non-existent variables and will create
+one. This is consistent with the behavior of [incr NoSuchVariable]
+* Many string and list commands will (currently) accept inputs that may (or may
+not) represent an error. This is consistent with the well-defined, permissive
+behavior of the [string] and [list] commands used in Gen code.
 

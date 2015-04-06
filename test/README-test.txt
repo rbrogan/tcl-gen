@@ -101,8 +101,14 @@ work listed in the above two sites.
 
 all.tcl
      Test suite.
+addepilogue.test
+     Tests for the command AddEpilogue.
+addprologue.test
+     Tests for the command AddPrologue.
 addto.test
      Tests for the command AddTo.
+appendstring2file.test
+     Tests for the command AppendString2File.
 arrangedict.test
      Tests for the command ArrangeDict.
 changecasing.test
@@ -185,6 +191,8 @@ isdict.test
      Tests for the command IsDict.
 isempty.test
      Tests for the command IsEmpty.
+ismatrix.test
+     Tests for the command IsMatrix.
 isnegative.test
      Tests for the command IsNegative.
 isnonnegative.test
@@ -201,6 +209,8 @@ ispositive.test
      Tests for the command IsPositive.
 istimeofday.test
      Tests for the command IsTimeOfDay.
+isvalidlistindex.test
+     Tests for the command IsValidListIndex.
 iszero.test
      Tests for the command IsZero.
 lappendifnotalready.test
@@ -215,8 +225,16 @@ linkvartodbglobal.test
      Tests for the command LinkVarToDbGlobal.
 list2file.test
      Tests for the command List2File.
+listendindex.test
+     Tests for the command ListEndIndex.
+listremoveat.test
+     Tests for the command ListRemoveAt.
 mash.test
      Tests for the command Mash.
+matrix2htmltable.test
+     Tests for the command Matrix2HtmlTable.
+multiset.test
+     Tests for the command MultiSet.
 multiplyby.test
      Tests for the command MultiplyBy.
 notempty.test
@@ -227,6 +245,8 @@ prepend.test
      Tests for the command Prepend.
 printdict.test
      Tests for the command PrintDict.
+printmatrix.test
+     Tests for the command PrintMatrix.
 printvar.test
      Tests for the command PrintVar.
 q1.test
@@ -263,8 +283,14 @@ settimeofdayformat.test
      Tests for the command SetTimeOfDayFormat.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
+sliceleft.test
+     Tests for the command SliceLeft.
+sliceright.test
+     Tests for the command SliceRight.
 splitandtrim.test
      Tests for the command SplitAndTrim.
+splitntimes.test
+     Tests for the command SplitNTimes.
 sqlcountstatement.test
      Tests for the command SqlCountStatement.
 sqlinsertstatement.test
@@ -299,6 +325,8 @@ string2file.test
      Tests for the command String2File.
 stringcontains.test
      Tests for the command StringContains.
+stringinsert.test
+     Tests for the command StringInsert.
 stringmid.test
      Tests for the command StringMid.
 subtractfrom.test

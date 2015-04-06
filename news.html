@@ -10,9 +10,9 @@
 <body>
 <div id = "left">
 <a href="index.html" class="navbar" >Home</a>
-<a href="readme.html" class="navbar" >Readme</a>
-<a href="doc/readme-doc.html" class="navbar" >doc / Readme</a>
-<a href="test/readme-test.html" class="navbar" >test / Readme</a>
+<a href="README.html" class="navbar" >Readme</a>
+<a href="doc/README-doc.html" class="navbar" >doc / Readme</a>
+<a href="test/README-test.html" class="navbar" >test / Readme</a>
 <a href="doc/manual-home.html" class="navbar" >Manual</a>
 <a href="news.html" class="navbar" id = "current">News</a>
 <a href="changelog.html" class="navbar">Changelog</a>
@@ -27,7 +27,107 @@
 <div id = "PageTitle">News</div>
 <p>On this page you can get up-to-date about what's been going on with Gen.</p>
 <p><i>Want more detailed info?</i> We also have a <a href="changelog.html">Changelog</a> with more detailed information to help you with diffing commits.</p>
-<p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce@robertbrogan.com</code>. Put <code>subscribe</code> for the subject. You will then get an email every time we have a new release.</p>
+<p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
+
+<div class="section-header">
+<div class="section-header-left">2015.04.06</div><div class="section-header-right">v1.4 Release</div>
+</div>
+<div class="section-content">
+<p>This month introduces <code><a href='http://www.robertbrogan.com/helpx'>helpx</a></code> for CLI-based help. It also features miscellaneous commands across multiple categories.</p>
+
+<p>
+<pre>
+% helpx String2File
+SIGNATURE
+    String2File {StringValue OutFilePath}
+
+DESCRIPTION
+    Create a file, write string to it, and close the file.
+
+RETURNS
+    None.
+
+ARGUMENTS
+    StringValue
+         String to write from.
+    OutFilePath
+         Filepath to write to.
+
+MORE INFO
+
+SEE ALSO
+    File2String List2File File2List
+
+EXAMPLE(S)
+
+% String2File "abc" test.txt
+% cat test.txt
+abc
+</pre>
+</p>
+
+<p>
+Do you use Tcl from the command line? Ever want to use a command but you either (a) forgot what is was or (b) forgot how it works? We already have webpages and an HTML Help file, but it is still a bit inconvenient to have to switch windows and interrupt your flow.
+</p>
+
+<p>
+In this release, we bundle with Gen its documentation database to be used with the <code><a href='http://www.robertbrogan.com/helpx'>helpx-cli</a></code> package. After you install helpx-cli, you can use the <code>helpx</code> command from your terminal to get info on Gen commands.
+</p>
+
+<p>
+For more info on Helpx and how to install helpx-cli, you can visit its homepage <a href='http://www.robertbrogan.com/helpx'>here</a>.
+</p>
+
+
+<p>
+Our monthly assortment of commands is as follows:
+</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="addepilogue.html" class="command_link">AddEpilogue</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Add code to the end of a proc.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="addprologue.html" class="command_link">AddPrologue</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Add code to the beginning of a proc.</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="appendstring2file.html" class="command_link">AppendString2File</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Open a file and write a string at the end, then close file.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="ismatrix.html" class="command_link">IsMatrix</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether list value is a matrix.</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="isvalidlistindex.html" class="command_link">IsValidListIndex</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether the given value works as an index.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="listendindex.html" class="command_link">ListEndIndex</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Return index of last element in list.</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="listremoveat.html" class="command_link">ListRemoveAt</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">From a list, remove element(s) starting at a given index.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="matrix2htmltable.html" class="command_link">Matrix2HtmlTable</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Takes a list of lists, returns string encoding HTML table.</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="multiset.html" class="command_link">MultiSet</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Take list and copy values to variables, like lassign.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="printmatrix.html" class="command_link">PrintMatrix</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Print out a table/matrix (e.g. query results).</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sliceleft.html" class="command_link">SliceLeft</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Divide string by matching and separating to the left.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sliceright.html" class="command_link">SliceRight</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Divide string by matching and separating to the right.</p></div>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="splitntimes.html" class="command_link">SplitNTimes</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Like split, except stops after a certain number of splits.</p></div>
+
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="stringinsert.html" class="command_link">StringInsert</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Insert value into target string, starting from a location.</p></div>
+
+
+</div>
+<br>
 <div class="section-header">
 <div class="section-header-left">2015.03.02</div><div class="section-header-right">v1.3 Release</div>
 </div>

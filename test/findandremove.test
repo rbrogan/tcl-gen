@@ -24,3 +24,8 @@ puts $MyList
 }  -returnCodes {0}  
 
 
+::tcltest::test FindAndRemove-5 {Multiple elements in list}  -setup {}  -body {set MyList {one two two three}
+FindAndRemove $MyList two
+}  -cleanup {}  -result {one three}  -output {}  -returnCodes {0}  
+
+
