@@ -114,15 +114,6 @@ Tcl distribution:
 If you do not have these, then check the documentation that came with your
 distro for information on how to get them.
 
-helpx-cli is an optional dependency: If you want to access help info from the
-command line, you may elect to install helpx-cli (same process as installing
-Gen). When Gen starts it will check for helpx-cli and if it finds it, then will
-register its documentation database with helpx-cli. Even if Gen does not find
-helpx-cli, it will still work fine.
-
-For more info about helpx-cli, you can visit its homepage at
-http://www.robertbrogan.com/helpx.
-
 ---05| BUILDING
 
 Gen is provided as a simple Tcl package and does not need to be built.

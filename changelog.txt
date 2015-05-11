@@ -2,6 +2,37 @@ Gen
 
 CHANGELOG
 
+2015.05.11
+v1.4.3
+
+No changes break existing command usage.
+
+Changes by functionality
+
+     Temporarily disabled some helpx-related elements while making changes.
+     
+Changes by files
+
+     /
+        changelog.html, changelog.txt
+            Updated with latest info.
+        news.html, news.txt
+            Updated with latest info.
+        README.html
+            Modified DEPENDENCIES section.
+        README.txt
+            Modified DEPENDENCIES section.
+          
+     /doc
+        helpx-cli-for-cli-based-help.html
+            Modified to say helpx is temporarily unavailable.
+            
+     /src
+          gen.tcl
+               Removed code that loads helpx.
+          pkgIndex.tcl
+               Updated version.
+               
 2015.04.06
 v1.4
 

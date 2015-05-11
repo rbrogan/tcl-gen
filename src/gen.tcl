@@ -1,4 +1,4 @@
-package provide gen 1.4.0
+package provide gen 1.4.3
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -24,6 +24,7 @@ array set ErrorCode {
      ARGUMENTS_INCOHERENT -15
      REGISTRY_ELEMENT_NOT_FOUND -16
      PROC_NOT_FOUND -17
+     ALREADY_EXISTS -18
 }
 
 array set ErrorMessage {
@@ -44,6 +45,7 @@ array set ErrorMessage {
      ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
      REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
      PROC_NOT_FOUND {Could not find proc %s.}
+     ALREADY_EXISTS {Value %s in variable %s already exists.}
 }
 
 proc AddEpilogue {ProcName Epilogue} {
@@ -2511,13 +2513,5 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.4.0
+     puts 1.4.3
 }
-
-     
-if {$GenNS::LoadHelpx && ![catch {package require helpx-cli}]} {
-     set GenDirectory [file dirname [info script]]
-     sqlite3 gen-helpxdb $GenDirectory/gen-helpx.db
-     HelpxCliNS::RegisterDatabase gen-helpxdb
-}
-     
