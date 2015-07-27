@@ -1,15 +1,15 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test IsDatetime-0 {Basic test - return 0}  -setup {}  -body {IsDatetime asdf
+::tcltest::test IsDatetime-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDatetime asdf
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsDatetime-1 {Basic test - return 1}  -setup {}  -body {IsDatetime {2000-01-02 03:04:05}
+::tcltest::test IsDatetime-1 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsDatetime {2000-01-02 03:04:05}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsDatetime-2 {Use alternate format}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
+::tcltest::test IsDatetime-2 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 IsDatetime {01/02/2000 0304}
 }  -cleanup {SetDateFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  

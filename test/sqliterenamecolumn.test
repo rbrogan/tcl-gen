@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqliteRenameColumn-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteRenameColumn-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}
@@ -12,19 +12,19 @@ QQ "SELECT name FROM my_temp_table"
 }  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqliteRenameColumn-1 {TableName is empty}  -setup {}  -body {SqliteRenameColumn "" desc name
+::tcltest::test SqliteRenameColumn-1 {TableName is empty}  -constraints {}  -setup {}  -body {SqliteRenameColumn "" desc name
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqliteRenameColumn-3 {OldColumnName is empty}  -setup {}  -body {SqliteRenameColumn my_temp_table "" name
+::tcltest::test SqliteRenameColumn-3 {OldColumnName is empty}  -constraints {}  -setup {}  -body {SqliteRenameColumn my_temp_table "" name
 }  -cleanup {}  -result {Variable OldColumnName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqliteRenameColumn-4 {NewColumnName is empty}  -setup {}  -body {SqliteRenameColumn my_temp_table desc ""
+::tcltest::test SqliteRenameColumn-4 {NewColumnName is empty}  -constraints {}  -setup {}  -body {SqliteRenameColumn my_temp_table desc ""
 }  -cleanup {}  -result {Variable NewColumnName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqliteRenameColumn-5 {OldColumnName does not match column in table}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteRenameColumn-5 {OldColumnName does not match column in table}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}
@@ -34,7 +34,7 @@ QQ {INSERT INTO my_temp_table (desc) VALUES ('three')}
 }  -result {Variable OldColumnName has invalid value asdf. No such column found.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqliteRenameColumn-7 {There is already a column with that name.}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteRenameColumn-7 {There is already a column with that name.}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO my_temp_table (desc) VALUES ('two')}

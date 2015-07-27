@@ -1,0 +1,22 @@
+package require tcltest
+package require -exact gen 1.5.0
+
+::tcltest::test SumHhmmss-0 {Basic test - 2 items}  -constraints {}  -setup {}  -body {SumHhmmss {01:31:31 01:31:31}}  -cleanup {}  -result {03:03:02}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SumHhmmss-1 {Basic test - 3 items}  -constraints {}  -setup {}  -body {SumHhmmss {01:00:00 00:01:00 00:00:01}}  -cleanup {}  -result {01:01:01}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SumHhmmss-2 {Input list is 1 item only}  -constraints {}  -setup {}  -body {SumHhmmss 01:00:00}  -cleanup {}  -result {01:00:00}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SumHhmmss-3 {Input list is empty}  -constraints {}  -setup {}  -body {SumHhmmss {}}  -cleanup {}  -result {00:00:00}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test SumHhmmss-4 {List contains invalid element}  -constraints {}  -setup {}  -body {SumHhmmss {01:00:00 asdf}}  -cleanup {}  -result {List variable ListValue at index 1 has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test SumHhmmss-5 {Sum is 100 hours}  -constraints {}  -setup {}  -body {SumHhmmss {50:00:00 50:00:00}
+}  -cleanup {}  -result {100:00:00}  -output {}  -returnCodes {0}  
+
+

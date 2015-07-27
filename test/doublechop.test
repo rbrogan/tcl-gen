@@ -1,28 +1,28 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DoubleChop-0 {Basic test}  -setup {}  -body {set MyString "{something}"
+::tcltest::test DoubleChop-0 {Basic test}  -constraints {}  -setup {}  -body {set MyString "{something}"
 DoubleChop $MyString
 }  -cleanup {}  -result {something}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-1 {One character}  -setup {}  -body {set MyString "1"
+::tcltest::test DoubleChop-1 {One character}  -constraints {}  -setup {}  -body {set MyString "1"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-2 {Empty string}  -setup {}  -body {set MyString ""
+::tcltest::test DoubleChop-2 {Empty string}  -constraints {}  -setup {}  -body {set MyString ""
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-3 {Two characters}  -setup {}  -body {set MyString "11"
+::tcltest::test DoubleChop-3 {Two characters}  -constraints {}  -setup {}  -body {set MyString "11"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-4 {Three characters}  -setup {}  -body {set MyString "ABA"
+::tcltest::test DoubleChop-4 {Three characters}  -constraints {}  -setup {}  -body {set MyString "ABA"
 DoubleChop $MyString}  -cleanup {}  -result {B}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DoubleChop-5 {Basic test - use count}  -setup {}  -body {set MyString "AABBAA"
+::tcltest::test DoubleChop-5 {Basic test - use count}  -constraints {}  -setup {}  -body {set MyString "AABBAA"
 DoubleChop $MyString 2
 }  -cleanup {}  -result {BB}  -output {}  -returnCodes {0}  
 

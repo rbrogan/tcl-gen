@@ -2,6 +2,35 @@ Gen
 
 NEWS
 
+2015.07.27
+v1.5.0 Release
+
+This month we begin what we hope to be a series of minor releases which will
+shake the rust off this project and get things moving to implement various
+improvements piece-by-piece. Each release will have a modest installment of new
+commands.
+
+DiffHhmmss
+     Do subtraction of time quantities in hh:mm:ss form.
+
+Hhmmss2Seconds
+     Take an input of the form hh:mm:ss and convert to seconds.
+
+IsHhmmss
+     Check whether the string passed in is of the form hh:mm:ss.
+
+MultiplyHhmmss
+     Multiply a time quantity in hh:mm:ss form by some factor.
+
+Seconds2Hhmmss
+     Convert a number of seconds to a string with form hh:mm:ss.
+
+SumHhmmss
+     Sum up a list of times.
+
+
+
+
 2015.05.11
 v1.4.3 Revision
 
@@ -298,7 +327,7 @@ SqlSetClause
      Derive a set clause for an update query, using a dict.
 
 SqlUpdateStatement
-     Create an UPDATE statement.
+     Create an UP2015.07.27 statement.
 
 SqlWhereClause
      Create a WHERE clause using the values in dict.

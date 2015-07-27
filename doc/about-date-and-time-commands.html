@@ -21,7 +21,7 @@ IsDate 2000-01-02</pre>
 ... then Gen, within <code>IsDate</code>, will make a call to <code>clock scan 2000-01-02 -format %Y-%m-%d</code>.
 </p>
 <p>
-Note that the contents of <code>GenNS::DateFormat</code>, <code>GenNS::DatetimeFormat</code>, and <code>GenNS::TimeOfDateFormat</code> will be appended to strings of the form <code>clock format $Seconds -format</code> or <code>clock scan {$String} -format</code> before making the call. This means that you will want to group arguments with braces {} and will also to include flags for timezone, locale, etc. The following examples will make this more clear.
+Note that the contents of <code>GenNS::DateFormat</code>, <code>GenNS::DatetimeFormat</code>, and <code>GenNS::TimeOfDateFormat</code> will be appended to strings of the form <code>clock format $Seconds -format</code> or <code>clock scan {$String} -format</code> before making the call. This means that you will want to group arguments with braces {} and will also want to include flags for timezone, locale, etc. The following examples will make this more clear.
 </p>
 <h3>1. Date Format</h3>
 <p>Call <a href="setdateformat.html"><code>SetDateFormat</code></a> with the format to use in date commands (e.g. <code>DateIsOn</code>). For example:

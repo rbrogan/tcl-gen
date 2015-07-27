@@ -1,27 +1,27 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SurroundEach-0 {Basic test}  -setup {}  -body {set MyList {one two three}
+::tcltest::test SurroundEach-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList "*"}  -cleanup {}  -result {*one* *two* *three*}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SurroundEach-1 {Input list is empty}  -setup {}  -body {set MyList {}
+::tcltest::test SurroundEach-1 {Input list is empty}  -constraints {}  -setup {}  -body {set MyList {}
 SurroundEach $MyList "*"}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SurroundEach-2 {Input string is empty}  -setup {}  -body {set MyList {one two three}
+::tcltest::test SurroundEach-2 {Input string is empty}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList ""}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SurroundEach-3 {Input list is one element}  -setup {}  -body {set MyList {one}
+::tcltest::test SurroundEach-3 {Input list is one element}  -constraints {}  -setup {}  -body {set MyList {one}
 SurroundEach $MyList "*"}  -cleanup {}  -result {*one*}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SurroundEach-4 {Surround string is multiple characters}  -setup {}  -body {set MyList {one two three}
+::tcltest::test SurroundEach-4 {Surround string is multiple characters}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList "**"}  -cleanup {}  -result {**one** **two** **three**}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SurroundEach-5 {Test at}  -setup {}  -body {set MyList {one two three}
+::tcltest::test SurroundEach-5 {Test at}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach @MyList "*"
 puts $MyList
 }  -cleanup {}  -result {}  -output {*one* *two* *three*

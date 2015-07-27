@@ -1,21 +1,21 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqlSelectStatement-0 {Basic test}  -setup {}  -body {SqlSelectStatement my_table {notes} {desc 'first'}
+::tcltest::test SqlSelectStatement-0 {Basic test}  -constraints {}  -setup {}  -body {SqlSelectStatement my_table {notes} {desc 'first'}
 }  -cleanup {}  -result {SELECT notes FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlSelectStatement-1 {Table name is empty}  -setup {}  -body {SqlSelectStatement "" {notes} {desc 'first'}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test SqlSelectStatement-1 {Table name is empty}  -constraints {}  -setup {}  -body {SqlSelectStatement "" {notes} {desc 'first'}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqlSelectStatement-3 {TargetList is empty}  -setup {}  -body {SqlSelectStatement my_table {} {desc 'first'}}  -cleanup {}  -result {SELECT * FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  
+::tcltest::test SqlSelectStatement-3 {TargetList is empty}  -constraints {}  -setup {}  -body {SqlSelectStatement my_table {} {desc 'first'}}  -cleanup {}  -result {SELECT * FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlSelectStatement-4 {WhereDict is empty}  -setup {}  -body {SqlSelectStatement my_table {notes}
+::tcltest::test SqlSelectStatement-4 {WhereDict is empty}  -constraints {}  -setup {}  -body {SqlSelectStatement my_table {notes}
 }  -cleanup {}  -result {SELECT notes FROM my_table}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlSelectStatement-5 {Basic test 2}  -setup {}  -body {SqlSelectStatement my_table
+::tcltest::test SqlSelectStatement-5 {Basic test 2}  -constraints {}  -setup {}  -body {SqlSelectStatement my_table
 }  -cleanup {}  -result {SELECT * FROM my_table}  -output {}  -returnCodes {0}  
 
 

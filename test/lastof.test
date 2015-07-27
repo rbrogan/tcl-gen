@@ -1,12 +1,12 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test LastOf-0 {Basic test}  -setup {}  -body {LastOf {abc def ghi}}  -cleanup {}  -result {ghi}  -output {}  -returnCodes {0}  
-
-
-::tcltest::test LastOf-1 {Empty list}  -setup {}  -body {LastOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test LastOf-0 {Basic test}  -constraints {}  -setup {}  -body {LastOf {abc def ghi}}  -cleanup {}  -result {ghi}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test LastOf-2 {One element}  -setup {}  -body {LastOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
+::tcltest::test LastOf-1 {Empty list}  -constraints {}  -setup {}  -body {LastOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test LastOf-2 {One element}  -constraints {}  -setup {}  -body {LastOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
 

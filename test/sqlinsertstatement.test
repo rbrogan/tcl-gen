@@ -1,15 +1,15 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqlInsertStatement-1 {Basic test}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
+::tcltest::test SqlInsertStatement-1 {Basic test}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {INSERT INTO MyTable (intvalue, realvalue) VALUES (1, 1.1)}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlInsertStatement-2 {Dict is empty}  -setup {}  -body {SqlInsertStatement MyTable {}
+::tcltest::test SqlInsertStatement-2 {Dict is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqlInsertStatement-3 {Table name is empty}  -setup {}  -body {SqlInsertStatement "" ""
+::tcltest::test SqlInsertStatement-3 {Table name is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement "" ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 

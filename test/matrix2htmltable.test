@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test Matrix2HtmlTable-0 {Basic test}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test Matrix2HtmlTable-0 {Basic test}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-is-not-header]
 }  -cleanup {}  -result {}  -output {<table>
 <tr>
@@ -17,14 +17,14 @@ puts [Matrix2HtmlTable $MyMatrix --first-row-is-not-header]
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-1 {Empty input}  -setup {}  -body {set MyMatrix {}
+::tcltest::test Matrix2HtmlTable-1 {Empty input}  -constraints {}  -setup {}  -body {set MyMatrix {}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {}  -output {<table>
 </table>
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-2 {One list with one element}  -setup {}  -body {set MyMatrix {1}
+::tcltest::test Matrix2HtmlTable-2 {One list with one element}  -constraints {}  -setup {}  -body {set MyMatrix {1}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {}  -output {<table>
 <tr>
@@ -34,7 +34,7 @@ puts [Matrix2HtmlTable $MyMatrix]
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-3 {One row only}  -setup {}  -body {set MyMatrix {{1 2 3}}
+::tcltest::test Matrix2HtmlTable-3 {One row only}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3}}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {}  -output {<table>
 <tr>
@@ -44,7 +44,7 @@ puts [Matrix2HtmlTable $MyMatrix]
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-4 {One column only}  -setup {}  -body {set MyMatrix {1 2 3}
+::tcltest::test Matrix2HtmlTable-4 {One column only}  -constraints {}  -setup {}  -body {set MyMatrix {1 2 3}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {}  -output {<table>
 <tr>
@@ -60,12 +60,12 @@ puts [Matrix2HtmlTable $MyMatrix]
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-5 {Input is not a matrix}  -setup {}  -body {set MyMatrix {1 {2 2} {3 3 3}}
+::tcltest::test Matrix2HtmlTable-5 {Input is not a matrix}  -constraints {}  -setup {}  -body {set MyMatrix {1 {2 2} {3 3 3}}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {Variable MatrixValue has invalid value 1 {2 2} {3 3 3}.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Matrix2HtmlTable-6 {First row is header}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test Matrix2HtmlTable-6 {First row is header}  -constraints {}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-is-header]
 }  -cleanup {}  -result {}  -output {<table>
 <tr>
@@ -84,7 +84,7 @@ puts [Matrix2HtmlTable $MyMatrix --first-row-is-header]
 }  -returnCodes {0}  
 
 
-::tcltest::test Matrix2HtmlTable-7 {Invalid value for FirstRowOption}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test Matrix2HtmlTable-7 {Invalid value for FirstRowOption}  -constraints {}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-header]
 }  -cleanup {}  -result {Variable FirstRowOption has invalid value --first-row-header.}  -output {}  -returnCodes {1}  
 

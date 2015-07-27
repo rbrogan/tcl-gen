@@ -1,39 +1,39 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test Raise-0 {Basic test}  -setup {}  -body {set MyList {1 one 2 two}
+::tcltest::test Raise-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 set NewList [Raise $MyList 2]
 puts $NewList}  -cleanup {}  -result {}  -output {{1 one} {2 two}
 }  -returnCodes {0}  
 
 
-::tcltest::test Raise-1 {Input list is empty}  -setup {}  -body {set MyList {}
+::tcltest::test Raise-1 {Input list is empty}  -constraints {}  -setup {}  -body {set MyList {}
 set NewList [Raise $MyList 2]
 }  -cleanup {}  -result {Input value 2 is out-of-range.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Raise-2 {Input value is non-positive}  -setup {}  -body {set MyList {one two three}
+::tcltest::test Raise-2 {Input value is non-positive}  -constraints {}  -setup {}  -body {set MyList {one two three}
 Raise $MyList -1
 }  -cleanup {}  -result {Expected positive input value, got input value -1 instead.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Raise-3 {Input value does not evenly divide list length}  -setup {}  -body {set MyList {one 1 two 2}
+::tcltest::test Raise-3 {Input value does not evenly divide list length}  -constraints {}  -setup {}  -body {set MyList {one 1 two 2}
 Raise $MyList 3}  -cleanup {}  -result {Input value 3 does not divide list evenly.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Raise-4 {Raise by one}  -setup {}  -body {set MyList {1 one 2 two}
+::tcltest::test Raise-4 {Raise by one}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 Raise $MyList 1}  -cleanup {}  -result {1 one 2 two}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Raise-5 {Raise by more than list length}  -setup {}  -body {set MyList {1 one 2 two}
+::tcltest::test Raise-5 {Raise by more than list length}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 Raise $MyList 5}  -cleanup {}  -result {Input value 5 is out-of-range.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test Raise-6 {Raise by list length}  -setup {}  -body {set MyList {1 one 2 two}
+::tcltest::test Raise-6 {Raise by list length}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 Raise $MyList 4}  -cleanup {}  -result {{1 one 2 two}}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Raise-7 {Test at}  -setup {}  -body {set MyList {1 one 2 two}
+::tcltest::test Raise-7 {Test at}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 Raise @MyList 2
 puts $MyList
 }  -cleanup {}  -result {}  -output {{1 one} {2 two}

@@ -1,19 +1,19 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test LastId-0 {Base case}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
+::tcltest::test LastId-0 {Base case}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
 set Id [LastId my_table]
 Q1 "SELECT desc FROM my_table WHERE id = $Id"
 }  -cleanup {QQ {DELETE FROM my_table WHERE desc = 'Test LastId'}
 }  -result {Test LastId}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test LastId-1 {Table empty}  -setup {sqlite3 testdb "c:/users/rbrogan/test.db"}  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text}
+::tcltest::test LastId-1 {Table empty}  -constraints {}  -setup {sqlite3 testdb "test.db"}  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text}
 LastId temp_table
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test LastId-2 {After adding an entry}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test LastId-2 {After adding an entry}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId 1')"
 set Id1 [LastId my_table]
 QQ "INSERT INTO my_table (desc) VALUES ('Test LastId 2')"
@@ -23,6 +23,6 @@ expr $Id2 - $Id1
 }  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test LastId-4 {Table name is empty string}  -setup {}  -body {LastId ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test LastId-4 {Table name is empty string}  -constraints {}  -setup {}  -body {LastId ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 

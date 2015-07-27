@@ -1,19 +1,19 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test Coe-0 {No args}  -setup {}  -body {Coe
+::tcltest::test Coe-0 {No args}  -constraints {}  -setup {}  -body {Coe
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Coe-1 {Basic test - return concat of two}  -setup {}  -body {Coe 1 2}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-1 {Basic test - return concat of two}  -constraints {}  -setup {}  -body {Coe 1 2}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Coe-2 {Basic test - return empty}  -setup {}  -body {Coe 1 ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-2 {Basic test - return empty}  -constraints {}  -setup {}  -body {Coe 1 ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Coe-3 {One arg, not empty}  -setup {}  -body {Coe 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-3 {One arg, not empty}  -constraints {}  -setup {}  -body {Coe 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Coe-4 {One arg, empty}  -setup {}  -body {Coe ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-4 {One arg, empty}  -constraints {}  -setup {}  -body {Coe ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 

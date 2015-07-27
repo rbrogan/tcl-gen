@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test PrintMatrix-0 {Basic test}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-0 {Basic test}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix
 }  -cleanup {}  -result {}  -output {1 | 2 | 3
 4 | 5 | 6
@@ -9,7 +9,7 @@ PrintMatrix $MyMatrix
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-1 {Use header list}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-1 {Use header list}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3}
 }  -cleanup {}  -result {}  -output {Col1 | Col2 | Col3
    1 |    2 |    3
@@ -18,7 +18,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-2 {Use max width list}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-2 {Use max width list}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -cleanup {}  -result {}  -output { Col1 |  Col2 |  Col3
     1 |     2 |     3
@@ -27,7 +27,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-3 {Uneven header lengths}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-3 {Uneven header lengths}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col22 Col333}
 }  -cleanup {}  -result {}  -output {Col1 | Col22 | Col333
    1 |     2 |      3
@@ -36,7 +36,7 @@ PrintMatrix $MyMatrix {Col1 Col22 Col333}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-4 {Uneven max width lengths}  -setup {}  -body {set MyMatrix {{1111 2222 3333} {44444 55555 66666} {777777 888888 999999}}
+::tcltest::test PrintMatrix-4 {Uneven max width lengths}  -constraints {}  -setup {}  -body {set MyMatrix {{1111 2222 3333} {44444 55555 66666} {777777 888888 999999}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {4 5 6}
 }  -cleanup {}  -result {}  -output {Col1 |  Col2 |   Col3
 1111 |  2222 |   3333
@@ -45,7 +45,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {4 5 6}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-5 {Column text is truncated}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
+::tcltest::test PrintMatrix-5 {Column text is truncated}  -constraints {}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -cleanup {}  -result {}  -output { Col1 |  Col2 |  Col3
     1 |    22 |   333
@@ -53,7 +53,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-6 {Max is used}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
+::tcltest::test PrintMatrix-6 {Max is used}  -constraints {}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {max max max}
 }  -cleanup {}  -result {}  -output {Col1 |  Col2 |   Col3
    1 |    22 |    333
@@ -61,22 +61,22 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {max max max}
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintMatrix-7 {HeaderList wrong length}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-7 {HeaderList wrong length}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2}
 }  -cleanup {}  -result {Variable HeaderList has invalid value Col1 Col2.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test PrintMatrix-8 {ColumnMaxWidthList wrong length}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-8 {ColumnMaxWidthList wrong length}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5 5}
 }  -cleanup {}  -result {Variable ColumnMaxWidthList has invalid value 5 5 5 5.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test PrintMatrix-9 {ColumnMaxWidthList has nonpositive element}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-9 {ColumnMaxWidthList has nonpositive element}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {asdf 5 5}
 }  -cleanup {}  -result {Variable ColumnMaxWidthList has invalid value asdf 5 5.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test PrintMatrix-10 {Not a matrix}  -setup {}  -body {set MyMatrix {1 {4 5 } {7 8 9}}
+::tcltest::test PrintMatrix-10 {Not a matrix}  -constraints {}  -setup {}  -body {set MyMatrix {1 {4 5 } {7 8 9}}
 PrintMatrix $MyMatrix
 }  -cleanup {}  -result {Variable Matrix has invalid value 1 {4 5 } {7 8 9}.}  -output {}  -returnCodes {1}  
 

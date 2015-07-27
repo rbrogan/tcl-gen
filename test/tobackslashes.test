@@ -1,17 +1,17 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test ToBackslashes-0 {Basic test}  -setup {}  -body {ToBackslashes c:/some/path/to/file.txt}  -cleanup {}  -result {c:\some\path\to\file.txt}  -output {}  -returnCodes {0}  
-
-
-::tcltest::test ToBackslashes-1 {Empty string input}  -setup {}  -body {ToBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ToBackslashes-0 {Basic test}  -constraints {}  -setup {}  -body {ToBackslashes c:/some/path/to/file.txt}  -cleanup {}  -result {c:\some\path\to\file.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToBackslashes-2 {Basic test - from double backslashes}  -setup {}  -body {set MyVar c:\\\\path\\\\to\\\\somefile.txt
+::tcltest::test ToBackslashes-1 {Empty string input}  -constraints {}  -setup {}  -body {ToBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ToBackslashes-2 {Basic test - from double backslashes}  -constraints {}  -setup {}  -body {set MyVar c:\\\\path\\\\to\\\\somefile.txt
 ToBackslashes $MyVar}  -cleanup {}  -result {c:\path\to\somefile.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToBackslashes-3 {Test at}  -setup {}  -body {set MyString c:/some/path/to/file.txt
+::tcltest::test ToBackslashes-3 {Test at}  -constraints {}  -setup {}  -body {set MyString c:/some/path/to/file.txt
 ToBackslashes @MyString
 puts $MyString
 }  -cleanup {}  -result {}  -output {c:\some\path\to\file.txt

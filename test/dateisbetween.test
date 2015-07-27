@@ -1,100 +1,100 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DateIsBetween-0 {Basic test - return 1}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03}
+::tcltest::test DateIsBetween-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-1 {Basic test - return 0}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-02} {2000-01-03}
+::tcltest::test DateIsBetween-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-02} {2000-01-03}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-2 {First date is invalid}  -setup {}  -body {DateIsBetween asdf {2000-01-01} {2000-01-03}
+::tcltest::test DateIsBetween-2 {First date is invalid}  -constraints {}  -setup {}  -body {DateIsBetween asdf {2000-01-01} {2000-01-03}
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsBetween-3 {Second date is invalid}  -setup {}  -body {DateIsBetween {2000-01-02} asdf {2000-01-03}
+::tcltest::test DateIsBetween-3 {Second date is invalid}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} asdf {2000-01-03}
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsBetween-4 {Third date is invalid}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} asdf
+::tcltest::test DateIsBetween-4 {Third date is invalid}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} asdf
 }  -cleanup {}  -result {Variable ThirdDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsBetween-5 {First is on second, BothInclusive}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} BothInclusive
+::tcltest::test DateIsBetween-5 {First is on second, BothInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-6 {First is on second, LeftInclusive}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} LeftInclusive
+::tcltest::test DateIsBetween-6 {First is on second, LeftInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} LeftInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-7 {First is on second, RightExclusive}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} RightExclusive
+::tcltest::test DateIsBetween-7 {First is on second, RightExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} RightExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-8 {First is on second, LeftExclusive}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} LeftExclusive
+::tcltest::test DateIsBetween-8 {First is on second, LeftExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} LeftExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-9 {First is on second, RightInclusive}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} RightInclusive
+::tcltest::test DateIsBetween-9 {First is on second, RightInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03} RightInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-10 {First is on third, BothInclusive}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} BothInclusive
+::tcltest::test DateIsBetween-10 {First is on third, BothInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-11 {First is on third, LeftInclusive}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} LeftInclusive
+::tcltest::test DateIsBetween-11 {First is on third, LeftInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} LeftInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-12 {First is on third, RightExclusive}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} RightExclusive
+::tcltest::test DateIsBetween-12 {First is on third, RightExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} RightExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-13 {First is on third, LeftExclusive}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} LeftExclusive
+::tcltest::test DateIsBetween-13 {First is on third, LeftExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} LeftExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-14 {First is on third, RightInclusive}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} RightInclusive
+::tcltest::test DateIsBetween-14 {First is on third, RightInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03} RightInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-15 {First is between, BothInclusive}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} BothInclusive
+::tcltest::test DateIsBetween-15 {First is between, BothInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-16 {First is between, LeftInclusive}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} LeftInclusive
+::tcltest::test DateIsBetween-16 {First is between, LeftInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} LeftInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-17 {First is between, LeftExclusive}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} LeftExclusive
+::tcltest::test DateIsBetween-17 {First is between, LeftExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} LeftExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-18 {First is between, RightExclusive}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} RightExclusive
+::tcltest::test DateIsBetween-18 {First is between, RightExclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} RightExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-19 {First is between, RightInclusive}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} RightInclusive
+::tcltest::test DateIsBetween-19 {First is between, RightInclusive}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-01} {2000-01-03} RightInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-20 {First is on second}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03}
+::tcltest::test DateIsBetween-20 {First is on second}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-01} {2000-01-01} {2000-01-03}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-21 {First is on third}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03}
+::tcltest::test DateIsBetween-21 {First is on third}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-03} {2000-01-01} {2000-01-03}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-22 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateIsBetween-22 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsBetween {January 02, 2000} {January 01, 2000} {January 03, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsBetween-23 {Second is after third}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-03} {2000-01-01}
+::tcltest::test DateIsBetween-23 {Second is after third}  -constraints {}  -setup {}  -body {DateIsBetween {2000-01-02} {2000-01-03} {2000-01-01}
 }  -cleanup {}  -result {Arguments SecondDate and ThirdDate have incoherent values 2000-01-03 and 2000-01-01.}  -output {}  -returnCodes {1}  
 
 

@@ -1,0 +1,39 @@
+package require tcltest
+package require -exact gen 1.5.0
+
+::tcltest::test IsHhmmss-0 {Basic test}  -constraints {}  -setup {}  -body {IsHhmmss 12:34:56
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-1 {Empty string}  -constraints {}  -setup {}  -body {IsHhmmss ""
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-2 {asdf}  -constraints {}  -setup {}  -body {IsHhmmss asdf
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-3 {Elements are not digits 0 - 9}  -constraints {}  -setup {}  -body {IsHhmmss aa:bb:cc
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-4 {Elements are digits but more than two}  -constraints {}  -setup {}  -body {IsHhmmss 12:345:00}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-5 {Elements are digits but less than two}  -constraints {}  -setup {}  -body {IsHhmmss 1:23:45}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-6 {60 minutes}  -constraints {}  -setup {}  -body {IsHhmmss 12:60:00
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-7 {60 seconds}  -constraints {}  -setup {}  -body {IsHhmmss 12:34:60}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-8 {Negative}  -constraints {}  -setup {}  -body {IsHhmmss -01:01:01
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test IsHhmmss-9 {100 hours}  -constraints {}  -setup {}  -body {IsHhmmss 100:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+

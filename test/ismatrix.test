@@ -1,29 +1,29 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test IsMatrix-0 {Basic test - return 1}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test IsMatrix-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 IsMatrix $MyMatrix
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsMatrix-1 {Basic test - return 0}  -setup {}  -body {set NotMatrix {1 {2 2} {3 3 3}}
+::tcltest::test IsMatrix-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {set NotMatrix {1 {2 2} {3 3 3}}
 IsMatrix $NotMatrix
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsMatrix-2 {Empty string}  -setup {}  -body {IsMatrix {}
+::tcltest::test IsMatrix-2 {Empty string}  -constraints {}  -setup {}  -body {IsMatrix {}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsMatrix-3 {One row}  -setup {}  -body {IsMatrix {{1 2 3}}
+::tcltest::test IsMatrix-3 {One row}  -constraints {}  -setup {}  -body {IsMatrix {{1 2 3}}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsMatrix-4 {Contains empty lists}  -setup {}  -body {IsMatrix {{{} {} {}} {{} {} {}} {{} {} {}}}
+::tcltest::test IsMatrix-4 {Contains empty lists}  -constraints {}  -setup {}  -body {IsMatrix {{{} {} {}} {{} {} {}} {{} {} {}}}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsMatrix-5 {One column}  -setup {}  -body {IsMatrix {1 2 3}
+::tcltest::test IsMatrix-5 {One column}  -constraints {}  -setup {}  -body {IsMatrix {1 2 3}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 

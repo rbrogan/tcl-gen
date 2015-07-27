@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SumHhmmss</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SumHhmmss  &mdash;  Sum up a list of times.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SumHhmmss</b> <i>ListValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string of the form hh:mm:ss that is the sum of the input.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListValue</i></td><td class='argument_right'>A list where each string is of the form hh:mm:ss.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>List element has invalid value.</td>
+<td class="error_code">-19</td>
+<td>List variable $ListValue at index $i has invalid value $Element.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that minutes and seconds will end up with a value no greater than 59. For example, SumHhmmss {00:30:30 00:30:30} will return 01:01:00, not 00:60:60.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>SumHhmmss {01:00:00 00:01:00 00:00:01}</b><br>01:01:01<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'diffhhmmss.html'>DiffHhmmss</a>, <a href = 'ishhmmss.html'>IsHhmmss</a>, <a href = 'multiplyhhmmss.html'>MultiplyHhmmss</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_math">math</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

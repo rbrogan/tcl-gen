@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test RegistryExists-0 {Basic test - return 1}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-0 {Basic test - return 1}  -constraints {win}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
@@ -9,18 +9,18 @@ registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RegistryExists-1 {Basic test - return 0}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-1 {Basic test - return 0}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RegistryExists-2 {ValueName is empty}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-2 {ValueName is empty}  -constraints {win}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -cleanup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RegistryExists-3 {KeyName is empty}  -setup {}  -body {RegistryExists {} testy
+::tcltest::test RegistryExists-3 {KeyName is empty}  -constraints {win}  -setup {}  -body {RegistryExists {} testy
 }  -cleanup {}  -result {Variable KeyName has empty value.}  -output {}  -returnCodes {1}  
 
 

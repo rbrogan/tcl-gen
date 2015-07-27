@@ -1,24 +1,24 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test PrintDict-0 {Empty dict}  -setup {}  -body {PrintDict {}
+::tcltest::test PrintDict-0 {Empty dict}  -constraints {}  -setup {}  -body {PrintDict {}
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-1 {Dict has one entry}  -setup {}  -body {set MyDict [dict create one uno]
+::tcltest::test PrintDict-1 {Dict has one entry}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {one uno
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-2 {Dict has multiple entries}  -setup {}  -body {set MyDict [dict create one uno two dos]
+::tcltest::test PrintDict-2 {Dict has multiple entries}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {one uno
 two dos
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-3 {Dict has one nested dict}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three]]
+::tcltest::test PrintDict-3 {Dict has one nested dict}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three]]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {  one uno
   two dos
@@ -29,7 +29,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-4 {Dict has multiple nested dicts}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three] erht [dict create 111 one 222 two 333 three]]
+::tcltest::test PrintDict-4 {Dict has multiple nested dicts}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three] erht [dict create 111 one 222 two 333 three]]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {  one uno
   two dos
@@ -44,7 +44,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-5 {Dict has nested dict two levels deep}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3]]]
+::tcltest::test PrintDict-5 {Dict has nested dict two levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3]]]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {  one uno
   two dos
@@ -59,11 +59,11 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-6 {Input is not a dict}  -setup {}  -body {PrintDict {not a dict}
+::tcltest::test PrintDict-6 {Input is not a dict}  -constraints {}  -setup {}  -body {PrintDict {not a dict}
 }  -cleanup {}  -result {Variable DictValue has invalid value not a dict.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test PrintDict-7 {Multiple nested two levels deep}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3] 555 [dict create x 9 y 8 z 7]]]
+::tcltest::test PrintDict-7 {Multiple nested two levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3] 555 [dict create x 9 y 8 z 7]]]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {  one uno
   two dos
@@ -82,7 +82,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintDict-8 {Nested three levels deep}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3 d [dict create nn mm oo pp qq rr]]]]
+::tcltest::test PrintDict-8 {Nested three levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3 d [dict create nn mm oo pp qq rr]]]]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {  one uno
   two dos

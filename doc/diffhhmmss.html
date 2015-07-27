@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DiffHhmmss</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DiffHhmmss  &mdash;  Do subtraction of time quantities in hh:mm:ss form.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DiffHhmmss</b> <i>MinuendVariable</i> <i>Subtrahend</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string of the form hh:mm:ss that is the time left after subtracting.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>MinuendVariable</i></td><td class='argument_right'>What gets subtracted from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Subtrahend</i></td><td class='argument_right'>How much to subtract.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of MinuendVariable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Contents of Subtrahend are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Input value is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that the strings represent quantities of time, how long. The strings do not represent time points, times during the day.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<p>Here we subtract 30 minutes from 90 minutes and get back an hour.</p><div class="code_sample"><pre>% <b>DiffHhmmss 01:30:00 00:30:00</b><br>01:00:00</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ishhmmss.html'>IsHhmmss</a>, <a href = 'multiplyhhmmss.html'>MultiplyHhmmss</a>, <a href = 'sumhhmmss.html'>SumHhmmss</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_math">math</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

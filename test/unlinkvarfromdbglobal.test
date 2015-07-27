@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test UnlinkVarFromDbGlobal-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {set MyVar 123
+::tcltest::test UnlinkVarFromDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set MyVar 123
 LinkVarToDbGlobal MyVar
 puts [GetDbGlobal MyVar]
 set MyVar 345
@@ -15,7 +15,7 @@ puts [GetDbGlobal MyVar]
 }  -returnCodes {0}  
 
 
-::tcltest::test UnlinkVarFromDbGlobal-1 {Variable not pre-existing}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {unset -nocomplain MyVar
+::tcltest::test UnlinkVarFromDbGlobal-1 {Variable not pre-existing}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {unset -nocomplain MyVar
 LinkVarToDbGlobal MyVar
 puts [GetDbGlobal MyVar]
 SetDbGlobal MyVar 345
@@ -29,7 +29,7 @@ puts [GetDbGlobal MyVar]
 }  -returnCodes {0}  
 
 
-::tcltest::test UnlinkVarFromDbGlobal-3 {No previous link}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {SetDbGlobal MyVar 123
+::tcltest::test UnlinkVarFromDbGlobal-3 {No previous link}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal MyVar 123
 UnlinkVarFromDbGlobal MyVar
 set MyVar 345
 puts [GetDbGlobal MyVar]
@@ -37,7 +37,7 @@ puts [GetDbGlobal MyVar]
 }  -returnCodes {0}  
 
 
-::tcltest::test UnlinkVarFromDbGlobal-5 {VarName and DbGlobalName are different}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {SetDbGlobal SomeVar 789
+::tcltest::test UnlinkVarFromDbGlobal-5 {VarName and DbGlobalName are different}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal SomeVar 789
 set MyVar 123
 LinkVarToDbGlobal MyVar SomeVar
 puts [GetDbGlobal SomeVar]
@@ -52,7 +52,7 @@ puts [GetDbGlobal SomeVar]
 }  -returnCodes {0}  
 
 
-::tcltest::test UnlinkVarFromDbGlobal-7 {VarName is empty}  -setup {}  -body {UnlinkVarFromDbGlobal "" ""
+::tcltest::test UnlinkVarFromDbGlobal-7 {VarName is empty}  -constraints {}  -setup {}  -body {UnlinkVarFromDbGlobal "" ""
 }  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
 

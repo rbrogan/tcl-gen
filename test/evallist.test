@@ -1,17 +1,17 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test EvalList-0 {Basic test}  -setup {}  -body {set MyList {{puts One} {puts Two}}
+::tcltest::test EvalList-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {{puts One} {puts Two}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 Two
 }  -returnCodes {0}  
 
 
-::tcltest::test EvalList-1 {Empty list}  -setup {}  -body {set MyList {}
+::tcltest::test EvalList-1 {Empty list}  -constraints {}  -setup {}  -body {set MyList {}
 EvalList $MyList}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test EvalList-2 {One element}  -setup {}  -body {set MyList {{puts One}}
+::tcltest::test EvalList-2 {One element}  -constraints {}  -setup {}  -body {set MyList {{puts One}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 }  -returnCodes {0}  
 

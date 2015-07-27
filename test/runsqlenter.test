@@ -1,29 +1,29 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test RunSqlEnter-1 {Where dict is empty}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test RunSqlEnter-1 {Where dict is empty}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {RunSqlEnter my_table {} {notes '1-2-3'}}  -cleanup {}  -result {Variable WhereDict has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test RunSqlEnter-2 {Set dict is empty}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test RunSqlEnter-2 {Set dict is empty}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ "DELETE FROM clear_table"}  -body {RunSqlEnter clear_table {desc 'first'}
 }  -cleanup {QQ "DELETE FROM clear_table"}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RunSqlEnter-3 {Basic test - does not already exist, do insert}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test RunSqlEnter-3 {Basic test - does not already exist, do insert}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {QQ "DELETE FROM my_table WHERE desc = 'first'"
 RunSqlEnter my_table {desc 'first'} {notes '1-2-3'}
 QQ "SELECT notes FROM my_table WHERE desc = 'first'"}  -cleanup {}  -result {1-2-3}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RunSqlEnter-4 {Basic test - does already exist, do update}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test RunSqlEnter-4 {Basic test - does already exist, do update}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
 RunSqlEnter my_table {desc 'first'} {notes '4-5-6'}
 Q1 "SELECT notes FROM my_table WHERE desc = 'first'"
 }  -cleanup {}  -result {4-5-6}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RunSqlEnter-5 {Table name is empty string}  -setup {}  -body {RunSqlEnter "" {} {}
+::tcltest::test RunSqlEnter-5 {Table name is empty string}  -constraints {}  -setup {}  -body {RunSqlEnter "" {} {}
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 

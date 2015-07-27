@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Position Commands for Databases</title>
+</head>
+<body>
+<h1>About Position Commands for Databases</h1>
+<p>
+<i>What are these commands for?</i> These commands help let you have tables in your databases where the order matters and it is arranged by the user (e.g. an outline or a queue).
+</p>
+<p>
+Illustration of a table where the order matters.
+</p>
+<p>
+<u>The commands assume that your tables will have a column called "position" of type real.</u>
+</p>
+<p>
+<i>Why type real instead of integer?</i> Chances are that if you change the position of one entry then the positions of the others will have to be adjusted as well. By using type real, we can do a few temporary adjustments to nudge just a couple of entries by a fraction and then normalize them all.
+</p>
+<p>
+So if you wanted to move an entry to the top, you could take the top entry and make it go from 0.0 to 0.1 and then take your target entry and make it 0.0. Now everything is in order and you can normalize so the positions are 0.0, 1.0, etc., like you would want. Even if this approach is not the best in all respects, it is simple and it works. You never really have to work with reals yourself, but that is how it works inside.
+</p>
+<p>
+Note that you never have to use reals as inputs (e.g. you call it position 0, not 0.0) and the return values you get will be integers.
+</p>
+<p>
+Possibly you may want to restrict the commands to work on only a subtable. In that case, you can give another parameter to use for the WHERE clause.
+</p>
+<p>
+<i>How do moves happen?</i> A move will take the entry already at the given position and increment it by 0.1 if it is being moved up or decrement it by 0.1 if it is being moved down. The move command will then take the entry to be moved and set its position column to the target. Finally, it will normalize the positions so that they are 0.0, 1.0, ... X.0.
+</p>
+<p>
+Example of a move.
+</p>
+<p>
+<i>Want to see an example from start to finish?</i> Check out the following.
+</p>
+</body>
+</html>

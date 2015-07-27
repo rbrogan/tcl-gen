@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DbaseRegsub-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
+::tcltest::test DbaseRegsub-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
 RunSqlEnter my_table {desc '10' notes 'regsub_target'}
 set NumReplacements [DbaseRegsub my_table desc 0 2]
@@ -12,15 +12,15 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -returnCodes {0}  
 
 
-::tcltest::test DbaseRegsub-3 {Table name empty}  -setup {}  -body {DbaseRegsub "" desc OldName NewName
+::tcltest::test DbaseRegsub-3 {Table name empty}  -constraints {}  -setup {}  -body {DbaseRegsub "" desc OldName NewName
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DbaseRegsub-4 {Field name empty}  -setup {}  -body {DbaseRegsub my_table "" OldName NewName
+::tcltest::test DbaseRegsub-4 {Field name empty}  -constraints {}  -setup {}  -body {DbaseRegsub my_table "" OldName NewName
 }  -cleanup {}  -result {Variable ColumnName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DbaseRegsub-5 {Find misses}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
+::tcltest::test DbaseRegsub-5 {Find misses}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
 RunSqlEnter my_table {desc '10' notes 'regsub_target'}
 DbaseRegsub my_table desc 2 3
@@ -29,11 +29,11 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -result {01 11 10}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DbaseRegsub-6 {Find empty}  -setup {}  -body {DbaseRegsub my_table desc "" NewName
+::tcltest::test DbaseRegsub-6 {Find empty}  -constraints {}  -setup {}  -body {DbaseRegsub my_table desc "" NewName
 }  -cleanup {}  -result {Variable FindValue has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DbaseRegsub-7 {WhereDict used}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
+::tcltest::test DbaseRegsub-7 {WhereDict used}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
 RunSqlEnter my_table {desc '10' notes 'regsub_target'}
 DbaseRegsub my_table desc 0 2 {desc '01'}
@@ -42,7 +42,7 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -result {21 11 10}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DbaseRegsub-8 {No records match}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
+::tcltest::test DbaseRegsub-8 {No records match}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
 RunSqlEnter my_table {desc '10' notes 'regsub_target'}
 DbaseRegsub my_table desc 0 2 {desc 'xx'}
@@ -51,7 +51,7 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -result {01 11 10}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DbaseRegsub-9 {ReplaceValue empty}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
+::tcltest::test DbaseRegsub-9 {ReplaceValue empty}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
 RunSqlEnter my_table {desc '10' notes 'regsub_target'}
 DbaseRegsub my_table desc 0 ""

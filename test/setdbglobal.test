@@ -1,42 +1,42 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SetDbGlobal-0 {Basic test - set existing}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SetDbGlobal-0 {Basic test - set existing}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal test 1-2-3
 }  -cleanup {}  -result {1-2-3}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-1 {Basic test - create new}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SetDbGlobal-1 {Basic test - create new}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ "DELETE FROM globals WHERE desc = 'alpha'"}  -body {UnsetDbGlobal alpha
 SetDbGlobal alpha 123
 }  -cleanup {QQ "DELETE FROM globals WHERE desc = 'alpha'"}  -result {123}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-2 {Basic test - set integer}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SetDbGlobal-2 {Basic test - set integer}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal permanent 2
 GetDbGlobal permanent}  -cleanup {}  -result {2}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-3 {Basic test - set real}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SetDbGlobal-3 {Basic test - set real}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyReal 1.2
 GetDbGlobal MyReal}  -cleanup {}  -result {1.2}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-4 {Variable name is empty}  -setup {}  -body {SetDbGlobal ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test SetDbGlobal-4 {Variable name is empty}  -constraints {}  -setup {}  -body {SetDbGlobal ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SetDbGlobal-5 {Value is omitted}  -setup {}  -body {SetDbGlobal test 1-2-3
+::tcltest::test SetDbGlobal-5 {Value is omitted}  -constraints {}  -setup {}  -body {SetDbGlobal test 1-2-3
 SetDbGlobal test}  -cleanup {}  -result {1-2-3}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-6 {Basic test - set empty}  -setup {}  -body {SetDbGlobal MyEmpty {}
+::tcltest::test SetDbGlobal-6 {Basic test - set empty}  -constraints {}  -setup {}  -body {SetDbGlobal MyEmpty {}
 set MyVar [GetDbGlobal MyEmpty]
 puts "*[set MyVar]*"
 }  -cleanup {}  -result {}  -output {**
 }  -returnCodes {0}  
 
 
-::tcltest::test SetDbGlobal-7 {Set twice}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SetDbGlobal-7 {Set twice}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal test 1-2-3
 puts [GetDbGlobal test]
 SetDbGlobal test 4-5-6

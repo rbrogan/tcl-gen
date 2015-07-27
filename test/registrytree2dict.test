@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test RegistryTree2Dict-0 {Basic test}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryTree2Dict-0 {Basic test}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -19,17 +19,17 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
+::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -constraints {win}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
 
 }  -cleanup {}  -result {Registry key/value HKEY_LOCAL_MACHINE\asdfasdf not found.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
+::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -constraints {win}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
 
 }  -cleanup {}  -result {Variable CurrentRegKey has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 set MyDict [RegistryTree2Dict {HKEY_CURRENT_USER\Software\GenTest}]
 PrintDict $MyDict
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  

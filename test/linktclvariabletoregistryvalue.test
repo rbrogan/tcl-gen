@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123 dword
 }  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]
@@ -17,7 +17,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -returnCodes {0}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-1 {Registry value does not already exist}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-1 {Registry value does not already exist}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {set MyVar 345
 LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
@@ -31,7 +31,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -returnCodes {0}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-2 {Tcl variable does not already exist}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-2 {Tcl variable does not already exist}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {unset -nocomplain MyVar
@@ -45,16 +45,16 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -returnCodes {0}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-3 {Invalid value for Tcl variable name}  -setup {}  -body {LinkTclVariableToRegistryValue {} "HKEY_CURRENT_USER\\Software\\GenTest" testy
+::tcltest::test LinkTclVariableToRegistryValue-3 {Invalid value for Tcl variable name}  -constraints {win}  -setup {}  -body {LinkTclVariableToRegistryValue {} "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {
 }  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-4 {Invalid value for registry value path}  -setup {}  -body {LinkTclVariableToRegistryValue MyVar {} testy
+::tcltest::test LinkTclVariableToRegistryValue-4 {Invalid value for registry value path}  -constraints {win}  -setup {}  -body {LinkTclVariableToRegistryValue MyVar {} testy
 }  -cleanup {}  -result {Variable RegistryKeyPath has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-5 {Registry value is deleted then Tcl variable is updated}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-5 {Registry value is deleted then Tcl variable is updated}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]
@@ -72,7 +72,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -returnCodes {0}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-6 {Tcl variable is deleted}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-6 {Tcl variable is deleted}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]
@@ -91,7 +91,7 @@ puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]
 }  -returnCodes {0}  
 
 
-::tcltest::test LinkTclVariableToRegistryValue-7 {Tcl variable is update after call to unlink}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test LinkTclVariableToRegistryValue-7 {Tcl variable is update after call to unlink}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]

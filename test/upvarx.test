@@ -1,31 +1,31 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test UpvarX-0 {Basic test}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-0 {Basic test}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var; puts "$VarName holds value $Var."}
 TestUpvarX NoSuchVar
 }  -cleanup {}  -result {}  -output {NoSuchVar holds value .
 }  -returnCodes {0}  
 
 
-::tcltest::test UpvarX-1 {Basic test - set default value}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-1 {Basic test - set default value}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
 TestUpvarX NoSuchVar}  -cleanup {}  -result {}  -output {NoSuchVar holds value 0.
 }  -returnCodes {0}  
 
 
-::tcltest::test UpvarX-2 {Basic test - variable already exists}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-2 {Basic test - variable already exists}  -constraints {}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {}  -output {MyVar holds value 123.
 }  -returnCodes {0}  
 
 
-::tcltest::test UpvarX-3 {First input is empty string}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-3 {First input is empty string}  -constraints {}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX "" Var 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test UpvarX-4 {Second input is empty string}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-4 {Second input is empty string}  -constraints {}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName "" 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
 

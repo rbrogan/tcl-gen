@@ -1,27 +1,27 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test TimeOfDayIsAt-0 {First is at second}  -setup {}  -body {TimeOfDayIsAt 00:00:00 00:00:00
+::tcltest::test TimeOfDayIsAt-0 {First is at second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:00 00:00:00
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAt-1 {First is after second}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:00
+::tcltest::test TimeOfDayIsAt-1 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:00
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAt-2 {First is before second}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:02
+::tcltest::test TimeOfDayIsAt-2 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:02
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAt-3 {First is invalid}  -setup {}  -body {TimeOfDayIsAt asdf 00:00:00
+::tcltest::test TimeOfDayIsAt-3 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAt asdf 00:00:00
 }  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test TimeOfDayIsAt-4 {Second is invalid}  -setup {}  -body {TimeOfDayIsAt 00:00:00 asdf
+::tcltest::test TimeOfDayIsAt-4 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:00 asdf
 }  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test TimeOfDayIsAt-5 {Use alternate format}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test TimeOfDayIsAt-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsAt {0100 PM} {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  

@@ -1,10 +1,10 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test QQ-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {QQ "SELECT desc, notes FROM my_table WHERE id = 1"}  -cleanup {}  -result {uno one}  -output {}  -returnCodes {0}  
+::tcltest::test QQ-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "SELECT desc, notes FROM my_table WHERE id = 1"}  -cleanup {}  -result {uno one}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test QQ-1 {Empty query statement}  -setup {}  -body {QQ ""
+::tcltest::test QQ-1 {Empty query statement}  -constraints {}  -setup {}  -body {QQ ""
 }  -cleanup {}  -result {Variable QueryStatement has empty value.}  -output {}  -returnCodes {1}  
 
 

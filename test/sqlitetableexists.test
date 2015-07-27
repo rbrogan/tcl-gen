@@ -1,17 +1,17 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqliteTableExists-0 {Basic test - return 1}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteTableExists-0 {Basic test - return 1}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists globals
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqliteTableExists-1 {Basic test - return 0}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteTableExists-1 {Basic test - return 0}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists no_such_table
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqliteTableExists-2 {Table name is empty}  -setup {}  -body {SqliteTableExists ""
+::tcltest::test SqliteTableExists-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteTableExists ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 

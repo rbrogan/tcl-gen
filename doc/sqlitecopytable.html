@@ -52,11 +52,11 @@ EXAMPLES
 </div>
 <div class="section_content">
 <div class="code_sample"><pre>% RunSqlCreate my_table {id {integer primary key} desc text notes text}<br>% QQ [SqlInsertStatement my_table {desc 'one' notes 'uno'}]<br>% <b>SqliteCopyTable my_table my_table_2</b><br>% puts [QQ [SqlSelectStatement my_table_2]]<br>one uno<br><br></pre></div>
-<div class="section_header" hidden>
+<div class="section_header" >
 SEE ALSO
 </div>
-<div class="section_content" hidden>
-
+<div class="section_content" >
+<a href = 'runsqlcreatetable.html'>RunSqlCreateTable</a>
 </div>
 <div class="section_header" >
 KEYWORDS

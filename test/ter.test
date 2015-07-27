@@ -1,10 +1,10 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test Ter-0 {Basic test}  -setup {}  -body {Ter 1 {return true} {return false}
+::tcltest::test Ter-0 {Basic test}  -constraints {}  -setup {}  -body {Ter 1 {return true} {return false}
 }  -cleanup {}  -result {true}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test Ter-1 {Basic test - evaluates to false}  -setup {}  -body {Ter 0 {return true} {return false}}  -cleanup {}  -result {false}  -output {}  -returnCodes {0}  
+::tcltest::test Ter-1 {Basic test - evaluates to false}  -constraints {}  -setup {}  -body {Ter 0 {return true} {return false}}  -cleanup {}  -result {false}  -output {}  -returnCodes {0}  
 
 

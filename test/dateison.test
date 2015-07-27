@@ -1,31 +1,31 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DateIsOn-0 {Basic test - return 1}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-01
+::tcltest::test DateIsOn-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-01
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOn-1 {Basic test - return 0}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-02
+::tcltest::test DateIsOn-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-02
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOn-2 {First is invalid}  -setup {}  -body {DateIsOn asdf 2000-01-01
+::tcltest::test DateIsOn-2 {First is invalid}  -constraints {}  -setup {}  -body {DateIsOn asdf 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOn-3 {Second is invalid}  -setup {}  -body {DateIsOn 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsOn-3 {Second is invalid}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOn-4 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateIsOn-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsOn {January 02, 2000} {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOn-5 {First is empty}  -setup {}  -body {DateIsOn "" 2000-01-01
+::tcltest::test DateIsOn-5 {First is empty}  -constraints {}  -setup {}  -body {DateIsOn "" 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOn-6 {Second is empty}  -setup {}  -body {DateIsOn 2000-01-01 ""
+::tcltest::test DateIsOn-6 {Second is empty}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 ""
 }  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
 

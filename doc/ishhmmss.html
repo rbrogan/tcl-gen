@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IsHhmmss</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+IsHhmmss  &mdash;  Check whether the string passed in is of the form hh:mm:ss.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>IsHhmmss</b> <i>StringValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> String passed in does represent some amount of time.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> String passed on does not represent a time.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringValue</i></td><td class='argument_right'>The string to check whether or not it represents a time.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>To be more exact, not only does the string have to have the form hh:mm:ss --<br>
+1. Each of the mm, and ss consists of two decimal digits.<br>
+2. The number of minutes must be below 60.<br>
+3. The number of seconds must be below 60.<br>
+4. The hours part must have at least two digits and may have more than two.
+<br>
+The string can optionally begin with a minus sign to indicate a negative amount of time.
+<br>
+In a future release we may allow for more flexibility. For the current release, we are keeping it simple and straightforward.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>IsHhmmss 12:34:56</b><br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'isdate.html'>IsDate</a>, <a href = 'isdatetime.html'>IsDatetime</a>, <a href = 'istimeofday.html'>IsTimeOfDay</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_time">time</a>, <a href="keyword-index.html#C_validation">validation</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

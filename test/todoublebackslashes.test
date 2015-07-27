@@ -1,17 +1,17 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test ToDoubleBackslashes-0 {Basic test - from forward slashes}  -setup {}  -body {ToDoubleBackslashes c:/path/one}  -cleanup {}  -result {c:\\path\\one}  -output {}  -returnCodes {0}  
+::tcltest::test ToDoubleBackslashes-0 {Basic test - from forward slashes}  -constraints {}  -setup {}  -body {ToDoubleBackslashes c:/path/one}  -cleanup {}  -result {c:\\path\\one}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToDoubleBackslashes-1 {Basic test - from single backslashes}  -setup {}  -body {ToDoubleBackslashes {c:\path\to\file.txt}
+::tcltest::test ToDoubleBackslashes-1 {Basic test - from single backslashes}  -constraints {}  -setup {}  -body {ToDoubleBackslashes {c:\path\to\file.txt}
 }  -cleanup {}  -result {c:\\path\\to\\file.txt}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToDoubleBackslashes-2 {Empty string input}  -setup {}  -body {ToDoubleBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ToDoubleBackslashes-2 {Empty string input}  -constraints {}  -setup {}  -body {ToDoubleBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ToDoubleBackslashes-3 {Test at}  -setup {}  -body {set MyString c:/path/one
+::tcltest::test ToDoubleBackslashes-3 {Test at}  -constraints {}  -setup {}  -body {set MyString c:/path/one
 ToDoubleBackslashes @MyString
 puts $MyString
 }  -cleanup {}  -result {}  -output {c:\\path\\one

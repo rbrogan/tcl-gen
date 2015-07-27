@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SetAtLimitIfAbove</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SetAtLimitIfAbove  &mdash;  If variable is above limit, set it at limit. Return value.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SetAtLimitIfAbove</b> <i>VarName</i> <i>LimitValue</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Current value of variable, whether or not it was changed.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to check and set.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LimitValue</i></td><td class='argument_right'>Value to check against and set to, if above.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of variable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Input value is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+<tr><td>Got empty string instead of variable name.</td>
+<td class="error_code">-3</td>
+<td>Variable name is missing. Got empty string.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>If variable does not exist, it will be created and set to the limit value.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyVar 1<br>1<br>% <b>SetAtLimitIfAbove MyVar 0</b><br>0<br>% puts $MyVar<br>0<br></pre></div><div class="code_sample"><pre>% set MyVar -1<br>-1<br>% SetAtLimitIfAbove MyVar 0<br>-1<br>% puts $MyVar<br>-1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'setatlimitifbelow.html'>SetAtLimitIfBelow</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_variable">variable</a>
+</div>
+</body>
+</html>

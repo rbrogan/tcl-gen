@@ -1,23 +1,23 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test ChopLeft-0 {Basic test}  -setup {}  -body {ChopLeft "abcd"}  -cleanup {}  -result {bcd}  -output {}  -returnCodes {0}  
-
-
-::tcltest::test ChopLeft-1 {Basic test - specify count}  -setup {}  -body {ChopLeft "xyz" 2}  -cleanup {}  -result {z}  -output {}  -returnCodes {0}  
+::tcltest::test ChopLeft-0 {Basic test}  -constraints {}  -setup {}  -body {ChopLeft "abcd"}  -cleanup {}  -result {bcd}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ChopLeft-2 {Chop count greater than string length}  -setup {}  -body {ChopLeft "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ChopLeft-1 {Basic test - specify count}  -constraints {}  -setup {}  -body {ChopLeft "xyz" 2}  -cleanup {}  -result {z}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ChopLeft-3 {Test at}  -setup {}  -body {set MyString abcd
+::tcltest::test ChopLeft-2 {Chop count greater than string length}  -constraints {}  -setup {}  -body {ChopLeft "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test ChopLeft-3 {Test at}  -constraints {}  -setup {}  -body {set MyString abcd
 ChopLeft @MyString 2
 puts $MyString
 }  -cleanup {}  -result {}  -output {cd
 }  -returnCodes {0}  
 
 
-::tcltest::test ChopLeft-4 {Count is not an integer}  -setup {}  -body {ChopLeft "abcd" 1.2
+::tcltest::test ChopLeft-4 {Count is not an integer}  -constraints {}  -setup {}  -body {ChopLeft "abcd" 1.2
 }  -cleanup {}  -result {Variable Count has invalid value 1.2.}  -output {}  -returnCodes {1}  
 
 

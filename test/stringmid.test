@@ -1,27 +1,27 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test StringMid-0 {Basic test - no count specified}  -setup {}  -body {StringMid "one two three" 8}  -cleanup {}  -result {three}  -output {}  -returnCodes {0}  
-
-
-::tcltest::test StringMid-1 {Basic test - count specified}  -setup {}  -body {StringMid "aaabbb" 3 2}  -cleanup {}  -result {bb}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-0 {Basic test - no count specified}  -constraints {}  -setup {}  -body {StringMid "one two three" 8}  -cleanup {}  -result {three}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-2 {Count greater than string length}  -setup {}  -body {StringMid asdf 0 10}  -cleanup {}  -result {asdf}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-1 {Basic test - count specified}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 2}  -cleanup {}  -result {bb}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-3 {Position not in range}  -setup {}  -body {StringMid asdf 5}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-2 {Count greater than string length}  -constraints {}  -setup {}  -body {StringMid asdf 0 10}  -cleanup {}  -result {asdf}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-4 {Empty string input}  -setup {}  -body {StringMid "" 0 1}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-3 {Position not in range}  -constraints {}  -setup {}  -body {StringMid asdf 5}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-5 {Position below zero}  -setup {}  -body {StringMid asdf -1 1}  -cleanup {}  -result {a}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-4 {Empty string input}  -constraints {}  -setup {}  -body {StringMid "" 0 1}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-6 {Count is non-numeric value}  -setup {}  -body {StringMid "aaabbb" 3 asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test StringMid-5 {Position below zero}  -constraints {}  -setup {}  -body {StringMid asdf -1 1}  -cleanup {}  -result {a}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test StringMid-7 {Count is non-positive value}  -setup {}  -body {StringMid "aaabbb" 3 0}  -cleanup {}  -result {Expected positive input value, got input value 0 instead.}  -output {}  -returnCodes {1}  
+::tcltest::test StringMid-6 {Count is non-numeric value}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test StringMid-7 {Count is non-positive value}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 0}  -cleanup {}  -result {Expected positive input value, got input value 0 instead.}  -output {}  -returnCodes {1}  
 
 

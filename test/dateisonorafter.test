@@ -1,34 +1,34 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DateIsOnOrAfter-0 {Date is on}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 2000-01-01
+::tcltest::test DateIsOnOrAfter-0 {Date is on}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 2000-01-01
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOnOrAfter-1 {Date is after}  -setup {}  -body {DateIsOnOrAfter 2000-01-02 2000-01-01}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test DateIsOnOrAfter-1 {Date is after}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-02 2000-01-01}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOnOrAfter-2 {Date is before}  -setup {}  -body {DateIsOnOrAfter 1999-12-31 2000-01-01
+::tcltest::test DateIsOnOrAfter-2 {Date is before}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 1999-12-31 2000-01-01
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOnOrAfter-3 {First is invalid}  -setup {}  -body {DateIsOnOrAfter asdf 2000-01-01
+::tcltest::test DateIsOnOrAfter-3 {First is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrAfter asdf 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOnOrAfter-4 {Second is invalid}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsOnOrAfter-4 {Second is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOnOrAfter-5 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateIsOnOrAfter-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsOnOrAfter {January 02, 2000} {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DateIsOnOrAfter-6 {First is empty}  -setup {}  -body {DateIsOnOrAfter "" 2000-01-01
+::tcltest::test DateIsOnOrAfter-6 {First is empty}  -constraints {}  -setup {}  -body {DateIsOnOrAfter "" 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DateIsOnOrAfter-7 {Second is empty}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 ""
+::tcltest::test DateIsOnOrAfter-7 {Second is empty}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 ""
 }  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
 

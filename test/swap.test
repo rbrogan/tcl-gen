@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test Swap-0 {Basic test}  -setup {}  -body {set X 111
+::tcltest::test Swap-0 {Basic test}  -constraints {}  -setup {}  -body {set X 111
 set Y 222
 Swap X Y
 puts "X = $X, Y = $Y"
@@ -9,7 +9,7 @@ puts "X = $X, Y = $Y"
 }  -returnCodes {0}  
 
 
-::tcltest::test Swap-1 {First does not exist}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test Swap-1 {First does not exist}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 set Second 2
 Swap NoSuchVar Second
 puts $NoSuchVar
@@ -19,7 +19,7 @@ puts $Second
 }  -returnCodes {0}  
 
 
-::tcltest::test Swap-2 {Second does not exist}  -setup {}  -body {set First 1
+::tcltest::test Swap-2 {Second does not exist}  -constraints {}  -setup {}  -body {set First 1
 unset -nocomplain NoSuchVar
 Swap First NoSuchVar
 puts $First
@@ -29,7 +29,7 @@ puts $NoSuchVar
 }  -returnCodes {0}  
 
 
-::tcltest::test Swap-3 {First empty}  -setup {}  -body {set First ""
+::tcltest::test Swap-3 {First empty}  -constraints {}  -setup {}  -body {set First ""
 set Second 2
 Swap First Second
 puts $First
@@ -39,7 +39,7 @@ puts $Second
 }  -returnCodes {0}  
 
 
-::tcltest::test Swap-4 {Second empty}  -setup {}  -body {set First 1
+::tcltest::test Swap-4 {Second empty}  -constraints {}  -setup {}  -body {set First 1
 set Second ""
 Swap First Second
 puts $First

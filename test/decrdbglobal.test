@@ -1,38 +1,38 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test DecrDbGlobal-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test DecrDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable
 GetDbGlobal MyDecrVariable text
 }  -cleanup {}  -result {10}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DecrDbGlobal-1 {Variable does not exist}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test DecrDbGlobal-1 {Variable does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {UnsetDbGlobal MyVariable
 DecrDbGlobal MyVariable
 GetDbGlobal MyVariable
 }  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DecrDbGlobal-2 {Variable does not hold numerical value}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test DecrDbGlobal-2 {Variable does not hold numerical value}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable abc
 DecrDbGlobal MyDecrVariable
 }  -cleanup {}  -result {Variable MyDecrVariable has invalid value abc.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DecrDbGlobal-3 {VarName is empty}  -setup {}  -body {DecrDbGlobal ""
+::tcltest::test DecrDbGlobal-3 {VarName is empty}  -constraints {}  -setup {}  -body {DecrDbGlobal ""
 }  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test DecrDbGlobal-4 {Decrement by an amount}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test DecrDbGlobal-4 {Decrement by an amount}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable 2
 GetDbGlobal MyDecrVariable text
 }  -cleanup {}  -result {9}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test DecrDbGlobal-5 {Non-numeric value used for decrement amount}  -setup {}  -body {SetDbGlobal MyDecrVariable 11
+::tcltest::test DecrDbGlobal-5 {Non-numeric value used for decrement amount}  -constraints {}  -setup {}  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable asdf
 GetDbGlobal MyDecrVariable text
 }  -cleanup {}  -result {Amount is invalid. Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  

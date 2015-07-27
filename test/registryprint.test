@@ -1,19 +1,19 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {one uno
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest} three tres
@@ -25,7 +25,7 @@ three tres
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -42,7 +42,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -67,7 +67,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
@@ -93,11 +93,11 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-6 {No registry key found}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-6 {No registry key found}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {}  -result {Registry key/value HKEY_CURRENT_USER\Software\GenTest not found.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test RegistryPrint-7 {Multiple subkeys two levels deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-7 {Multiple subkeys two levels deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
@@ -132,7 +132,7 @@ three
 }  -returnCodes {0}  
 
 
-::tcltest::test RegistryPrint-8 {Subkey three levels deep}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-8 {Subkey three levels deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos

@@ -134,6 +134,8 @@ decrdbglobal.html
      Page for the command DecrDbGlobal.
 dict2registrytree.html
      Page for the command Dict2RegistryTree.
+diffhhmmss.html
+     Page for the command DiffHhmmss.
 divideby.html
      Page for the command DivideBy.
 doublechop.html
@@ -156,6 +158,8 @@ foreachrecord.html
      Page for the command ForeachRecord.
 getdbglobal.html
      Page for the command GetDbGlobal.
+hhmmss2seconds.html
+     Page for the command Hhmmss2Seconds.
 incrdbglobal.html
      Page for the command IncrDbGlobal.
 isdate.html
@@ -166,6 +170,8 @@ isdict.html
      Page for the command IsDict.
 isempty.html
      Page for the command IsEmpty.
+ishhmmss.html
+     Page for the command IsHhmmss.
 ismatrix.html
      Page for the command IsMatrix.
 isnegative.html
@@ -212,6 +218,8 @@ multiset.html
      Page for the command MultiSet.
 multiplyby.html
      Page for the command MultiplyBy.
+multiplyhhmmss.html
+     Page for the command MultiplyHhmmss.
 notempty.html
      Page for the command NotEmpty.
 now.html
@@ -248,6 +256,8 @@ runsqlenter.html
      Page for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
+seconds2hhmmss.html
+     Page for the command Seconds2Hhmmss.
 setdateformat.html
      Page for the command SetDateFormat.
 setdatetimeformat.html
@@ -306,6 +316,8 @@ stringmid.html
      Page for the command StringMid.
 subtractfrom.html
      Page for the command SubtractFrom.
+sumhhmmss.html
+     Page for the command SumHhmmss.
 surroundeach.html
      Page for the command SurroundEach.
 swap.html

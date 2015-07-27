@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hhmmss2Seconds</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+Hhmmss2Seconds  &mdash;  Take an input of the form hh:mm:ss and convert to seconds.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>Hhmmss2Seconds</b> <i>StringVariable</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Number of seconds that corresponds to the amount of time passed in.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>A string of the form hh:mm:ss representing a time to convert to seconds.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Contents of variable are invalid.</td>
+<td class="error_code">-11</td>
+<td>Variable $VarName has invalid value $Value.</td>
+</tr>
+<tr><td>Input value is empty.</td>
+<td class="error_code">-12</td>
+<td>Variable $VarName has empty value.</td>
+</tr>
+</table>
+</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>You can pass in a string that starts with a minus sign and it will return a negative number for the seconds.<p>Note also that you must have at least two digits for the hours but may have more.</p><p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @. See <a href="at.html">About Using @</a> for details.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>Hhmmss2Seconds 01:01:01</b><br>3661<br>% set MyVar -01:01:01<br>-01:01:01<br>% Hhmmss2Seconds @MyVar<br>-3661<br>% puts $MyVar<br>-3661<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ishhmmss.html'>IsHhmmss</a>, <a href = 'seconds2hhmmss.html'>Seconds2Hhmmss</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

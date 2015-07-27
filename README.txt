@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.4.0
+1.5.0
 % set Number 1
 1
 % AddTo Number 2
@@ -280,7 +280,7 @@ message body.) You will get an email every time we have a new release.
 
 ---18| RECENT CHANGES
 
-Version 1.4. No changes are known to affect existing API usage. You can find a
+Version 1.5.0. No changes are known to affect existing API usage. You can find a
 change summary in news.txt / news.html and details in changelog.txt /
 changelog.html.
 

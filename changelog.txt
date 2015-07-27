@@ -2,6 +2,56 @@ Gen
 
 CHANGELOG
 
+2015.07.27
+v1.5.0
+
+No changes break existing command usage.
+
+Changes by functionality
+
+    Monthly release of new commands, with corresponding files in test and doc
+directories.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Update Recent Changes section.
+          README.txt
+               Update Recent Changes section.
+          roadmap.html
+               Updated with latest info.
+          wishlist.html
+               Revised to remove items now on Roadmap or in the software.
+     /doc
+          Added pages for new commands.
+          Added index pages with new version number.
+          Updated index pages with new commands.
+          about-date-and-time-commands.html
+               Fixed typo.
+          coe.html
+               Updated see also.
+          sqlitecopytable.html
+               Updated see also.
+     /src
+          gen.tcl
+               Commands added.
+               Added new error code.
+               Simplified code for Run. Functionality is the same.
+               Made sure string is escaped in DbaseRegsub.
+          pkgIndex.tcl
+               Updated version.
+     /test
+          Added tests for new commands.
+          Changed all commands to require the exact version of Gen being tested.
+          Added space for putting in test constraints.
+          Check for Windows platform as test constraint for Windows Registry-related tests.
+
+
 2015.05.11
 v1.4.3
 

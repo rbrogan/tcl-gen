@@ -1,15 +1,15 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test PrintVar-0 {Basic positive}  -setup {}  -body {set x 123
+::tcltest::test PrintVar-0 {Basic positive}  -constraints {}  -setup {}  -body {set x 123
 PrintVar x}  -cleanup {}  -result {}  -output {x is 123
 }  -returnCodes {0}  
 
 
-::tcltest::test PrintVar-1 {No such variable}  -setup {}  -body {unset -nocomplain NoVar
+::tcltest::test PrintVar-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVar
 PrintVar NoVar}  -cleanup {}  -result {Could not find variable NoVar in caller.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test PrintVar-2 {Empty string input}  -setup {}  -body {PrintVar ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test PrintVar-2 {Empty string input}  -constraints {}  -setup {}  -body {PrintVar ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 

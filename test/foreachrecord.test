@@ -1,17 +1,17 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test ForeachRecord-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db}  -body {ForeachRecord {Desc Notes} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes" }
+::tcltest::test ForeachRecord-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {ForeachRecord {Desc Notes} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes" }
 }  -cleanup {}  -result {}  -output {desc = uno, notes = one
 desc = dos, notes = two
 desc = tres, notes = three
 }  -returnCodes {0}  
 
 
-::tcltest::test ForeachRecord-1 {FieldNameList is empty}  -setup {}  -body {ForeachRecord {} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes }
+::tcltest::test ForeachRecord-1 {FieldNameList is empty}  -constraints {}  -setup {}  -body {ForeachRecord {} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes }
 }  -cleanup {}  -result {Variable FieldNameList has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test ForeachRecord-2 {Select statement is empty}  -setup {}  -body {ForeachRecord {Desc Notes} {} { puts "desc = $Desc, notes = $Notes }}  -cleanup {}  -result {Variable SelectStatement has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test ForeachRecord-2 {Select statement is empty}  -constraints {}  -setup {}  -body {ForeachRecord {Desc Notes} {} { puts "desc = $Desc, notes = $Notes }}  -cleanup {}  -result {Variable SelectStatement has empty value.}  -output {}  -returnCodes {1}  
 
 

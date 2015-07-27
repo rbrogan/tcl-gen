@@ -48,7 +48,7 @@
 <br>
 
 <h3><a id="C_CATALOG">&mdash;01| HOW TO USE THIS DOCUMENT</a></h3>
-<p>(Note that this README is designed to be filled out over the course of many versions. Some sections are currently blank (e.g. Recent Changes) because it is early in the project.)</p>
+<p>(Note that this README is designed to be filled out over the course of many versions. Some sections are currently blank.)</p>
 <p>
 <span class="question">What is the software about?</span><br>
 See <a href="#C_INTRO">INTRO</a>.<br>
@@ -94,7 +94,7 @@ Since this is a utilities library, you do not need to do much of anything to get
 If you would like to confirm the library is installed and working then try the following from a Tcl shell.<br>
 </p><code>
 % package require gen<br>
-1.4.0<br>
+1.5.0<br>
 % set Number 1<br>
 1<br>
 % AddTo Number 2<br>
@@ -133,7 +133,7 @@ To install, extract the contents of the archive file (.zip or .tar.gz). That wil
 </p><p>
 </p><p>
 </p>
-<table><tr><td><code>README.txt</code></td><td>Plenty of info on how to get going.</td></tr><tr><td><code>LICENSE.txt</code></td><td>Terms of use and whatnot.</td></tr><tr><td><code>WARNING.txt</code></td><td>Special notices to prevent surprises.</td></tr><tr><td><code>/src</code></td><td>Source files<br><table><tr><td><code>pkgIndex.tcl</code></td><td>Used by the Tcl package mechanism.</td></tr><tr><td><code>gen.tcl</code></td><td>Main script file.</td></tr></table></td></tr><tr><td><code>/doc</code></td><td>Any other documents (like the manual).</td></tr><tr><td><code>/test</code></td><td>Test suite</td></tr></table>
+<table><tr><td><code>README.txt</code></td><td>Plenty of info on how to get going.</td></tr><tr><td><code>LICENSE.txt</code></td><td>Terms of use and whatnot.</td></tr><tr><td><code>WARNING.txt</code></td><td>Special notices to prevent surprises.</td></tr><tr><td><code>/src</code></td><td>Source files<br><table><tr><td><code>pkgIndex.tcl</code></td><td>Used by the Tcl package mechanism.</td></tr><tr><td><code>gen.tcl</code></td><td>Main script file.</td></tr><tr><td><code>gen-config.tcl</code></td><td>Configuration variables (e.g. datetime format).</td></tr></table></td></tr><tr><td><code>/doc</code></td><td>Any other documents (like the manual).</td></tr><tr><td><code>/test</code></td><td>Test suite</td></tr></table>
 <p>Take the path to the install directory you just made and with it add the following line at the bottom of your <code>init.tcl</code> file:</p><p><code>lappend auto_path YOUR_DIR_PATH</code></p>
 <p>See <a href="readme.html#C_DEPENDENCIES">DEPENDENCIES</a> for info about what Gen may need.</p>
 <p>See <a href="readme.html#C_CONFIGURATION">CONFIGURATION</a> for more info about <code>init.tcl</code>.</p>
@@ -237,7 +237,7 @@ The latest version can be found at <a href="http://www.robertbrogan.com/gen/down
 <h3><a id="C_RECENT_CHANGES">&mdash;18| RECENT CHANGES</a></h3>
 
 <p>
-Version 1.4 released. No changes are known to affect existing API usage. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
+Version 1.5.0 released. No changes are known to affect existing API usage. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
 </p>
 <h3><a id="C_LICENSE">&mdash;19| LICENSE</a></h3>
 

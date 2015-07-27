@@ -1,22 +1,22 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SetZeroIfEmpty-0 {Basic positive}  -setup {}  -body {set Nothing ""
+::tcltest::test SetZeroIfEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set Nothing ""
 SetZeroIfEmpty Nothing
 puts $Nothing}  -cleanup {}  -result {}  -output {0
 }  -returnCodes {0}  
 
 
-::tcltest::test SetZeroIfEmpty-1 {Basic negative}  -setup {}  -body {set Something "something"
+::tcltest::test SetZeroIfEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set Something "something"
 SetZeroIfEmpty Something
 puts $Something}  -cleanup {}  -result {}  -output {something
 }  -returnCodes {0}  
 
 
-::tcltest::test SetZeroIfEmpty-2 {No such variable}  -setup {}  -body {unset -nocomplain NoVariable
+::tcltest::test SetZeroIfEmpty-2 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVariable
 SetZeroIfEmpty NoVariable}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SetZeroIfEmpty-3 {Empty string input}  -setup {}  -body {SetZeroIfEmpty ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test SetZeroIfEmpty-3 {Empty string input}  -constraints {}  -setup {}  -body {SetZeroIfEmpty ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 

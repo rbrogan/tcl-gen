@@ -1,16 +1,16 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqliteColumnNameList-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteColumnNameList-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameList globals
 }  -cleanup {}  -result {id desc intvalue realvalue textvalue}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqliteColumnNameList-1 {Table does not exist}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqliteColumnNameList-1 {Table does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameList no_such_table
 }  -cleanup {}  -result {Table no_such_table not found.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqliteColumnNameList-2 {Table name is empty}  -setup {}  -body {SqliteColumnNameList ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test SqliteColumnNameList-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteColumnNameList ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 

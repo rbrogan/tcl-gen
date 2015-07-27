@@ -1,10 +1,10 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqlWhereClause-0 {Basic test}  -setup {}  -body {SqlWhereClause {intvalue 1}
+::tcltest::test SqlWhereClause-0 {Basic test}  -constraints {}  -setup {}  -body {SqlWhereClause {intvalue 1}
 }  -cleanup {}  -result {intvalue = 1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlWhereClause-2 {Basic test, multiple values}  -setup {}  -body {SqlWhereClause {intvalue 1 realvalue 2.3 textvalue 'four'}}  -cleanup {}  -result {intvalue = 1 AND realvalue = 2.3 AND textvalue = 'four'}  -output {}  -returnCodes {0}  
+::tcltest::test SqlWhereClause-2 {Basic test, multiple values}  -constraints {}  -setup {}  -body {SqlWhereClause {intvalue 1 realvalue 2.3 textvalue 'four'}}  -cleanup {}  -result {intvalue = 1 AND realvalue = 2.3 AND textvalue = 'four'}  -output {}  -returnCodes {0}  
 
 

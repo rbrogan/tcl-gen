@@ -159,6 +159,8 @@ decrdbglobal.test
      Tests for the command DecrDbGlobal.
 dict2registrytree.test
      Tests for the command Dict2RegistryTree.
+diffhhmmss.test
+     Tests for the command DiffHhmmss.
 divideby.test
      Tests for the command DivideBy.
 doublechop.test
@@ -181,6 +183,8 @@ foreachrecord.test
      Tests for the command ForeachRecord.
 getdbglobal.test
      Tests for the command GetDbGlobal.
+hhmmss2seconds.test
+     Tests for the command Hhmmss2Seconds.
 incrdbglobal.test
      Tests for the command IncrDbGlobal.
 isdate.test
@@ -191,6 +195,8 @@ isdict.test
      Tests for the command IsDict.
 isempty.test
      Tests for the command IsEmpty.
+ishhmmss.test
+     Tests for the command IsHhmmss.
 ismatrix.test
      Tests for the command IsMatrix.
 isnegative.test
@@ -237,6 +243,8 @@ multiset.test
      Tests for the command MultiSet.
 multiplyby.test
      Tests for the command MultiplyBy.
+multiplyhhmmss.test
+     Tests for the command MultiplyHhmmss.
 notempty.test
      Tests for the command NotEmpty.
 now.test
@@ -273,6 +281,8 @@ runsqlenter.test
      Tests for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
+seconds2hhmmss.test
+     Tests for the command Seconds2Hhmmss.
 setdateformat.test
      Tests for the command SetDateFormat.
 setdatetimeformat.test
@@ -331,6 +341,8 @@ stringmid.test
      Tests for the command StringMid.
 subtractfrom.test
      Tests for the command SubtractFrom.
+sumhhmmss.test
+     Tests for the command SumHhmmss.
 surroundeach.test
      Tests for the command SurroundEach.
 swap.test

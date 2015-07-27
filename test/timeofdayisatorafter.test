@@ -1,24 +1,24 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test TimeOfDayIsAtOrAfter-0 {First is at second}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsAtOrAfter-0 {First is at second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAtOrAfter-1 {First is after second}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:01 00:00:00
+::tcltest::test TimeOfDayIsAtOrAfter-1 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:01 00:00:00
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAtOrAfter-2 {First is before second}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:01
+::tcltest::test TimeOfDayIsAtOrAfter-2 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:01
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test TimeOfDayIsAtOrAfter-3 {First is invalid}  -setup {}  -body {TimeOfDayIsAtOrAfter asdf 00:00:00}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsAtOrAfter-3 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter asdf 00:00:00}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test TimeOfDayIsAtOrAfter-4 {Second is invalid}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 asdf}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsAtOrAfter-4 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 asdf}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test TimeOfDayIsAtOrAfter-5 {Use alternate format}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test TimeOfDayIsAtOrAfter-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsAtOrAfter {0100 PM} {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  

@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test VarExistsInCaller-0 {Illustration}  -setup {}  -body {proc Proc2 {} { \
+::tcltest::test VarExistsInCaller-0 {Illustration}  -constraints {}  -setup {}  -body {proc Proc2 {} { \
      puts [VarExistsInCaller abc]; \
      puts [VarExistsInCaller def]; \
      puts [VarExistsInCaller abc 2]; \
@@ -16,6 +16,6 @@ Proc0}  -cleanup {}  -result {}  -output {1
 }  -returnCodes {0}  
 
 
-::tcltest::test VarExistsInCaller-1 {Empty string input}  -setup {}  -body {VarExistsInCaller "" 2}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test VarExistsInCaller-1 {Empty string input}  -constraints {}  -setup {}  -body {VarExistsInCaller "" 2}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 

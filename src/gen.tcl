@@ -1,10 +1,11 @@
-package provide gen 1.4.3
+package provide gen 1.5.0
 package require sqlite3
 package require Tclx
 package require textutil::string
 if {[string equal $::tcl_platform(platform) "windows"]} {
      package require registry
 }
+
 
 array set ErrorCode {
      VARIABLE_NOT_FOUND -1
@@ -25,6 +26,7 @@ array set ErrorCode {
      REGISTRY_ELEMENT_NOT_FOUND -16
      PROC_NOT_FOUND -17
      ALREADY_EXISTS -18
+     LIST_HAS_INVALID_ELEMENT -19
 }
 
 array set ErrorMessage {
@@ -46,6 +48,7 @@ array set ErrorMessage {
      REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
      PROC_NOT_FOUND {Could not find proc %s.}
      ALREADY_EXISTS {Value %s in variable %s already exists.}
+     LIST_HAS_INVALID_ELEMENT {List variable %s at index %s has invalid value %s.}
 }
 
 proc AddEpilogue {ProcName Epilogue} {
@@ -296,7 +299,6 @@ proc Coe args {
           }
      }
      return $OutString
-
 }
 
 proc CommaSeparatedStringToList StringVariable {
@@ -588,7 +590,7 @@ proc DbaseRegsub {TableName ColumnName FindValue ReplaceValue {WhereDict ""}} {
      foreach {Id OldValue} $Results {
           set NumReplacements [regsub -all $FindValue $OldValue $ReplaceValue NewValue]
           if {$NumReplacements > 0} {
-               set sql "UPDATE $TableName SET $ColumnName = '$NewValue' WHERE id = $Id"
+               set sql "UPDATE $TableName SET $ColumnName = '[EscapedSqlString $NewValue]' WHERE id = $Id"
                QQ $sql
                incr TotalReplacements
           }
@@ -705,6 +707,33 @@ proc Dict2RegistryTree {DictValue RegistryRootKey {DeleteUnmatchedOption --leave
                }
           }
      }
+}
+
+proc DiffHhmmss {MinuendVariable Subtrahend} {
+     if {[string first @ $MinuendVariable] == 0} {
+          UpvarExistingOrDie [string range $MinuendVariable 1 end] Minuend
+     } else {
+          set Minuend $MinuendVariable
+     }
+
+     if {[IsEmpty $Minuend]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) MinuendVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $Subtrahend]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) SubtrahendVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {![IsHhmmss $Minuend]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) MinuendVariable $MinuendVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     if {![IsHhmmss $Subtrahend]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Subtrahend $Subtrahend] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     set A [Hhmmss2Seconds $Minuend]
+     set B [Hhmmss2Seconds $Subtrahend]
+     set Minuend [Seconds2Hhmmss [expr $A - $B]]
 }
 
 proc DivideBy {VarName Value} {
@@ -894,6 +923,33 @@ proc GetDbGlobal {VarName {Type text}} {
 
 }
 
+proc Hhmmss2Seconds StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     if {[IsEmpty $String]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) StringVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {![IsHhmmss $String]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) StringVariable $String] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set Flag 0
+     if {[StartsWith $String "-"]} {
+          set String [string range $String 1 end]
+          set Flag 1
+     }
+     regexp {^(\d\d\d*):(\d\d)\:(\d\d)$} $String All Hours Minutes Seconds
+     set String [expr $Seconds + ($Minutes * 60) + ($Hours * 60 * 60)]
+     if {$Flag} {
+          set String "-[set String]"
+     }
+     return $String
+}
+
 proc IncrDbGlobal {VarName {Amount 1}} {
 
      if {[IsEmpty $VarName]} {
@@ -963,6 +1019,21 @@ proc IsEmpty StringValue {
 	} else {
 		return 0
 	}
+}
+
+proc IsHhmmss StringValue {
+
+     if {[regexp {^-?(\d\d\d*):(\d\d)\:(\d\d)$} $StringValue All Hours Minutes Seconds]} {
+          if {$Minutes >= 60} {
+               return 0
+          } elseif {$Seconds >= 60} {
+               return 0
+          } else {
+               return 1
+          }
+     } else {
+          return 0
+     }
 }
 
 proc IsMatrix ListValue {
@@ -1306,6 +1377,33 @@ proc MultiplyBy {VarName Value} {
      set Var [expr $Var * $Value]
 }
 
+proc MultiplyHhmmss {TimeVariable Multiplier} {
+     if {[string first @ $TimeVariable] == 0} {
+          UpvarExistingOrDie [string range $TimeVariable 1 end] Time
+     } else {
+          set Time $TimeVariable
+     }
+
+     if {[IsEmpty $Time]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) TimeVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {[IsEmpty $Multiplier]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) Multiplier] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+
+     if {![IsHhmmss $Time]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) TimeVariable $Time] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+
+     if {[IsNonNumeric $Multiplier]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Multiplier $Multiplier] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set Seconds [Hhmmss2Seconds $Time]
+     set Product [tcl::mathfunc::round [expr $Seconds * $Multiplier]]
+     set Time [Seconds2Hhmmss $Product]
+}
+
 proc NotEmpty StringValue {
 
 	if {[string equal $StringValue ""] == 0} {
@@ -1584,15 +1682,10 @@ proc RetZeroIfEmpty Value {
 
 proc Run {Script args} {
 
-     # Clear and populate argv with args
      global argv
-     set argv {}
-     
-     for {set i 0} {$i < [llength $args]} {incr i} {
-          set Argument [lindex $args $i]
-          lappend argv $Argument
-     }
-     
+
+     set argv $args
+    
      source $Script
 }
 
@@ -1673,6 +1766,39 @@ proc RunSqlInsertIfDoesNotExist {TableName DictValue} {
           set Id [LastId $TableName]
      }
      return $Id
+}
+
+proc Seconds2Hhmmss StringVariable {
+     if {[string first @ $StringVariable] == 0} {
+          UpvarExistingOrDie [string range $StringVariable 1 end] String
+     } else {
+          set String $StringVariable
+     }
+
+     if {[IsEmpty $String]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_EMPTY) StringVariable] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_EMPTY)
+     }
+     if {[IsNonNumeric $String]} {
+          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) StringVariable $String] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     }
+     set Flag 0
+     if {[expr $String < 0]} {
+          set Flag 1
+          set Seconds [expr $String * -1]
+     } else {
+          set Seconds $String
+     }
+
+     set Hours [expr $Seconds / 3600]
+     set Temp [expr $Seconds % 3600]
+     set Minutes [expr $Temp / 60]
+     set Seconds [expr $Temp % 60]
+     
+     set Output [format "%02d:%02d:%02d" $Hours $Minutes $Seconds]
+     if {$Flag} {
+          set Output "-[set Output]"
+     }
+     return $Output
 }
 
 proc SetDateFormat FormatString {
@@ -2201,6 +2327,24 @@ proc SubtractFrom {VarName Value} {
      set Var [expr $Var - $Value]
 }
 
+proc SumHhmmss ListValue {
+
+     for {set i 0} {$i < [llength $ListValue]} {incr i} {
+          set Element [lindex $ListValue $i]
+          if {![IsHhmmss $Element]} {
+               error [format $::ErrorMessage(LIST_HAS_INVALID_ELEMENT) ListValue $i $Element] $::errorInfo $::ErrorCode(LIST_HAS_INVALID_ELEMENT)
+          }
+     }
+
+     set TotalSeconds 0
+     foreach Element $ListValue {
+          set ElementSeconds [Hhmmss2Seconds $Element]
+          AddTo TotalSeconds $ElementSeconds
+     }
+     
+     return [Seconds2Hhmmss $TotalSeconds]
+}
+
 proc SurroundEach {ListVariable String} {
      if {[string first @ $ListVariable] == 0} {
           UpvarExistingOrDie [string range $ListVariable 1 end] List
@@ -2513,5 +2657,5 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.4.3
+     puts 1.5.0
 }

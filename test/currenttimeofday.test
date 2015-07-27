@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test CurrentTimeOfDay-0 {Basic test}  -setup {}  -body {Ter {[IsTimeOfDay [CurrentTimeOfDay]]} {return 1} {return 0}
+::tcltest::test CurrentTimeOfDay-0 {Basic test}  -constraints {}  -setup {}  -body {Ter {[IsTimeOfDay [CurrentTimeOfDay]]} {return 1} {return 0}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 

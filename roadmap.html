@@ -25,14 +25,20 @@
 <div id = "content">
 <div id = "AppTitle">Gen</div>
 <div id = "PageTitle">Roadmap</div>
+<p>We hope to do a series of small releases (hopefully one every two weeks). Each release would consist of both a modest installment of commands as well as project improvements. Our main goal here from a project management POV is to keep things moving with commitments to hard dates and have those drive project improvements. The main improvements we may look to fit in at this point are:
+<ol>
+<li><b>Partial Loading of Gen:</b> This feature will check the user machine for packages and versions and load those commands which the user can support. Note that, this is not strictly necessary since the user can simply run the test suite and find out themselves. Even if a command is not supported, it can still be loaded and go unused. However, this feature would help build infrastructure for the Gen^2 project.</li>
+<li><b>Support for TEPAM / Support for flags: </b>There are a number of features from TEPAM we want, especially support for flags. For many commands it is awkward to go without flags. We also may want TEPAM support for validation / error reporting since for many commands that is taking up a fair amount of code.</li>
+<li><b>Overhaul of Error Conditions: </b>This is mainly because we find that section of the documentation does look very good, but it is the type of problem we must sit down and analyze and figure out what is the best way to go.</li>
+<li><b>Exception Policies: </b>This also sticks out when writing many commands. Should we silently change an index out-of-bounds to be the end index (as some commands do)? Should we raise an error? At this point, the choice feels too arbitrary. We would rather have a basic set of default policies and give the user the ability to override and make them be consistent with their own policies.</li>
+</ol>
+</p>
+
 <div class="section-header">
-<div class="section-header-left">1.5</div><div class="section-header-right">Undetermined</div>
+<div class="section-header-left">1.6</div><div class="section-header-right">2015.08.10 (tenative)</div>
 </div>
 <div class="section-content">
-<p>These next months will be a transition period for the Gen project. Originally, the project came from writing utilities while in the process of working on other projects.</p>
-<p>That backlog of commands has been gone through. For the next phase of Gen, we would like to build it out with a series of infrastructure improvements that lead up to making Gen an open community project that anyone can easily contribute to. Think of the code snippets sprinkled throughout wiki.tcl.tk, but with documentation and tests, and organized into a package (or packages).</p>
-<p>If possible, we would like to first post up the designs and open it up for anyone to get involved, if they like.</p>
-<p>To know when the date for the next release is determined, please follow the instructions below to subscribe to the mailing list.</p>
+<p>For this next release we will put in a handful of commands help turn the crank, so to speak.</p>
 </div>
 <br>
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>

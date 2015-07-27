@@ -1,16 +1,16 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test SqlSetClause-0 {Basic test}  -setup {sqlite3 testdb c:/users/rbrogan/test.db
+::tcltest::test SqlSetClause-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqlSetClause [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {intvalue = 1, realvalue = 1.1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test SqlSetClause-1 {Empty dict}  -setup {}  -body {SqlSetClause {}
+::tcltest::test SqlSetClause-1 {Empty dict}  -constraints {}  -setup {}  -body {SqlSetClause {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
 
-::tcltest::test SqlSetClause-2 {Only one name / value pair}  -setup {}  -body {SqlSetClause [dict create intvalue 1]
+::tcltest::test SqlSetClause-2 {Only one name / value pair}  -constraints {}  -setup {}  -body {SqlSetClause [dict create intvalue 1]
 }  -cleanup {}  -result {intvalue = 1}  -output {}  -returnCodes {0}  
 
 

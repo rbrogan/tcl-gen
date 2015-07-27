@@ -1,7 +1,7 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test ArrangeDict-0 {Illustration}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
+::tcltest::test ArrangeDict-0 {Illustration}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
 dict for {Key Value} [ArrangeDict $MyDict {three two one}] { puts "$Key = $Value" }
 }  -cleanup {}  -result {}  -output {one = uno
@@ -13,14 +13,14 @@ one = uno
 }  -returnCodes {0}  
 
 
-::tcltest::test ArrangeDict-1 {Empty Dict}  -setup {}  -body {ArrangeDict "" {one two three}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ArrangeDict-1 {Empty Dict}  -constraints {}  -setup {}  -body {ArrangeDict "" {one two three}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ArrangeDict-2 {Empty List}  -setup {}  -body {set MyDict [dict create one uno two dos]
+::tcltest::test ArrangeDict-2 {Empty List}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos]
 ArrangeDict $MyDict {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test ArrangeDict-3 {Test at}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
+::tcltest::test ArrangeDict-3 {Test at}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
 ArrangeDict @MyDict {three two one}
 dict for {Key Value} $MyDict { puts "$Key = $Value" }

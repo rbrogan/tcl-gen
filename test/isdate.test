@@ -1,18 +1,18 @@
 package require tcltest
-package require gen
+package require -exact gen 1.5.0
 
-::tcltest::test IsDate-0 {Basic test - return 0}  -setup {}  -body {IsDate asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsDate-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDate asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsDate-1 {Basic test - return 1}  -setup {SetDateFormat %Y-%m-%d
+::tcltest::test IsDate-1 {Basic test - return 1}  -constraints {}  -setup {SetDateFormat %Y-%m-%d
 }  -body {IsDate 2000-01-02
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsDate-3 {String is empty}  -setup {}  -body {IsDate ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsDate-3 {String is empty}  -constraints {}  -setup {}  -body {IsDate ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 
-::tcltest::test IsDate-4 {Use alternate format}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test IsDate-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 IsDate {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}
 }  -result {1}  -output {}  -returnCodes {0}  
