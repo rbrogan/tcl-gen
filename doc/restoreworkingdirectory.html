@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RestoreWorkingDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+RestoreWorkingDirectory  &mdash;  Change back to directory saved with SaveWorkingDirectory.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>RestoreWorkingDirectory</b>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>If <code><a href="saveworkingdirectory.html">SaveWorkingDirectory</a></code> was not previously called, this command does nothing.<p>May add a complain option in a future release.
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% pwd<br>/home/username<br>% SaveWorkingDirectory<br>/home/username<br>% cd temp<br>% pwd<br>/home/username/temp<br>% <b>RestoreWorkingDirectory</b><br>/home/username<br>% pwd<br>/home/username<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'saveworkingdirectory.html'>SaveWorkingDirectory</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_directory">directory</a>, <a href="keyword-index.html#C_file">file</a>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqlSetClause-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqlSetClause [dict create intvalue 1 realvalue 1.1]

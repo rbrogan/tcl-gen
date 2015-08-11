@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About FTP Use</title>
+</head>
+<body>
+<h1>About FTP Use</h1>
+<p>Gen FTP commands are utility / convenience commands that are built on top of the <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/ftp/ftp.html">tcllib ftp package</a>.</p>
+<h2>Getting Set Up</h2>
+<p>
+To configure Gen for using certain FTP-related commands, you need to (A) add the following configuration code to your software, before you start using FTP commands, or (B) open <code>src/gen-config.tcl</code> and configure by hand the following (though beware of overwriting when you update your version of Gen):
+<ol>
+<li><code>set GenNS::Ftp::<b>Server</b></code> [Required. <i>ip address</i> of your server]</li>
+<li><code>set GenNS::Ftp::<b>Username</b></code> [Required. <i>username</i> to log on that machine]</li>
+<li><code>set GenNS::Ftp::<b>Password</b></code> [Required. <i>password</i> to log on that machine]</li>
+<li><code>set GenNS::Ftp::<b>OptionsList</b></code> [Optional. <i>list of options</i> to use, see <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/ftp/ftp.html#1">here</a> for a list of options you can use.]</li>
+<li><code>set GenNS::Ftp::<b>FileTransferType</b></code> [Optional. <i>ascii | binary | tenex</i> -- How to transfer the files.]</li>
+</ol>
+<br>
+The <code>OptionsList</code> should look something like this :<br><br>
+<code>"-port 21 -mode active"</code><br><br>
+Note that you do not have to set <code>OptionsList</code>; you can leave it blank.
+</p>
+<p>
+Note that for any FTP command which takes in an FTP handle as its first argument, you do not have to configure the above. You can manage the FTP connection yourself and use only a few utility commands to assist you with the rest of your code.
+</p>
+
+<h2>Main Use Cases</h2>
+<p>
+The main use cases for this software are for when:
+<ol>
+<li>You are writing your own (Tcl) code and want simple file-transfer within it.</li>
+<li>The machine you will want to interact with has an FTP server, but (a) you do not know what type of machine it will be (Windows / UNIX) -and/or- (b) you cannot install your own software on it -and/or- (c) it does not have any other file sync software (e.g. rsync) installed on it for you to use.</li>
+<li>What you want to do is really pretty simple (e.g. just do a simple mirror or the equivalent of copy/paste).</li>
+<li>You do not want to work through the details of the <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/ftp/ftp.html">ftp package</a> yourself.</li>
+</ol>
+Otherwise you may want to look into a full-featured file sync program. Or, use something simple like this to get going and figure out what you want, and then adopt something else for more advanced usage.
+</p>
+
+<h2>Issues</h2>
+<p>
+The following are issues you may encounter, which this software cannot really do anything about. For other issues, see the following section.
+<ul>
+<li>Cannot create directory on remote machine and switch into it: May or may not be an issue for you. This may happen because the directory is not made with sufficient permissions. You will have arrange to give it permissions (e.g. use chmod). You will want to try it first and see if it is an issue for you.</li>
+</ul>
+</p>
+
+<h2>Missing Features, For Possible Future Release</h2>
+<p>
+<ul>
+<li><u>FtpDownloadDirectory</u>: This command is internal-only for the current release, due to lack of testing time. It allows downloading a directory with the current connection and takes various options. It will go in the next release.</li>
+<li><u>FtpCleanRemoteDirectory</u>: This command is used for emptying the contents of a directory. Did not have time to test it for this release, but it will most likely go in the next.</li>
+<li><u>Uploading commands</u>: An assortment of uploading commands did not make it into this release, but probably will make it into the next.</li>
+<li><u>Inclusion / Exclusion File Filters</u>: The commands will currently go through all files in the directories. Filters would allow skipping over certain files (e.g. ones with a .bak extension).</li>
+<li><u>Option to offset for difference in clock times</u>: For a situation where the clocks are different, and that is causing transfers that should not happen. Preferrably make them right.</li>
+<li><u>Option to offset for file size difference</u>: Preferrably use binary transfer mode, but this would be for when that is not possible and you are getting a difference in file size.</li>
+</ul>
+</p>
+
+<h2>To Safely See What Would Happen: Dry Run Option</h2>
+<p>
+If you do the following :<br><br>
+<code>set GenNS::Ftp::DryRun 1</code><br><br>
+Then when you run a command, it will print to each change that it would have made. The exception is when it would have had to make a directory and then switch into it to continue on a copy over the contents. At that point, Gen will not create the directory, but rather will skip on to the next item. For that scenario, if you want a complete dry run, you will have to set up the directories yourself, Gen will then recurse into it and continue the dry run as normal. (Possibly a future release could get past this limitation.)
+</p>
+<p>
+When you are done with the dry run, and want to do things for real, do the following :<br><br>
+<code>set GenNS::Ftp::DryRun 0</code>
+</p>
+
+<h2>Debugging</h2>
+<p>
+You can turn on debug info like this :<br><br>
+<code>set GenNS::DebugOn 1</code><br><br>
+This is an internal feature, is not supported, and will likely change in the future. But it is currently available to help you with any issues you may have.
+</p>
+
+<h2>If You Need More Advanced Features</h2>
+<p>
+The FTP within Gen is intended to be simple and serve simple use cases. If you find you need something more, there are quite a few file synchronization programs out there. Personally, I have used <a href="http://www.cis.upenn.edu/~bcpierce/unison">unison</a> with good success.
+</p>
+
+<h2>Testing</h2>
+<p>
+You may want to run the tests yourself. In that case, you will want to take a look at test/README-test-ftp.txt or test/README-test-ftp.html for details on how to get set up to do that. Running tests may be a good way to confirm that your set up is fine and there are no issues there.
+</p>
+
+<h2>Error Handling</h2>
+<p>
+We try to check every FTP command used for a return code and then throw an error if the call was unsuccessful. Have not, to this point, done extensive testing on failure scenarios where some commands succeed and then others fail in the middle. 
+</p>
+<p>
+Note that you may see something like "Error getting file size!" This is because the code tries to detect remote directories by getting the file size. For directories this fails for the systems tested so far. A more complex solution would seem to be to take the detailed file listing (using <code>ftp::List</code>) and determine what kind of system it is, use a parser for that type, and detect if it is a directory.
+</p>
+</body>
+</html>

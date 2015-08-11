@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test StringContains-0 {Basic test - returns 1}  -constraints {}  -setup {}  -body {StringContains "one two three" two
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  

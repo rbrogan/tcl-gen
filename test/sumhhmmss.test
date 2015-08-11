@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SumHhmmss-0 {Basic test - 2 items}  -constraints {}  -setup {}  -body {SumHhmmss {01:31:31 01:31:31}}  -cleanup {}  -result {03:03:02}  -output {}  -returnCodes {0}  
 

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqlRecordExists-0 {Basic case - return 1}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
 SqlRecordExists my_table {desc 'first'}

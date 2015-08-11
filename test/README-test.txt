@@ -66,6 +66,9 @@ To run tests for a given proc (for instance, AddTo) from the command line:
 To run tests for a given proc (for instance, AddTo) from the tcl shell:
 % source addto.test
 
+To run the FTP tests, you will also need to do special set up. See
+test/README-test-ftp.txt or test/README-test-ftp.html for details.
+
 ---04| BUG REPORTING
 
 If you find bugs in tests or missing tests, please let us know.
@@ -181,6 +184,18 @@ flip.test
      Tests for the command Flip.
 foreachrecord.test
      Tests for the command ForeachRecord.
+ftp-local
+     Files to use on local machine for FTP-related tests.
+ftp-remote
+     Files to copy to remote machine to use for FTP-related tests.
+ftp-test-config.tcl
+     Configuration to make FTP tests run on host machine.
+ftpmirrorremotetolocal.test
+     Tests for the command FtpMirrorRemoteToLocal.
+ftpwhichislarger.test
+     Tests for the command FtpWhichIsLarger.
+ftpwhichisnewer.test
+     Tests for the command FtpWhichIsNewer.
 getdbglobal.test
      Tests for the command GetDbGlobal.
 hhmmss2seconds.test
@@ -263,6 +278,10 @@ qq.test
      Tests for the command QQ.
 raise.test
      Tests for the command Raise.
+README-test-ftp.html
+     About how to run FTP-related tests.
+README-test-ftp.txt
+     About how to run FTP-related tests.     
 registryexists.test
      Tests for the command RegistryExists.
 registryprint.test
@@ -271,6 +290,8 @@ registrytree2dict.test
      Tests for the command RegistryTree2Dict.
 reloadpackage.test
      Tests for the command ReloadPackage.
+restoreworkingdirectory.test
+     Tests for the command RestoreWorkingDirectory.
 retzeroifempty.test
      Tests for the command RetZeroIfEmpty.
 run.test
@@ -281,6 +302,8 @@ runsqlenter.test
      Tests for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
+saveworkingdirectory.test
+     Tests for the command SaveWorkingDirectory.
 seconds2hhmmss.test
      Tests for the command Seconds2Hhmmss.
 setdateformat.test
@@ -349,6 +372,14 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+test-reload-package.tcl
+     For ReloadPackage tests.
+test-reload-package.tcl.1
+     For ReloadPackage tests.
+test-reload-package.tcl.2
+     For ReloadPackage tests.
+test.db
+     Sample data, etc. for database-related tests.
 timeofdayisafter.test
      Tests for the command TimeOfDayIsAfter.
 timeofdayisat.test

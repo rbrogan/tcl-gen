@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test IsNonNumeric-0 {Basic test - Alphabetic}  -constraints {}  -setup {}  -body {IsNonNumeric asdf}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../my.css">
+<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+<link rel="icon" href="../favicon.ico" type="image/x-icon">
+<title>Readme - Gen</title>
+</head>
+<body>
+<div id = "left">
+<a href="../index.html" class="navbar" >Home</a>
+<a href="../README.html" class="navbar" >Readme</a>
+<a href="../doc/README-doc.html" class="navbar" >doc / Readme</a>
+<a href="README-test.html" class="navbar">test / Readme</a>
+<a href="../doc/manual-home.html" class="navbar" >Manual</a>
+<a href="../news.html" class="navbar">News</a>
+<a href="../changelog.html" class="navbar">Changelog</a>
+<a href="../roadmap.html" class="navbar">Roadmap</a>
+<a href="../wishlist.html" class="navbar">Wishlist</a>
+<a href="../license.html" class="navbar">License</a>
+</div>
+<div id = "center">
+<div id = "content">
+<div id = "AppTitle">Gen</div>
+<div id = "PageTitle">tests/Readme</div>
+<a href="#C_01">01| GETTING SET UP TO RUN TESTS</a><br>
+<a href="#C_02">02| IF TESTS DO NOT PASS</a><br>
+<a href="#C_03">03| OTHER</a><br>
+
+<h3><a id="C_01">&mdash;01| HOW TO USE THIS DOCUMENT</a></h3>
+<p>
+The FTP tests will not work unless you do set up. To run the FTP tests, you need to do the following:
+<ol>
+<li>Set up a remote machine with an FTP server on it. This is where the code will download from and upload to.</li>
+<li>Copy the contents of the <code>ftp-remote</code> directory to the machine with the FTP server. You can use an FTP client to do this. You may or may not have to set permissions on the directories, depending on how your machine is set up. That is another topic that you would have to research for your FTP software and/or OS, but it may be as simple as doing a chmod on the directory.</li>
+<li>Open <code>ftp-test-config.tcl</code> and set the values for your setup (e.g. IP address, etc.). The comments in that file and <a href="../doc/about-ftp-use.html">doc/about-ftp-use.html</a> should help you.</li>
+<li>To get some tests to pass, the local copy must be newer than the remote. So you might want to go through <code>ftp-local/original/different-times</code> and touch all <code>local-newer*.txt</code> files.</li>
+<li>The tests use a diff command to check if the results match what is expected. You may need to install diff software.</li>
+</ol>
+</p>
+<p>
+That should be it. You should now be able to run all.tcl or individual ftp*.test files and (hopefully) have them pass.
+</p>
+<h3><a id="C_02">&mdash;02| GETTING SET UP TO RUN TESTS</a></h3>
+<p>
+If you get failures, be aware you can do ...<br>
+<br>
+<code>set GenNS::DebugOn 1</code><br>
+<br>
+... which is an internal feature, likely to change, but available as-is for helping with FTP issues. If you run the tests again, you will get output that may help you with figuring out the root cause of the problem.
+</p>
+<h3><a id="C_03">&mdash;03| OTHER</a></h3>
+<p>
+Note that all the tests are set up to run with binary transfer type. ASCII has not been tested because have not decided how to handle the fact that results may be different depending on what kind of machines are used in the tests.
+</p>
+<p>
+For more information about FTP use, see <a href="../doc/about-ftp-use.html">doc/about-ftp-use.html</a>.
+</p>
+</div>
+<div id = "footer">
+<p id = "footer-content">General Utilities For Tcl</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Matrix2HtmlTable-0 {Basic test}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-is-not-header]

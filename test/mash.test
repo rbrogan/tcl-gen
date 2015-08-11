@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Mash-0 {Basic test}  -constraints {}  -setup {}  -body {set DisplayName "Two Words"
 set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  

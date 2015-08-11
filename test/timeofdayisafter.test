@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test TimeOfDayIsAfter-0 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAfter 01:02:03 01:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test DateIsBefore-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-03}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 

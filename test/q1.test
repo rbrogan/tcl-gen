@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Q1-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {Q1 "SELECT integervalue FROM integers_table WHERE id = 1"}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  

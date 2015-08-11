@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.5.0
+1.6.0
 % set Number 1
 1
 % AddTo Number 2
@@ -109,6 +109,7 @@ Tcl distribution:
 * sqlite3
 * Tclx
 * textutil::string
+* ftp
 * registry (Windows only)
 
 If you do not have these, then check the documentation that came with your
@@ -138,6 +139,8 @@ WARNING.txt
           Used by the TCL package mechanism.
      gen.tcl
           Main script file.
+     gen-config.tcl
+          Configuration variables (e.g. datetime format).
 /doc
      Any other documents (like the manual).
 /test
@@ -182,8 +185,20 @@ C:\Tcl\lib\tcl8.6\init.tcl
 Alternatively, do a search for init.tcl starting from the root directory of your
 installation.
 
-Be sure to check this space when SQL-related commands are added.
+In order to use various commands, you will want to do configuration of certain
+variables. You can take a look at the following, when you need to use the
+commands:
 
+* Database
+     doc/about-configuration-for-database-use.html
+* Date and Time
+     doc/about-date-and-time-commands.html
+* FTP
+     doc/about-ftp-use.html
+
+To run the FTP tests, you will also need to do special set up. See
+test/README-test-ftp.txt or test/README-test-ftp.html for details.
+     
 ---08| MANUAL
 
 We have a few options. You can see the online manual at
@@ -264,6 +279,9 @@ You can find tests in the /test directory.
 You will find a README file there as well, further details on things like how to
 run the tests yourself.
 
+To run the FTP tests, you will also need to do special set up. See
+test/README-test-ftp.txt or test/README-test-ftp.html for details.
+
 ---16| CONTRIBUTING
 
 Nothing formal has been set up for governing this project, yet.
@@ -280,7 +298,7 @@ message body.) You will get an email every time we have a new release.
 
 ---18| RECENT CHANGES
 
-Version 1.5.0. No changes are known to affect existing API usage. You can find a
+Version 1.6.0. No changes are known to affect existing API usage. You can find a
 change summary in news.txt / news.html and details in changelog.txt /
 changelog.html.
 

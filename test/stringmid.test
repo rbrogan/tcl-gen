@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test StringMid-0 {Basic test - no count specified}  -constraints {}  -setup {}  -body {StringMid "one two three" 8}  -cleanup {}  -result {three}  -output {}  -returnCodes {0}  
 

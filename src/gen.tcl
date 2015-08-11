@@ -1,7 +1,8 @@
-package provide gen 1.5.0
+package provide gen 1.6.0
 package require sqlite3
 package require Tclx
 package require textutil::string
+package require ftp
 if {[string equal $::tcl_platform(platform) "windows"]} {
      package require registry
 }
@@ -598,6 +599,23 @@ proc DbaseRegsub {TableName ColumnName FindValue ReplaceValue {WhereDict ""}} {
      return $TotalReplacements
 }
 
+proc DbgOff ProcName {
+
+     set GenNS::DebugOn 0
+}
+
+proc DbgOn ProcName {
+
+     set GenNS::DebugOn 1
+}
+
+proc DbgPrint Message {
+
+     if {$GenNS::DebugOn} {
+          puts $Message
+     }
+}
+
 proc Decr {VarName {IntegerValue ""}} {
 
      if {[IsEmpty $VarName]} {
@@ -889,6 +907,216 @@ proc ForeachRecord {FieldNameList SelectStatement Body} {
      }
      set Results [QQ $SelectStatement]
      uplevel "foreach {$FieldNameList} {$Results} {$Body}"
+}
+
+proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
+
+     DbgPrint "OverwritePolicy is $OverwritePolicy"
+
+     cd $Directory
+     set Ok [ftp::Cd $FtpHandle $Directory]
+     if {$Ok == 0} {
+          error "Could not change into remote directory $Directory. Quitting."
+     }
+     
+     # Get list of files in remote directory
+     set RemoteList [ftp::List $FtpHandle]
+     if {[NotEmpty $RemoteList]} {
+          set RemoteList [ftp::NList $FtpHandle]
+     }
+     
+     # Get list of files in local directory
+     set LocalList [glob -nocomplain *]
+     DbgPrint "LocalList is $LocalList"
+     DbgPrint "RemoteList is $RemoteList"
+     foreach FileName $RemoteList {
+          DbgPrint "Considering $FileName ..."
+          # Check to see if it exists on local machine
+          if {[FtpIsDirectoryOnRemote $FtpHandle $FileName]} {
+               DbgPrint "This is a directory"
+               # Check if directory exists,
+               # and if not, then make it first.
+               if {[lsearch $LocalList $FileName] == -1} {
+                    if {$GenNS::Ftp::DryRun == 0} {
+                         DbgPrint "We do not have it yet locally, so making it"
+                         file mkdir $FileName
+                    } else {
+                         puts "Dry Run, will not create directory $FileName or deal with contents. Create this manually for a complete dry run. Skipping ahead."
+                         continue
+                    }
+               } else {
+                    DbgPrint "Already have it"
+               }
+               if {$RecursePolicy eq "RecurseIntoSubdirectories"} {
+                    DbgPrint "Recursing into directory $FileName"
+                    FtpDownloadDirectory $FtpHandle $FileName $OverwritePolicy $RecursePolicy $DeleteUnmatchedPolicy
+               }
+               # Because this is a directory, we do not download.
+               # By this point we will have already recursed into it and downloaded.
+               set DoDownload 0
+          } elseif {[lsearch $LocalList $FileName] == -1} {
+               # Does not exist, do download
+               DbgPrint "Does not exist locally. Do download."
+               set DoDownload 1
+          } else {
+               set Newer [FtpWhichIsNewer $FtpHandle $FileName]
+               set Larger [FtpWhichIsLarger $FtpHandle $FileName]
+               DbgPrint "Newer is $Newer"
+               DbgPrint "Larger is $Larger"
+               if {$OverwritePolicy eq "RemoteNewer"} {
+                    if {$Newer eq "remote"} {
+                         set DoDownload 1
+                    } else {
+                         set DoDownload 0
+                    }
+               } elseif {$OverwritePolicy eq "SizeDifferent"} {
+                    if {$Larger ne "same"} {
+                         set DoDownload 1
+                    } else {
+                         set DoDownload 0
+                    }
+               } elseif {$OverwritePolicy eq "RemoteNewerAndSizeDifferent"} {
+                    if {($Newer eq "remote") && ($Larger ne "same")} {
+                         set DoDownload 1
+                    } else {
+                         set DoDownload 0
+                    }
+               } elseif {$OverwritePolicy eq "RemoteNewerOrSizeDifferent"} {
+                    if {($Newer eq "remote") || ($Larger ne "same")} {
+                         set DoDownload 1
+                    } else {
+                         set DoDownload 0
+                    }
+               } elseif {$OverwritePolicy eq "OverwriteAll"} {
+                    set DoDownload 1
+               } else {
+                    error "Invalid OverwritePolicy $OverwritePolicy. Valid options are: RemoteNewer, SizeDifferent, RemoteNewerAndSizeDifferent, RemoteNewerOrSizeDifferent, OverwriteAll"
+               }
+          }
+          
+          if {$DoDownload} {
+               if {$GenNS::Ftp::DryRun == 0} {
+                    DbgPrint "Downloading $FileName"
+                    set Ok [ftp::Get $FtpHandle $FileName $FileName]
+                    if {$Ok == 0} {
+                         error "FTP error: Could not get $FileName"
+                    }
+               } else {
+                    puts "Would have downloaded $FileName"
+               }
+          } else {
+               DbgPrint "Will not download $FileName"
+          }
+          FindAndRemove @LocalList $FileName
+     }
+     
+     if {$DeleteUnmatchedPolicy eq "DeleteUnmatched"} {
+          # Delete the remaining files from the local
+          foreach FileName $LocalList {
+               set IsDirectory [file isdirectory $FileName]
+               if {$IsDirectory} {
+                    if {$GenNS::Ftp::DryRun == 0} {
+                         DbgPrint "Deleting $FileName as directory"
+                         file delete -force $FileName
+                    } else {
+                         puts "Would have deleted $FileName as directory"
+                    }
+               } else {
+                    if {$GenNS::Ftp::DryRun == 0} {
+                         DbgPrint "Deleting $FileName"
+                         file delete -force $FileName
+                    } else {
+                         puts "Would have deleted $FileName"
+                    }
+               }
+          }
+     }
+     
+     cd ..
+     ftp::Cd $FtpHandle ..
+}
+
+proc FtpIsDirectoryOnRemote {FtpHandle TargetName} {
+
+     set Result [ftp::FileSize $FtpHandle $TargetName]
+     if {[string is integer $Result] && ($Result >= 0)} {
+          return 0
+     } else {
+          return 1
+     }
+}
+
+proc FtpMirrorRemoteToLocal {RemoteDirectory LocalDirectory} {
+
+     set OriginalLocation [pwd]
+     # Open connection
+     set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+     if {$FtpHandle == -1} {
+          error "FTP: Could not open connection!"
+     } else {
+          try {
+               if {[NotEmpty $GenNS::Ftp::FileTransferType]} {
+                    if {[lsearch [list ascii binary tenex] $GenNS::Ftp::FileTransferType] != -1} {
+                         DbgPrint "Setting file transfer type to $GenNS::Ftp::FileTransferType"
+                         ftp::Type $FtpHandle $GenNS::Ftp::FileTransferType
+                    } else {
+                         error "Unknown FTP file transfer type $GenNS::Ftp::FileTransferType! Should be ascii, binary, tenex, or left empty."
+                    }
+               }
+
+               # Switch to directory
+               cd $LocalDirectory
+
+               set Ok [ftp::Cd $FtpHandle $RemoteDirectory]
+               if {$Ok == 0} {
+                    error "Could not change into remote directory $RemoteDirectory. Quitting."
+               }
+
+               FtpDownloadDirectory $FtpHandle . RemoteNewerOrSizeDifferent RecurseIntoSubdirectories DeleteUnmatched
+          } finally {
+               DbgPrint "Closing connection"
+               ftp::Close $FtpHandle
+               cd $OriginalLocation
+          }
+     }
+
+     return
+}
+
+proc FtpWhichIsLarger {FtpHandle TargetName} {
+
+     set LocalFileSize [file size $TargetName]
+     set RemoteFileSize [ftp::FileSize $FtpHandle $TargetName]
+     DbgPrint "Local file size is $LocalFileSize"
+     DbgPrint "Remote file size is $RemoteFileSize"
+     if {[IsEmpty $RemoteFileSize]} {
+          error "FTP: Could not get remote file size."
+     }
+     if {$RemoteFileSize > $LocalFileSize} {
+          return remote
+     } elseif {$LocalFileSize > $RemoteFileSize} {
+          return local
+     } else {
+          return same
+     }
+}
+
+proc FtpWhichIsNewer {FtpHandle TargetName} {
+
+     set RemoteModTime [ftp::ModTime $FtpHandle $TargetName]
+     set LocalModTime [file mtime $TargetName]
+     DbgPrint "Local mod time is $LocalModTime."
+     DbgPrint "Remote mod time is $RemoteModTime."
+     if {[IsEmpty $RemoteModTime]} {
+          error "FTP: Could not get file mod time for $TargetName."
+     }
+     if {$RemoteModTime > $LocalModTime} {
+          return remote
+     } elseif {$LocalModTime > $RemoteModTime} {
+          return local
+     } else {
+          return same
+     }
 }
 
 proc GetDbGlobal {VarName {Type text}} {
@@ -1671,6 +1899,15 @@ proc ReloadPackage {Name {Version ""}} {
      }
 }
 
+proc RestoreWorkingDirectory {} {
+
+     if {[NotEmpty $GenNS::SavedWorkingDirectory]} {
+          cd $GenNS::SavedWorkingDirectory
+     }
+
+     return $GenNS::SavedWorkingDirectory
+}
+
 proc RetZeroIfEmpty Value {
 
      if {[IsEmpty $Value]} {
@@ -1768,6 +2005,11 @@ proc RunSqlInsertIfDoesNotExist {TableName DictValue} {
      return $Id
 }
 
+proc SaveWorkingDirectory {} {
+
+     set GenNS::SavedWorkingDirectory [pwd]
+}
+
 proc Seconds2Hhmmss StringVariable {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String
@@ -1830,16 +2072,16 @@ proc SetDbGlobal {VarName {Value "DoGetDbGlobal"}} {
           return [GetDbGlobal $VarName]
      } elseif {[IsEmpty $Value]} {
           # Enter an empty string as empty text value with nulls for intvalue and realvalue.
-          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "textvalue '' intvalue null realvalue null"
+          RunSqlEnter $GenNS::GlobalsTable [dict create desc "'$VarName'"] [dict create textvalue "''" intvalue null realvalue null]
      } elseif {[string is double $Value]} {
           # If it is a double then for the intvalue, enter a truncated value.
-          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "realvalue $Value intvalue [::tcl::mathfunc::floor $Value] textvalue '$Value'"
+          RunSqlEnter $GenNS::GlobalsTable [dict create desc '$VarName'] [dict create realvalue $Value intvalue [::tcl::mathfunc::floor $Value] textvalue '$Value']
      } elseif {[string is integer $Value]} {
           # If it is an integer then for the realvalue add ".0"
-          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "intvalue $Value realvalue [set Value].0 textvalue '$Value'"
+          RunSqlEnter $GenNS::GlobalsTable [dict create "desc '$VarName'"] [dict create intvalue $Value realvalue [set Value].0 textvalue "'$Value'"]
      } else {
           # Any other string enter as text with the intvalue and realvalue as null.
-          RunSqlEnter $GenNS::GlobalsTable "desc '$VarName'" "textvalue '$Value' intvalue null realvalue null"
+          RunSqlEnter $GenNS::GlobalsTable [dict create desc '$VarName'] [dict create textvalue "'$Value'" intvalue null realvalue null]
      }
 
      return $Value
@@ -2657,5 +2899,5 @@ proc Yesterday {} {
 }
 
 proc GenCurrentVersion {} {
-     puts 1.5.0
+     puts 1.6.0
 }

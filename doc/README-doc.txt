@@ -156,6 +156,12 @@ flip.html
      Page for the command Flip.
 foreachrecord.html
      Page for the command ForeachRecord.
+ftpmirrorremotetolocal.html
+     Page for the command FtpMirrorRemoteToLocal.
+ftpwhichislarger.html
+     Page for the command FtpWhichIsLarger.
+ftpwhichisnewer.html
+     Page for the command FtpWhichIsNewer.
 getdbglobal.html
      Page for the command GetDbGlobal.
 hhmmss2seconds.html
@@ -246,6 +252,8 @@ registrytree2dict.html
      Page for the command RegistryTree2Dict.
 reloadpackage.html
      Page for the command ReloadPackage.
+restoreworkingdirectory.html
+     Page for the command RestoreWorkingDirectory.
 retzeroifempty.html
      Page for the command RetZeroIfEmpty.
 run.html
@@ -256,6 +264,8 @@ runsqlenter.html
      Page for the command RunSqlEnter.
 runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
+saveworkingdirectory.html
+     Page for the command SaveWorkingDirectory.
 seconds2hhmmss.html
      Page for the command Seconds2Hhmmss.
 setdateformat.html

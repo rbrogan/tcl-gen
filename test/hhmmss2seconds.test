@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Hhmmss2Seconds-0 {Basic test}  -constraints {}  -setup {}  -body {Hhmmss2Seconds 01:01:01
 }  -cleanup {}  -result {3661}  -output {}  -returnCodes {0}  

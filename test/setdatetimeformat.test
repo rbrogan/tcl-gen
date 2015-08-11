@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SetDatetimeFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
 puts [IsDatetime {2000-01-02 03:04:05}]

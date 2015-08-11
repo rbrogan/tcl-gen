@@ -1,0 +1,83 @@
+package require tcltest
+package require -exact gen 1.6.0
+
+::tcltest::test FtpWhichIsLarger-0 {Local file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-sizes-2
+FtpWhichIsLarger $FtpHandle local-larger.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {local}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test FtpWhichIsLarger-1 {Remote file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-sizes-2
+FtpWhichIsLarger $FtpHandle remote-larger.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {remote}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test FtpWhichIsLarger-2 {Both files are of equal size}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-sizes-2
+FtpWhichIsLarger $FtpHandle same.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {same}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test FtpWhichIsLarger-3 {File does not exist remotely}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-sizes-2
+FtpWhichIsLarger $FtpHandle does-not-exist-on-remote.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {FTP: Could not get remote file size.}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test FtpWhichIsLarger-4 {File does not exist locally}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadto/different-sizes-2
+FtpWhichIsLarger $FtpHandle does-not-exist-on-local.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {could not read "does-not-exist-on-local.txt": no such file or directory}  -output {}  -returnCodes {1}  
+
+

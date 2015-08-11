@@ -94,7 +94,7 @@ Since this is a utilities library, you do not need to do much of anything to get
 If you would like to confirm the library is installed and working then try the following from a Tcl shell.<br>
 </p><code>
 % package require gen<br>
-1.5.0<br>
+1.6.0<br>
 % set Number 1<br>
 1<br>
 % AddTo Number 2<br>
@@ -109,6 +109,7 @@ You should be all set!<br>
 <li>sqlite3</li>
 <li>Tclx</li>
 <li>textutil::string</li>
+<li>ftp</li>
 <li>registry (Windows only)</li>
 </ul>
 </p>
@@ -149,7 +150,18 @@ To install, extract the contents of the archive file (.zip or .tar.gz). That wil
 <b><code>/usr/share/tcltk/tcl8.4/init.tcl</code></b><br>
 <b><code>/usr/share/tcltk/tcl8.5/init.tcl</code></b><br>
 <p>Alternatively, do a search for init.tcl starting from the root directory of your installation.</p>
-<p>Be sure to check this space when SQL-related commands are added.</p>
+<p>In order to use various commands, you will want to do configuration of certain variables. You can take a look at the following, when you need to use the commands:
+<ul>
+<li>Database</li>
+<ul><li><code><a href="doc/about-configuration-for-database-use.html">doc/about-configuration-for-database-use.html</a></code></li></ul>
+<li>Date and Time</li>
+<ul><li><code><a href="doc/about-date-and-time-commands.html">doc/about-date-and-time-commands.html</a></code></li></ul>
+<li>FTP</li>
+<ul><li><code><a href="doc/about-ftp-use.html">doc/about-ftp-use.html</a></code></li></ul>
+</ul>
+</p>
+<p>
+To run the FTP tests, you will also need to do special set up. See <code>test/README-test-ftp.txt</code> or <code>test/README-test-ftp.html</code> for details.
 </p>
 <h3><a id="C_MANUAL">&mdash;08| MANUAL</a></h3>
 
@@ -222,6 +234,10 @@ and we will try to get back to you ASAP.<br>
 You can find tests in the /test directory.
 </p>
 <p>You will find a <a href='test/README-test.html'>README</a> file there as well, with further details on things like how to run the tests yourself.</p>
+<p>
+To run the FTP tests, you will also need to do special set up. See <code>test/README-test-ftp.txt</code> or <code>test/README-test-ftp.html</code> for details.
+</p>
+
 <h3><a id="C_CONTRIBUTING">&mdash;16| CONTRIBUTING</a></h3>
 
 <p>
@@ -237,7 +253,7 @@ The latest version can be found at <a href="http://www.robertbrogan.com/gen/down
 <h3><a id="C_RECENT_CHANGES">&mdash;18| RECENT CHANGES</a></h3>
 
 <p>
-Version 1.5.0 released. No changes are known to affect existing API usage. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
+Version 1.6.0 released. No changes are known to affect existing API usage. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
 </p>
 <h3><a id="C_LICENSE">&mdash;19| LICENSE</a></h3>
 

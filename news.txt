@@ -2,6 +2,32 @@ Gen
 
 NEWS
 
+2015.08.10
+v1.6.0 Release
+
+This week we have a short release which introduces some FTP-related commands.
+More commands to follow in a couple of weeks. Check doc/about-ftp-use.html for
+more information and test/README-test-ftp.txt or test/README-test-ftp.html for
+information about testing FTP commands on your machine.
+
+FtpMirrorRemoteToLocal
+     Make local site match what remote has.
+
+FtpWhichIsLarger
+     Tell whether the local or remote file is larger or if same.
+
+FtpWhichIsNewer
+     Tell whether the local or remote file is newer or if same.
+
+RestoreWorkingDirectory
+     Change back to directory saved with SaveWorkingDirectory.
+
+SaveWorkingDirectory
+     Save the current working directory, so can later restore.
+
+
+
+
 2015.07.27
 v1.5.0 Release
 
@@ -28,7 +54,7 @@ Seconds2Hhmmss
 SumHhmmss
      Sum up a list of times.
 
-
+     
 
 
 2015.05.11
@@ -327,7 +353,7 @@ SqlSetClause
      Derive a set clause for an update query, using a dict.
 
 SqlUpdateStatement
-     Create an UP2015.07.27 statement.
+     Create an UP2015.08.10 statement.
 
 SqlWhereClause
      Create a WHERE clause using the values in dict.

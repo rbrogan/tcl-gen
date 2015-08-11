@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test RetZeroIfEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set Something 1
 RetZeroIfEmpty $Something}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  

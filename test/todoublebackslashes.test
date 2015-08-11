@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test ToDoubleBackslashes-0 {Basic test - from forward slashes}  -constraints {}  -setup {}  -body {ToDoubleBackslashes c:/path/one}  -cleanup {}  -result {c:\\path\\one}  -output {}  -returnCodes {0}  
 

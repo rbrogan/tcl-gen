@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test MultiSet-0 {List has more elements than there are variables.}  -constraints {}  -setup {}  -body {set Result [MultiSet {one two three} {1 2 3 4}]
 puts $Result

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SetDbGlobal-0 {Basic test - set existing}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal test 1-2-3

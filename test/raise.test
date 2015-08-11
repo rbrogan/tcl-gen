@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Raise-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {1 one 2 two}
 set NewList [Raise $MyList 2]

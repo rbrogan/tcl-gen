@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Ter-0 {Basic test}  -constraints {}  -setup {}  -body {Ter 1 {return true} {return false}
 }  -cleanup {}  -result {true}  -output {}  -returnCodes {0}  

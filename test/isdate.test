@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test IsDate-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDate asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 

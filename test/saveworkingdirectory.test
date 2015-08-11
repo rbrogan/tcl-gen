@@ -1,0 +1,15 @@
+package require tcltest
+package require -exact gen 1.6.0
+
+::tcltest::test SaveWorkingDirectory-0 {Basic test}  -constraints {}  -setup {file delete -force TestSaveWorkingDirectory}  -body {set OriginalWorkingDirectory [SaveWorkingDirectory]
+file mkdir TestSaveWorkingDirectory
+cd TestSaveWorkingDirectory
+RestoreWorkingDirectory
+if {[pwd] eq "$OriginalWorkingDirectory"} {
+	set Result 1
+} else {
+	set Result 0
+}
+}  -cleanup {file delete -force TestSaveWorkingDirectory}  -result {1}  -output {}  -returnCodes {0}  
+
+

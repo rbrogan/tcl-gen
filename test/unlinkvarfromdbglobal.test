@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test UnlinkVarFromDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set MyVar 123
 LinkVarToDbGlobal MyVar

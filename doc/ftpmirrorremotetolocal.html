@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpMirrorRemoteToLocal</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpMirrorRemoteToLocal  &mdash;  Make local site match what remote has.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpMirrorRemoteToLocal</b> <i>RemoteDirectory</i> <i>LocalDirectory</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>RemoteDirectory</i></td><td class='argument_right'>Path to download from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LocalDirectory</i></td><td class='argument_right'>Path to download to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href="about-ftp-use.html">About FTP Use</a> for additional details.<p>Caution! This command will delete files on the local machine if they do not have a matching file on the remote machine. See the FTP page for details about setting up to use a dry run.</p><p>The purpose of this command to make the local directory have the same contents as the remote directory by (1) downloading the any files on the remote machine that are newer or have a different size and (2) deleting any files on the local machine where there is no matching file on the remote machine.</p><p>Again, note that even if a file on the local machine is newer, if its file size is different then it will be overwritten by a copy of the remote version.</p><p>To use this command you will need to have configured the server IP, username, and password to use. See <a href="about-ftp-use.html">here</a> for details.</p><p>The command works as follows: (1) It opens an FTP connection using the configuration, (2) If any file transfer type has been set then it switches to that type, (3) It switches to the local and remote directories passed in, (4) It downloads the contents of the remote directory to the local, (5) It cleans up any unmatched local files, (6) It switches back to the directory it was in before the command was called and closes the connection.</p><p>If an error occurs in the middle, this command will not try to rollback or anything like that. It will simply close the connection and return to the starting local directory.</p><p>[A listing of error conditions and messages should come in the release two weeks after this current one.]
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>FtpMirrorRemoteToLocal /home/username/folder c:/users/username/documents/folder</b><br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/.htm'></a>
+</div>
+<div class="section_header" hidden>
+KEYWORDS
+</div>
+<div class="section_content" hidden>
+
+</div>
+</body>
+</html>

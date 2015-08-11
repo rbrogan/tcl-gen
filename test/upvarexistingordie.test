@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test UpvarExistingOrDie-0 {Illustration}  -constraints {}  -setup {}  -body {proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
 set abc 123

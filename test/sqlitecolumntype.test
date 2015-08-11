@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqliteColumnType-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SqliteColumnType globals desc
 }  -cleanup {}  -result {text}  -output {}  -returnCodes {0}  

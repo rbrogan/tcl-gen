@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SetTimeOfDayFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat %H:%M:%S
 puts [IsTimeOfDay 00:00:00]

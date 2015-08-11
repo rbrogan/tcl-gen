@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpWhichIsLarger</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpWhichIsLarger  &mdash;  Tell whether the local or remote file is larger or if same.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpWhichIsLarger</b> <i>FtpHandle</i> <i>TargetName</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>local</i></td><td class='argument_right'> Local file size is the larger.</td></tr>
+<tr><td class='argument_left'><i> remote</i></td><td class='argument_right'> Remote file size is the larger.</td></tr>
+<tr><td class='argument_left'><i> same</i></td><td class='argument_right'> File sizes are the same.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FtpHandle</i></td><td class='argument_right'>Handle for FTP connection.</td></tr><tr class='table_row_a'><td class='argument_left'><i>TargetName</i></td><td class='argument_right'>Name of file. Must be the same both local and remote.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href='about-ftp-use.html'>About FTP Use</a> for additional details.<br><p>Note that it is possible to transfer a file from one machine to another and wind up with a different size. This depends on your settings (e.g. ASCII transfer over binary). So, it could make it such that you keep transferring files because they are different size.</p><p>Currently, there no option to adjust for this (perhaps in a future version). It is recommended you change your settings (see <code>GenNS::Ftp::FileTransferType</code>) or use <code>ftp::FileSize</code> yourself, directly.</p><p>[A listing of error conditions and messages should come in the release two weeks after this current one.]
+</p></div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>FtpWhichIsLarger $MyFtpHandle myfile.txt</b><br>same<br>% AppendString2File asdf myfile.txt<br>% FtpWhichIsLarger $MyFtpHandle myfile.txt<br>local<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpwhichisnewer.html'>FtpWhichIsNewer</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

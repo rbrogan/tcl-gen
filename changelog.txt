@@ -2,6 +2,65 @@ Gen
 
 CHANGELOG
 
+2015.08.10
+v1.6.0
+
+No changes break existing command usage.
+
+Changes by functionality
+
+    Monthly release of new commands, with corresponding files in test and doc
+directories.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Update Recent Changes section.
+               Add FTP to dependencies.
+               Add info about configuring.
+               Add note about FTP testing.
+          README.txt
+               Update Recent Changes section.
+               Add FTP to dependencies.
+               Add info about configuring.
+               Add note about FTP testing.
+               Add gen-config to list of files.
+          roadmap.html
+               Updated with latest info.
+          wishlist.html
+               Put in footer suggesting to submit requests.
+     /doc
+          Added pages for new commands.
+          Added index pages with new version number.
+          Updated index pages with new commands.
+          Added about-ftp-use.html.
+     /src
+          gen.tcl
+               Commands added.
+               Internal commands added.
+               Package require for FTP.
+               SetDbGlobal: change to use dict create.
+          gen-config.tcl
+               Added FTP-related config.
+               Added storage variable for SaveWorkingDirectory/RestoreWorkingDirectory.
+          pkgIndex.tcl
+               Updated version.
+     /test
+          Added tests for new commands.
+          Changed all commands to require the exact version of Gen being tested.
+          Added README-test-ftp.html.
+          Added README-test-ftp.txt.
+          Updated README-test.html, point to README-test-ftp.xxx.
+          Updated README-test.txt, point to README-test-ftp.xxx.
+          Added ftp-test-config.tcl.
+          Added ftp-local and ftp-remote directories.
+
+
 2015.07.27
 v1.5.0
 
@@ -26,7 +85,7 @@ By files
           roadmap.html
                Updated with latest info.
           wishlist.html
-               Revised to remove items now on Roadmap or in the software.
+               Put in footer suggesting to submit requests.
      /doc
           Added pages for new commands.
           Added index pages with new version number.
@@ -49,7 +108,8 @@ By files
           Added tests for new commands.
           Changed all commands to require the exact version of Gen being tested.
           Added space for putting in test constraints.
-          Check for Windows platform as test constraint for Windows Registry-related tests.
+          Check for Windows platform as test constraint for Windows Registry-related
+tests.
 
 
 2015.05.11

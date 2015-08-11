@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test VarExistsInCaller-0 {Illustration}  -constraints {}  -setup {}  -body {proc Proc2 {} { \
      puts [VarExistsInCaller abc]; \

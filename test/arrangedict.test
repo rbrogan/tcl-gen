@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test ArrangeDict-0 {Illustration}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test UnlinkTclVariableFromRegistryValue-0 {Basic test}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"

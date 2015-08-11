@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test IsDict-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsDict [dict create one uno two dos]
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  

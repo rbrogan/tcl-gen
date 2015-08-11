@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test RunSqlEnter-1 {Where dict is empty}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {RunSqlEnter my_table {} {notes '1-2-3'}}  -cleanup {}  -result {Variable WhereDict has empty value.}  -output {}  -returnCodes {1}  

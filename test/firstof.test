@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test FirstOf-0 {Basic test}  -constraints {}  -setup {}  -body {FirstOf {abc def ghi}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 

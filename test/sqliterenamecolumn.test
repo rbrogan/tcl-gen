@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqliteRenameColumn-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE my_temp_table (id integer primary key, desc text)}

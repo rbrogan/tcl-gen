@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test TimeOfDayIsBefore-0 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsBefore 01:02:03 01:02:04}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 

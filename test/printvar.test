@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test PrintVar-0 {Basic positive}  -constraints {}  -setup {}  -body {set x 123
 PrintVar x}  -cleanup {}  -result {}  -output {x is 123

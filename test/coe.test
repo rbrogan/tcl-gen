@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test Coe-0 {No args}  -constraints {}  -setup {}  -body {Coe
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  

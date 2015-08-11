@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test ForeachRecord-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {ForeachRecord {Desc Notes} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes" }
 }  -cleanup {}  -result {}  -output {desc = uno, notes = one

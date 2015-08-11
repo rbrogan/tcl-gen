@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test ToBackslashes-0 {Basic test}  -constraints {}  -setup {}  -body {ToBackslashes c:/some/path/to/file.txt}  -cleanup {}  -result {c:\some\path\to\file.txt}  -output {}  -returnCodes {0}  
 

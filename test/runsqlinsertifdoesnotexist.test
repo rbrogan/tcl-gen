@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test RunSqlInsertIfDoesNotExist-0 {Basic test - record does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}

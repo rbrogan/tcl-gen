@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SaveWorkingDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+SaveWorkingDirectory  &mdash;  Save the current working directory, so can later restore.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>SaveWorkingDirectory</b>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Name of current working directory.</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Calling <code><a href="restoreworkingdirectory.html">RestoreWorkingDirectory</a></code> will bring you back.
+</div>
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% pwd<br>/home/username<br>% <b>SaveWorkingDirectory</b><br>/home/username<br>% cd temp<br>% pwd<br>/home/username/temp<br>% RestoreWorkingDirectory<br>/home/username<br>% pwd<br>/home/username<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'restoreworkingdirectory.html'>RestoreWorkingDirectory</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_directory">directory</a>, <a href="keyword-index.html#C_file">file</a>
+</div>
+</body>
+</html>

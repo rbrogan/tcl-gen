@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqlWhereClause-0 {Basic test}  -constraints {}  -setup {}  -body {SqlWhereClause {intvalue 1}
 }  -cleanup {}  -result {intvalue = 1}  -output {}  -returnCodes {0}  

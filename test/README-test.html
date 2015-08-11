@@ -72,6 +72,9 @@ To run tests for a given proc (for instance, <code>AddTo</code>) from the comman
 To run tests for a given proc (for instance, <code>AddTo</code>) from the tcl shell:<br>
 <code>% source addto.test</code>
 </p>
+<p>
+To run the FTP tests, you will also need to do special set up. See <code>test/README-test-ftp.txt</code> or <a href="README-test-ftp.html"><code>test/README-test-ftp.html</code></a> for details.
+</p>
 <h3><a id="C_REPORTING">&mdash;04| BUG REPORTING</a></h3>
 <p>
 If you find bugs in tests or missing tests, please let us know.
@@ -182,6 +185,18 @@ You may want to get involved by submitting wishlist items and/or offering to do 
 <p class="quasi_table_right">Tests for the command Flip.</p>
 <p class="quasi_table_left">foreachrecord.test</p>
 <p class="quasi_table_right">Tests for the command ForeachRecord.</p>
+<p class="quasi_table_left">ftp-local</p>
+<p class="quasi_table_right">Files to use on local machine for FTP-related tests.</p>
+<p class="quasi_table_left">ftp-remote</p>
+<p class="quasi_table_right">Files to copy to remote machine to use for FTP-related tests.</p>
+<p class="quasi_table_left">ftpmirrorremotetolocal.test</p>
+<p class="quasi_table_right">Tests for the command FtpMirrorRemoteToLocal.</p>
+<p class="quasi_table_left">ftp-test-config.tcl</p>
+<p class="quasi_table_right">Configuration to make FTP tests run on host machine.</p>
+<p class="quasi_table_left">ftpwhichislarger.test</p>
+<p class="quasi_table_right">Tests for the command FtpWhichIsLarger.</p>
+<p class="quasi_table_left">ftpwhichisnewer.test</p>
+<p class="quasi_table_right">Tests for the command FtpWhichIsNewer.</p>
 <p class="quasi_table_left">getdbglobal.test</p>
 <p class="quasi_table_right">Tests for the command GetDbGlobal.</p>
 <p class="quasi_table_left">hhmmss2seconds.test</p>
@@ -264,6 +279,10 @@ You may want to get involved by submitting wishlist items and/or offering to do 
 <p class="quasi_table_right">Tests for the command QQ.</p>
 <p class="quasi_table_left">raise.test</p>
 <p class="quasi_table_right">Tests for the command Raise.</p>
+<p class="quasi_table_left">README-test-ftp.html</p>
+<p class="quasi_table_right">About how to run FTP-related tests.</p>
+<p class="quasi_table_left">README-test-ftp.txt</p>
+<p class="quasi_table_right">About how to run FTP-related tests.</p>
 <p class="quasi_table_left">registryexists.test</p>
 <p class="quasi_table_right">Tests for the command RegistryExists.</p>
 <p class="quasi_table_left">registryprint.test</p>
@@ -272,6 +291,8 @@ You may want to get involved by submitting wishlist items and/or offering to do 
 <p class="quasi_table_right">Tests for the command RegistryTree2Dict.</p>
 <p class="quasi_table_left">reloadpackage.test</p>
 <p class="quasi_table_right">Tests for the command ReloadPackage.</p>
+<p class="quasi_table_left">restoreworkingdirectory.test</p>
+<p class="quasi_table_right">Tests for the command RestoreWorkingDirectory.</p>
 <p class="quasi_table_left">retzeroifempty.test</p>
 <p class="quasi_table_right">Tests for the command RetZeroIfEmpty.</p>
 <p class="quasi_table_left">run.test</p>
@@ -282,6 +303,8 @@ You may want to get involved by submitting wishlist items and/or offering to do 
 <p class="quasi_table_right">Tests for the command RunSqlEnter.</p>
 <p class="quasi_table_left">runsqlinsertifdoesnotexist.test</p>
 <p class="quasi_table_right">Tests for the command RunSqlInsertIfDoesNotExist.</p>
+<p class="quasi_table_left">saveworkingdirectory.test</p>
+<p class="quasi_table_right">Tests for the command SaveWorkingDirectory.</p>
 <p class="quasi_table_left">seconds2hhmmss.test</p>
 <p class="quasi_table_right">Tests for the command Seconds2Hhmmss.</p>
 <p class="quasi_table_left">setdateformat.test</p>
@@ -350,6 +373,14 @@ You may want to get involved by submitting wishlist items and/or offering to do 
 <p class="quasi_table_right">Tests for the command Swap.</p>
 <p class="quasi_table_left">ter.test</p>
 <p class="quasi_table_right">Tests for the command Ter.</p>
+<p class="quasi_table_left">test-reload-package.tcl</p>
+<p class="quasi_table_right">For ReloadPackage tests.</p>
+<p class="quasi_table_left">test-reload-package.tcl.1</p>
+<p class="quasi_table_right">For ReloadPackage tests.</p>
+<p class="quasi_table_left">test-reload-package.tcl.2</p>
+<p class="quasi_table_right">For ReloadPackage tests.</p>
+<p class="quasi_table_left">test.db</p>
+<p class="quasi_table_right">Sample data, etc. for database-related tests.</p>
 <p class="quasi_table_left">timeofdayisafter.test</p>
 <p class="quasi_table_right">Tests for the command TimeOfDayIsAfter.</p>
 <p class="quasi_table_left">timeofdayisat.test</p>

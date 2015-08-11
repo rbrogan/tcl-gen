@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test ChangeCasing-0 {PascalCase to xxxx}  -constraints {}  -setup {}  -body {puts [ChangeCasing HelloWorld PascalCase mixedCase]
 puts [ChangeCasing HelloWorld PascalCase {Title Case}]

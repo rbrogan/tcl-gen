@@ -31,6 +31,27 @@
 
 
 <div class="section-header">
+<div class="section-header-left">2015.08.10</div><div class="section-header-right">v1.6.0 Release</div>
+</div>
+<div class="section-content">
+<p>This week we have a short release which introduces some FTP-related commands. More commands to follow in a couple of weeks. Check <a href="doc/about-ftp-use.html">doc/about-ftp-use.html</a> for more information and test/README-test-ftp.txt or <a href="test/README-test-ftp.html">test/README-test-ftp.html</a> for information about testing FTP commands on your machine.</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpwhichislarger.html" class="command_link">FtpMirrorRemoteToLocal</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make local site match what remote has.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/ftpwhichislarger.html" class="command_link">FtpWhichIsLarger</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Tell whether the local or remote file is larger or if same.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpwhichisnewer.html" class="command_link">FtpWhichIsNewer</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Tell whether the local or remote file is newer or if same.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/restoreworkingdirectory.html" class="command_link">RestoreWorkingDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Change back to directory saved with SaveWorkingDirectory.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/saveworkingdirectory.html" class="command_link">SaveWorkingDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Save the current working directory, so can later restore.</p></div>
+
+
+
+<br>
+
+<div class="section-header">
 <div class="section-header-left">2015.07.27</div><div class="section-header-right">v1.5.0 Release</div>
 </div>
 <div class="section-content">
@@ -72,7 +93,7 @@
 SIGNATURE
     String2File {StringValue OutFilePath}
 
-This month we begin what we hope to be a series of minor releases which will shake the rust off this project and get things moving to implement various improvements piece-by-piece. Each release will have a modest installment of new commands.
+This week we have a short release which introduces some FTP-related commands. More commands to follow in a couple of weeks. Check doc/about-ftp-use.html for more information and test/README-test-ftp.txt or test/README-test-ftp.html for information about testing FTP commands on your machine.
     Create a file, write string to it, and close the file.
 
 RETURNS
@@ -312,7 +333,7 @@ What follows is a listing of new commands:<br>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlsetclause.html" class="command_link">SqlSetClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Derive a set clause for an update query, using a dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlupdatestatement.html" class="command_link">SqlUpdateStatement</a></p></div>
-<div class="command_desc"><p class="quasi_table_right">Create an UP2015.07.27 statement.</p></div>
+<div class="command_desc"><p class="quasi_table_right">Create an UP2015.08.10 statement.</p></div>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlwhereclause.html" class="command_link">SqlWhereClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Create a WHERE clause using the values in dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlitecolumnnameandtypelist.html" class="command_link">SqliteColumnNameAndTypeList</a></p></div>

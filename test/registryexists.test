@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test RegistryExists-0 {Basic test - return 1}  -constraints {win}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123

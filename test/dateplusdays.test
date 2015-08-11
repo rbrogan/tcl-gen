@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test DatePlusDays-0 {Basic test}  -constraints {}  -setup {}  -body {DatePlusDays {2000-01-02} 1}  -cleanup {}  -result {2000-01-03}  -output {}  -returnCodes {0}  
 

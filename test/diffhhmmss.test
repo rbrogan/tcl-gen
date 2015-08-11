@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test DiffHhmmss-0 {Basic test}  -constraints {}  -setup {}  -body {DiffHhmmss {03:03:03} {02:02:02}
 }  -cleanup {}  -result {01:01:01}  -output {}  -returnCodes {0}  

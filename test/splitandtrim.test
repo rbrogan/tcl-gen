@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SplitAndTrim-0 {Basic test - 1}  -constraints {}  -setup {}  -body {SplitAndTrim "one ,two, three" ","
 }  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test TimeOfDayIsBetween-0 {First is between second and third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test StringInsert-0 {Basic test}  -constraints {}  -setup {}  -body {StringInsert "01245" 3 3
 }  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  

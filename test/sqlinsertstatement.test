@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqlInsertStatement-1 {Basic test}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {INSERT INTO MyTable (intvalue, realvalue) VALUES (1, 1.1)}  -output {}  -returnCodes {0}  

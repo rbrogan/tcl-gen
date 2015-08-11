@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test LastId-0 {Base case}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
 set Id [LastId my_table]

@@ -1,0 +1,67 @@
+package require tcltest
+package require -exact gen 1.6.0
+
+::tcltest::test FtpWhichIsNewer-0 {Local file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-times
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-times
+FtpWhichIsNewer $FtpHandle local-newer.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {local}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test FtpWhichIsNewer-1 {Remote file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-times
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-times
+FtpWhichIsNewer $FtpHandle remote-newer.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {remote}  -output {}  -returnCodes {0}  
+
+
+::tcltest::test FtpWhichIsNewer-3 {File not available locally}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-times
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-times
+FtpWhichIsNewer $FtpHandle does-not-exist-on-local.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {could not read "does-not-exist-on-local.txt": no such file or directory}  -output {}  -returnCodes {1}  
+
+
+::tcltest::test FtpWhichIsNewer-4 {File not available remotely}  -constraints {}  -setup {source ftp-test-config.tcl
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times
+SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+	error "FTP: Could not open connection!"
+}
+cd $::FtpTestLocalRoot/downloadto/temp/different-times
+ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/different-times
+FtpWhichIsNewer $FtpHandle does-not-exist-on-remote.txt
+}  -cleanup {RestoreWorkingDirectory
+ftp::Close $FtpHandle
+file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
+file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {FTP: Could not get file mod time for does-not-exist-on-remote.txt.}  -output {}  -returnCodes {1}  
+
+

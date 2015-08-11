@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SqlSelectStatement-0 {Basic test}  -constraints {}  -setup {}  -body {SqlSelectStatement my_table {notes} {desc 'first'}
 }  -cleanup {}  -result {SELECT notes FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test UpvarX-0 {Basic test}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var; puts "$VarName holds value $Var."}

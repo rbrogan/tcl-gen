@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.5.0
+package require -exact gen 1.6.0
 
 ::tcltest::test SurroundEach-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList "*"}  -cleanup {}  -result {*one* *two* *three*}  -output {}  -returnCodes {0}  
