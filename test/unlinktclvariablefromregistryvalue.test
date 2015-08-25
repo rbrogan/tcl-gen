@@ -1,43 +1,62 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
 
-::tcltest::test UnlinkTclVariableFromRegistryValue-0 {Basic test}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+namespace eval UnlinkTclVariableFromRegistryValueTest {}
+
+
+
+proc UnlinkTclVariableFromRegistryValueTest::Test-1 {} {
+
+::tcltest::test UnlinkTclVariableFromRegistryValue-0 {Basic test}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 321
-}  -body {set MyVar 123
-puts [llength [trace info variable MyVar]]
-LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
-UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
+}  -body {set ::MyVar 123
+puts [llength [trace info variable ::MyVar]]
+LinkTclVariableToRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
+UnlinkTclVariableFromRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
 }  -cleanup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"}  -result {}  -output {0
 1
 0
 }  -returnCodes {0}  
 
+}
 
-::tcltest::test UnlinkTclVariableFromRegistryValue-1 {Tcl variable was never linked to begin with}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+
+
+proc UnlinkTclVariableFromRegistryValueTest::Test-2 {} {
+
+::tcltest::test UnlinkTclVariableFromRegistryValue-1 {Tcl variable was never linked to begin with}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 321
-}  -body {set MyVar 123
-puts [llength [trace info variable MyVar]]
-UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
+}  -body {set ::MyVar 123
+puts [llength [trace info variable ::MyVar]]
+UnlinkTclVariableFromRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
 }  -cleanup {}  -result {}  -output {0
 0
 }  -returnCodes {0}  
 
+}
 
-::tcltest::test UnlinkTclVariableFromRegistryValue-2 {Unlink then relink and unlink again}  -constraints {win}  -setup {}  -body {set MyVar 123
-puts [llength [trace info variable MyVar]]
-LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
-UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
-LinkTclVariableToRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
-UnlinkTclVariableFromRegistryValue MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
-puts [llength [trace info variable MyVar]]
+
+
+proc UnlinkTclVariableFromRegistryValueTest::Test-3 {} {
+
+::tcltest::test UnlinkTclVariableFromRegistryValue-2 {Unlink then relink and unlink again}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+}  -body {set ::MyVar 123
+puts [llength [trace info variable ::MyVar]]
+LinkTclVariableToRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
+UnlinkTclVariableFromRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
+LinkTclVariableToRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
+UnlinkTclVariableFromRegistryValue ::MyVar "HKEY_CURRENT_USER\\Software\\GenTest" testy
+puts [llength [trace info variable ::MyVar]]
 }  -cleanup {}  -result {}  -output {0
 1
 0
@@ -45,12 +64,37 @@ puts [llength [trace info variable MyVar]]
 0
 }  -returnCodes {0}  
 
+}
+
+
+
+proc UnlinkTclVariableFromRegistryValueTest::Test-4 {} {
 
 ::tcltest::test UnlinkTclVariableFromRegistryValue-3 {Tcl VarName is invalid}  -constraints {win}  -setup {}  -body {UnlinkTclVariableFromRegistryValue {} "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc UnlinkTclVariableFromRegistryValueTest::Test-5 {} {
 
 ::tcltest::test UnlinkTclVariableFromRegistryValue-4 {Registry value path is invalid}  -constraints {win}  -setup {}  -body {UnlinkTclVariableFromRegistryValue MyVar {} testy
 }  -cleanup {}  -result {Variable RegistryKeyPath has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     UnlinkTclVariableFromRegistryValueTest::Test-1
+     UnlinkTclVariableFromRegistryValueTest::Test-2
+     UnlinkTclVariableFromRegistryValueTest::Test-3
+     UnlinkTclVariableFromRegistryValueTest::Test-4
+     UnlinkTclVariableFromRegistryValueTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          UnlinkTclVariableFromRegistryValueTest::Test-[set Element]
+     }
+}
 

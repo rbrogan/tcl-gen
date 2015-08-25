@@ -1,0 +1,246 @@
+package require tcltest
+package require -exact gen 1.7.0
+
+namespace eval FtpDownloadSiteTest {}
+
+
+namespace eval FtpDownloadSiteTest {
+
+proc Setup {LocalDirectoryName} {
+     source ftp-test-config.tcl
+     DeleteEverythingInDirectory $::FtpTestLocalRoot/downloadto/temp
+     CopyAllFilesIntoDirectory $::FtpTestLocalRoot/downloadto/original/$LocalDirectoryName $::FtpTestLocalRoot/downloadto/temp
+     SaveWorkingDirectory
+}
+
+proc Test {RemoteDirectoryName ExpectedLocalDirectoryName} {
+     set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$RemoteDirectoryName $::FtpTestLocalRoot/downloadto/temp}]
+     if {$Result == 0} {
+          set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp $::FtpTestLocalRoot/downloadto/expected/FtpDownloadSite/$ExpectedLocalDirectoryName"
+          set Result [catch {exec {*}$DiffCommand}]     
+     }     
+     set Result
+}
+
+}
+
+proc FtpDownloadSiteTest::Test-1 {} {
+
+::tcltest::test FtpDownloadSite-0 {Basic test}  -constraints {}  -setup {FtpDownloadSiteTest::Setup one-file
+}  -body {FtpDownloadSiteTest::Test one-file one-file
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-2 {} {
+
+::tcltest::test FtpDownloadSite-1 {Cannot connect to server}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Server 10.10.10.10
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-3 {} {
+
+::tcltest::test FtpDownloadSite-2 {Username invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Username asldfkher
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-4 {} {
+
+::tcltest::test FtpDownloadSite-3 {Password invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Password erifuhw
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-5 {} {
+
+::tcltest::test FtpDownloadSite-4 {Cannot switch to local directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory asferer
+set ::TestRemoteDirectory one-file
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+if {$Result == 0} {
+     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set Result [catch {exec {*}$DiffCommand}]     
+}     
+set Result [Flip $Result]
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-6 {} {
+
+::tcltest::test FtpDownloadSite-5 {Cannot switch to remote directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory one-file
+set ::TestRemoteDirectory asferfwer
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+if {$Result == 0} {
+     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set Result [catch {exec {*}$DiffCommand}]     
+}     
+set Result [Flip $Result]
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-7 {} {
+
+::tcltest::test FtpDownloadSite-6 {Bad transfer type}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::FileTransferType asldfkher
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-8 {} {
+
+::tcltest::test FtpDownloadSite-7 {Bad test}  -constraints {}  -setup {source ftp-test-config.tcl
+set LocalDirectory one-file
+file delete -force $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+file copy -force $::FtpTestLocalRoot/downloadto/original/$LocalDirectory $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+SaveWorkingDirectory}  -body {set ::TestLocalDirectory one-file
+set ::TestRemoteDirectory one-file
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+if {$Result == 0} {
+     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/one-file $::FtpTestLocalRoot/downloadto/expected/empty"
+     set Result [catch {exec {*}$DiffCommand}]     
+}     
+set Result
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-9 {} {
+
+::tcltest::test FtpDownloadSite-8 {Empty directory, nothing to upload}  -constraints {}  -setup {FtpDownloadSiteTest::Setup empty
+}  -body {FtpDownloadSiteTest::Test empty empty
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-10 {} {
+
+::tcltest::test FtpDownloadSite-9 {Has unmatched files}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-unmatched-files
+}  -body {FtpDownloadSiteTest::Test one-file has-unmatched-files
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-11 {} {
+
+::tcltest::test FtpDownloadSite-10 {Has unmatched directory}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-unmatched-subdir
+}  -body {FtpDownloadSiteTest::Test one-file has-unmatched-subdir
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-12 {} {
+
+::tcltest::test FtpDownloadSite-11 {Has existing files with same name}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-one-file-already
+}  -body {FtpDownloadSiteTest::Test one-file has-one-file-already
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-13 {} {
+
+::tcltest::test FtpDownloadSite-12 {Has existing directory with same name}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir-already
+}  -body {FtpDownloadSiteTest::Test has-subdir has-subdir-already
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-14 {} {
+
+::tcltest::test FtpDownloadSite-13 {Must create new directory}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir
+}  -body {FtpDownloadSiteTest::Test has-subdir has-subdir
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-15 {} {
+
+::tcltest::test FtpDownloadSite-14 {Has existing directory two levels deep}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir-two-levels
+}  -body {FtpDownloadSiteTest::Test has-subdir-two-levels has-subdir-two-levels
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadSiteTest::Test-16 {} {
+
+::tcltest::test FtpDownloadSite-15 {Test dry run}  -constraints {}  -setup {source ftp-test-config.tcl
+set LocalDirectory one-file
+file delete -force $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+file copy -force $::FtpTestLocalRoot/downloadto/original/$LocalDirectory $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+SaveWorkingDirectory}  -body {set GenNS::Ftp::DryRun 1
+set ::TestLocalDirectory one-file
+set ::TestRemoteDirectory one-file
+set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+if {$Result == 0} {
+     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set Result [catch {exec {*}$DiffCommand}]     
+}     
+set Result
+}  -cleanup {set GenNS::Ftp::DryRun 0
+RestoreWorkingDirectory
+}  -result {1}  -output {Would have downloaded file.txt
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FtpDownloadSiteTest::Test-1
+     FtpDownloadSiteTest::Test-2
+     FtpDownloadSiteTest::Test-3
+     FtpDownloadSiteTest::Test-4
+     FtpDownloadSiteTest::Test-5
+     FtpDownloadSiteTest::Test-6
+     FtpDownloadSiteTest::Test-7
+     FtpDownloadSiteTest::Test-8
+     FtpDownloadSiteTest::Test-9
+     FtpDownloadSiteTest::Test-10
+     FtpDownloadSiteTest::Test-11
+     FtpDownloadSiteTest::Test-12
+     FtpDownloadSiteTest::Test-13
+     FtpDownloadSiteTest::Test-14
+     FtpDownloadSiteTest::Test-15
+     FtpDownloadSiteTest::Test-16
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FtpDownloadSiteTest::Test-[set Element]
+     }
+}
+

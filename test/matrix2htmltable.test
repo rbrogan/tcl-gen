@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval Matrix2HtmlTableTest {}
+
+
+
+proc Matrix2HtmlTableTest::Test-1 {} {
 
 ::tcltest::test Matrix2HtmlTable-0 {Basic test}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-is-not-header]
@@ -16,6 +22,11 @@ puts [Matrix2HtmlTable $MyMatrix --first-row-is-not-header]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-2 {} {
 
 ::tcltest::test Matrix2HtmlTable-1 {Empty input}  -constraints {}  -setup {}  -body {set MyMatrix {}
 puts [Matrix2HtmlTable $MyMatrix]
@@ -23,6 +34,11 @@ puts [Matrix2HtmlTable $MyMatrix]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-3 {} {
 
 ::tcltest::test Matrix2HtmlTable-2 {One list with one element}  -constraints {}  -setup {}  -body {set MyMatrix {1}
 puts [Matrix2HtmlTable $MyMatrix]
@@ -33,6 +49,11 @@ puts [Matrix2HtmlTable $MyMatrix]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-4 {} {
 
 ::tcltest::test Matrix2HtmlTable-3 {One row only}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3}}
 puts [Matrix2HtmlTable $MyMatrix]
@@ -43,6 +64,11 @@ puts [Matrix2HtmlTable $MyMatrix]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-5 {} {
 
 ::tcltest::test Matrix2HtmlTable-4 {One column only}  -constraints {}  -setup {}  -body {set MyMatrix {1 2 3}
 puts [Matrix2HtmlTable $MyMatrix]
@@ -59,11 +85,21 @@ puts [Matrix2HtmlTable $MyMatrix]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-6 {} {
 
 ::tcltest::test Matrix2HtmlTable-5 {Input is not a matrix}  -constraints {}  -setup {}  -body {set MyMatrix {1 {2 2} {3 3 3}}
 puts [Matrix2HtmlTable $MyMatrix]
 }  -cleanup {}  -result {Variable MatrixValue has invalid value 1 {2 2} {3 3 3}.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-7 {} {
 
 ::tcltest::test Matrix2HtmlTable-6 {First row is header}  -constraints {}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-is-header]
@@ -83,9 +119,32 @@ puts [Matrix2HtmlTable $MyMatrix --first-row-is-header]
 </table>
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Matrix2HtmlTableTest::Test-8 {} {
 
 ::tcltest::test Matrix2HtmlTable-7 {Invalid value for FirstRowOption}  -constraints {}  -setup {}  -body {set MyMatrix {{Col1 Col2 Col3} {1 2 3} {4 5 6} {7 8 9}}
 puts [Matrix2HtmlTable $MyMatrix --first-row-header]
 }  -cleanup {}  -result {Variable FirstRowOption has invalid value --first-row-header.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     Matrix2HtmlTableTest::Test-1
+     Matrix2HtmlTableTest::Test-2
+     Matrix2HtmlTableTest::Test-3
+     Matrix2HtmlTableTest::Test-4
+     Matrix2HtmlTableTest::Test-5
+     Matrix2HtmlTableTest::Test-6
+     Matrix2HtmlTableTest::Test-7
+     Matrix2HtmlTableTest::Test-8
+} else {
+     foreach Element [lrange $argv 1 end] {
+          Matrix2HtmlTableTest::Test-[set Element]
+     }
+}
 

@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval UpvarExistingOrDieTest {}
+
+
+
+proc UpvarExistingOrDieTest::Test-1 {} {
 
 ::tcltest::test UpvarExistingOrDie-0 {Illustration}  -constraints {}  -setup {}  -body {proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
 set abc 123
@@ -7,15 +13,44 @@ MyPrintVar abc
 }  -cleanup {}  -result {}  -output {abc = 123
 }  -returnCodes {0}  
 
+}
+
+
+
+proc UpvarExistingOrDieTest::Test-2 {} {
 
 ::tcltest::test UpvarExistingOrDie-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVariable
 proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
 MyPrintVar NoVariable}  -cleanup {}  -result {Could not find variable NoVariable in caller.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc UpvarExistingOrDieTest::Test-3 {} {
 
 ::tcltest::test UpvarExistingOrDie-2 {Empty string input}  -constraints {}  -setup {}  -body {UpvarExistingOrDie "" abc}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc UpvarExistingOrDieTest::Test-4 {} {
 
 ::tcltest::test UpvarExistingOrDie-3 {Empty string input 2}  -constraints {}  -setup {}  -body {UpvarExistingOrDie abc ""}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     UpvarExistingOrDieTest::Test-1
+     UpvarExistingOrDieTest::Test-2
+     UpvarExistingOrDieTest::Test-3
+     UpvarExistingOrDieTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          UpvarExistingOrDieTest::Test-[set Element]
+     }
+}
 

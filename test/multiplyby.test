@@ -1,25 +1,66 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval MultiplyByTest {}
+
+
+
+proc MultiplyByTest::Test-1 {} {
 
 ::tcltest::test MultiplyBy-0 {Basic test}  -constraints {}  -setup {}  -body {set MyVar 2
 MultiplyBy MyVar 2
 puts $MyVar}  -cleanup {}  -result {}  -output {4
 }  -returnCodes {0}  
 
+}
+
+
+
+proc MultiplyByTest::Test-2 {} {
 
 ::tcltest::test MultiplyBy-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 MultiplyBy NoSuchVar 2
 }  -cleanup {}  -result {Could not find variable NoSuchVar in caller.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc MultiplyByTest::Test-3 {} {
 
 ::tcltest::test MultiplyBy-2 {Non-numeric input}  -constraints {}  -setup {}  -body {set MyVar 12
 MultiplyBy MyVar asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc MultiplyByTest::Test-4 {} {
 
 ::tcltest::test MultiplyBy-3 {Empty string input 1}  -constraints {}  -setup {}  -body {MultiplyBy "" 2}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc MultiplyByTest::Test-5 {} {
 
 ::tcltest::test MultiplyBy-4 {Empty string input 2}  -constraints {}  -setup {}  -body {set MyVar 12
 MultiplyBy MyVar ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     MultiplyByTest::Test-1
+     MultiplyByTest::Test-2
+     MultiplyByTest::Test-3
+     MultiplyByTest::Test-4
+     MultiplyByTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          MultiplyByTest::Test-[set Element]
+     }
+}
 

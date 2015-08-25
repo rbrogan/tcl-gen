@@ -1,15 +1,44 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval PrintVarTest {}
+
+
+
+proc PrintVarTest::Test-1 {} {
 
 ::tcltest::test PrintVar-0 {Basic positive}  -constraints {}  -setup {}  -body {set x 123
 PrintVar x}  -cleanup {}  -result {}  -output {x is 123
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintVarTest::Test-2 {} {
 
 ::tcltest::test PrintVar-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVar
 PrintVar NoVar}  -cleanup {}  -result {Could not find variable NoVar in caller.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc PrintVarTest::Test-3 {} {
 
 ::tcltest::test PrintVar-2 {Empty string input}  -constraints {}  -setup {}  -body {PrintVar ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     PrintVarTest::Test-1
+     PrintVarTest::Test-2
+     PrintVarTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          PrintVarTest::Test-[set Element]
+     }
+}
 

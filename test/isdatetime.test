@@ -1,17 +1,46 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsDatetimeTest {}
+
+
+
+proc IsDatetimeTest::Test-1 {} {
 
 ::tcltest::test IsDatetime-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDatetime asdf
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsDatetimeTest::Test-2 {} {
 
 ::tcltest::test IsDatetime-1 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsDatetime {2000-01-02 03:04:05}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsDatetimeTest::Test-3 {} {
 
 ::tcltest::test IsDatetime-2 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 IsDatetime {01/02/2000 0304}
 }  -cleanup {SetDateFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsDatetimeTest::Test-1
+     IsDatetimeTest::Test-2
+     IsDatetimeTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsDatetimeTest::Test-[set Element]
+     }
+}
 

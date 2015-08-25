@@ -2,6 +2,73 @@ Gen
 
 NEWS
 
+2015.08.24
+v1.7.0 Release
+
+We continue on with our assortment of FTP-related commands. Also for this
+release, we have begun putting things in place for a couple of new features.
+
+Here are the new commands --
+
+FtpCleanRemoteDirectory
+     Clean remote directory of contents, but leave directory.
+
+FtpDownloadDirectory
+     Download from remote directory into local directory.
+
+FtpDownloadSite
+     Make connection, download files, close connection.
+
+FtpMirrorLocalToRemote
+     Make remote site match what local site has.
+
+FtpUploadDirectory
+     Upload local directory to remote directory.
+
+FtpUploadSite
+     Make connection, upload all files, close connection.
+
+
+
+
+Now for other changes --
+
+First, note that rather than use gen.tcl by itself, we have a separate source
+file for each command. This helps out with a few things and is a (conceptual)
+step towards the ability to partially load Gen based on what dependencies you
+have on your machine. It also makes things be a bit more consistent with the
+documentation and tests (each has a file per command).
+
+Second, we have begun moving the exception (i.e. error) documentation out into
+separate pages. These pages are like-to the regular command documentation and
+vice versa. The purpose here is to set up a space where we will add details for
+things like debugging, policies, etc., and be able do that without having too
+much information on the main page.
+
+The Run command has changed to save the pre-existing contents of ::argv and
+restore them before exiting.
+
+The test suite was changed to support FTP testing by making it possible to run
+individual tests. However, this is an internal feature, should not interfere
+with how tests normally run, and is not yet supported.
+
+Since we prefer to keep strict deadlines and force something out, then revise,
+not everything made it into this revision. Specifically:
+
+* All the commands have been tested pretty well, but the set up involves things
+like running commands on the remote machine to do a diff, redo the setup for the
+next test, etc. Did not have time to make this be universal, so those tests will
+fail for you. The commands should still work.
+* The error messages for the FTP commands and other commands need to be gathered
+up and put into the exception documentation.
+* The tests for the FTP commands could stand to be touched up and made more
+consistent.
+* The documentation for the FTP commands could also stand to be touched up and
+made more consistent.
+
+So we will look to put out a revision that addresses these, get going with a
+Known Issues page, etc.
+
 2015.08.10
 v1.6.0 Release
 
@@ -10,8 +77,8 @@ More commands to follow in a couple of weeks. Check doc/about-ftp-use.html for
 more information and test/README-test-ftp.txt or test/README-test-ftp.html for
 information about testing FTP commands on your machine.
 
-FtpMirrorRemoteToLocal
-     Make local site match what remote has.
+FtpCleanRemoteDirectory
+     Clean remote directory of contents, but leave directory.
 
 FtpWhichIsLarger
      Tell whether the local or remote file is larger or if same.
@@ -25,9 +92,8 @@ RestoreWorkingDirectory
 SaveWorkingDirectory
      Save the current working directory, so can later restore.
 
-
-
-
+     
+     
 2015.07.27
 v1.5.0 Release
 
@@ -353,7 +419,7 @@ SqlSetClause
      Derive a set clause for an update query, using a dict.
 
 SqlUpdateStatement
-     Create an UP2015.08.10 statement.
+     Create an UP2015.08.24 statement.
 
 SqlWhereClause
      Create a WHERE clause using the values in dict.

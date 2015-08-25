@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval RegistryTree2DictTest {}
+
+
+
+proc RegistryTree2DictTest::Test-1 {} {
 
 ::tcltest::test RegistryTree2Dict-0 {Basic test}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
@@ -18,20 +24,49 @@ three
       333 three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc RegistryTree2DictTest::Test-2 {} {
 
 ::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -constraints {win}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
 
 }  -cleanup {}  -result {Registry key/value HKEY_LOCAL_MACHINE\asdfasdf not found.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc RegistryTree2DictTest::Test-3 {} {
 
 ::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -constraints {win}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
 
 }  -cleanup {}  -result {Variable CurrentRegKey has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc RegistryTree2DictTest::Test-4 {} {
 
 ::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 set MyDict [RegistryTree2Dict {HKEY_CURRENT_USER\Software\GenTest}]
 PrintDict $MyDict
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     RegistryTree2DictTest::Test-1
+     RegistryTree2DictTest::Test-2
+     RegistryTree2DictTest::Test-3
+     RegistryTree2DictTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          RegistryTree2DictTest::Test-[set Element]
+     }
+}
 

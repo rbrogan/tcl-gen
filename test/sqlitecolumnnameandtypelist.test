@@ -1,16 +1,45 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqliteColumnNameAndTypeListTest {}
+
+
+
+proc SqliteColumnNameAndTypeListTest::Test-1 {} {
 
 ::tcltest::test SqliteColumnNameAndTypeList-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameAndTypeList globals
 }  -cleanup {}  -result {id {integer primary key} desc text intvalue integer realvalue real textvalue text}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqliteColumnNameAndTypeListTest::Test-2 {} {
 
 ::tcltest::test SqliteColumnNameAndTypeList-1 {Table does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameAndTypeList NoSuchTable
 }  -cleanup {}  -result {Table NoSuchTable not found.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqliteColumnNameAndTypeListTest::Test-3 {} {
 
 ::tcltest::test SqliteColumnNameAndTypeList-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteColumnNameAndTypeList ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqliteColumnNameAndTypeListTest::Test-1
+     SqliteColumnNameAndTypeListTest::Test-2
+     SqliteColumnNameAndTypeListTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqliteColumnNameAndTypeListTest::Test-[set Element]
+     }
+}
 

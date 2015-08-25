@@ -1,7 +1,24 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval NowTest {}
+
+
+
+proc NowTest::Test-1 {} {
 
 ::tcltest::test Now-0 {Basic test}  -constraints {}  -setup {}  -body {Ter {[IsDatetime [Now]]} {return 1} {return 0}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     NowTest::Test-1
+} else {
+     foreach Element [lrange $argv 1 end] {
+          NowTest::Test-[set Element]
+     }
+}
 

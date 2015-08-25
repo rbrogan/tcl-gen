@@ -1,41 +1,112 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SliceLeftTest {}
+
+
+
+proc SliceLeftTest::Test-1 {} {
 
 ::tcltest::test SliceLeft-0 {Basic test}  -constraints {}  -setup {}  -body {SliceLeft ababa b
 }  -cleanup {}  -result {a ba ba}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-2 {} {
 
 ::tcltest::test SliceLeft-1 {First character is target}  -constraints {}  -setup {}  -body {SliceLeft bababa b
 }  -cleanup {}  -result {ba ba ba}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-3 {} {
 
 ::tcltest::test SliceLeft-2 {Last character is target}  -constraints {}  -setup {}  -body {SliceLeft ababab b}  -cleanup {}  -result {a ba ba b}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-4 {} {
 
 ::tcltest::test SliceLeft-3 {Empty string}  -constraints {}  -setup {}  -body {SliceLeft {} b}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-5 {} {
 
 ::tcltest::test SliceLeft-4 {Multiple target characters}  -constraints {}  -setup {}  -body {SliceLeft abcd {bc}
 }  -cleanup {}  -result {a b cd}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-6 {} {
 
 ::tcltest::test SliceLeft-5 {Character list is empty}  -constraints {}  -setup {}  -body {SliceLeft abba {}
 }  -cleanup {}  -result {abba}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-7 {} {
 
 ::tcltest::test SliceLeft-6 {No target characters found}  -constraints {}  -setup {}  -body {SliceLeft ababa x
 }  -cleanup {}  -result {ababa}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-8 {} {
 
 ::tcltest::test SliceLeft-7 {Just one character and it is target}  -constraints {}  -setup {}  -body {SliceLeft b b
 }  -cleanup {}  -result {b}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-9 {} {
 
 ::tcltest::test SliceLeft-8 {Multiple target characters in a row}  -constraints {}  -setup {}  -body {SliceLeft bbbb b
 }  -cleanup {}  -result {b b b b}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SliceLeftTest::Test-10 {} {
 
 ::tcltest::test SliceLeft-9 {Characters repeated in target character list}  -constraints {}  -setup {}  -body {SliceLeft ababa {bb}
 }  -cleanup {}  -result {a ba ba}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SliceLeftTest::Test-1
+     SliceLeftTest::Test-2
+     SliceLeftTest::Test-3
+     SliceLeftTest::Test-4
+     SliceLeftTest::Test-5
+     SliceLeftTest::Test-6
+     SliceLeftTest::Test-7
+     SliceLeftTest::Test-8
+     SliceLeftTest::Test-9
+     SliceLeftTest::Test-10
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SliceLeftTest::Test-[set Element]
+     }
+}
 

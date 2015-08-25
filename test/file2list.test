@@ -1,21 +1,50 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval File2ListTest {}
+
+
+
+proc File2ListTest::Test-1 {} {
 
 ::tcltest::test File2List-0 {Basic test 1 - three lines}  -constraints {}  -setup {}  -body {List2File {one two three} test.txt
 set MyList [File2List test.txt]
 puts $MyList}  -cleanup {}  -result {}  -output {one two three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc File2ListTest::Test-2 {} {
 
 ::tcltest::test File2List-1 {Basic test 2 - one line}  -constraints {}  -setup {}  -body {List2File {one} test.txt
 set MyList [File2List test.txt]
 puts $MyList}  -cleanup {}  -result {}  -output {one
 }  -returnCodes {0}  
 
+}
+
+
+
+proc File2ListTest::Test-3 {} {
 
 ::tcltest::test File2List-2 {Empty list}  -constraints {}  -setup {}  -body {List2File {} test.txt
 set MyList [File2List test.txt]
 puts $MyList}  -cleanup {}  -result {}  -output {
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     File2ListTest::Test-1
+     File2ListTest::Test-2
+     File2ListTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          File2ListTest::Test-[set Element]
+     }
+}
 

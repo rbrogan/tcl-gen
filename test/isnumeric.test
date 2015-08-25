@@ -1,26 +1,79 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsNumericTest {}
+
+
+
+proc IsNumericTest::Test-1 {} {
 
 ::tcltest::test IsNumeric-0 {Basic test 1 - integer}  -constraints {}  -setup {}  -body {IsNumeric 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-2 {} {
 
 ::tcltest::test IsNumeric-1 {Basic test 2 - double}  -constraints {}  -setup {}  -body {IsNumeric 1.1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-3 {} {
 
 ::tcltest::test IsNumeric-2 {Basic test 3 - wide integer}  -constraints {}  -setup {}  -body {IsNumeric  111111111111111111}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-4 {} {
 
 ::tcltest::test IsNumeric-3 {Negative test - Alphabetic}  -constraints {}  -setup {}  -body {IsNumeric asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-5 {} {
 
 ::tcltest::test IsNumeric-4 {Negative test - Empty string}  -constraints {}  -setup {}  -body {IsNumeric ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-6 {} {
 
 ::tcltest::test IsNumeric-5 {Basic test - hex}  -constraints {}  -setup {}  -body {IsNumeric 0x10
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNumericTest::Test-7 {} {
 
 ::tcltest::test IsNumeric-6 {Basic test - octal}  -constraints {}  -setup {}  -body {IsNumeric 010
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsNumericTest::Test-1
+     IsNumericTest::Test-2
+     IsNumericTest::Test-3
+     IsNumericTest::Test-4
+     IsNumericTest::Test-5
+     IsNumericTest::Test-6
+     IsNumericTest::Test-7
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsNumericTest::Test-[set Element]
+     }
+}
 

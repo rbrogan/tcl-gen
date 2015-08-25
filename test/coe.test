@@ -1,19 +1,60 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval CoeTest {}
+
+
+
+proc CoeTest::Test-1 {} {
 
 ::tcltest::test Coe-0 {No args}  -constraints {}  -setup {}  -body {Coe
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc CoeTest::Test-2 {} {
 
 ::tcltest::test Coe-1 {Basic test - return concat of two}  -constraints {}  -setup {}  -body {Coe 1 2}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc CoeTest::Test-3 {} {
 
 ::tcltest::test Coe-2 {Basic test - return empty}  -constraints {}  -setup {}  -body {Coe 1 ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc CoeTest::Test-4 {} {
 
 ::tcltest::test Coe-3 {One arg, not empty}  -constraints {}  -setup {}  -body {Coe 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc CoeTest::Test-5 {} {
 
 ::tcltest::test Coe-4 {One arg, empty}  -constraints {}  -setup {}  -body {Coe ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     CoeTest::Test-1
+     CoeTest::Test-2
+     CoeTest::Test-3
+     CoeTest::Test-4
+     CoeTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          CoeTest::Test-[set Element]
+     }
+}
 

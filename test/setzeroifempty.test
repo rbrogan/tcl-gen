@@ -1,22 +1,57 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SetZeroIfEmptyTest {}
+
+
+
+proc SetZeroIfEmptyTest::Test-1 {} {
 
 ::tcltest::test SetZeroIfEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set Nothing ""
 SetZeroIfEmpty Nothing
 puts $Nothing}  -cleanup {}  -result {}  -output {0
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetZeroIfEmptyTest::Test-2 {} {
 
 ::tcltest::test SetZeroIfEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set Something "something"
 SetZeroIfEmpty Something
 puts $Something}  -cleanup {}  -result {}  -output {something
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetZeroIfEmptyTest::Test-3 {} {
 
 ::tcltest::test SetZeroIfEmpty-2 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVariable
 SetZeroIfEmpty NoVariable}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SetZeroIfEmptyTest::Test-4 {} {
 
 ::tcltest::test SetZeroIfEmpty-3 {Empty string input}  -constraints {}  -setup {}  -body {SetZeroIfEmpty ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SetZeroIfEmptyTest::Test-1
+     SetZeroIfEmptyTest::Test-2
+     SetZeroIfEmptyTest::Test-3
+     SetZeroIfEmptyTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SetZeroIfEmptyTest::Test-[set Element]
+     }
+}
 

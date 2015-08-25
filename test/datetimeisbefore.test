@@ -1,26 +1,73 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DatetimeIsBeforeTest {}
+
+
+
+proc DatetimeIsBeforeTest::Test-1 {} {
 
 ::tcltest::test DatetimeIsBefore-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DatetimeIsBefore {2000-01-02 03:04:05} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBeforeTest::Test-2 {} {
 
 ::tcltest::test DatetimeIsBefore-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DatetimeIsBefore {2000-01-02 03:04:06} {2000-01-02 03:04:05}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBeforeTest::Test-3 {} {
 
 ::tcltest::test DatetimeIsBefore-2 {FirstDateTime is invalid}  -constraints {}  -setup {}  -body {DatetimeIsBefore asdf {2000-01-02 03:04:06}}  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBeforeTest::Test-4 {} {
 
 ::tcltest::test DatetimeIsBefore-3 {SecondDateTime is invalid}  -constraints {}  -setup {}  -body {DatetimeIsBefore {2000-01-02 03:04:05} asdf}  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBeforeTest::Test-5 {} {
 
 ::tcltest::test DatetimeIsBefore-4 {Datetimes are equal}  -constraints {}  -setup {}  -body {DatetimeIsBefore {2000-01-02 03:04:05} {2000-01-02 03:04:05}}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBeforeTest::Test-6 {} {
 
 ::tcltest::test DatetimeIsBefore-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 DatetimeIsBefore {01/02/2000 0302} {01/02/2000 0303}
 }  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DatetimeIsBeforeTest::Test-1
+     DatetimeIsBeforeTest::Test-2
+     DatetimeIsBeforeTest::Test-3
+     DatetimeIsBeforeTest::Test-4
+     DatetimeIsBeforeTest::Test-5
+     DatetimeIsBeforeTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DatetimeIsBeforeTest::Test-[set Element]
+     }
+}
 

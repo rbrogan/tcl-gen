@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DbaseRegsubTest {}
+
+
+
+proc DbaseRegsubTest::Test-1 {} {
 
 ::tcltest::test DbaseRegsub-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
@@ -11,14 +17,29 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -result {21 11 12}  -output {2
 }  -returnCodes {0}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-2 {} {
 
 ::tcltest::test DbaseRegsub-3 {Table name empty}  -constraints {}  -setup {}  -body {DbaseRegsub "" desc OldName NewName
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-3 {} {
 
 ::tcltest::test DbaseRegsub-4 {Field name empty}  -constraints {}  -setup {}  -body {DbaseRegsub my_table "" OldName NewName
 }  -cleanup {}  -result {Variable ColumnName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-4 {} {
 
 ::tcltest::test DbaseRegsub-5 {Find misses}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
@@ -28,10 +49,20 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -cleanup {QQ {DELETE FROM my_table WHERE notes = 'regsub_target'}
 }  -result {01 11 10}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-5 {} {
 
 ::tcltest::test DbaseRegsub-6 {Find empty}  -constraints {}  -setup {}  -body {DbaseRegsub my_table desc "" NewName
 }  -cleanup {}  -result {Variable FindValue has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-6 {} {
 
 ::tcltest::test DbaseRegsub-7 {WhereDict used}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
@@ -41,6 +72,11 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -cleanup {QQ {DELETE FROM my_table WHERE notes = 'regsub_target'}
 }  -result {21 11 10}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-7 {} {
 
 ::tcltest::test DbaseRegsub-8 {No records match}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
@@ -50,6 +86,11 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -cleanup {QQ {DELETE FROM my_table WHERE notes = 'regsub_target'}
 }  -result {01 11 10}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DbaseRegsubTest::Test-8 {} {
 
 ::tcltest::test DbaseRegsub-9 {ReplaceValue empty}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlEnter my_table {desc '01' notes 'regsub_target'}
 RunSqlEnter my_table {desc '11' notes 'regsub_target'}
@@ -59,4 +100,22 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 }  -cleanup {QQ {DELETE FROM my_table WHERE notes = 'regsub_target'}
 }  -result {1 11 1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DbaseRegsubTest::Test-1
+     DbaseRegsubTest::Test-2
+     DbaseRegsubTest::Test-3
+     DbaseRegsubTest::Test-4
+     DbaseRegsubTest::Test-5
+     DbaseRegsubTest::Test-6
+     DbaseRegsubTest::Test-7
+     DbaseRegsubTest::Test-8
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DbaseRegsubTest::Test-[set Element]
+     }
+}
 

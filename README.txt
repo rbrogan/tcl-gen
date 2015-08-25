@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.6.0
+1.7.0
 % set Number 1
 1
 % AddTo Number 2
@@ -141,6 +141,8 @@ WARNING.txt
           Main script file.
      gen-config.tcl
           Configuration variables (e.g. datetime format).
+     *.tcl
+          Each command has its own source file.
 /doc
      Any other documents (like the manual).
 /test
@@ -298,9 +300,16 @@ message body.) You will get an email every time we have a new release.
 
 ---18| RECENT CHANGES
 
-Version 1.6.0. No changes are known to affect existing API usage. You can find a
-change summary in news.txt / news.html and details in changelog.txt /
-changelog.html.
+The Run command has changed to save the pre-existing contents of ::argv and
+restore them before exiting.
+
+Changed source structure so that each command has its own separate file. Changed
+documentation structure so that each command has a separate documentation page
+to hold all information relating to exceptional conditions (e.g. errors, warning
+policies, debug modes, etc.).
+
+Version 1.7.0. You can find a change summary in news.txt / news.html and details
+in changelog.txt / changelog.html.
 
 ---19| LICENSE
 

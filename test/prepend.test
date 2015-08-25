@@ -1,19 +1,40 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval PrependTest {}
+
+
+
+proc PrependTest::Test-1 {} {
 
 ::tcltest::test Prepend-0 {Basic test}  -constraints {}  -setup {}  -body {set MyString World
 Prepend MyString "Hello "
 }  -cleanup {}  -result {Hello World}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc PrependTest::Test-2 {} {
 
 ::tcltest::test Prepend-1 {String variable not pre-existing}  -constraints {}  -setup {}  -body {unset -nocomplain NewVariable
 Prepend NewVariable "abc"
 puts $NewVariable}  -cleanup {}  -result {}  -output {abc
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrependTest::Test-3 {} {
 
 ::tcltest::test Prepend-2 {Empty name for string variable}  -constraints {}  -setup {}  -body {Prepend "" abc}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc PrependTest::Test-4 {} {
 
 ::tcltest::test Prepend-3 {Empty prepend value}  -constraints {}  -setup {}  -body {set MyVar abc
 Prepend MyVar ""
@@ -21,4 +42,18 @@ puts $MyVar
 }  -cleanup {}  -result {}  -output {abc
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     PrependTest::Test-1
+     PrependTest::Test-2
+     PrependTest::Test-3
+     PrependTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          PrependTest::Test-[set Element]
+     }
+}
 

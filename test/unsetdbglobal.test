@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval UnsetDbGlobalTest {}
+
+
+
+proc UnsetDbGlobalTest::Test-1 {} {
 
 ::tcltest::test UnsetDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal MyUnsetVariable 123
 puts "[QQ [SqlCountStatement globals {desc 'MyUnsetVariable'}]]"
@@ -9,13 +15,36 @@ puts "[QQ [SqlCountStatement globals {desc 'MyUnsetVariable'}]]"
 0
 }  -returnCodes {0}  
 
+}
+
+
+
+proc UnsetDbGlobalTest::Test-2 {} {
 
 ::tcltest::test UnsetDbGlobal-1 {Variable to unset does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {UnsetDbGlobal asdf
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc UnsetDbGlobalTest::Test-3 {} {
 
 ::tcltest::test UnsetDbGlobal-2 {Variable name is empty}  -constraints {}  -setup {}  -body {UnsetDbGlobal ""
 }  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     UnsetDbGlobalTest::Test-1
+     UnsetDbGlobalTest::Test-2
+     UnsetDbGlobalTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          UnsetDbGlobalTest::Test-[set Element]
+     }
+}
 

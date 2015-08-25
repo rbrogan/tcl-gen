@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqliteCopyTableTest {}
+
+
+
+proc SqliteCopyTableTest::Test-1 {} {
 
 ::tcltest::test SqliteCopyTable-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
@@ -17,14 +23,29 @@ three
 id {integer primary key} desc text
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SqliteCopyTableTest::Test-2 {} {
 
 ::tcltest::test SqliteCopyTable-1 {SourceTableName is empty}  -constraints {}  -setup {}  -body {SqliteCopyTable "" gen_temp_table2
 }  -cleanup {}  -result {Variable SourceTableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqliteCopyTableTest::Test-3 {} {
 
 ::tcltest::test SqliteCopyTable-3 {TargetTableName is empty}  -constraints {}  -setup {}  -body {SqliteCopyTable gen_temp_table ""
 }  -cleanup {}  -result {Variable TargetTableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqliteCopyTableTest::Test-4 {} {
 
 ::tcltest::test SqliteCopyTable-4 {Target table with given name exists}  -constraints {}  -setup {sqlite3 testdb test.db
 sqlite3 testdb test.db
@@ -37,6 +58,11 @@ QQ {CREATE TABLE gen_temp_table2 (id integer primary key, desc text)}
 QQ {DROP TABLE gen_temp_table2}
 }  -result {Input value gen_temp_table2 is invalid. Target table already exists.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqliteCopyTableTest::Test-5 {} {
 
 ::tcltest::test SqliteCopyTable-5 {Columns renamed}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
@@ -52,6 +78,11 @@ two
 three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SqliteCopyTableTest::Test-6 {} {
 
 ::tcltest::test SqliteCopyTable-6 {ColumnNames has wrong number of elements}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
@@ -62,4 +93,20 @@ QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
 }  -cleanup {QQ {DROP TABLE gen_temp_table}
 }  -result {Variable ColumnNames has invalid value desc. Number of elements does not match number of columns in table.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqliteCopyTableTest::Test-1
+     SqliteCopyTableTest::Test-2
+     SqliteCopyTableTest::Test-3
+     SqliteCopyTableTest::Test-4
+     SqliteCopyTableTest::Test-5
+     SqliteCopyTableTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqliteCopyTableTest::Test-[set Element]
+     }
+}
 

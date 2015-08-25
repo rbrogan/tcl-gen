@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SetTimeOfDayFormatTest {}
+
+
+
+proc SetTimeOfDayFormatTest::Test-1 {} {
 
 ::tcltest::test SetTimeOfDayFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat %H:%M:%S
 puts [IsTimeOfDay 00:00:00]
@@ -8,6 +14,11 @@ puts [IsTimeOfDay 0000]
 0
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetTimeOfDayFormatTest::Test-2 {} {
 
 ::tcltest::test SetTimeOfDayFormat-1 {Set to something other than default}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat %H%M
 puts [IsTimeOfDay 00:00:00]
@@ -16,8 +27,26 @@ puts [IsTimeOfDay 0000]
 1
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetTimeOfDayFormatTest::Test-3 {} {
 
 ::tcltest::test SetTimeOfDayFormat-2 {Invalid input}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat asdf
 }  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SetTimeOfDayFormatTest::Test-1
+     SetTimeOfDayFormatTest::Test-2
+     SetTimeOfDayFormatTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SetTimeOfDayFormatTest::Test-[set Element]
+     }
+}
 

@@ -1,16 +1,37 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval MashTest {}
+
+
+
+proc MashTest::Test-1 {} {
 
 ::tcltest::test Mash-0 {Basic test}  -constraints {}  -setup {}  -body {set DisplayName "Two Words"
 set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc MashTest::Test-2 {} {
 
 ::tcltest::test Mash-1 {Already mashed}  -constraints {}  -setup {}  -body {set DisplayName "twowords"
 set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc MashTest::Test-3 {} {
 
 ::tcltest::test Mash-2 {Empty string input}  -constraints {}  -setup {}  -body {Mash ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc MashTest::Test-4 {} {
 
 ::tcltest::test Mash-3 {Test at}  -constraints {}  -setup {}  -body {set MyString "Mash ed"
 Mash @MyString
@@ -18,4 +39,18 @@ puts $MyString
 }  -cleanup {}  -result {}  -output {mashed
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     MashTest::Test-1
+     MashTest::Test-2
+     MashTest::Test-3
+     MashTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          MashTest::Test-[set Element]
+     }
+}
 

@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval FtpWhichIsLargerTest {}
+
+
+
+proc FtpWhichIsLargerTest::Test-1 {} {
 
 ::tcltest::test FtpWhichIsLarger-0 {Local file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
@@ -16,6 +22,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {local}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FtpWhichIsLargerTest::Test-2 {} {
 
 ::tcltest::test FtpWhichIsLarger-1 {Remote file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
@@ -32,6 +43,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {remote}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FtpWhichIsLargerTest::Test-3 {} {
 
 ::tcltest::test FtpWhichIsLarger-2 {Both files are of equal size}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
@@ -48,6 +64,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {same}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FtpWhichIsLargerTest::Test-4 {} {
 
 ::tcltest::test FtpWhichIsLarger-3 {File does not exist remotely}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
@@ -64,6 +85,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {FTP: Could not get remote file size.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc FtpWhichIsLargerTest::Test-5 {} {
 
 ::tcltest::test FtpWhichIsLarger-4 {File does not exist locally}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
@@ -80,4 +106,19 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-sizes-2
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-sizes-2 $::FtpTestLocalRoot/downloadto/temp/different-sizes-2}  -result {could not read "does-not-exist-on-local.txt": no such file or directory}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FtpWhichIsLargerTest::Test-1
+     FtpWhichIsLargerTest::Test-2
+     FtpWhichIsLargerTest::Test-3
+     FtpWhichIsLargerTest::Test-4
+     FtpWhichIsLargerTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FtpWhichIsLargerTest::Test-[set Element]
+     }
+}
 

@@ -28,6 +28,120 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.7.0</div><div class="section-header-right">2015.08.24</div>
+</div>
+<div class="section-content">
+<p>The Run command has changed to save the pre-existing contents of ::argv and
+restore them before exiting. It is unlikely this should break existing usage. If
+this change does cause a bug then it means something somehow happened to use the
+contents of ::argv that were left over from a call to Run. This is pretty
+unlikely.</p>
+<p>
+Changes by functionality<br>
+<ul>
+<li>Monthly release of new commands, with corresponding files in test and doc directories.</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>README.html
+<ul>
+<li>Update Recent Changes section.</li>
+<li>Added note that each command has its own file.</li>
+<li>Added notes about changes to source and documentation structure.</li>
+</ul>
+</li>
+<li>
+README.txt
+<ul>
+<li>Update Recent Changes section.</li>
+<li>Added note that each command has its own file.</li>
+<li>Added notes about changes to source and documentation structure.</li>
+</ul>
+</li>
+<li>roadmap.html
+<ul><li>Update with info for next release.</li></ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/doc
+<ul>
+<li>Added pages for new commands.</li>
+<li>Added index pages with new version number.</li>
+<li>Updated index pages with new commands.</li>
+<li>Exceptions documentation page for each command.</li>
+<li>Every command page got an update moving any error table out to the exceptions
+page and has a link to that page (and vice versa).</li>
+<li>Added exceptions-index.html page.</li>
+<li>Updated menu.html to include link to exceptions-index.html.</li>
+<li>For LinkVarToDbGlobal, LinkTclVariableToRegistryValue, UnlinkVarFromDbGlobal,
+UnlinkTclVariableFromRegistryValue added note that currently only support global
+variables.</li>
+<li>Moved tests for AddEpilogue and AddPrologue out from addepilogue.test and
+addprologue.test into a separate file. In order to test these, you must run
+addepilogue-test.tcl and addprologue-test.tcl manually.</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>Note that Run was changed to save ::argv before using it and then restore ::argv
+after done.</li>
+<li>Commands added.</li>
+<li>Internal commands added.</li>
+<li>gen.tcl
+<ul>
+<li>Removed all code for commands out into their own separate files.</li>
+<li>Put in code to detect where package is located.</li>
+<li>Put in code to source each command file.</li>
+</ul>
+</li>
+<li>pkgIndex.tcl
+<ul>
+<li>Updated version.</li>
+</ul>
+</li>
+<li>*.tcl
+<ul>
+<li>Added a command for each file.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/test
+<ul>
+<li>Changed all tests to put the tests each inside a proc and then look at ::argv
+and decide whether to run all tests or just certain tests. (This was useful for
+FTP.)
+<li>Added tests for new commands.</li>
+<li>For Run changed / added tests to make sure it saves/restore pre-existing ::argv.</li>
+<li>For LinkVarToDbGlobal, LinkTclVariableToRegistryValue, UnlinkVarFromDbGlobal,
+UnlinkTclVariableFromRegistryValue -- changed these to strictly test for global
+variables.</li>
+<li>Changes to how tests work, added the ability to use the Run command to run
+individual tests.</li>
+<li>Made many changes to ftp-local and ftp-remote.</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+
+
+<div class="section-header">
 <div class="section-header-left">1.6.0</div><div class="section-header-right">2015.08.10</div>
 </div>
 <div class="section-content">
@@ -94,12 +208,6 @@ README.txt
 <li>Internal commands added.</li>
 <li>Updated index pages with new commands.</li>
 <li>Added about-ftp-use.html.</li>
-</ul>
-</li>
-<li>gen-config.tcl
-<ul>
-<li>Added FTP-related config.</li>
-<li>Added storage variable for SaveWorkingDirectory/RestoreWorkingDirectory.</li>
 </ul>
 </li>
 <li>pkgIndex.tcl

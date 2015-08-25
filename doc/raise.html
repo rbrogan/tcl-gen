@@ -22,26 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-A list where each element is a list of the given length.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVariable</i></td><td class='argument_right'>List to derive from. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>SublistLength</i></td><td class='argument_right'>How many elements each sublist should be.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>The input list cannot be grouped into sublists of the given length.</td>
-<td class="error_code">-6</td>
-<td>Input value $SublistLength does not divide list evenly.</td>
-</tr>
-<tr><td>Input value is out-of-range.</td>
-<td class="error_code">-8</td>
-<td>Input value $Value is out-of-range.</td>
-</tr>
-<tr><td>Input value is non-positive.</td>
-<td class="error_code">-9</td>
-<td>Expected positive input value, got input value $Value instead.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for taking the flat, raw list one gets back from an sqlite eval and grouping the elements into records.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.
+A list where each element is a list of the given length.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVariable</i></td><td class='argument_right'>List to derive from. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>SublistLength</i></td><td class='argument_right'>How many elements each sublist should be.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Useful for taking the flat, raw list one gets back from an sqlite eval and grouping the elements into records.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="raise-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

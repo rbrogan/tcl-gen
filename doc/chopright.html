@@ -22,18 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-String with the characters removed.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String value to chop. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>Count</i></td><td class='argument_right'>Optional. How many characters to chop. Default is 1.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Contents of variable are invalid.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command is based on <code>string range</code> and has behavior consistent with values that are less than zero or past the end of the string.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @. See <a href="at.html">About Using @</a> for details.
+String with the characters removed.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String value to chop. Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>Count</i></td><td class='argument_right'>Optional. How many characters to chop. Default is 1.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command is based on <code>string range</code> and has behavior consistent with values that are less than zero or past the end of the string.<p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @. See <a href="at.html">About Using @</a> for details.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="chopright-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

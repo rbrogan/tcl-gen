@@ -1,17 +1,46 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqliteTableExistsTest {}
+
+
+
+proc SqliteTableExistsTest::Test-1 {} {
 
 ::tcltest::test SqliteTableExists-0 {Basic test - return 1}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists globals
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqliteTableExistsTest::Test-2 {} {
 
 ::tcltest::test SqliteTableExists-1 {Basic test - return 0}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists no_such_table
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqliteTableExistsTest::Test-3 {} {
 
 ::tcltest::test SqliteTableExists-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteTableExists ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqliteTableExistsTest::Test-1
+     SqliteTableExistsTest::Test-2
+     SqliteTableExistsTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqliteTableExistsTest::Test-[set Element]
+     }
+}
 

@@ -1,20 +1,61 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval StringContainsTest {}
+
+
+
+proc StringContainsTest::Test-1 {} {
 
 ::tcltest::test StringContains-0 {Basic test - returns 1}  -constraints {}  -setup {}  -body {StringContains "one two three" two
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StringContainsTest::Test-2 {} {
 
 ::tcltest::test StringContains-1 {Basic test - returns 0}  -constraints {}  -setup {}  -body {StringContains "one two three" four
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StringContainsTest::Test-3 {} {
 
 ::tcltest::test StringContains-2 {Empty string input}  -constraints {}  -setup {}  -body {StringContains "" one}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StringContainsTest::Test-4 {} {
 
 ::tcltest::test StringContains-3 {Empty string input 2}  -constraints {}  -setup {}  -body {StringContains one ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StringContainsTest::Test-5 {} {
 
 ::tcltest::test StringContains-4 {Search string bigger than target string}  -constraints {}  -setup {}  -body {StringContains asd asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     StringContainsTest::Test-1
+     StringContainsTest::Test-2
+     StringContainsTest::Test-3
+     StringContainsTest::Test-4
+     StringContainsTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          StringContainsTest::Test-[set Element]
+     }
+}
 

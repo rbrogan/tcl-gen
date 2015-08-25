@@ -1,15 +1,36 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval ToDoubleBackslashesTest {}
+
+
+
+proc ToDoubleBackslashesTest::Test-1 {} {
 
 ::tcltest::test ToDoubleBackslashes-0 {Basic test - from forward slashes}  -constraints {}  -setup {}  -body {ToDoubleBackslashes c:/path/one}  -cleanup {}  -result {c:\\path\\one}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ToDoubleBackslashesTest::Test-2 {} {
 
 ::tcltest::test ToDoubleBackslashes-1 {Basic test - from single backslashes}  -constraints {}  -setup {}  -body {ToDoubleBackslashes {c:\path\to\file.txt}
 }  -cleanup {}  -result {c:\\path\\to\\file.txt}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ToDoubleBackslashesTest::Test-3 {} {
 
 ::tcltest::test ToDoubleBackslashes-2 {Empty string input}  -constraints {}  -setup {}  -body {ToDoubleBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ToDoubleBackslashesTest::Test-4 {} {
 
 ::tcltest::test ToDoubleBackslashes-3 {Test at}  -constraints {}  -setup {}  -body {set MyString c:/path/one
 ToDoubleBackslashes @MyString
@@ -17,4 +38,18 @@ puts $MyString
 }  -cleanup {}  -result {}  -output {c:\\path\\one
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     ToDoubleBackslashesTest::Test-1
+     ToDoubleBackslashesTest::Test-2
+     ToDoubleBackslashesTest::Test-3
+     ToDoubleBackslashesTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          ToDoubleBackslashesTest::Test-[set Element]
+     }
+}
 

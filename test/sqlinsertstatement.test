@@ -1,15 +1,44 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqlInsertStatementTest {}
+
+
+
+proc SqlInsertStatementTest::Test-1 {} {
 
 ::tcltest::test SqlInsertStatement-1 {Basic test}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {INSERT INTO MyTable (intvalue, realvalue) VALUES (1, 1.1)}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqlInsertStatementTest::Test-2 {} {
 
 ::tcltest::test SqlInsertStatement-2 {Dict is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqlInsertStatementTest::Test-3 {} {
 
 ::tcltest::test SqlInsertStatement-3 {Table name is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement "" ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqlInsertStatementTest::Test-1
+     SqlInsertStatementTest::Test-2
+     SqlInsertStatementTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqlInsertStatementTest::Test-[set Element]
+     }
+}
 

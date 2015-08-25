@@ -24,6 +24,8 @@ DESCRIPTION
 <div class='subsection_content'>
 List of values for each variable.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarNameList</i></td><td class='argument_right'>Every element except last is name of the name of a variable to assign to. Last element is a list of values to assign.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ValueList</i></td><td class='argument_right'>Optional. List of values to assign. First value will be assigned to first variable, etc.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is very much like <code>lassign</code> but is for situations for where you want your code to have a look-and-feel that is like <code>set</code>.<p>Note that if variables do not exist, they will be created.</p><p>As with lassign, if there are more variables than list elements then extra variables will be empty. </p><p>Unlike lassign, this return value is a list of values of each of the variables. This behavior mimics set.</p><p>As with set, it is possible to call this with no values. In that case it will return a list with the current value of each variable.</p><p>MultiSet will not complain if VarNameList is empty, but rather will return an empty list.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="multiset-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

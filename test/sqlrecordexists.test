@@ -1,19 +1,54 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqlRecordExistsTest {}
+
+
+
+proc SqlRecordExistsTest::Test-1 {} {
 
 ::tcltest::test SqlRecordExists-0 {Basic case - return 1}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
 SqlRecordExists my_table {desc 'first'}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqlRecordExistsTest::Test-2 {} {
 
 ::tcltest::test SqlRecordExists-1 {Basic case - return 0}  -constraints {}  -setup {}  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}
 SqlRecordExists my_table {desc 'first'}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqlRecordExistsTest::Test-3 {} {
 
 ::tcltest::test SqlRecordExists-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqlRecordExists "" {desc 'first'}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqlRecordExistsTest::Test-4 {} {
 
 ::tcltest::test SqlRecordExists-3 {Where dict is empty}  -constraints {}  -setup {}  -body {SqlRecordExists my_table {}}  -cleanup {}  -result {Variable WhereDict has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqlRecordExistsTest::Test-1
+     SqlRecordExistsTest::Test-2
+     SqlRecordExistsTest::Test-3
+     SqlRecordExistsTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqlRecordExistsTest::Test-[set Element]
+     }
+}
 

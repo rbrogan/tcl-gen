@@ -1,15 +1,44 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval ListEndIndexTest {}
+
+
+
+proc ListEndIndexTest::Test-1 {} {
 
 ::tcltest::test ListEndIndex-0 {Basic test - length 2}  -constraints {}  -setup {}  -body {ListEndIndex [list one two]
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ListEndIndexTest::Test-2 {} {
 
 ::tcltest::test ListEndIndex-1 {One element}  -constraints {}  -setup {}  -body {ListEndIndex [list one]
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ListEndIndexTest::Test-3 {} {
 
 ::tcltest::test ListEndIndex-2 {Empty}  -constraints {}  -setup {}  -body {ListEndIndex {}
 }  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     ListEndIndexTest::Test-1
+     ListEndIndexTest::Test-2
+     ListEndIndexTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          ListEndIndexTest::Test-[set Element]
+     }
+}
 

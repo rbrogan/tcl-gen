@@ -1,17 +1,52 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DatePlusDaysTest {}
+
+
+
+proc DatePlusDaysTest::Test-1 {} {
 
 ::tcltest::test DatePlusDays-0 {Basic test}  -constraints {}  -setup {}  -body {DatePlusDays {2000-01-02} 1}  -cleanup {}  -result {2000-01-03}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatePlusDaysTest::Test-2 {} {
 
 ::tcltest::test DatePlusDays-1 {Date is invalid}  -constraints {}  -setup {}  -body {DatePlusDays asdf 1}  -cleanup {}  -result {Variable DateVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatePlusDaysTest::Test-3 {} {
 
 ::tcltest::test DatePlusDays-2 {NumDays is invalid}  -constraints {}  -setup {}  -body {DatePlusDays {2000-01-02} asdf}  -cleanup {}  -result {Variable NumDays has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatePlusDaysTest::Test-4 {} {
 
 ::tcltest::test DatePlusDays-3 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DatePlusDays {January 02, 2000} 1
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {January 03, 2000}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DatePlusDaysTest::Test-1
+     DatePlusDaysTest::Test-2
+     DatePlusDaysTest::Test-3
+     DatePlusDaysTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DatePlusDaysTest::Test-[set Element]
+     }
+}
 

@@ -22,22 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-New string from the old string with the inserted value.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String to insert into.</td></tr><tr class='table_row_a'><td class='argument_left'><i>InsertValue</i></td><td class='argument_right'>Value to insert.</td></tr><tr class='table_row_b'><td class='argument_left'><i>WhereAt</i></td><td class='argument_right'>Start index of insertion. First character of InsertValue will appear here.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Contents of variable are invalid.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-<tr><td>Input value is empty.</td>
-<td class="error_code">-12</td>
-<td>Variable $VarName has empty value.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The first character of the string to insert will appear be at the given index when the insertion is done.<p>If the insert location is past the end index of the string then spaces will fill the intervening indices (see example).</p><p>Note that this command does not currently support <code>end+1</code> or <code>end-1</code> as some string commands do. You could use <code>string length</code> instead, if need be.
+New string from the old string with the inserted value.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String to insert into.</td></tr><tr class='table_row_a'><td class='argument_left'><i>InsertValue</i></td><td class='argument_right'>Value to insert.</td></tr><tr class='table_row_b'><td class='argument_left'><i>WhereAt</i></td><td class='argument_right'>Start index of insertion. First character of InsertValue will appear here.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The first character of the string to insert will appear be at the given index when the insertion is done.<p>If the insert location is past the end index of the string then spaces will fill the intervening indices (see example).</p><p>Note that this command does not currently support <code>end+1</code> or <code>end-1</code> as some string commands do. You could use <code>string length</code> instead, if need be.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="stringinsert-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

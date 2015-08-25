@@ -1,14 +1,43 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SqlUpdateStatementTest {}
+
+
+
+proc SqlUpdateStatementTest::Test-1 {} {
 
 ::tcltest::test SqlUpdateStatement-0 {Basic test}  -constraints {}  -setup {}  -body {SqlUpdateStatement my_table {intvalue 1} {realvalue 1.1}
 }  -cleanup {}  -result {UPDATE my_table SET intvalue = 1 WHERE realvalue = 1.1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SqlUpdateStatementTest::Test-2 {} {
 
 ::tcltest::test SqlUpdateStatement-1 {SetDict is empty}  -constraints {}  -setup {}  -body {SqlUpdateStatement my_table {} {desc 'first'}
 }  -cleanup {}  -result {Variable SetDict has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc SqlUpdateStatementTest::Test-3 {} {
 
 ::tcltest::test SqlUpdateStatement-3 {Table name is empty}  -constraints {}  -setup {}  -body {SqlUpdateStatement "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SqlUpdateStatementTest::Test-1
+     SqlUpdateStatementTest::Test-2
+     SqlUpdateStatementTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SqlUpdateStatementTest::Test-[set Element]
+     }
+}
 

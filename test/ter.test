@@ -1,10 +1,33 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval TerTest {}
+
+
+
+proc TerTest::Test-1 {} {
 
 ::tcltest::test Ter-0 {Basic test}  -constraints {}  -setup {}  -body {Ter 1 {return true} {return false}
 }  -cleanup {}  -result {true}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc TerTest::Test-2 {} {
 
 ::tcltest::test Ter-1 {Basic test - evaluates to false}  -constraints {}  -setup {}  -body {Ter 0 {return true} {return false}}  -cleanup {}  -result {false}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     TerTest::Test-1
+     TerTest::Test-2
+} else {
+     foreach Element [lrange $argv 1 end] {
+          TerTest::Test-[set Element]
+     }
+}
 

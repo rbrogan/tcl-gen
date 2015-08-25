@@ -34,12 +34,16 @@ Each command is well-documented with a reference page which includes:
 * Usage synopsis.
 * Return value description.
 * Argument descriptions.
-* Table of error conditions, error code and message, and consequences of the
-error occurrence.
 * Examples.
 * Related commands to see also.
 * Links to the keyword index.
 * Various additional notes.
+
+Each command also has an exceptions page which will, in time, come to include:
+* A table of error conditions, error messages, and error codes.
+* General comments on how to troubleshoot.
+* Information on how to set up logging and debugging.
+* Information on how to set policies and define what is and is not an error.
 
 To go through the documentation you can use:
 
@@ -156,8 +160,20 @@ flip.html
      Page for the command Flip.
 foreachrecord.html
      Page for the command ForeachRecord.
+ftpcleanremotedirectory.html
+     Page for the command FtpCleanRemoteDirectory.
+ftpdownloaddirectory.html
+     Page for the command FtpDownloadDirectory.
+ftpdownloadsite.html
+     Page for the command FtpDownloadSite.
+ftpmirrorlocaltoremote.html
+     Page for the command FtpMirrorLocalToRemote.
 ftpmirrorremotetolocal.html
      Page for the command FtpMirrorRemoteToLocal.
+ftpuploaddirectory.html
+     Page for the command FtpUploadDirectory.
+ftpuploadsite.html
+     Page for the command FtpUploadSite.
 ftpwhichislarger.html
      Page for the command FtpWhichIsLarger.
 ftpwhichisnewer.html

@@ -1,20 +1,55 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsTimeOfDayTest {}
+
+
+
+proc IsTimeOfDayTest::Test-1 {} {
 
 ::tcltest::test IsTimeOfDay-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsTimeOfDay asdf
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsTimeOfDayTest::Test-2 {} {
 
 ::tcltest::test IsTimeOfDay-1 {Basic test - return 1}  -constraints {}  -setup {SetTimeOfDayFormat %H:%M:%S}  -body {IsTimeOfDay 01:02:03
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsTimeOfDayTest::Test-3 {} {
 
 ::tcltest::test IsTimeOfDay-3 {String is empty}  -constraints {}  -setup {}  -body {IsTimeOfDay ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsTimeOfDayTest::Test-4 {} {
 
 ::tcltest::test IsTimeOfDay-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 IsTimeOfDay {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsTimeOfDayTest::Test-1
+     IsTimeOfDayTest::Test-2
+     IsTimeOfDayTest::Test-3
+     IsTimeOfDayTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsTimeOfDayTest::Test-[set Element]
+     }
+}
 

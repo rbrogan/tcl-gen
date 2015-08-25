@@ -1,53 +1,105 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
 
-::tcltest::test LinkVarToDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set MyVar 123
-LinkVarToDbGlobal MyVar
-puts [GetDbGlobal MyVar]
-set MyVar 345
-puts [GetDbGlobal MyVar]
-}  -cleanup {UnlinkVarFromDbGlobal MyVar
+namespace eval LinkVarToDbGlobalTest {}
+
+
+namespace eval LinkVarToDbGlobalTest {
+
+proc TestLocalVariable {} {
+     set MyLocalVar 123
+     LinkVarToDbGlobal MyLocalVar
+     puts [GetDbGlobal MyLocalVar]
+     set MyLocalVar 345
+     puts [GetDbGlobal MyLocalVar]
+}
+
+}
+
+proc LinkVarToDbGlobalTest::Test-1 {} {
+
+::tcltest::test LinkVarToDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
+LinkVarToDbGlobal ::MyVar
+puts [GetDbGlobal ::MyVar]
+set ::MyVar 345
+puts [GetDbGlobal ::MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal ::MyVar
 }  -result {}  -output {123
 345
 }  -returnCodes {0}  
 
+}
 
-::tcltest::test LinkVarToDbGlobal-1 {Variable does not exist}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {unset -nocomplain MyVar
-LinkVarToDbGlobal MyVar
-puts [GetDbGlobal MyVar]
-set MyVar 345
-puts [GetDbGlobal MyVar]
-}  -cleanup {UnlinkVarFromDbGlobal MyVar
+
+
+proc LinkVarToDbGlobalTest::Test-2 {} {
+
+::tcltest::test LinkVarToDbGlobal-1 {Variable does not exist}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {unset -nocomplain ::MyVar
+LinkVarToDbGlobal ::MyVar
+puts [GetDbGlobal ::MyVar]
+set ::MyVar 345
+puts [GetDbGlobal ::MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal ::MyVar
 }  -result {}  -output {
 345
 }  -returnCodes {0}  
 
+}
 
-::tcltest::test LinkVarToDbGlobal-2 {Database global not pre-existing}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set MyVar 123
-UnsetDbGlobal MyVar
-LinkVarToDbGlobal MyVar
-puts [GetDbGlobal MyVar]
-SetDbGlobal MyVar 345
-puts [GetDbGlobal MyVar]
-}  -cleanup {UnlinkVarFromDbGlobal MyVar
+
+
+proc LinkVarToDbGlobalTest::Test-3 {} {
+
+::tcltest::test LinkVarToDbGlobal-2 {Database global not pre-existing}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
+UnsetDbGlobal ::MyVar
+LinkVarToDbGlobal ::MyVar
+puts [GetDbGlobal ::MyVar]
+SetDbGlobal ::MyVar 345
+puts [GetDbGlobal ::MyVar]
+}  -cleanup {UnlinkVarFromDbGlobal ::MyVar
 }  -result {}  -output {123
 345
 }  -returnCodes {0}  
 
+}
+
+
+
+proc LinkVarToDbGlobalTest::Test-4 {} {
 
 ::tcltest::test LinkVarToDbGlobal-3 {VarName is empty}  -constraints {}  -setup {}  -body {LinkVarToDbGlobal ""
 }  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
+}
 
-::tcltest::test LinkVarToDbGlobal-4 {VarName and DbGlobalName are different}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal SomeVar 789
-set MyVar 123
-LinkVarToDbGlobal MyVar SomeVar
-puts [GetDbGlobal SomeVar]
-set MyVar 345
-puts [GetDbGlobal SomeVar]
-}  -cleanup {UnlinkVarFromDbGlobal MyVar SomeVar
+
+
+proc LinkVarToDbGlobalTest::Test-5 {} {
+
+::tcltest::test LinkVarToDbGlobal-4 {VarName and DbGlobalName are different}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal ::SomeVar 789
+set ::MyVar 123
+LinkVarToDbGlobal ::MyVar ::SomeVar
+puts [GetDbGlobal ::SomeVar]
+set ::MyVar 345
+puts [GetDbGlobal ::SomeVar]
+}  -cleanup {UnlinkVarFromDbGlobal ::MyVar ::SomeVar
 }  -result {}  -output {123
 345
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     LinkVarToDbGlobalTest::Test-1
+     LinkVarToDbGlobalTest::Test-2
+     LinkVarToDbGlobalTest::Test-3
+     LinkVarToDbGlobalTest::Test-4
+     LinkVarToDbGlobalTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          LinkVarToDbGlobalTest::Test-[set Element]
+     }
+}
 

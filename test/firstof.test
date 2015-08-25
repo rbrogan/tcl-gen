@@ -1,12 +1,41 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval FirstOfTest {}
+
+
+
+proc FirstOfTest::Test-1 {} {
 
 ::tcltest::test FirstOf-0 {Basic test}  -constraints {}  -setup {}  -body {FirstOf {abc def ghi}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FirstOfTest::Test-2 {} {
 
 ::tcltest::test FirstOf-1 {Empty list}  -constraints {}  -setup {}  -body {FirstOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FirstOfTest::Test-3 {} {
 
 ::tcltest::test FirstOf-2 {One element}  -constraints {}  -setup {}  -body {FirstOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FirstOfTest::Test-1
+     FirstOfTest::Test-2
+     FirstOfTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FirstOfTest::Test-[set Element]
+     }
+}
 

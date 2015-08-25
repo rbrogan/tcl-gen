@@ -1,3 +1,14 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval ReloadPackageTest {}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+} else {
+     foreach Element [lrange $argv 1 end] {
+          ReloadPackageTest::Test-[set Element]
+     }
+}
 

@@ -1,29 +1,76 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DoubleChopTest {}
+
+
+
+proc DoubleChopTest::Test-1 {} {
 
 ::tcltest::test DoubleChop-0 {Basic test}  -constraints {}  -setup {}  -body {set MyString "{something}"
 DoubleChop $MyString
 }  -cleanup {}  -result {something}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DoubleChopTest::Test-2 {} {
 
 ::tcltest::test DoubleChop-1 {One character}  -constraints {}  -setup {}  -body {set MyString "1"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DoubleChopTest::Test-3 {} {
 
 ::tcltest::test DoubleChop-2 {Empty string}  -constraints {}  -setup {}  -body {set MyString ""
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DoubleChopTest::Test-4 {} {
 
 ::tcltest::test DoubleChop-3 {Two characters}  -constraints {}  -setup {}  -body {set MyString "11"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DoubleChopTest::Test-5 {} {
 
 ::tcltest::test DoubleChop-4 {Three characters}  -constraints {}  -setup {}  -body {set MyString "ABA"
 DoubleChop $MyString}  -cleanup {}  -result {B}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DoubleChopTest::Test-6 {} {
 
 ::tcltest::test DoubleChop-5 {Basic test - use count}  -constraints {}  -setup {}  -body {set MyString "AABBAA"
 DoubleChop $MyString 2
 }  -cleanup {}  -result {BB}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DoubleChopTest::Test-1
+     DoubleChopTest::Test-2
+     DoubleChopTest::Test-3
+     DoubleChopTest::Test-4
+     DoubleChopTest::Test-5
+     DoubleChopTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DoubleChopTest::Test-[set Element]
+     }
+}
 

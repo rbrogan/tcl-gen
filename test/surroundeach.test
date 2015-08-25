@@ -1,25 +1,56 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SurroundEachTest {}
+
+
+
+proc SurroundEachTest::Test-1 {} {
 
 ::tcltest::test SurroundEach-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList "*"}  -cleanup {}  -result {*one* *two* *three*}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SurroundEachTest::Test-2 {} {
 
 ::tcltest::test SurroundEach-1 {Input list is empty}  -constraints {}  -setup {}  -body {set MyList {}
 SurroundEach $MyList "*"}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SurroundEachTest::Test-3 {} {
 
 ::tcltest::test SurroundEach-2 {Input string is empty}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList ""}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SurroundEachTest::Test-4 {} {
 
 ::tcltest::test SurroundEach-3 {Input list is one element}  -constraints {}  -setup {}  -body {set MyList {one}
 SurroundEach $MyList "*"}  -cleanup {}  -result {*one*}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SurroundEachTest::Test-5 {} {
 
 ::tcltest::test SurroundEach-4 {Surround string is multiple characters}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach $MyList "**"}  -cleanup {}  -result {**one** **two** **three**}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc SurroundEachTest::Test-6 {} {
 
 ::tcltest::test SurroundEach-5 {Test at}  -constraints {}  -setup {}  -body {set MyList {one two three}
 SurroundEach @MyList "*"
@@ -27,4 +58,20 @@ puts $MyList
 }  -cleanup {}  -result {}  -output {*one* *two* *three*
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SurroundEachTest::Test-1
+     SurroundEachTest::Test-2
+     SurroundEachTest::Test-3
+     SurroundEachTest::Test-4
+     SurroundEachTest::Test-5
+     SurroundEachTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SurroundEachTest::Test-[set Element]
+     }
+}
 

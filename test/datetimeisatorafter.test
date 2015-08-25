@@ -1,29 +1,76 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DatetimeIsAtOrAfterTest {}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-1 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-0 {Datetime is at}  -constraints {}  -setup {}  -body {DatetimeIsAtOrAfter {2000-01-01 00:00:00} {2000-01-01 00:00:00}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-2 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-1 {Datetime is after}  -constraints {}  -setup {}  -body {DatetimeIsAtOrAfter {2000-01-01 00:00:01} {2000-01-01 00:00:00}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-3 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-2 {Datetime is before}  -constraints {}  -setup {}  -body {DatetimeIsAtOrAfter {2000-01-01 00:00:00} {2000-01-01 00:00:01}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-4 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-3 {First is invalid}  -constraints {}  -setup {}  -body {DatetimeIsAtOrAfter asdf {2000-01-01 00:00:00}
 }  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-5 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-4 {Second is invalid}  -constraints {}  -setup {}  -body {DatetimeIsAtOrAfter {2000-01-01 00:00:00} asdf
 }  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsAtOrAfterTest::Test-6 {} {
 
 ::tcltest::test DatetimeIsAtOrAfter-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 DatetimeIsAtOrAfter {01/02/2000 0303} {01/02/2000 0303}
 }  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DatetimeIsAtOrAfterTest::Test-1
+     DatetimeIsAtOrAfterTest::Test-2
+     DatetimeIsAtOrAfterTest::Test-3
+     DatetimeIsAtOrAfterTest::Test-4
+     DatetimeIsAtOrAfterTest::Test-5
+     DatetimeIsAtOrAfterTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DatetimeIsAtOrAfterTest::Test-[set Element]
+     }
+}
 

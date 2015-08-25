@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpUploadSite</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpUploadSite  &mdash;  Make connection, upload all files, close connection.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpUploadSite</b> <i>LocalDirectory</i> <i>RemoteDirectory</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>LocalDirectory</i></td><td class='argument_right'>Directory on local machine to upload from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RemoteDirectory</i></td><td class='argument_right'>Directory on remote machine to upload to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href='about-ftp-use.html'>About FTP Use</a> for additional details.<p>To use this command you will need to have configured the server IP, username, and password to use. See <a href="about-ftp-use.html">here</a> for details.</p><p>This is supposed to be a simple copy-and-paste type command. By default, the command will:
+(1) Overwrite all files on remote machine.
+(2) Recurse into subdirectories and copy those also.</p><p>The difference between this command and <a href="ftpmirrorlocaltoremote.html">FtpMirrorLocalToRemote</a> is that this command will not delete any files on the remote machine. So the contents of the local and remote will not necessarily match.</p><p>Also, for this version, we do not put much in for handling broken connections and whatnot. It will simply return an error and it is presumed you will try again.</p><p>If between this command and <a href="ftpmirrorremotetolocal.html">FtpMirrorRemoteToLocal</a> you find you do not get the functionality you want, you may want to use <a href="ftpuploaddirectory">FtpUploadDirectory</a> in your code and pass it a mix of options to make it do what you want.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpuploadsite-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>FtpUploadSite c:/users/username/documents/localdir /home/username/remotedir</b><br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpmirrorremotetolocal.html'>FtpMirrorRemoteToLocal</a>, <a href = 'ftpuploaddirectory.html'>FtpUploadDirectory</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

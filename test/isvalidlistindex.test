@@ -1,25 +1,72 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsValidListIndexTest {}
+
+
+
+proc IsValidListIndexTest::Test-1 {} {
 
 ::tcltest::test IsValidListIndex-0 {Basic test}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 1
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsValidListIndexTest::Test-2 {} {
 
 ::tcltest::test IsValidListIndex-1 {List is empty}  -constraints {}  -setup {}  -body {IsValidListIndex {} 0}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsValidListIndexTest::Test-3 {} {
 
 ::tcltest::test IsValidListIndex-2 {List is length 1}  -constraints {}  -setup {}  -body {IsValidListIndex 1 0
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsValidListIndexTest::Test-4 {} {
 
 ::tcltest::test IsValidListIndex-3 {Index is not an integer}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsValidListIndexTest::Test-5 {} {
 
 ::tcltest::test IsValidListIndex-4 {Index is negative}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} -1
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsValidListIndexTest::Test-6 {} {
 
 ::tcltest::test IsValidListIndex-5 {Index is length of list}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 3
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsValidListIndexTest::Test-1
+     IsValidListIndexTest::Test-2
+     IsValidListIndexTest::Test-3
+     IsValidListIndexTest::Test-4
+     IsValidListIndexTest::Test-5
+     IsValidListIndexTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsValidListIndexTest::Test-[set Element]
+     }
+}
 

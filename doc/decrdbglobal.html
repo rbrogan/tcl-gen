@@ -22,26 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-The new current value for the variable.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable in globals table to be decremented.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Amount</i></td><td class='argument_right'>How much to decrement the entry values by.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Database global holds non-numeric value.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-<tr><td>Input value is non-numeric.</td>
-<td class="error_code">-2</td>
-<td>Amount is invalid. Got input value $Value. Expected numeric value.</td>
-</tr>
-<tr><td>Got empty string instead of variable name.</td>
-<td class="error_code">-3</td>
-<td>Variable name is missing. Got empty string.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>If no variable with the given name can be found in the database then a new variable with that name will be created at 0 and decremented to -1. This is consistent with similar commands and specifically <code>incr</code>.<p>You may wish to take a look at the documentation about the XxxDbGlobal commands: <a href="xxxdbglobal.html">About XxxGlobal</a>.</p><p>Check <a href="about-configuration-for-database-use.html">About Configuration for Database Use</a> for info about how to set up Gen for using database-related commands.
+The new current value for the variable.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable in globals table to be decremented.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Amount</i></td><td class='argument_right'>How much to decrement the entry values by.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>If no variable with the given name can be found in the database then a new variable with that name will be created at 0 and decremented to -1. This is consistent with similar commands and specifically <code>incr</code>.<p>You may wish to take a look at the documentation about the XxxDbGlobal commands: <a href="xxxdbglobal.html">About XxxGlobal</a>.</p><p>Check <a href="about-configuration-for-database-use.html">About Configuration for Database Use</a> for info about how to set up Gen for using database-related commands.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="decrdbglobal-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

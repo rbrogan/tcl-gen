@@ -1,12 +1,41 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval LastOfTest {}
+
+
+
+proc LastOfTest::Test-1 {} {
 
 ::tcltest::test LastOf-0 {Basic test}  -constraints {}  -setup {}  -body {LastOf {abc def ghi}}  -cleanup {}  -result {ghi}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc LastOfTest::Test-2 {} {
 
 ::tcltest::test LastOf-1 {Empty list}  -constraints {}  -setup {}  -body {LastOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc LastOfTest::Test-3 {} {
 
 ::tcltest::test LastOf-2 {One element}  -constraints {}  -setup {}  -body {LastOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     LastOfTest::Test-1
+     LastOfTest::Test-2
+     LastOfTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          LastOfTest::Test-[set Element]
+     }
+}
 

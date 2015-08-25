@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SwapTest {}
+
+
+
+proc SwapTest::Test-1 {} {
 
 ::tcltest::test Swap-0 {Basic test}  -constraints {}  -setup {}  -body {set X 111
 set Y 222
@@ -8,6 +14,11 @@ puts "X = $X, Y = $Y"
 }  -cleanup {}  -result {}  -output {X = 222, Y = 111
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SwapTest::Test-2 {} {
 
 ::tcltest::test Swap-1 {First does not exist}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
 set Second 2
@@ -18,6 +29,11 @@ puts $Second
 
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SwapTest::Test-3 {} {
 
 ::tcltest::test Swap-2 {Second does not exist}  -constraints {}  -setup {}  -body {set First 1
 unset -nocomplain NoSuchVar
@@ -28,6 +44,11 @@ puts $NoSuchVar
 1
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SwapTest::Test-4 {} {
 
 ::tcltest::test Swap-3 {First empty}  -constraints {}  -setup {}  -body {set First ""
 set Second 2
@@ -38,6 +59,11 @@ puts $Second
 
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SwapTest::Test-5 {} {
 
 ::tcltest::test Swap-4 {Second empty}  -constraints {}  -setup {}  -body {set First 1
 set Second ""
@@ -48,4 +74,19 @@ puts $Second
 1
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SwapTest::Test-1
+     SwapTest::Test-2
+     SwapTest::Test-3
+     SwapTest::Test-4
+     SwapTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SwapTest::Test-[set Element]
+     }
+}
 

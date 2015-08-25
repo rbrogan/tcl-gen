@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval LastIdTest {}
+
+
+
+proc LastIdTest::Test-1 {} {
 
 ::tcltest::test LastId-0 {Base case}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
 set Id [LastId my_table]
@@ -7,11 +13,21 @@ Q1 "SELECT desc FROM my_table WHERE id = $Id"
 }  -cleanup {QQ {DELETE FROM my_table WHERE desc = 'Test LastId'}
 }  -result {Test LastId}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc LastIdTest::Test-2 {} {
 
 ::tcltest::test LastId-1 {Table empty}  -constraints {}  -setup {sqlite3 testdb "test.db"}  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text}
 LastId temp_table
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc LastIdTest::Test-3 {} {
 
 ::tcltest::test LastId-2 {After adding an entry}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId 1')"
@@ -22,7 +38,26 @@ expr $Id2 - $Id1
 }  -cleanup {QQ {DELETE FROM my_table WHERE desc LIKE 'Test LastId%'}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc LastIdTest::Test-4 {} {
 
 ::tcltest::test LastId-4 {Table name is empty string}  -constraints {}  -setup {}  -body {LastId ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     LastIdTest::Test-1
+     LastIdTest::Test-2
+     LastIdTest::Test-3
+     LastIdTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          LastIdTest::Test-[set Element]
+     }
+}
 

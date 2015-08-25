@@ -24,23 +24,11 @@ DESCRIPTION
 <div class='subsection_content'>
 <table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> First datetime is at or before the second.</td></tr>
 <tr><td class='argument_left'><i>0</i></td><td class='argument_right'> First datetime is after the second.</td></tr>
-</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Contents of FirstDatetime are invalid.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-<tr><td>Contents of SecondDatetime are invalid.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is like less than or equal to (&lt;=).
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>String in datetime format.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is like less than or equal to (&lt;=).
 Note this command is effectively <code>![DatetimeIsAfter $FirstDatetime $SecondDatetime]</code> but still we include it for the sake of convenience / expressiveness.<p>For information about how to configure the format, see <a href='about-date-and-time-commands.html'>About Date and Time Commands</a>.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="datetimeisatorbefore-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

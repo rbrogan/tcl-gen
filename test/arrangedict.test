@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval ArrangeDictTest {}
+
+
+
+proc ArrangeDictTest::Test-1 {} {
 
 ::tcltest::test ArrangeDict-0 {Illustration}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
@@ -12,13 +18,28 @@ two = dos
 one = uno
 }  -returnCodes {0}  
 
+}
+
+
+
+proc ArrangeDictTest::Test-2 {} {
 
 ::tcltest::test ArrangeDict-1 {Empty Dict}  -constraints {}  -setup {}  -body {ArrangeDict "" {one two three}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ArrangeDictTest::Test-3 {} {
 
 ::tcltest::test ArrangeDict-2 {Empty List}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos]
 ArrangeDict $MyDict {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ArrangeDictTest::Test-4 {} {
 
 ::tcltest::test ArrangeDict-3 {Test at}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
@@ -32,4 +53,18 @@ two = dos
 one = uno
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     ArrangeDictTest::Test-1
+     ArrangeDictTest::Test-2
+     ArrangeDictTest::Test-3
+     ArrangeDictTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          ArrangeDictTest::Test-[set Element]
+     }
+}
 

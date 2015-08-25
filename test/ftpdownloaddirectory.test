@@ -1,0 +1,253 @@
+package require tcltest
+package require -exact gen 1.7.0
+
+namespace eval FtpDownloadDirectoryTest {}
+
+
+namespace eval FtpDownloadDirectoryTest { 
+
+proc Setup {LocalDirectoryName} {
+     source ftp-test-config.tcl
+     DeleteEverythingInDirectory $::FtpTestLocalRoot/downloadto/temp
+     CopyAllFilesIntoDirectory $::FtpTestLocalRoot/downloadto/original/$LocalDirectoryName $::FtpTestLocalRoot/downloadto/temp
+     SaveWorkingDirectory
+}
+
+proc Test {RemoteDirectory LocalExpectedDirectory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
+
+     # Open connection
+     set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+     if {$FtpHandle == -1} {
+          error "FTP: Could not open connection!"
+     } else {
+          try {
+               if {[NotEmpty $GenNS::Ftp::FileTransferType]} {
+                    if {[lsearch [list ascii binary tenex] $GenNS::Ftp::FileTransferType] != -1} {
+                         DbgPrint "Setting file transfer type to $GenNS::Ftp::FileTransferType"
+                         ftp::Type $FtpHandle $GenNS::Ftp::FileTransferType
+                    } else {
+                         error "Unknown FTP file transfer type $GenNS::Ftp::FileTransferType! Should be ascii, binary, tenex, or left empty."
+                    }
+               }
+
+               # Switch to directory
+               cd $::FtpTestLocalRoot/downloadto/temp
+
+               set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/$RemoteDirectory]
+               if {$Ok == 0} {
+                    error "Could not change into remote directory $RemoteDirectory. Quitting."
+               }
+
+               FtpDownloadDirectory $FtpHandle . $OverwritePolicy $RecursePolicy $DeleteUnmatchedPolicy
+               set Ok 1
+          } finally {
+               DbgPrint "Closing connection"
+               ftp::Close $FtpHandle
+          }
+     }
+     if {$Ok == 1} {
+          set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp $::FtpTestLocalRoot/downloadto/expected/FtpDownloadDirectory/$LocalExpectedDirectory"
+          set Result [catch {exec {*}$DiffCommand}]     
+     } else {
+          set Result 1
+     }
+
+     return $Result
+}
+
+}
+
+proc FtpDownloadDirectoryTest::Test-1 {} {
+
+::tcltest::test FtpDownloadDirectory-0 {OverwriteAll}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup different-times
+}  -body {FtpDownloadDirectoryTest::Test different-times OverwriteAll OverwriteAll RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-2 {} {
+
+::tcltest::test FtpDownloadDirectory-1 {RemoteNewer}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup different-times
+}  -body {FtpDownloadDirectoryTest::Test different-times RemoteNewer RemoteNewer RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-3 {} {
+
+::tcltest::test FtpDownloadDirectory-2 {SizeDifferent}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup different-times
+}  -body {FtpDownloadDirectoryTest::Test different-times SizeDifferent SizeDifferent RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-4 {} {
+
+::tcltest::test FtpDownloadDirectory-3 {RemoteNewerAndSizeDifferent}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup different-times
+}  -body {FtpDownloadDirectoryTest::Test different-times RemoteNewerAndSizeDifferent RemoteNewerAndSizeDifferent RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-5 {} {
+
+::tcltest::test FtpDownloadDirectory-4 {RemoteNewerOrSizeDifferent}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup different-times
+}  -body {FtpDownloadDirectoryTest::Test different-times RemoteNewerOrSizeDifferent RemoteNewerOrSizeDifferent RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-6 {} {
+
+::tcltest::test FtpDownloadDirectory-5 {DeleteUnmatched}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-files
+}  -body {FtpDownloadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-files OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-7 {} {
+
+::tcltest::test FtpDownloadDirectory-6 {DeleteUnmatched-2}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-subdir
+}  -body {FtpDownloadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-8 {} {
+
+::tcltest::test FtpDownloadDirectory-7 {DeleteUnmatched-3}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-subdir-2-levels
+}  -body {FtpDownloadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-subdir-2-levels OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-9 {} {
+
+::tcltest::test FtpDownloadDirectory-8 {LeaveUnmatched-1}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-files
+}  -body {FtpDownloadDirectoryTest::Test one-file LeaveUnmatched/has-unmatched-files OverwriteAll RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-10 {} {
+
+::tcltest::test FtpDownloadDirectory-9 {LeaveUnmatched-2}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-subdir
+}  -body {FtpDownloadDirectoryTest::Test one-file LeaveUnmatched/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories LeaveUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-11 {} {
+
+::tcltest::test FtpDownloadDirectory-10 {Recurse-1}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-subdir-already
+}  -body {FtpDownloadDirectoryTest::Test has-subdir Recurse/has-subdir-already OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-12 {} {
+
+::tcltest::test FtpDownloadDirectory-11 {Recurse-2}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-subdir
+}  -body {FtpDownloadDirectoryTest::Test has-subdir Recurse/has-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-13 {} {
+
+::tcltest::test FtpDownloadDirectory-12 {Recurse-3}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-subdir
+}  -body {FtpDownloadDirectoryTest::Test has-subdir Recurse/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-14 {} {
+
+::tcltest::test FtpDownloadDirectory-13 {NoRecurse-1}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-subdir-already
+}  -body {FtpDownloadDirectoryTest::Test has-subdir NoRecurse/has-subdir-already OverwriteAll NoRecurse DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-15 {} {
+
+::tcltest::test FtpDownloadDirectory-14 {NoRecurse-2}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-subdir
+}  -body {FtpDownloadDirectoryTest::Test has-subdir NoRecurse/has-subdir OverwriteAll NoRecurse DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadDirectoryTest::Test-16 {} {
+
+::tcltest::test FtpDownloadDirectory-15 {NoRecurse-3}  -constraints {}  -setup {FtpDownloadDirectoryTest::Setup has-unmatched-subdir
+}  -body {FtpDownloadDirectoryTest::Test has-subdir NoRecurse/has-unmatched-subdir OverwriteAll NoRecurse DeleteUnmatched
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FtpDownloadDirectoryTest::Test-1
+     FtpDownloadDirectoryTest::Test-2
+     FtpDownloadDirectoryTest::Test-3
+     FtpDownloadDirectoryTest::Test-4
+     FtpDownloadDirectoryTest::Test-5
+     FtpDownloadDirectoryTest::Test-6
+     FtpDownloadDirectoryTest::Test-7
+     FtpDownloadDirectoryTest::Test-8
+     FtpDownloadDirectoryTest::Test-9
+     FtpDownloadDirectoryTest::Test-10
+     FtpDownloadDirectoryTest::Test-11
+     FtpDownloadDirectoryTest::Test-12
+     FtpDownloadDirectoryTest::Test-13
+     FtpDownloadDirectoryTest::Test-14
+     FtpDownloadDirectoryTest::Test-15
+     FtpDownloadDirectoryTest::Test-16
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FtpDownloadDirectoryTest::Test-[set Element]
+     }
+}
+

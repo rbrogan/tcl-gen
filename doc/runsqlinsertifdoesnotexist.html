@@ -22,22 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-Id of the record, pre-existing or newly created.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of the table to do search / insert on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dict containing values to search for and insert if not found.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>TableName is empty.</td>
-<td class="error_code">-12</td>
-<td>Variable $VarName has empty value.</td>
-</tr>
-<tr><td>DictValue is empty.</td>
-<td class="error_code">-12</td>
-<td>Variable $VarName has empty value.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command will use the keys / values in the dict to construct a WHERE clause for a SELECT statement and search for the record. If no record is found then it will use that same data to do an INSERT.<p>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.</p><p>Note that, as with other commands, this command assumes that the table will have a column "id", which is the primary key.</p><p>If you want to break the dict down into two dicts, one used to check if the entry exists and the other with the values, then take a look at <a href="runsqlenter.html"><code>RunSqlEnter</code></a>.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
+Id of the record, pre-existing or newly created.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of the table to do search / insert on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dict containing values to search for and insert if not found.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command will use the keys / values in the dict to construct a WHERE clause for a SELECT statement and search for the record. If no record is found then it will use that same data to do an INSERT.<p>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.</p><p>Note that, as with other commands, this command assumes that the table will have a column "id", which is the primary key.</p><p>If you want to break the dict down into two dicts, one used to check if the entry exists and the other with the values, then take a look at <a href="runsqlenter.html"><code>RunSqlEnter</code></a>.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="runsqlinsertifdoesnotexist-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

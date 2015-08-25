@@ -1,18 +1,59 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsNonNumericTest {}
+
+
+
+proc IsNonNumericTest::Test-1 {} {
 
 ::tcltest::test IsNonNumeric-0 {Basic test - Alphabetic}  -constraints {}  -setup {}  -body {IsNonNumeric asdf}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonNumericTest::Test-2 {} {
 
 ::tcltest::test IsNonNumeric-1 {Basic test - Empty string}  -constraints {}  -setup {}  -body {IsNonNumeric ""}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonNumericTest::Test-3 {} {
 
 ::tcltest::test IsNonNumeric-2 {Negative test - Integer}  -constraints {}  -setup {}  -body {IsNonNumeric 1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonNumericTest::Test-4 {} {
 
 ::tcltest::test IsNonNumeric-3 {Negative test - Wide integer}  -constraints {}  -setup {}  -body {IsNonNumeric  111111111111111111}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonNumericTest::Test-5 {} {
 
 ::tcltest::test IsNonNumeric-4 {Negative test - Double}  -constraints {}  -setup {}  -body {IsNonNumeric 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsNonNumericTest::Test-1
+     IsNonNumericTest::Test-2
+     IsNonNumericTest::Test-3
+     IsNonNumericTest::Test-4
+     IsNonNumericTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsNonNumericTest::Test-[set Element]
+     }
+}
 

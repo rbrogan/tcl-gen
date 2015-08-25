@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SetDateFormatTest {}
+
+
+
+proc SetDateFormatTest::Test-1 {} {
 
 ::tcltest::test SetDateFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetDateFormat %Y-%m-%d
 puts [IsDate 2000-01-02]
@@ -8,6 +14,11 @@ puts [IsDate 02/01/2000]
 0
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetDateFormatTest::Test-2 {} {
 
 ::tcltest::test SetDateFormat-1 {Set to something other than default}  -constraints {}  -setup {}  -body {SetDateFormat %m/%d/%Y
 puts [IsDate 2000-01-02]
@@ -17,8 +28,26 @@ puts [IsDate 01/02/2000]
 1
 }  -returnCodes {0}  
 
+}
+
+
+
+proc SetDateFormatTest::Test-3 {} {
 
 ::tcltest::test SetDateFormat-2 {Invalid input}  -constraints {}  -setup {}  -body {SetDateFormat asdf
 }  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SetDateFormatTest::Test-1
+     SetDateFormatTest::Test-2
+     SetDateFormatTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SetDateFormatTest::Test-[set Element]
+     }
+}
 

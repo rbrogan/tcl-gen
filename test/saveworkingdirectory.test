@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval SaveWorkingDirectoryTest {}
+
+
+
+proc SaveWorkingDirectoryTest::Test-1 {} {
 
 ::tcltest::test SaveWorkingDirectory-0 {Basic test}  -constraints {}  -setup {file delete -force TestSaveWorkingDirectory}  -body {set OriginalWorkingDirectory [SaveWorkingDirectory]
 file mkdir TestSaveWorkingDirectory
@@ -12,4 +18,15 @@ if {[pwd] eq "$OriginalWorkingDirectory"} {
 }
 }  -cleanup {file delete -force TestSaveWorkingDirectory}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     SaveWorkingDirectoryTest::Test-1
+} else {
+     foreach Element [lrange $argv 1 end] {
+          SaveWorkingDirectoryTest::Test-[set Element]
+     }
+}
 

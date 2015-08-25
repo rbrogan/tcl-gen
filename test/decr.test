@@ -1,26 +1,73 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DecrTest {}
+
+
+
+proc DecrTest::Test-1 {} {
 
 ::tcltest::test Decr-0 {Basic positive}  -constraints {}  -setup {}  -body {set x 4
 Decr x}  -cleanup {}  -result {3}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DecrTest::Test-2 {} {
 
 ::tcltest::test Decr-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVariable
 Decr NoVariable}  -cleanup {}  -result {-1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DecrTest::Test-3 {} {
 
 ::tcltest::test Decr-2 {Non-numeric input}  -constraints {}  -setup {}  -body {set x asdf
 Decr x}  -cleanup {}  -result {Variable x has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DecrTest::Test-4 {} {
 
 ::tcltest::test Decr-3 {Empty string input}  -constraints {}  -setup {}  -body {Decr ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DecrTest::Test-5 {} {
 
 ::tcltest::test Decr-4 {Integer value specified}  -constraints {}  -setup {}  -body {set x 4
 Decr x 2}  -cleanup {}  -result {2}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DecrTest::Test-6 {} {
 
 ::tcltest::test Decr-5 {IntegerValue is not actually an integer}  -constraints {}  -setup {}  -body {set x 4
 Decr x 2.2}  -cleanup {}  -result {Variable IntegerValue has invalid value 2.2.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DecrTest::Test-1
+     DecrTest::Test-2
+     DecrTest::Test-3
+     DecrTest::Test-4
+     DecrTest::Test-5
+     DecrTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DecrTest::Test-[set Element]
+     }
+}
 

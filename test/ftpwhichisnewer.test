@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval FtpWhichIsNewerTest {}
+
+
+
+proc FtpWhichIsNewerTest::Test-1 {} {
 
 ::tcltest::test FtpWhichIsNewer-0 {Local file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
@@ -16,6 +22,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {local}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FtpWhichIsNewerTest::Test-2 {} {
 
 ::tcltest::test FtpWhichIsNewer-1 {Remote file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
@@ -32,6 +43,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {remote}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FtpWhichIsNewerTest::Test-3 {} {
 
 ::tcltest::test FtpWhichIsNewer-3 {File not available locally}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
@@ -48,6 +64,11 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {could not read "does-not-exist-on-local.txt": no such file or directory}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc FtpWhichIsNewerTest::Test-4 {} {
 
 ::tcltest::test FtpWhichIsNewer-4 {File not available remotely}  -constraints {}  -setup {source ftp-test-config.tcl
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
@@ -64,4 +85,18 @@ ftp::Close $FtpHandle
 file delete -force $::FtpTestLocalRoot/downloadto/temp/different-times
 file copy -force $::FtpTestLocalRoot/downloadto/original/different-times $::FtpTestLocalRoot/downloadto/temp/different-times}  -result {FTP: Could not get file mod time for does-not-exist-on-remote.txt.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FtpWhichIsNewerTest::Test-1
+     FtpWhichIsNewerTest::Test-2
+     FtpWhichIsNewerTest::Test-3
+     FtpWhichIsNewerTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FtpWhichIsNewerTest::Test-[set Element]
+     }
+}
 

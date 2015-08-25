@@ -1,34 +1,93 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DateIsOnOrAfterTest {}
+
+
+
+proc DateIsOnOrAfterTest::Test-1 {} {
 
 ::tcltest::test DateIsOnOrAfter-0 {Date is on}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 2000-01-01
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-2 {} {
 
 ::tcltest::test DateIsOnOrAfter-1 {Date is after}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-02 2000-01-01}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-3 {} {
 
 ::tcltest::test DateIsOnOrAfter-2 {Date is before}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 1999-12-31 2000-01-01
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-4 {} {
 
 ::tcltest::test DateIsOnOrAfter-3 {First is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrAfter asdf 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-5 {} {
 
 ::tcltest::test DateIsOnOrAfter-4 {Second is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-6 {} {
 
 ::tcltest::test DateIsOnOrAfter-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsOnOrAfter {January 02, 2000} {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-7 {} {
 
 ::tcltest::test DateIsOnOrAfter-6 {First is empty}  -constraints {}  -setup {}  -body {DateIsOnOrAfter "" 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnOrAfterTest::Test-8 {} {
 
 ::tcltest::test DateIsOnOrAfter-7 {Second is empty}  -constraints {}  -setup {}  -body {DateIsOnOrAfter 2000-01-01 ""
 }  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DateIsOnOrAfterTest::Test-1
+     DateIsOnOrAfterTest::Test-2
+     DateIsOnOrAfterTest::Test-3
+     DateIsOnOrAfterTest::Test-4
+     DateIsOnOrAfterTest::Test-5
+     DateIsOnOrAfterTest::Test-6
+     DateIsOnOrAfterTest::Test-7
+     DateIsOnOrAfterTest::Test-8
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DateIsOnOrAfterTest::Test-[set Element]
+     }
+}
 

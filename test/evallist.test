@@ -1,18 +1,47 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval EvalListTest {}
+
+
+
+proc EvalListTest::Test-1 {} {
 
 ::tcltest::test EvalList-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {{puts One} {puts Two}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 Two
 }  -returnCodes {0}  
 
+}
+
+
+
+proc EvalListTest::Test-2 {} {
 
 ::tcltest::test EvalList-1 {Empty list}  -constraints {}  -setup {}  -body {set MyList {}
 EvalList $MyList}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc EvalListTest::Test-3 {} {
 
 ::tcltest::test EvalList-2 {One element}  -constraints {}  -setup {}  -body {set MyList {{puts One}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     EvalListTest::Test-1
+     EvalListTest::Test-2
+     EvalListTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          EvalListTest::Test-[set Element]
+     }
+}
 

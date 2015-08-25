@@ -1,31 +1,84 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DateIsOnTest {}
+
+
+
+proc DateIsOnTest::Test-1 {} {
 
 ::tcltest::test DateIsOn-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-01
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnTest::Test-2 {} {
 
 ::tcltest::test DateIsOn-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 2000-01-02
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnTest::Test-3 {} {
 
 ::tcltest::test DateIsOn-2 {First is invalid}  -constraints {}  -setup {}  -body {DateIsOn asdf 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnTest::Test-4 {} {
 
 ::tcltest::test DateIsOn-3 {Second is invalid}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnTest::Test-5 {} {
 
 ::tcltest::test DateIsOn-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsOn {January 02, 2000} {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsOnTest::Test-6 {} {
 
 ::tcltest::test DateIsOn-5 {First is empty}  -constraints {}  -setup {}  -body {DateIsOn "" 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsOnTest::Test-7 {} {
 
 ::tcltest::test DateIsOn-6 {Second is empty}  -constraints {}  -setup {}  -body {DateIsOn 2000-01-01 ""
 }  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DateIsOnTest::Test-1
+     DateIsOnTest::Test-2
+     DateIsOnTest::Test-3
+     DateIsOnTest::Test-4
+     DateIsOnTest::Test-5
+     DateIsOnTest::Test-6
+     DateIsOnTest::Test-7
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DateIsOnTest::Test-[set Element]
+     }
+}
 

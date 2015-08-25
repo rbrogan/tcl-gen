@@ -1,20 +1,51 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval FlipTest {}
+
+
+
+proc FlipTest::Test-1 {} {
 
 ::tcltest::test Flip-0 {Basic test - 0 to 1}  -constraints {}  -setup {}  -body {Flip 0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FlipTest::Test-2 {} {
 
 ::tcltest::test Flip-1 {Basic test - 1 to 0}  -constraints {}  -setup {}  -body {Flip 1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc FlipTest::Test-3 {} {
 
 ::tcltest::test Flip-2 {Non-numeric input}  -constraints {}  -setup {}  -body {Flip asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc FlipTest::Test-4 {} {
 
 ::tcltest::test Flip-3 {Value out-of-range}  -constraints {}  -setup {}  -body {Flip 123}  -cleanup {}  -result {Input value 123 is out-of-range.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc FlipTest::Test-5 {} {
 
 ::tcltest::test Flip-4 {Empty string input}  -constraints {}  -setup {}  -body {Flip ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc FlipTest::Test-6 {} {
 
 ::tcltest::test Flip-5 {Test at}  -constraints {}  -setup {}  -body {set MyVar 0
 Flip @MyVar
@@ -23,4 +54,20 @@ puts $MyVar
 }  -cleanup {}  -result {}  -output {1
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FlipTest::Test-1
+     FlipTest::Test-2
+     FlipTest::Test-3
+     FlipTest::Test-4
+     FlipTest::Test-5
+     FlipTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FlipTest::Test-[set Element]
+     }
+}
 

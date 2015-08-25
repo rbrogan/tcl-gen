@@ -1,0 +1,222 @@
+package require tcltest
+package require -exact gen 1.7.0
+
+namespace eval FtpCleanRemoteDirectoryTest {}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-1 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-0 {Basic test}  -constraints {}  -setup {source ftp-test-config.tcl
+RunRemote "./ResetDirectory.sh one-file"
+}  -body {set RemoteDirectory one-file
+set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          # Switch to directory
+          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          if {$Ok == 0} {
+               error "Could not change into remote directory $RemoteDirectory. Quitting."
+          }
+          FtpCleanRemoteDirectory $FtpHandle .
+          set Ok 1
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+if {$Ok == 1} {
+     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
+	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+} else {
+     set Result 1
+}
+}  -cleanup {# RunRemote "./ResetDirectory.sh one-file"
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-2 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-1 {Remote directory does not exist}  -constraints {}  -setup {source ftp-test-config.tcl
+}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          FtpCleanRemoteDirectory $FtpHandle asdf
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+}  -cleanup {}  -result {Could not change into remote directory asdf. Quitting.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-3 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-2 {No ftp connection}  -constraints {}  -setup {}  -body {set FtpHandle -1
+FtpCleanRemoteDirectory $FtpHandle .
+}  -cleanup {}  -result {Could not change into remote directory .. Quitting.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-4 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-3 {Empty already}  -constraints {}  -setup {source ftp-test-config.tcl
+RunRemote "./ResetDirectory.sh empty-already"
+}  -body {set RemoteDirectory empty-already
+set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          # Switch to directory
+          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          if {$Ok == 0} {
+               error "Could not change into remote directory $RemoteDirectory. Quitting."
+          }
+          FtpCleanRemoteDirectory $FtpHandle .
+          set Ok 1
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+if {$Ok == 1} {
+     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
+	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+} else {
+     set Result 1
+}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-5 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-4 {Has empty subdir}  -constraints {}  -setup {source ftp-test-config.tcl
+RunRemote "./ResetDirectory.sh has-empty-subdir"
+}  -body {set RemoteDirectory has-empty-subdir
+set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          # Switch to directory
+          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          if {$Ok == 0} {
+               error "Could not change into remote directory $RemoteDirectory. Quitting."
+          }
+          FtpCleanRemoteDirectory $FtpHandle .
+          set Ok 1
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+if {$Ok == 1} {
+     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
+	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+} else {
+     set Result 1
+}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-6 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-5 {Has subdir with file}  -constraints {}  -setup {source ftp-test-config.tcl
+RunRemote "./ResetDirectory.sh has-subdir-with-file"
+}  -body {set RemoteDirectory has-subdir-with-file
+set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          # Switch to directory
+          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          if {$Ok == 0} {
+               error "Could not change into remote directory $RemoteDirectory. Quitting."
+          }
+          FtpCleanRemoteDirectory $FtpHandle .
+          set Ok 1
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+if {$Ok == 1} {
+     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
+	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+} else {
+     set Result 1
+}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpCleanRemoteDirectoryTest::Test-7 {} {
+
+::tcltest::test FtpCleanRemoteDirectory-6 {Two files}  -constraints {}  -setup {source ftp-test-config.tcl
+RunRemote "./ResetDirectory.sh two-files"
+}  -body {set RemoteDirectory two-files
+set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+if {$FtpHandle == -1} {
+     error "FTP: Could not open connection!"
+} else {
+     try {
+          # Switch to directory
+          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          if {$Ok == 0} {
+               error "Could not change into remote directory $RemoteDirectory. Quitting."
+          }
+          FtpCleanRemoteDirectory $FtpHandle .
+          set Ok 1
+     } finally {
+          DbgPrint "Closing connection"
+          ftp::Close $FtpHandle
+     }
+}
+if {$Ok == 1} {
+     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
+	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+} else {
+     set Result 1
+}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     FtpCleanRemoteDirectoryTest::Test-1
+     FtpCleanRemoteDirectoryTest::Test-2
+     FtpCleanRemoteDirectoryTest::Test-3
+     FtpCleanRemoteDirectoryTest::Test-4
+     FtpCleanRemoteDirectoryTest::Test-5
+     FtpCleanRemoteDirectoryTest::Test-6
+     FtpCleanRemoteDirectoryTest::Test-7
+} else {
+     foreach Element [lrange $argv 1 end] {
+          FtpCleanRemoteDirectoryTest::Test-[set Element]
+     }
+}
+

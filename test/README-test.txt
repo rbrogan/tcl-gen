@@ -104,6 +104,19 @@ work listed in the above two sites.
 
 all.tcl
      Test suite.
+README-test-ftp.html
+     About how to run FTP-related tests.
+README-test-ftp.txt
+     About how to run FTP-related tests.
+test-reload-package.tcl
+     For ReloadPackage tests.
+test-reload-package.tcl.1
+     For ReloadPackage tests.
+test-reload-package.tcl.2
+     For ReloadPackage tests.
+test.db
+     Sample data, etc. for database-related tests.
+     
 addepilogue.test
      Tests for the command AddEpilogue.
 addprologue.test
@@ -184,14 +197,20 @@ flip.test
      Tests for the command Flip.
 foreachrecord.test
      Tests for the command ForeachRecord.
-ftp-local
-     Files to use on local machine for FTP-related tests.
-ftp-remote
-     Files to copy to remote machine to use for FTP-related tests.
-ftp-test-config.tcl
-     Configuration to make FTP tests run on host machine.
+ftpcleanremotedirectory.test
+     Tests for the command FtpCleanRemoteDirectory.
+ftpdownloaddirectory.test
+     Tests for the command FtpDownloadDirectory.
+ftpdownloadsite.test
+     Tests for the command FtpDownloadSite.
+ftpmirrorlocaltoremote.test
+     Tests for the command FtpMirrorLocalToRemote.
 ftpmirrorremotetolocal.test
      Tests for the command FtpMirrorRemoteToLocal.
+ftpuploaddirectory.test
+     Tests for the command FtpUploadDirectory.
+ftpuploadsite.test
+     Tests for the command FtpUploadSite.
 ftpwhichislarger.test
      Tests for the command FtpWhichIsLarger.
 ftpwhichisnewer.test
@@ -278,10 +297,6 @@ qq.test
      Tests for the command QQ.
 raise.test
      Tests for the command Raise.
-README-test-ftp.html
-     About how to run FTP-related tests.
-README-test-ftp.txt
-     About how to run FTP-related tests.     
 registryexists.test
      Tests for the command RegistryExists.
 registryprint.test
@@ -372,14 +387,6 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
-test-reload-package.tcl
-     For ReloadPackage tests.
-test-reload-package.tcl.1
-     For ReloadPackage tests.
-test-reload-package.tcl.2
-     For ReloadPackage tests.
-test.db
-     Sample data, etc. for database-related tests.
 timeofdayisafter.test
      Tests for the command TimeOfDayIsAfter.
 timeofdayisat.test

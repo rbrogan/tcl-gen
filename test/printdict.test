@@ -1,15 +1,31 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval PrintDictTest {}
+
+
+
+proc PrintDictTest::Test-1 {} {
 
 ::tcltest::test PrintDict-0 {Empty dict}  -constraints {}  -setup {}  -body {PrintDict {}
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-2 {} {
 
 ::tcltest::test PrintDict-1 {Dict has one entry}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno]
 PrintDict $MyDict
 }  -cleanup {}  -result {}  -output {one uno
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-3 {} {
 
 ::tcltest::test PrintDict-2 {Dict has multiple entries}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos]
 PrintDict $MyDict
@@ -17,6 +33,11 @@ PrintDict $MyDict
 two dos
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-4 {} {
 
 ::tcltest::test PrintDict-3 {Dict has one nested dict}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three]]
 PrintDict $MyDict
@@ -28,6 +49,11 @@ three
       333 three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-5 {} {
 
 ::tcltest::test PrintDict-4 {Dict has multiple nested dicts}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three] erht [dict create 111 one 222 two 333 three]]
 PrintDict $MyDict
@@ -43,6 +69,11 @@ three
       333 three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-6 {} {
 
 ::tcltest::test PrintDict-5 {Dict has nested dict two levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3]]]
 PrintDict $MyDict
@@ -58,10 +89,20 @@ three
           c 3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-7 {} {
 
 ::tcltest::test PrintDict-6 {Input is not a dict}  -constraints {}  -setup {}  -body {PrintDict {not a dict}
 }  -cleanup {}  -result {Variable DictValue has invalid value not a dict.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc PrintDictTest::Test-8 {} {
 
 ::tcltest::test PrintDict-7 {Multiple nested two levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3] 555 [dict create x 9 y 8 z 7]]]
 PrintDict $MyDict
@@ -81,6 +122,11 @@ three
           z 7
 }  -returnCodes {0}  
 
+}
+
+
+
+proc PrintDictTest::Test-9 {} {
 
 ::tcltest::test PrintDict-8 {Nested three levels deep}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three [dict create 111 one 222 two 333 three 444 [dict create a 1 b 2 c 3 d [dict create nn mm oo pp qq rr]]]]
 PrintDict $MyDict
@@ -100,4 +146,23 @@ three
             qq rr
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     PrintDictTest::Test-1
+     PrintDictTest::Test-2
+     PrintDictTest::Test-3
+     PrintDictTest::Test-4
+     PrintDictTest::Test-5
+     PrintDictTest::Test-6
+     PrintDictTest::Test-7
+     PrintDictTest::Test-8
+     PrintDictTest::Test-9
+} else {
+     foreach Element [lrange $argv 1 end] {
+          PrintDictTest::Test-[set Element]
+     }
+}
 

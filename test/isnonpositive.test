@@ -1,15 +1,50 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsNonPositiveTest {}
+
+
+
+proc IsNonPositiveTest::Test-1 {} {
 
 ::tcltest::test IsNonPositive-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsNonPositive 0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonPositiveTest::Test-2 {} {
 
 ::tcltest::test IsNonPositive-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsNonPositive 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsNonPositiveTest::Test-3 {} {
 
 ::tcltest::test IsNonPositive-2 {Non-numeric input}  -constraints {}  -setup {}  -body {IsNonPositive asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc IsNonPositiveTest::Test-4 {} {
 
 ::tcltest::test IsNonPositive-3 {Empty string input}  -constraints {}  -setup {}  -body {IsNonPositive ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsNonPositiveTest::Test-1
+     IsNonPositiveTest::Test-2
+     IsNonPositiveTest::Test-3
+     IsNonPositiveTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsNonPositiveTest::Test-[set Element]
+     }
+}
 

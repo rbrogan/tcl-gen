@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpCleanRemoteDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpCleanRemoteDirectory  &mdash;  Clean remote directory of contents, but leave directory.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpCleanRemoteDirectory</b> <i>FtpHandle</i> <i>RemoteDirectory</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FtpHandle</i></td><td class='argument_right'>Handle for FTP connection.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RemoteDirectory</i></td><td class='argument_right'>Remote directory to clean.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href='about-ftp-use.html'>About FTP Use</a> for additional details.<p>Note that this will not delete the directory itself, but rather will delete all its contents (if it can). You can then delete the directory itself by using <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/ftp/ftp.html#18">ftp::RmDir</a>.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpcleanremotedirectory-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]<br>1<br>% <b>FtpCleanRemoteDirectory $FtpHandle NameOfDirectoryToClean</b><br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval AppendString2FileTest {}
+
+
+
+proc AppendString2FileTest::Test-1 {} {
 
 ::tcltest::test AppendString2File-0 {Basic test - pre-existing file}  -constraints {}  -setup {file delete test.txt
 }  -body {String2File "1-2-3\n" test.txt
@@ -9,6 +15,11 @@ puts [File2String test.txt]}  -cleanup {file delete test.txt
 4-5-6
 }  -returnCodes {0}  
 
+}
+
+
+
+proc AppendString2FileTest::Test-2 {} {
 
 ::tcltest::test AppendString2File-1 {Basic test - new file}  -constraints {}  -setup {file delete test.txt
 }  -body {AppendString2File 4-5-6 test.txt
@@ -17,15 +28,39 @@ puts [File2String test.txt]
 }  -result {}  -output {4-5-6
 }  -returnCodes {0}  
 
+}
+
+
+
+proc AppendString2FileTest::Test-3 {} {
 
 ::tcltest::test AppendString2File-2 {Empty string input}  -constraints {}  -setup {}  -body {AppendString2File "" test.txt
 puts [File2String test.txt]
 }  -cleanup {}  -result {}  -output {
 }  -returnCodes {0}  
 
+}
+
+
+
+proc AppendString2FileTest::Test-4 {} {
 
 ::tcltest::test AppendString2File-3 {FilePath is empty}  -constraints {}  -setup {}  -body {AppendString2File 4-5-6 ""
 
 }  -cleanup {}  -result {Variable FilePath has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     AppendString2FileTest::Test-1
+     AppendString2FileTest::Test-2
+     AppendString2FileTest::Test-3
+     AppendString2FileTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          AppendString2FileTest::Test-[set Element]
+     }
+}
 

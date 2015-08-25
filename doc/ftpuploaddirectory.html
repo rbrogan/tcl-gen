@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpUploadDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpUploadDirectory  &mdash;  Upload local directory to remote directory.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpUploadDirectory</b> <i>FtpHandle</i> <i>Directory</i> <i>OverwritePolicy</i> <i>RecursePolicy</i> <i>DeleteUnmatchedPolicy</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FtpHandle</i></td><td class='argument_right'>Handle for FTP connection.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LocalDirectory</i></td><td class='argument_right'>Local directory to upload from.</td></tr><tr class='table_row_b'><td class='argument_left'><i>OverwritePolicy</i></td><td class='argument_right'>If there are local copies with the same name, then when to overwrite them.<br>Options are: OverwriteAll, LocalNewer, SizeDifferent, LocalNewerOrDifferent, LocalNewerAndDifferent.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RecursePolicy</i></td><td class='argument_right'>RecurseIntoSubdirectories or DoNotRecurse</td></tr><tr class='table_row_b'><td class='argument_left'><i>DeleteUnmatchedPolicy</i></td><td class='argument_right'>DeleteUnmatched or LeaveUnmatched</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href='about-ftp-use.html'>About FTP Use</a> for additional details.<br><p>Local and remote directory have to have the same name. The command will cd into the directory on both ends to start with. Prior to making this call, you can cd and <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/ftp/ftp.html#3">ftp::Cd</a> yourself through the part of the path that is different, and then make the call (see example).</p><p>Note that if you want to do mirroring or you want to do the equivalent of a copy-and-paste, there are the <a href="ftpmirrorlocaltoremote.html">FtpMirrorLocalToRemote</a> and <a href="ftpdownloadsite.html">FtpDownloadSite</a> commands.</p><p>Currently, there is no way to do the following: both (a) delete all unmatched files and also at the same time (b) leave unmatched directories.</p><p>If you set the NoRecurse option and the same directory is on both sides, then that directory will still be considered matched, and so it will not be deleted.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpuploaddirectory-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set FtpHandle [ftp::Open $IpAddress $Username $Password]<br>% cd c:/my/local/folder<br>% ftp::Cd /home/my/directory<br>% <b>FtpUploadDirectory $FtpHandle start OverwriteAll RecurseIntoSubdirectories LeaveUnmatched</b><br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpdownloaddirectory.html'>FtpDownloadDirectory</a>, <a href = 'ftpmirrorlocaltoremote.html'>FtpMirrorLocalToRemote</a>, <a href = 'ftpuploadsite.html'>FtpUploadSite</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

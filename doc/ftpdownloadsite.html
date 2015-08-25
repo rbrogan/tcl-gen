@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpDownloadSite</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpDownloadSite  &mdash;  Make connection, download files, close connection.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpDownloadSite</b> <i>RemoteDirectory</i> <i>LocalDirectory</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>RemoteDirectory</i></td><td class='argument_right'>Path to start download from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LocalDirectory</i></td><td class='argument_right'>Path to download into.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See <a href='about-ftp-use.html'>About FTP Use</a> for additional details.<br><p>To use this command you will need to have configured the server IP, username, and password to use. See <a href="about-ftp-use.html">here</a> for details.</p><p>Caution! This command is set to overwrite any local copies of files by the remote versions without asking. See the <a href='about-ftp-use.html'>FTP page</a> for details about setting up to use a dry run.</p><p>This is a copy-and-paste style command. It will overwrite all files without checking the size or timestamp. Also, unlike <a href="ftpmirrorremotetolocal.html">FtpMirrorRemoteToLocal</a>, this will keep any files that appear locally, but not on the remote. Note that this includes files in subdirectories.</p><p>This command will (1) open a connection based on the configuration, (2) switch to the remote directory with FTP, (3) switch to the local directory, (4) copy the contents of the remote to the local, and (5) close the connection and change back to the starting local directory.</p><p>The command will copy not only the files in the remote directory, but the subdirectories and their contents as well. It will make directories on the local end if necessary.</p><p>If an error occurs in the middle, this command will not try to rollback or anything like that. It will simply close the connection and return to the starting local directory.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpdownloadsite-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>FtpDownloadSite /home/username/folder c:/users/username/documents/folder</b><br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpdownloaddirectory.html'>FtpDownloadDirectory</a>, <a href = 'ftpmirrorremotetolocal.html'>FtpMirrorRemoteToLocal</a>, <a href = 'ftpuploadsite.html'>FtpUploadSite</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

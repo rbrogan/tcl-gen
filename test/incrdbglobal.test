@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IncrDbGlobalTest {}
+
+
+
+proc IncrDbGlobalTest::Test-1 {} {
 
 ::tcltest::test IncrDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyVariable 11
@@ -7,15 +13,30 @@ IncrDbGlobal MyVariable
 GetDbGlobal MyVariable
 }  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IncrDbGlobalTest::Test-2 {} {
 
 ::tcltest::test IncrDbGlobal-1 {Variable not pre-existing}  -constraints {}  -setup {}  -body {UnsetDbGlobal MyVariable
 IncrDbGlobal MyVariable
 GetDbGlobal MyVariable
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IncrDbGlobalTest::Test-3 {} {
 
 ::tcltest::test IncrDbGlobal-2 {Variable name empty}  -constraints {}  -setup {}  -body {IncrDbGlobal ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc IncrDbGlobalTest::Test-4 {} {
 
 ::tcltest::test IncrDbGlobal-3 {Use amount}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyVariable 11
@@ -23,6 +44,11 @@ IncrDbGlobal MyVariable 2
 GetDbGlobal MyVariable
 }  -cleanup {}  -result {13}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IncrDbGlobalTest::Test-5 {} {
 
 ::tcltest::test IncrDbGlobal-4 {Try to use non-numeric amount}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyVariable 11
@@ -30,10 +56,31 @@ IncrDbGlobal MyVariable asdf
 GetDbGlobal MyVariable
 }  -cleanup {}  -result {Amount is invalid. Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc IncrDbGlobalTest::Test-6 {} {
 
 ::tcltest::test IncrDbGlobal-5 {Variable holds non-numeric value}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyVariable asdf
 IncrDbGlobal MyVariable
 }  -cleanup {}  -result {Variable MyVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IncrDbGlobalTest::Test-1
+     IncrDbGlobalTest::Test-2
+     IncrDbGlobalTest::Test-3
+     IncrDbGlobalTest::Test-4
+     IncrDbGlobalTest::Test-5
+     IncrDbGlobalTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IncrDbGlobalTest::Test-[set Element]
+     }
+}
 

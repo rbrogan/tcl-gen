@@ -31,10 +31,67 @@
 
 
 <div class="section-header">
+<div class="section-header-left">2015.08.24</div><div class="section-header-right">v1.7.0 Release</div>
+</div>
+<div class="section-content">
+<p>
+We continue on with our assortment of FTP-related commands. Also for this release, we have begun putting things in place for a couple of new features. 
+</p>
+<p>
+Here are the new commands --
+</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpcleanremotedirectory.html" class="command_link">FtpCleanRemoteDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Clean remote directory of contents, but leave directory.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/ftpdownloaddirectory.html" class="command_link">FtpDownloadDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Download from remote directory into local directory.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpdownloadsite.html" class="command_link">FtpDownloadSite</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make connection, download files, close connection.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/ftpmirrorlocaltoremote.html" class="command_link">FtpMirrorLocalToRemote</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make remote site match what local site has.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpuploaddirectory.html" class="command_link">FtpUploadDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Upload local directory to remote directory.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/ftpuploadsite.html" class="command_link">FtpUploadSite</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make connection, upload all files, close connection.</p></div>
+
+
+
+<p>
+Now for other changes --
+</p>
+<p>
+First, note that rather than use gen.tcl by itself, we have a separate source file for each command. This helps out with a few things and is a (conceptual) step towards the ability to partially load Gen based on what dependencies you have on your machine. It also makes things be a bit more consistent with the documentation and tests (each has a file per command). 
+</p>
+<p>
+Second, we have begun moving the exception (i.e. error) documentation out into separate pages. These pages are like-to the regular command documentation and vice versa. The purpose here is to set up a space where we will add details for things like debugging, policies, etc., and be able do that without having too much information on the main page.
+</p>
+<p>
+The Run command has changed to save the pre-existing contents of ::argv and restore them before exiting.
+</p>
+<p>
+The test suite was changed to support FTP testing by making it possible to run individual tests. However, this is an internal feature, should not interfere with how tests normally run, and is not yet supported.
+</p>
+<p>
+Since we prefer to keep strict deadlines and force something out, then revise, not everything made it into this revision. Specifically:
+<ul>
+<li>All the commands have been tested pretty well, but the set up involves things like running commands on the remote machine to do a diff, redo the setup for the next test, etc. Did not have time to make this be universal, so those tests will fail for you. The commands should still work.</li>
+<li>The error messages for the FTP commands and other commands need to be gathered up and put into the exception documentation.</li>
+<li>The tests for the FTP commands could stand to be touched up and made more consistent.</li>
+<li>The documentation for the FTP commands could also stand to be touched up and made more consistent.</li>
+</ul>
+</p>
+<p>
+So we will look to put out a revision that addresses these, get going with a Known Issues page, etc.
+</p>
+
+
+<br>
+
+<div class="section-header">
 <div class="section-header-left">2015.08.10</div><div class="section-header-right">v1.6.0 Release</div>
 </div>
 <div class="section-content">
-<p>This week we have a short release which introduces some FTP-related commands. More commands to follow in a couple of weeks. Check <a href="doc/about-ftp-use.html">doc/about-ftp-use.html</a> for more information and test/README-test-ftp.txt or <a href="test/README-test-ftp.html">test/README-test-ftp.html</a> for information about testing FTP commands on your machine.</p>
+<p>This week we have a short release which introduces some FTP-related commands. More commands to follow in a couple of weeks. Check doc/about-ftp-use.html for more information and test/README-test-ftp.txt or test/README-test-ftp.html for information about testing FTP commands on your machine.</p>
 
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/ftpmirrorremotetolocal.html" class="command_link">FtpMirrorRemoteToLocal</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Make local site match what remote has.</p></div>
@@ -49,7 +106,9 @@
 
 
 
+
 <br>
+
 
 <div class="section-header">
 <div class="section-header-left">2015.07.27</div><div class="section-header-right">v1.5.0 Release</div>
@@ -93,7 +152,7 @@
 SIGNATURE
     String2File {StringValue OutFilePath}
 
-This week we have a short release which introduces some FTP-related commands. More commands to follow in a couple of weeks. Check doc/about-ftp-use.html for more information and test/README-test-ftp.txt or test/README-test-ftp.html for information about testing FTP commands on your machine.
+
     Create a file, write string to it, and close the file.
 
 RETURNS
@@ -333,7 +392,7 @@ What follows is a listing of new commands:<br>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlsetclause.html" class="command_link">SqlSetClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Derive a set clause for an update query, using a dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlupdatestatement.html" class="command_link">SqlUpdateStatement</a></p></div>
-<div class="command_desc"><p class="quasi_table_right">Create an UP2015.08.10 statement.</p></div>
+<div class="command_desc"><p class="quasi_table_right">Create an UP2015.08.24 statement.</p></div>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlwhereclause.html" class="command_link">SqlWhereClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Create a WHERE clause using the values in dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlitecolumnnameandtypelist.html" class="command_link">SqliteColumnNameAndTypeList</a></p></div>

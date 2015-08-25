@@ -24,6 +24,8 @@ DESCRIPTION
 <div class='subsection_content'>
 A string with the contents of the file.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>InFilePath</i></td><td class='argument_right'>Where to find the file.</td></tr><tr class='table_row_a'><td class='argument_left'><i>StringVarName</i></td><td class='argument_right'>Name of the string variable to populate. Optional.
 If variable does not already exist then one will be created.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that there already exists the command <a href='http://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/fileutil/fileutil.html'>::fileutil::cat</a>, which is practically the same in functionality, but has a different arguments.  We missed this when putting together Gen, and thanks to those who pointed it out. You may well prefer to use this command.<p>Note this assumes UTF-8 encoding. Support for flags should come in a future release.</p><p>Note also that this returns the contents of the file, so the second argument is optional.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="file2string-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

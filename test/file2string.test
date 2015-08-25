@@ -1,11 +1,22 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval File2StringTest {}
+
+
+
+proc File2StringTest::Test-1 {} {
 
 ::tcltest::test File2String-0 {Basic test 1 - one line}  -constraints {}  -setup {}  -body {String2File "abc" test.txt
 set Result [File2String test.txt]
 puts $Result}  -cleanup {}  -result {}  -output {abc
 }  -returnCodes {0}  
 
+}
+
+
+
+proc File2StringTest::Test-2 {} {
 
 ::tcltest::test File2String-1 {Basic test 2 - two lines}  -constraints {}  -setup {}  -body {String2File "abc\ndef" test.txt
 set Result [File2String test.txt]
@@ -13,10 +24,28 @@ puts $Result}  -cleanup {}  -result {}  -output {abc
 def
 }  -returnCodes {0}  
 
+}
+
+
+
+proc File2StringTest::Test-3 {} {
 
 ::tcltest::test File2String-2 {Empty string}  -constraints {}  -setup {}  -body {String2File "" test.txt
 set Result [File2String test.txt]
 puts $Result}  -cleanup {}  -result {}  -output {
 }  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     File2StringTest::Test-1
+     File2StringTest::Test-2
+     File2StringTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          File2StringTest::Test-[set Element]
+     }
+}
 

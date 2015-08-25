@@ -1,29 +1,65 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DateIsAfterTest {}
+
+
+
+proc DateIsAfterTest::Test-1 {} {
 
 ::tcltest::test DateIsAfter-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsAfter {2000-01-02} {2000-01-01}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-2 {} {
 
 ::tcltest::test DateIsAfter-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsAfter {2000-01-01}  {2000-01-02}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-3 {} {
 
 ::tcltest::test DateIsAfter-2 {FirstDate is empty}  -constraints {}  -setup {}  -body {DateIsAfter "" {2000-01-01}
 }  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-4 {} {
 
 ::tcltest::test DateIsAfter-3 {Second date is empty}  -constraints {}  -setup {}  -body {DateIsAfter {2000-01-02} ""
 }  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-5 {} {
 
 ::tcltest::test DateIsAfter-4 {First date contains invalid values}  -constraints {}  -setup {}  -body {DateIsAfter asdf {2000-01-01}
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-6 {} {
 
 ::tcltest::test DateIsAfter-5 {Second date contains invalid values}  -constraints {}  -setup {}  -body {DateIsAfter {2000-01-02} asdf
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-7 {} {
 
 ::tcltest::test DateIsAfter-6 {Use alternate format}  -constraints {}  -setup {
 }  -body {SetDateFormat {{%B %d, %Y}}
@@ -31,8 +67,31 @@ DateIsAfter {January 02, 2000} {January 01, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsAfterTest::Test-8 {} {
 
 ::tcltest::test DateIsAfter-7 {Dates are equal}  -constraints {}  -setup {}  -body {DateIsAfter {2000-01-01} {2000-01-01}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DateIsAfterTest::Test-1
+     DateIsAfterTest::Test-2
+     DateIsAfterTest::Test-3
+     DateIsAfterTest::Test-4
+     DateIsAfterTest::Test-5
+     DateIsAfterTest::Test-6
+     DateIsAfterTest::Test-7
+     DateIsAfterTest::Test-8
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DateIsAfterTest::Test-[set Element]
+     }
+}
 

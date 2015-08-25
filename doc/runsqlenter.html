@@ -22,22 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-The id of the record just inserted or updated.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Table to do insert/update on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>WhereDict</i></td><td class='argument_right'>Dict containing column name / value pairs to search.</td></tr><tr class='table_row_b'><td class='argument_left'><i>SetDict</i></td><td class='argument_right'>Dict containing column name / value pairs to write. Optional (see below).</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>TableName is empty.</td>
-<td class="error_code">-12</td>
-<td>Variable $VarName has empty value.</td>
-</tr>
-<tr><td>WhereDict is empty.</td>
-<td class="error_code">-12</td>
-<td>Variable $VarName has empty value.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.<p>The SetDict argument may be omitted if the WhereDict covers all the relevant info. For instance, if entering into a table with just one column there is no point in having an additional dict.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
+The id of the record just inserted or updated.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Table to do insert/update on.</td></tr><tr class='table_row_a'><td class='argument_left'><i>WhereDict</i></td><td class='argument_right'>Dict containing column name / value pairs to search.</td></tr><tr class='table_row_b'><td class='argument_left'><i>SetDict</i></td><td class='argument_right'>Dict containing column name / value pairs to write. Optional (see below).</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that for the dicts, you (currently) must put quotes around any values that will go into text columns or receive an error. We  may add support in a future release for automatically detecting the column type and quoting values as necessary.<p>The SetDict argument may be omitted if the WhereDict covers all the relevant info. For instance, if entering into a table with just one column there is no point in having an additional dict.</p><p>Check <a href="about-configuration-for-database-use.html">this page</a> for info about how to set up Gen for using database-related commands.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="runsqlenter-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

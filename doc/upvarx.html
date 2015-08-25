@@ -22,17 +22,9 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to find/create in caller.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Var</i></td><td class='argument_right'>Name of variable to use locally.</td></tr><tr class='table_row_b'><td class='argument_left'><i>DefaultValue</i></td><td class='argument_right'>Optional. Value to set a newly created variable to. Defaults to empty string.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Got empty string instead of variable name.</td>
-<td class="error_code">-3</td>
-<td>Variable name is missing. Got empty string.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command was written to be able to write procs that have behavior similar to incr and append. When you use those commands, you can give it the name of a variable that does not yet exist and one will be created for you (and initialized to a default if you choose).</div>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to find/create in caller.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Var</i></td><td class='argument_right'>Name of variable to use locally.</td></tr><tr class='table_row_b'><td class='argument_left'><i>DefaultValue</i></td><td class='argument_right'>Optional. Value to set a newly created variable to. Defaults to empty string.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command was written to be able to write procs that have behavior similar to incr and append. When you use those commands, you can give it the name of a variable that does not yet exist and one will be created for you (and initialized to a default if you choose).</div>
+<br>
+For information regarding exceptions / errors, see <a href="upvarx-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

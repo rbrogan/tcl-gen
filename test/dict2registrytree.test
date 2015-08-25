@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval Dict2RegistryTreeTest {}
+
+
+
+proc Dict2RegistryTreeTest::Test-1 {} {
 
 ::tcltest::test Dict2RegistryTree-0 {Basic test}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
@@ -10,6 +16,11 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -result {}  -output {test 1-2-3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-2 {} {
 
 ::tcltest::test Dict2RegistryTree-1 {Empty dict}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}
 }  -body {set MyDict [dict create]
@@ -19,6 +30,11 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}
 }  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-3 {} {
 
 ::tcltest::test Dict2RegistryTree-2 {Dict with nested dicts}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create uno one dos two tres three quatro [dict create yi one er two san three]]
@@ -33,6 +49,11 @@ quatro
        san three
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-4 {} {
 
 ::tcltest::test Dict2RegistryTree-4 {Registry key does not already exist}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
@@ -42,16 +63,31 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -result {}  -output {test 1-2-3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-5 {} {
 
 ::tcltest::test Dict2RegistryTree-5 {Registry key is invalid}  -constraints {win}  -setup {}  -body {set MyDict [dict create test 1-2-3]
 Dict2RegistryTree $MyDict {}
 }  -cleanup {}  -result {Variable RegistryRootKey has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-6 {} {
 
 ::tcltest::test Dict2RegistryTree-6 {DictValue is invalid}  -constraints {win}  -setup {}  -body {Dict2RegistryTree {not a dict} {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -result {Variable DictValue has invalid value not a dict.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-7 {} {
 
 ::tcltest::test Dict2RegistryTree-7 {Registry tree has existing values not in dict and DeleteUnmatched is set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
@@ -63,6 +99,11 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -result {}  -output {test 1-2-3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-8 {} {
 
 ::tcltest::test Dict2RegistryTree-8 {Registry tree has existing subtree not in dict and DeleteUnmatched is set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
@@ -74,6 +115,11 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {test 1-2-3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-9 {} {
 
 ::tcltest::test Dict2RegistryTree-9 {Registry tree has existing values in a subtree that are not in dict and DeleteUnmatched set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3 sub [dict create aa 11 bb 22]]
@@ -89,9 +135,34 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
      bb 22
 }  -returnCodes {0}  
 
+}
+
+
+
+proc Dict2RegistryTreeTest::Test-10 {} {
 
 ::tcltest::test Dict2RegistryTree-10 {DeleteUnmatchedOption is invalid}  -constraints {win}  -setup {}  -body {set MyDict [dict create test 1-2-3]
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest} asdf
 }  -cleanup {}  -result {Variable DeleteUnmatchedOption has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     Dict2RegistryTreeTest::Test-1
+     Dict2RegistryTreeTest::Test-2
+     Dict2RegistryTreeTest::Test-3
+     Dict2RegistryTreeTest::Test-4
+     Dict2RegistryTreeTest::Test-5
+     Dict2RegistryTreeTest::Test-6
+     Dict2RegistryTreeTest::Test-7
+     Dict2RegistryTreeTest::Test-8
+     Dict2RegistryTreeTest::Test-9
+     Dict2RegistryTreeTest::Test-10
+} else {
+     foreach Element [lrange $argv 1 end] {
+          Dict2RegistryTreeTest::Test-[set Element]
+     }
+}
 

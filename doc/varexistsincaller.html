@@ -25,17 +25,9 @@ DESCRIPTION
 <table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> It exists.</td></tr>
 <tr><td class='argument_left'><i>0</i></td><td class='argument_right'> It does not exist.</td></tr>
 </table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable to check for.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LevelOffset</i></td><td class='argument_right'>Optional. How many levels up to go. Default is 1 and will check the immediate caller.
-</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Got empty string instead of variable name.</td>
-<td class="error_code">-3</td>
-<td>Variable name is missing. Got empty string.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command uses <code>uplevel</code> and <code>info exists</code> to determine if the variable exists in the context of a caller.</div>
+</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command uses <code>uplevel</code> and <code>info exists</code> to determine if the variable exists in the context of a caller.</div>
+<br>
+For information regarding exceptions / errors, see <a href="varexistsincaller-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

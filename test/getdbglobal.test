@@ -1,33 +1,80 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval GetDbGlobalTest {}
+
+
+
+proc GetDbGlobalTest::Test-1 {} {
 
 ::tcltest::test GetDbGlobal-0 {Basic test - text}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal test 1-2-3
 GetDbGlobal test
 }  -cleanup {}  -result {1-2-3}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc GetDbGlobalTest::Test-2 {} {
 
 ::tcltest::test GetDbGlobal-1 {Basic test - integer}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal myint 123
 GetDbGlobal myint
 }  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc GetDbGlobalTest::Test-3 {} {
 
 ::tcltest::test GetDbGlobal-2 {Basic test - real}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal myreal 1.2
 GetDbGlobal myreal}  -cleanup {}  -result {1.2}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc GetDbGlobalTest::Test-4 {} {
 
 ::tcltest::test GetDbGlobal-3 {No such variable}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {UnsetDbGlobal NoSuchVariable
 GetDbGlobal NoSuchVariable
 }  -cleanup {}  -result {No variable called NoSuchVariable was found in the database globals table.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc GetDbGlobalTest::Test-5 {} {
 
 ::tcltest::test GetDbGlobal-4 {Variable name is empty}  -constraints {}  -setup {}  -body {GetDbGlobal ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc GetDbGlobalTest::Test-6 {} {
 
 ::tcltest::test GetDbGlobal-5 {Invalid type}  -constraints {}  -setup {}  -body {GetDbGlobal test asdf
 }  -cleanup {}  -result {Variable Type has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     GetDbGlobalTest::Test-1
+     GetDbGlobalTest::Test-2
+     GetDbGlobalTest::Test-3
+     GetDbGlobalTest::Test-4
+     GetDbGlobalTest::Test-5
+     GetDbGlobalTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          GetDbGlobalTest::Test-[set Element]
+     }
+}
 

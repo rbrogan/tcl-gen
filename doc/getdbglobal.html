@@ -22,26 +22,10 @@ DESCRIPTION
 <div class="section_content">
 <div class='subsection_header'>Return Value</div>
 <div class='subsection_content'>
-The current value of the global variable.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable in globals table.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Type</i></td><td class='argument_right'>Optional. Type of the variable to get: text, integer, real. Defaults to text.</td></tr></table></div><div class = 'subsection_header'>Error Conditions</div>
-<div class= 'subsection_content'>
-<table>
-<tr>
-<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
-<tr><td>Contents of argument Type are invalid. Type is something other than text, int/integer, real/float/double.</td>
-<td class="error_code">-11</td>
-<td>Variable $VarName has invalid value $Value.</td>
-</tr>
-<tr><td>No such entry found in database globals table.</td>
-<td class="error_code">-13</td>
-<td>No variable called $VarName was found in the database globals table.</td>
-</tr>
-<tr><td>Got empty string instead of variable name.</td>
-<td class="error_code">-3</td>
-<td>Variable name is missing. Got empty string.</td>
-</tr>
-</table>
-</div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>As with <code>set NoSuchVariable</code>, this command will return an error if you try to access a variable that does not exist rather than create one for you (as, for instance, <code>upvar</code> does). <p>You may wish to take a look at the documentation about the XxxDbGlobal commands: <a href="xxxdbglobal.html">About XxxGlobal</a>.</p><p>Check <a href="about-configuration-for-database-use.html">About Configuration for Database Use</a> for info about how to set up Gen for using database-related commands.
+The current value of the global variable.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>VarName</i></td><td class='argument_right'>Name of variable in globals table.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Type</i></td><td class='argument_right'>Optional. Type of the variable to get: text, integer, real. Defaults to text.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>As with <code>set NoSuchVariable</code>, this command will return an error if you try to access a variable that does not exist rather than create one for you (as, for instance, <code>upvar</code> does). <p>You may wish to take a look at the documentation about the XxxDbGlobal commands: <a href="xxxdbglobal.html">About XxxGlobal</a>.</p><p>Check <a href="about-configuration-for-database-use.html">About Configuration for Database Use</a> for info about how to set up Gen for using database-related commands.
 </p></div>
+<br>
+For information regarding exceptions / errors, see <a href="getdbglobal-exceptions.html">here</a>.
 </div>
 <div class="section_header">
 EXAMPLES

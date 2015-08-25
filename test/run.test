@@ -1,16 +1,69 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
 
-::tcltest::test Run-0 {Basic positive}  -constraints {}  -setup {}  -body {set QuickScript {puts "[expr [lindex $argv 0] + [lindex $argv 1]]"}
+namespace eval RunTest {}
+
+
+
+proc RunTest::Test-1 {} {
+
+::tcltest::test Run-0 {Basic positive}  -constraints {}  -setup {}  -body {set QuickScript {puts "[expr [lindex $::argv 0] + [lindex $::argv 1]]"}
 String2File $QuickScript adder.tcl
 Run adder.tcl 1 2
 }  -cleanup {}  -result {}  -output {3
 }  -returnCodes {0}  
 
+}
+
+
+
+proc RunTest::Test-2 {} {
 
 ::tcltest::test Run-1 {No args}  -constraints {}  -setup {}  -body {set QuickScript {puts "Hello World"}
 String2File $QuickScript helloworld.tcl
 Run helloworld.tcl}  -cleanup {}  -result {}  -output {Hello World
 }  -returnCodes {0}  
 
+}
+
+
+
+proc RunTest::Test-3 {} {
+
+::tcltest::test Run-2 {Last run does not affect next}  -constraints {}  -setup {}  -body {set QuickScript {puts "::argv is $::argv !"}
+String2File $QuickScript whatisargv.tcl
+set ::argv {4 5 6}
+Run whatisargv.tcl 1 2 3
+Run whatisargv.tcl
+puts $::argv
+}  -cleanup {}  -result {}  -output {::argv is 1 2 3 !
+::argv is  !
+4 5 6
+}  -returnCodes {0}  
+
+}
+
+
+
+proc RunTest::Test-4 {} {
+
+::tcltest::test Run-3 {Script throws error}  -constraints {}  -setup {}  -body {set QuickScript {error "Does not work"}
+String2File $QuickScript doesnotwork.tcl
+Run doesnotwork.tcl
+}  -cleanup {}  -result {Does not work}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     RunTest::Test-1
+     RunTest::Test-2
+     RunTest::Test-3
+     RunTest::Test-4
+} else {
+     foreach Element [lrange $argv 1 end] {
+          RunTest::Test-[set Element]
+     }
+}
 

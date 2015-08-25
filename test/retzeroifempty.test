@@ -1,11 +1,34 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval RetZeroIfEmptyTest {}
+
+
+
+proc RetZeroIfEmptyTest::Test-1 {} {
 
 ::tcltest::test RetZeroIfEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set Something 1
 RetZeroIfEmpty $Something}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc RetZeroIfEmptyTest::Test-2 {} {
 
 ::tcltest::test RetZeroIfEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set Nothing ""
 RetZeroIfEmpty $Nothing}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     RetZeroIfEmptyTest::Test-1
+     RetZeroIfEmptyTest::Test-2
+} else {
+     foreach Element [lrange $argv 1 end] {
+          RetZeroIfEmptyTest::Test-[set Element]
+     }
+}
 

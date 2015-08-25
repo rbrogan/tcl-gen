@@ -1,10 +1,33 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval Q1Test {}
+
+
+
+proc Q1Test::Test-1 {} {
 
 ::tcltest::test Q1-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 }  -body {Q1 "SELECT integervalue FROM integers_table WHERE id = 1"}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc Q1Test::Test-2 {} {
 
 ::tcltest::test Q1-1 {Empty query statement}  -constraints {}  -setup {}  -body {Q1 ""}  -cleanup {}  -result {Variable QueryStatement has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     Q1Test::Test-1
+     Q1Test::Test-2
+} else {
+     foreach Element [lrange $argv 1 end] {
+          Q1Test::Test-[set Element]
+     }
+}
 

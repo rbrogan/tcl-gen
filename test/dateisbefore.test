@@ -1,39 +1,110 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DateIsBeforeTest {}
+
+
+
+proc DateIsBeforeTest::Test-1 {} {
 
 ::tcltest::test DateIsBefore-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-03}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-2 {} {
 
 ::tcltest::test DateIsBefore-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} {2000-01-02}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-3 {} {
 
 ::tcltest::test DateIsBefore-2 {FirstDate is empty}  -constraints {}  -setup {}  -body {DateIsBefore "" {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-4 {} {
 
 ::tcltest::test DateIsBefore-3 {SecondDate is empty}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-5 {} {
 
 ::tcltest::test DateIsBefore-4 {FirstDate has invalid format}  -constraints {}  -setup {}  -body {DateIsBefore asdf {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-6 {} {
 
 ::tcltest::test DateIsBefore-5 {SecondDate has invalid format}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-7 {} {
 
 ::tcltest::test DateIsBefore-6 {First date has invalid values}  -constraints {}  -setup {}  -body {DateIsBefore asdf {2000-01-02}
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-8 {} {
 
 ::tcltest::test DateIsBefore-7 {Second date has invalid values}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-9 {} {
 
 ::tcltest::test DateIsBefore-8 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsBefore {January 02, 2000} {January 03, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DateIsBeforeTest::Test-10 {} {
 
 ::tcltest::test DateIsBefore-9 {Dates are equal}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-02}}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DateIsBeforeTest::Test-1
+     DateIsBeforeTest::Test-2
+     DateIsBeforeTest::Test-3
+     DateIsBeforeTest::Test-4
+     DateIsBeforeTest::Test-5
+     DateIsBeforeTest::Test-6
+     DateIsBeforeTest::Test-7
+     DateIsBeforeTest::Test-8
+     DateIsBeforeTest::Test-9
+     DateIsBeforeTest::Test-10
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DateIsBeforeTest::Test-[set Element]
+     }
+}
 

@@ -1,24 +1,65 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval AddToTest {}
+
+
+
+proc AddToTest::Test-1 {} {
 
 ::tcltest::test AddTo-0 {Basic test}  -constraints {}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber 4
 puts $MyNumber}  -cleanup {}  -result {}  -output {127
 }  -returnCodes {0}  
 
+}
+
+
+
+proc AddToTest::Test-2 {} {
 
 ::tcltest::test AddTo-1 {No such variable test}  -constraints {}  -setup {}  -body {AddTo NoSuchVariable 123}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc AddToTest::Test-3 {} {
 
 ::tcltest::test AddTo-2 {Non-numeric input}  -constraints {}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber asdf
 }  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc AddToTest::Test-4 {} {
 
 ::tcltest::test AddTo-4 {Empty string input 2}  -constraints {}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc AddToTest::Test-5 {} {
 
 ::tcltest::test AddTo-3 {Empty string input 1}  -constraints {}  -setup {}  -body {AddTo "" 123}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     AddToTest::Test-1
+     AddToTest::Test-2
+     AddToTest::Test-3
+     AddToTest::Test-4
+     AddToTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          AddToTest::Test-[set Element]
+     }
+}
 

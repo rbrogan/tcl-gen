@@ -1,11 +1,34 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsEmptyTest {}
+
+
+
+proc IsEmptyTest::Test-1 {} {
 
 ::tcltest::test IsEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set EmptyString ""
 IsEmpty $EmptyString}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsEmptyTest::Test-2 {} {
 
 ::tcltest::test IsEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set MyString 123
 IsEmpty $MyString}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsEmptyTest::Test-1
+     IsEmptyTest::Test-2
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsEmptyTest::Test-[set Element]
+     }
+}
 

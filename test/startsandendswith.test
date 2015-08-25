@@ -1,18 +1,59 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval StartsAndEndsWithTest {}
+
+
+
+proc StartsAndEndsWithTest::Test-1 {} {
 
 ::tcltest::test StartsAndEndsWith-0 {Basic test}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba a}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StartsAndEndsWithTest::Test-2 {} {
 
 ::tcltest::test StartsAndEndsWith-1 {TargetString empty}  -constraints {}  -setup {}  -body {StartsAndEndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StartsAndEndsWithTest::Test-3 {} {
 
 ::tcltest::test StartsAndEndsWith-2 {SearchValue empty}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StartsAndEndsWithTest::Test-4 {} {
 
 ::tcltest::test StartsAndEndsWith-3 {Basic test - negative}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba b}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc StartsAndEndsWithTest::Test-5 {} {
 
 ::tcltest::test StartsAndEndsWith-4 {Basic test - multiple characters}  -constraints {}  -setup {}  -body {StartsAndEndsWith aabbaa aa}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     StartsAndEndsWithTest::Test-1
+     StartsAndEndsWithTest::Test-2
+     StartsAndEndsWithTest::Test-3
+     StartsAndEndsWithTest::Test-4
+     StartsAndEndsWithTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          StartsAndEndsWithTest::Test-[set Element]
+     }
+}
 

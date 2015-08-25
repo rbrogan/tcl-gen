@@ -1,14 +1,43 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval IsDictTest {}
+
+
+
+proc IsDictTest::Test-1 {} {
 
 ::tcltest::test IsDict-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsDict [dict create one uno two dos]
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsDictTest::Test-2 {} {
 
 ::tcltest::test IsDict-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDict {not a dict}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc IsDictTest::Test-3 {} {
 
 ::tcltest::test IsDict-2 {Empty input}  -constraints {}  -setup {}  -body {IsDict {}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     IsDictTest::Test-1
+     IsDictTest::Test-2
+     IsDictTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          IsDictTest::Test-[set Element]
+     }
+}
 

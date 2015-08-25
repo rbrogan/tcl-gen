@@ -1,11 +1,34 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval NotEmptyTest {}
+
+
+
+proc NotEmptyTest::Test-1 {} {
 
 ::tcltest::test NotEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set TheString ""
 NotEmpty $TheString}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc NotEmptyTest::Test-2 {} {
 
 ::tcltest::test NotEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set TheString "Something"
 NotEmpty $TheString}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     NotEmptyTest::Test-1
+     NotEmptyTest::Test-2
+} else {
+     foreach Element [lrange $argv 1 end] {
+          NotEmptyTest::Test-[set Element]
+     }
+}
 

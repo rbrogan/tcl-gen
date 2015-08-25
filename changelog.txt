@@ -2,6 +2,79 @@ Gen
 
 CHANGELOG
 
+2015.08.24
+v1.7.0
+
+The Run command has changed to save the pre-existing contents of ::argv and
+restore them before exiting. It is unlikely this should break existing usage. If
+this change does cause a bug then it means something somehow happened to use the
+contents of ::argv that were left over from a call to Run. This is pretty
+unlikely.
+
+Changes by functionality
+
+    Monthly release of new commands, with corresponding files in test and doc
+directories.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Update Recent Changes section.
+               Added note that each command has its own file.
+               Added notes about changes to source and documentation structure.
+          README.txt
+               Update Recent Changes section.
+               Added note that each command has its own file.
+               Added notes about changes to source and documentation structure.
+          roadmap.html
+               Update with info for next release.
+     /doc
+          Added pages for new commands.
+          Added index pages with new version number.
+          Updated index pages with new commands.
+          Exceptions documentation page for each command.
+          Every command page got an update moving any error table out to the exceptions
+page and has a link to that page (and vice versa).
+          Added exceptions-index.html page.
+          Updated menu.html to include link to exceptions-index.html.
+          For LinkVarToDbGlobal, LinkTclVariableToRegistryValue, UnlinkVarFromDbGlobal,
+UnlinkTclVariableFromRegistryValue added note that currently only support global
+variables.
+          Moved tests for AddEpilogue and AddPrologue out from addepilogue.test and
+addprologue.test into a separate file. In order to test these, you must run
+addepilogue-test.tcl and addprologue-test.tcl manually.
+     /src
+          Note that Run was changed to save ::argv before using it and then restore ::argv
+after done.
+          Commands added.
+          Internal commands added.
+          gen.tcl
+               Removed all code for commands out into their own separate files.
+               Put in code to detect where package is located.
+               Put in code to source each command file.
+          pkgIndex.tcl
+               Updated version.
+          *.tcl
+               Added a command for each file.
+          
+     /test
+          Changed all tests to put the tests each inside a proc and then look at ::argv
+and decide whether to run all tests or just certain tests. (This was useful for
+FTP.)
+          Added tests for new commands.
+          For Run changed / added tests to make sure it saves/restore pre-existing ::argv.
+          For LinkVarToDbGlobal, LinkTclVariableToRegistryValue, UnlinkVarFromDbGlobal,
+UnlinkTclVariableFromRegistryValue -- changed these to strictly test for global
+variables.
+          Changes to how tests work, added the ability to use the Run command to run
+individual tests.
+          Made many changes to ftp-local and ftp-remote.
+          
 2015.08.10
 v1.6.0
 
@@ -45,9 +118,6 @@ By files
                Internal commands added.
                Package require for FTP.
                SetDbGlobal: change to use dict create.
-          gen-config.tcl
-               Added FTP-related config.
-               Added storage variable for SaveWorkingDirectory/RestoreWorkingDirectory.
           pkgIndex.tcl
                Updated version.
      /test

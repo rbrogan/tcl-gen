@@ -1,14 +1,35 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval ChopRightTest {}
+
+
+
+proc ChopRightTest::Test-1 {} {
 
 ::tcltest::test ChopRight-0 {Basic test}  -constraints {}  -setup {}  -body {ChopRight "abcd"}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ChopRightTest::Test-2 {} {
 
 ::tcltest::test ChopRight-1 {Basic test - specify count}  -constraints {}  -setup {}  -body {ChopRight "xyz" 2}  -cleanup {}  -result {x}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ChopRightTest::Test-3 {} {
 
 ::tcltest::test ChopRight-2 {Chop count greater than string length}  -constraints {}  -setup {}  -body {ChopRight "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc ChopRightTest::Test-4 {} {
 
 ::tcltest::test ChopRight-3 {Test at}  -constraints {}  -setup {}  -body {set MyString abcd
 ChopRight @MyString 2
@@ -17,8 +38,28 @@ puts $MyString
 }  -cleanup {}  -result {}  -output {ab
 }  -returnCodes {0}  
 
+}
+
+
+
+proc ChopRightTest::Test-5 {} {
 
 ::tcltest::test ChopRight-4 {Count is not an integer}  -constraints {}  -setup {}  -body {ChopRight "abcd" 1.2
 }  -cleanup {}  -result {Variable Count has invalid value 1.2.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     ChopRightTest::Test-1
+     ChopRightTest::Test-2
+     ChopRightTest::Test-3
+     ChopRightTest::Test-4
+     ChopRightTest::Test-5
+} else {
+     foreach Element [lrange $argv 1 end] {
+          ChopRightTest::Test-[set Element]
+     }
+}
 

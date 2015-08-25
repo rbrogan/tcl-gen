@@ -1,26 +1,73 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval TimeOfDayIsAtOrAfterTest {}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-1 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-0 {First is at second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:00}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-2 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-1 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:01 00:00:00
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-3 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-2 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 00:00:01
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-4 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-3 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter asdf 00:00:00}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-5 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-4 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrAfter 00:00:00 asdf}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc TimeOfDayIsAtOrAfterTest::Test-6 {} {
 
 ::tcltest::test TimeOfDayIsAtOrAfter-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsAtOrAfter {0100 PM} {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     TimeOfDayIsAtOrAfterTest::Test-1
+     TimeOfDayIsAtOrAfterTest::Test-2
+     TimeOfDayIsAtOrAfterTest::Test-3
+     TimeOfDayIsAtOrAfterTest::Test-4
+     TimeOfDayIsAtOrAfterTest::Test-5
+     TimeOfDayIsAtOrAfterTest::Test-6
+} else {
+     foreach Element [lrange $argv 1 end] {
+          TimeOfDayIsAtOrAfterTest::Test-[set Element]
+     }
+}
 

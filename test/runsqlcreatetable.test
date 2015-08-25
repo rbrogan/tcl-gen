@@ -1,5 +1,11 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval RunSqlCreateTableTest {}
+
+
+
+proc RunSqlCreateTableTest::Test-1 {} {
 
 ::tcltest::test RunSqlCreateTable-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
 QQ {DROP TABLE temp_table}
@@ -9,11 +15,34 @@ SqlRecordExists temp_table {desc 'first'}
 }  -cleanup {QQ {DROP TABLE temp_table}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc RunSqlCreateTableTest::Test-2 {} {
 
 ::tcltest::test RunSqlCreateTable-1 {Table name is empty}  -constraints {}  -setup {}  -body {RunSqlCreateTable "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc RunSqlCreateTableTest::Test-3 {} {
 
 ::tcltest::test RunSqlCreateTable-2 {Attributes empty}  -constraints {}  -setup {}  -body {RunSqlCreateTable temp_table {}
 }  -cleanup {}  -result {Variable ColumnNameTypeList has empty value.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     RunSqlCreateTableTest::Test-1
+     RunSqlCreateTableTest::Test-2
+     RunSqlCreateTableTest::Test-3
+} else {
+     foreach Element [lrange $argv 1 end] {
+          RunSqlCreateTableTest::Test-[set Element]
+     }
+}
 

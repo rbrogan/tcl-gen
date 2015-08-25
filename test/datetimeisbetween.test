@@ -1,105 +1,266 @@
 package require tcltest
-package require -exact gen 1.6.0
+package require -exact gen 1.7.0
+
+namespace eval DatetimeIsBetweenTest {}
+
+
+
+proc DatetimeIsBetweenTest::Test-1 {} {
 
 ::tcltest::test DatetimeIsBetween-0 {First is between}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-2 {} {
 
 ::tcltest::test DatetimeIsBetween-1 {First is before both}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:05} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-3 {} {
 
 ::tcltest::test DatetimeIsBetween-2 {First is after both}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:05}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-4 {} {
 
 ::tcltest::test DatetimeIsBetween-3 {First is equal to second}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-5 {} {
 
 ::tcltest::test DatetimeIsBetween-4 {First is equal to third}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-6 {} {
 
 ::tcltest::test DatetimeIsBetween-5 {Second comes after third}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:06} {2000-01-02 03:04:04}
 }  -cleanup {}  -result {Arguments SecondDatetime and ThirdDatetime have incoherent values 2000-01-02 03:04:06 and 2000-01-02 03:04:04.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-7 {} {
 
 ::tcltest::test DatetimeIsBetween-6 {First is invalid}  -constraints {}  -setup {}  -body {DatetimeIsBetween asdf {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-8 {} {
 
 ::tcltest::test DatetimeIsBetween-7 {Second is invalid}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} asdf {2000-01-02 03:04:06}
 }  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-9 {} {
 
 ::tcltest::test DatetimeIsBetween-8 {Third is invalid}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} asdf
 }  -cleanup {}  -result {Variable ThirdDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-10 {} {
 
 ::tcltest::test DatetimeIsBetween-9 {First equal to second and BothInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-11 {} {
 
 ::tcltest::test DatetimeIsBetween-10 {First equal to second and LeftInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} LeftInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-12 {} {
 
 ::tcltest::test DatetimeIsBetween-11 {First equal to second and LeftExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} LeftExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-13 {} {
 
 ::tcltest::test DatetimeIsBetween-12 {First equal to third and BothInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06} BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-14 {} {
 
 ::tcltest::test DatetimeIsBetween-13 {First equal to third and RightInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06} RightInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-15 {} {
 
 ::tcltest::test DatetimeIsBetween-14 {First equal to third and RightExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06} RightExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-16 {} {
 
 ::tcltest::test DatetimeIsBetween-15 {First equal to second and RightInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} RightInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-17 {} {
 
 ::tcltest::test DatetimeIsBetween-16 {First equal to second and RightExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:04} {2000-01-02 03:04:04} {2000-01-02 03:04:06} RightExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-18 {} {
 
 ::tcltest::test DatetimeIsBetween-17 {First equal to third and LeftInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06} LeftInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-19 {} {
 
 ::tcltest::test DatetimeIsBetween-18 {First equal to third and LeftExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:06} {2000-01-02 03:04:04} {2000-01-02 03:04:06} LeftExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-20 {} {
 
 ::tcltest::test DatetimeIsBetween-19 {First between second and third, BothInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-21 {} {
 
 ::tcltest::test DatetimeIsBetween-20 {First between second and third, LeftInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-22 {} {
 
 ::tcltest::test DatetimeIsBetween-21 {First between second and third, LeftExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-23 {} {
 
 ::tcltest::test DatetimeIsBetween-22 {First between second and third, RightInclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-24 {} {
 
 ::tcltest::test DatetimeIsBetween-23 {First between second and third, RightExclusive}  -constraints {}  -setup {}  -body {DatetimeIsBetween {2000-01-02 03:04:05} {2000-01-02 03:04:04} {2000-01-02 03:04:06}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+proc DatetimeIsBetweenTest::Test-25 {} {
 
 ::tcltest::test DatetimeIsBetween-24 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 DatetimeIsBetween {01/02/2000 0304} {01/02/2000 0303} {01/02/2000 0305}
 }  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  
 
+}
+
+
+
+if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+     DatetimeIsBetweenTest::Test-1
+     DatetimeIsBetweenTest::Test-2
+     DatetimeIsBetweenTest::Test-3
+     DatetimeIsBetweenTest::Test-4
+     DatetimeIsBetweenTest::Test-5
+     DatetimeIsBetweenTest::Test-6
+     DatetimeIsBetweenTest::Test-7
+     DatetimeIsBetweenTest::Test-8
+     DatetimeIsBetweenTest::Test-9
+     DatetimeIsBetweenTest::Test-10
+     DatetimeIsBetweenTest::Test-11
+     DatetimeIsBetweenTest::Test-12
+     DatetimeIsBetweenTest::Test-13
+     DatetimeIsBetweenTest::Test-14
+     DatetimeIsBetweenTest::Test-15
+     DatetimeIsBetweenTest::Test-16
+     DatetimeIsBetweenTest::Test-17
+     DatetimeIsBetweenTest::Test-18
+     DatetimeIsBetweenTest::Test-19
+     DatetimeIsBetweenTest::Test-20
+     DatetimeIsBetweenTest::Test-21
+     DatetimeIsBetweenTest::Test-22
+     DatetimeIsBetweenTest::Test-23
+     DatetimeIsBetweenTest::Test-24
+     DatetimeIsBetweenTest::Test-25
+} else {
+     foreach Element [lrange $argv 1 end] {
+          DatetimeIsBetweenTest::Test-[set Element]
+     }
+}
 
