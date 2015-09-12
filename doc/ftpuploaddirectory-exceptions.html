@@ -14,7 +14,33 @@ FtpUploadDirectory  &mdash;  Upload local directory to remote directory.
 ERRORS
 </div>
 <div class="section_content">
-
+<div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Could not change into remote directory.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not change into remote directory $RemoteDirectory. Quitting.</td>
+</tr>
+<tr><td>Failed to create a directory on the remote machine.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not create directory $FileName on remote. Quitting.</td>
+</tr>
+<tr><td>OverwritePolicy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid OverwritePolicy $OverwritePolicy. Valid options are: LocalNewer, SizeDifferent, LocalNewerAndSizeDifferent, LocalNewerOrSizeDifferent, OverwriteAll</td>
+</tr>
+<tr><td>RecursePolicy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid RecursePolicy: $RecursePolicy. Should be either NoRecurse or RecurseIntoSubdirectories.</td>
+</tr>
+<tr><td>DeleteUnmatchedPolicy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid DeleteUnmatchedPolicy: $DeleteUnmatchedPolicy. Should be either DeleteUnmatched or LeaveUnmatched.</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="section_header" hidden>
 COMMENTS

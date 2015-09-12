@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval UnsetDbGlobalTest {}
 
@@ -38,12 +38,12 @@ proc UnsetDbGlobalTest::Test-3 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      UnsetDbGlobalTest::Test-1
      UnsetDbGlobalTest::Test-2
      UnsetDbGlobalTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           UnsetDbGlobalTest::Test-[set Element]
      }
 }

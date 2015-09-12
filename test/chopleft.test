@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval ChopLeftTest {}
 
@@ -50,14 +50,14 @@ proc ChopLeftTest::Test-5 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      ChopLeftTest::Test-1
      ChopLeftTest::Test-2
      ChopLeftTest::Test-3
      ChopLeftTest::Test-4
      ChopLeftTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           ChopLeftTest::Test-[set Element]
      }
 }

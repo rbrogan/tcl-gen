@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval StringInsertTest {}
 
@@ -94,7 +94,7 @@ puts $MyString
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      StringInsertTest::Test-1
      StringInsertTest::Test-2
      StringInsertTest::Test-3
@@ -106,7 +106,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      StringInsertTest::Test-9
      StringInsertTest::Test-10
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           StringInsertTest::Test-[set Element]
      }
 }

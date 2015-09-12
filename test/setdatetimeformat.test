@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SetDatetimeFormatTest {}
 
@@ -40,12 +40,12 @@ proc SetDatetimeFormatTest::Test-3 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SetDatetimeFormatTest::Test-1
      SetDatetimeFormatTest::Test-2
      SetDatetimeFormatTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SetDatetimeFormatTest::Test-[set Element]
      }
 }

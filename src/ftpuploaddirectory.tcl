@@ -1,11 +1,23 @@
 proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
 
-     DbgPrint "OverwritePolicy is $OverwritePolicy"
+     DbgPrint "OverwritePolicy is $OverwritePolicy; RecursePolicy is $RecursePolicy, DeleteUnmatchedPolicy is $DeleteUnmatchedPolicy"
+
+     if {($OverwritePolicy ne "OverwriteAll") && ($OverwritePolicy ne "LocalNewer") && ($OverwritePolicy ne "SizeDifferent") && ($OverwritePolicy ne "LocalNewerOrSizeDifferent") && ($OverwritePolicy ne "LocalNewerAndSizeDifferent")} {
+          error "Invalid OverwritePolicy: $OverwritePolicy. Should be OverwriteAll, LocalNewer, SizeDifferent, LocalNewerOrSizeDifferent, or LocalNewerAndSizeDifferent."
+     }
+
+     if {($RecursePolicy ne "NoRecurse") && ($RecursePolicy ne "RecurseIntoSubdirectories")} {
+          error "Invalid RecursePolicy: $RecursePolicy. Should be either NoRecurse or RecurseIntoSubdirectories."
+     }
+
+     if {($DeleteUnmatchedPolicy ne "DeleteUnmatched") && ($DeleteUnmatchedPolicy ne "LeaveUnmatched")} {
+          error "Invalid DeleteUnmatchedPolicy: $DeleteUnmatchedPolicy. Should be either DeleteUnmatched or LeaveUnmatched."
+     }
 
      cd $Directory
      set Ok [ftp::Cd $FtpHandle $Directory]
      if {$Ok == 0} {
-          error "Could not change into remote directory $Directory. Quitting."
+          error "FTP: Could not change into remote directory $Directory. Quitting."
      }
      
      # Get list of files in remote directory
@@ -30,7 +42,7 @@ proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Delet
                               DbgPrint "We do not have it yet on remote end, so making it"
                               set Ok [ftp::MkDir $FtpHandle $FileName]
                               if {$Ok == 0} {
-                                   error "Could not create directory $FileName on remote. Quitting."
+                                   error "FTP: Could not create directory $FileName on remote. Quitting."
                               }
                          } else {
                               puts "Dry Run, will not create directory $FileName or deal with contents. Create this manually for a complete dry run. Skipping ahead."
@@ -88,12 +100,11 @@ proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Delet
                          DbgPrint "...and local is not newer and size is the same, so will not upload."
                          set DoUpload 0
                     }
-               } elseif {$OverwritePolicy eq "OverwriteAll"} {
+               } else {
+                    # $OverwritePolicy eq "OverwriteAll"
                     DbgPrint "OverwritePolicy is OverwriteAll..."
                     DbgPrint "...so will do upload."
                     set DoUpload 1
-               } else {
-                    error "Invalid OverwritePolicy $OverwritePolicy. Valid options are: LocalNewer, SizeDifferent, LocalNewerAndSizeDifferent, LocalNewerOrSizeDifferent, OverwriteAll"
                }
           }
           
@@ -102,7 +113,7 @@ proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Delet
                     DbgPrint "Uploading $FileName"
                     set Ok [ftp::Put $FtpHandle $FileName $FileName]
                     if {$Ok == 0} {
-                         error "FTP error: Could not put $FileName"
+                         error "FTP: Could not put $FileName"
                     }
                } else {
                     puts "Would have uploaded $FileName"

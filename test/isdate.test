@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval IsDateTest {}
 
@@ -42,13 +42,13 @@ IsDate {January 02, 2000}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      IsDateTest::Test-1
      IsDateTest::Test-2
      IsDateTest::Test-3
      IsDateTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           IsDateTest::Test-[set Element]
      }
 }

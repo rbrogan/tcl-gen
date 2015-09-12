@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval StartsWithTest {}
 
@@ -46,14 +46,14 @@ proc StartsWithTest::Test-5 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      StartsWithTest::Test-1
      StartsWithTest::Test-2
      StartsWithTest::Test-3
      StartsWithTest::Test-4
      StartsWithTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           StartsWithTest::Test-[set Element]
      }
 }

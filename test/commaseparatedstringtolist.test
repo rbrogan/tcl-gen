@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval CommaSeparatedStringToListTest {}
 
@@ -65,7 +65,7 @@ puts $String
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      CommaSeparatedStringToListTest::Test-1
      CommaSeparatedStringToListTest::Test-2
      CommaSeparatedStringToListTest::Test-3
@@ -74,7 +74,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      CommaSeparatedStringToListTest::Test-6
      CommaSeparatedStringToListTest::Test-7
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           CommaSeparatedStringToListTest::Test-[set Element]
      }
 }

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval LinkVarToDbGlobalTest {}
 
@@ -91,14 +91,14 @@ puts [GetDbGlobal ::SomeVar]
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      LinkVarToDbGlobalTest::Test-1
      LinkVarToDbGlobalTest::Test-2
      LinkVarToDbGlobalTest::Test-3
      LinkVarToDbGlobalTest::Test-4
      LinkVarToDbGlobalTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           LinkVarToDbGlobalTest::Test-[set Element]
      }
 }

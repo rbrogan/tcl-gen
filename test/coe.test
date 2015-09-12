@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval CoeTest {}
 
@@ -46,14 +46,14 @@ proc CoeTest::Test-5 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      CoeTest::Test-1
      CoeTest::Test-2
      CoeTest::Test-3
      CoeTest::Test-4
      CoeTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           CoeTest::Test-[set Element]
      }
 }

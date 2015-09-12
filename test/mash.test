@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval MashTest {}
 
@@ -43,13 +43,13 @@ puts $MyString
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      MashTest::Test-1
      MashTest::Test-2
      MashTest::Test-3
      MashTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           MashTest::Test-[set Element]
      }
 }

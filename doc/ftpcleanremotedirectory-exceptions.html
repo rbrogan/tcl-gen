@@ -14,7 +14,29 @@ FtpCleanRemoteDirectory  &mdash;  Clean remote directory of contents, but leave 
 ERRORS
 </div>
 <div class="section_content">
-
+<div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Attempt to switch into the given remote directory failed.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not change into remote directory $RemoteDirectory. Quitting.</td>
+</tr>
+<tr><td>Attempt to remove a subdirectory failed.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not delete remote directory $Element.</td>
+</tr>
+<tr><td>Attempt to go up to parent directory failed.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not step back out of remote directory $RemoteDirectory. Quitting.</td>
+</tr>
+<tr><td>Attempt to delete remote file failed.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not delete remote file $Element</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="section_header" hidden>
 COMMENTS

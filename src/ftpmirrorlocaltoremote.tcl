@@ -13,7 +13,7 @@ proc FtpMirrorLocalToRemote {LocalDirectory RemoteDirectory} {
 
                set Ok [ftp::Cd $FtpHandle $RemoteDirectory]
                if {$Ok == 0} {
-                    error "Could not change into remote directory $RemoteDirectory. Quitting."
+                    error "FTP: Could not change into remote directory $RemoteDirectory. Quitting."
                }
                FtpUploadDirectory $FtpHandle . LocalNewerOrSizeDifferent RecurseIntoSubdirectories DeleteUnmatched
           } finally {

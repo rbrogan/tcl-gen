@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DatetimeIsBetweenTest {}
 
@@ -232,7 +232,7 @@ DatetimeIsBetween {01/02/2000 0304} {01/02/2000 0303} {01/02/2000 0305}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DatetimeIsBetweenTest::Test-1
      DatetimeIsBetweenTest::Test-2
      DatetimeIsBetweenTest::Test-3
@@ -259,7 +259,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      DatetimeIsBetweenTest::Test-24
      DatetimeIsBetweenTest::Test-25
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DatetimeIsBetweenTest::Test-[set Element]
      }
 }

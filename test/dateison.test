@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DateIsOnTest {}
 
@@ -68,7 +68,7 @@ proc DateIsOnTest::Test-7 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DateIsOnTest::Test-1
      DateIsOnTest::Test-2
      DateIsOnTest::Test-3
@@ -77,7 +77,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      DateIsOnTest::Test-6
      DateIsOnTest::Test-7
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DateIsOnTest::Test-[set Element]
      }
 }

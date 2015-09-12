@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SetZeroIfEmptyTest {}
 
@@ -44,13 +44,13 @@ proc SetZeroIfEmptyTest::Test-4 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SetZeroIfEmptyTest::Test-1
      SetZeroIfEmptyTest::Test-2
      SetZeroIfEmptyTest::Test-3
      SetZeroIfEmptyTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SetZeroIfEmptyTest::Test-[set Element]
      }
 }

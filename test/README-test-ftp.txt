@@ -23,6 +23,8 @@ The FTP tests will not work unless you do set up. To run the FTP tests, you need
 
 That should be it. You should now be able to run all.tcl or individual ftp*.test files and (hopefully) have them pass.
 
+6! For some of the (uploading) tests you will have to adapt the commands used in ftp-test-config.tcl if you want to run them. Included is what we use for our Windows-to-Linux setup using plink. In the future, we may offer more support for helping you to set up your own test environment. Alternatively, you can try to manually test the commands yourself.
+
 ---02| IF TESTS DO NOT PASS
 
 If you get failures, be aware you can do ...

@@ -28,6 +28,137 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.7.1</div><div class="section-header-right">2015.09.12</div>
+</div>
+<div class="section-content">
+<p>
+Changes by functionality<br>
+<ul>
+<li>The error messages for some commands have had minor changes. All error that involve a failure with an FTP operation have an "FTP: " prefix.</li>
+<li>Content added to the exception pages.</li>
+<li>(Limited) support for running FTP (upload) tests on other setups.</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>README.html
+<ul>
+<li>Update Recent Changes section.</li>
+</ul>
+</li>
+<li>
+README.txt
+<ul>
+<li>Update Recent Changes section.</li>
+</ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/doc
+<ul>
+<li>Added index pages with new version number.</li>
+<li>Put info into FTP exceptions pages.</li>
+<li>Change error messages that involve FTP operations to use "FTP: " prefix.</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>ftpcleanremotedirectory.tcl
+<ul>
+<li>Minor changes on error messages.</li>
+<li>Added check for success on deleting remote file.</li>
+</ul>
+</li>
+<li>ftpdownloaddirectory.tcl
+<ul>
+<li>Check for valid Policies at the start of the command.</li>
+<li>Minor changes on error messages.</li>
+</ul>
+</li>
+<li>ftpdownloadsite.tcl
+<ul>
+<li>Minor change to error message.</li>
+</ul>
+</li>
+<li>ftpmirrorlocaltoremote.tcl
+<ul>
+<li>Minor change to error message.</li>
+</ul>
+</li>
+<li>ftpmirrorremotetolocal.tcl
+<ul>
+<li>Minor change on error message.</li>
+</ul>
+</li>
+<li>ftpuploaddirectory.tcl
+<ul>
+<li>Check for valid Policies at the start of the command.</li>
+<li>Minor changes on error messages.</li>
+</ul>
+</li>
+<li>ftpwhichislarger.tcl
+<ul>
+<li>Changed error message to include name of file.</li>
+</ul>
+</li>
+<li>pkgIndex.tcl
+<ul>
+<li>Updated version.</li>
+</ul>
+</li>
+<li>*.tcl
+<ul>
+<li>Added a command for each file.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/test
+<ul>
+<li>lastid.test
+<ul>
+<li>Make sure test table is cleared out first before starting test.</li>
+</ul>
+</li>
+<li>runsqlcreate.test
+<ul>
+<li>Make sure test table is cleared out first before starting test.</li>
+</ul>
+</li>
+<li>ftp-test-config.tcl
+<ul>
+<li>Updated to support other setups.</li>
+</ul>
+</li>
+<li>ftp*.test
+<ul>
+<li>Updated to match changes to ftp-test-config.tcl and minor changes to error messages.</li>
+</ul>
+</li>
+<li>README-test-ftp.txt<br>README-test-ftp.html
+<ul>
+<li>Updated to include more info on setting up to run (upload) tests.</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+
+<div class="section-header">
 <div class="section-header-left">1.7.0</div><div class="section-header-right">2015.08.24</div>
 </div>
 <div class="section-content">

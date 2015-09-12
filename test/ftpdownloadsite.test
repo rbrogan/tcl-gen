@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval FtpDownloadSiteTest {}
 
@@ -8,15 +8,15 @@ namespace eval FtpDownloadSiteTest {
 
 proc Setup {LocalDirectoryName} {
      source ftp-test-config.tcl
-     DeleteEverythingInDirectory $::FtpTestLocalRoot/downloadto/temp
-     CopyAllFilesIntoDirectory $::FtpTestLocalRoot/downloadto/original/$LocalDirectoryName $::FtpTestLocalRoot/downloadto/temp
+     DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+     CopyAllFilesIntoDirectory $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp
      SaveWorkingDirectory
 }
 
 proc Test {RemoteDirectoryName ExpectedLocalDirectoryName} {
-     set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$RemoteDirectoryName $::FtpTestLocalRoot/downloadto/temp}]
+     set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$RemoteDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp}]
      if {$Result == 0} {
-          set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp $::FtpTestLocalRoot/downloadto/expected/FtpDownloadSite/$ExpectedLocalDirectoryName"
+          set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadSite/$ExpectedLocalDirectoryName"
           set Result [catch {exec {*}$DiffCommand}]     
      }     
      set Result
@@ -38,7 +38,7 @@ proc FtpDownloadSiteTest::Test-1 {} {
 proc FtpDownloadSiteTest::Test-2 {} {
 
 ::tcltest::test FtpDownloadSite-1 {Cannot connect to server}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Server 10.10.10.10
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -48,7 +48,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 proc FtpDownloadSiteTest::Test-3 {} {
 
 ::tcltest::test FtpDownloadSite-2 {Username invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Username asldfkher
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -58,7 +58,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 proc FtpDownloadSiteTest::Test-4 {} {
 
 ::tcltest::test FtpDownloadSite-3 {Password invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Password erifuhw
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -69,9 +69,9 @@ proc FtpDownloadSiteTest::Test-5 {} {
 
 ::tcltest::test FtpDownloadSite-4 {Cannot switch to local directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory asferer
 set ::TestRemoteDirectory one-file
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
-     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory $GenTest::Ftp::LocalRoot/downloadto/expected/$::TestLocalDirectory"
      set Result [catch {exec {*}$DiffCommand}]     
 }     
 set Result [Flip $Result]
@@ -85,9 +85,9 @@ proc FtpDownloadSiteTest::Test-6 {} {
 
 ::tcltest::test FtpDownloadSite-5 {Cannot switch to remote directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory one-file
 set ::TestRemoteDirectory asferfwer
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
-     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory $GenTest::Ftp::LocalRoot/downloadto/expected/$::TestLocalDirectory"
      set Result [catch {exec {*}$DiffCommand}]     
 }     
 set Result [Flip $Result]
@@ -100,7 +100,7 @@ set Result [Flip $Result]
 proc FtpDownloadSiteTest::Test-7 {} {
 
 ::tcltest::test FtpDownloadSite-6 {Bad transfer type}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::FileTransferType asldfkher
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/one-file $::FtpTestLocalRoot/downloadto/temp/one-file}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -111,13 +111,13 @@ proc FtpDownloadSiteTest::Test-8 {} {
 
 ::tcltest::test FtpDownloadSite-7 {Bad test}  -constraints {}  -setup {source ftp-test-config.tcl
 set LocalDirectory one-file
-file delete -force $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
-file copy -force $::FtpTestLocalRoot/downloadto/original/$LocalDirectory $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
+file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
 SaveWorkingDirectory}  -body {set ::TestLocalDirectory one-file
 set ::TestRemoteDirectory one-file
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
-     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/one-file $::FtpTestLocalRoot/downloadto/expected/empty"
+     set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp/one-file $GenTest::Ftp::LocalRoot/downloadto/expected/empty"
      set Result [catch {exec {*}$DiffCommand}]     
 }     
 set Result
@@ -201,14 +201,14 @@ proc FtpDownloadSiteTest::Test-16 {} {
 
 ::tcltest::test FtpDownloadSite-15 {Test dry run}  -constraints {}  -setup {source ftp-test-config.tcl
 set LocalDirectory one-file
-file delete -force $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
-file copy -force $::FtpTestLocalRoot/downloadto/original/$LocalDirectory $::FtpTestLocalRoot/downloadto/temp/$LocalDirectory
+file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
+file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
 SaveWorkingDirectory}  -body {set GenNS::Ftp::DryRun 1
 set ::TestLocalDirectory one-file
 set ::TestRemoteDirectory one-file
-set Result [catch {FtpDownloadSite $::FtpTestRemoteRoot/downloadfrom/$::TestRemoteDirectory $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory}]
+set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
-     set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp/$::TestLocalDirectory $::FtpTestLocalRoot/downloadto/expected/$::TestLocalDirectory"
+     set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory $GenTest::Ftp::LocalRoot/downloadto/expected/$::TestLocalDirectory"
      set Result [catch {exec {*}$DiffCommand}]     
 }     
 set Result
@@ -221,7 +221,7 @@ RestoreWorkingDirectory
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      FtpDownloadSiteTest::Test-1
      FtpDownloadSiteTest::Test-2
      FtpDownloadSiteTest::Test-3
@@ -239,7 +239,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      FtpDownloadSiteTest::Test-15
      FtpDownloadSiteTest::Test-16
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           FtpDownloadSiteTest::Test-[set Element]
      }
 }

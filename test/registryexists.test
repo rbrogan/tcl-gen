@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval RegistryExistsTest {}
 
@@ -48,13 +48,13 @@ proc RegistryExistsTest::Test-4 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      RegistryExistsTest::Test-1
      RegistryExistsTest::Test-2
      RegistryExistsTest::Test-3
      RegistryExistsTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           RegistryExistsTest::Test-[set Element]
      }
 }

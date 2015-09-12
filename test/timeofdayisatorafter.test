@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval TimeOfDayIsAtOrAfterTest {}
 
@@ -58,7 +58,7 @@ TimeOfDayIsAtOrAfter {0100 PM} {0100 PM}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      TimeOfDayIsAtOrAfterTest::Test-1
      TimeOfDayIsAtOrAfterTest::Test-2
      TimeOfDayIsAtOrAfterTest::Test-3
@@ -66,7 +66,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      TimeOfDayIsAtOrAfterTest::Test-5
      TimeOfDayIsAtOrAfterTest::Test-6
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           TimeOfDayIsAtOrAfterTest::Test-[set Element]
      }
 }

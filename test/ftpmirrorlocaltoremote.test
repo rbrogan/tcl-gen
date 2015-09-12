@@ -1,21 +1,21 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval FtpMirrorLocalToRemoteTest {}
 
 
 namespace eval FtpMirrorLocalToRemoteTest {
 
-proc Setup {RemoteDirectoryName} {
+proc Setup {RemoteDirectory} {
      source ftp-test-config.tcl
-     RunRemote "./ResetUploadtoDirectory.sh $RemoteDirectoryName"
+     $GenTest::Ftp::ResetRemoteDirectoryCommandName $RemoteDirectory
      SaveWorkingDirectory
 }
 
-proc Test {LocalDirectoryName ExpectedRemoteDirectoryName} {
-     set Result [catch {FtpMirrorLocalToRemote $::FtpTestLocalRoot/uploadfrom/$LocalDirectoryName $::FtpTestRemoteRoot/uploadto/temp}]
+proc Test {LocalDirectory ExpectedRemoteDirectory} {
+     set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/$LocalDirectory $GenTest::Ftp::RemoteRoot/uploadto/temp}]
      if {$Result == 0} {
-          set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/uploadto/temp $::FtpTestRemoteRoot/uploadto/expected/$ExpectedRemoteDirectoryName"]
+          set Result [$GenTest::Ftp::DiffRemoteDirectoriesCommandName $ExpectedRemoteDirectory]
      }
      return $Result
 }
@@ -86,7 +86,7 @@ proc FtpMirrorLocalToRemoteTest::Test-7 {} {
 
 ::tcltest::test FtpMirrorLocalToRemote-6 {Server not found}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Server 10.10.10.10
-set Result [catch {FtpMirrorLocalToRemote $::FtpTestLocalRoot/uploadfrom/one-file $::FtpTestRemoteRoot/uploadto/temp}]
+set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -97,7 +97,7 @@ proc FtpMirrorLocalToRemoteTest::Test-8 {} {
 
 ::tcltest::test FtpMirrorLocalToRemote-7 {Username invalid}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Username asdfqwersdfg
-set Result [catch {FtpMirrorLocalToRemote $::FtpTestLocalRoot/uploadfrom/one-file $::FtpTestRemoteRoot/uploadto/temp}]
+set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -109,7 +109,7 @@ proc FtpMirrorLocalToRemoteTest::Test-9 {} {
 
 ::tcltest::test FtpMirrorLocalToRemote-8 {Password invalid}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Password erfjwepoijaspdi
-set Result [catch {FtpMirrorLocalToRemote $::FtpTestLocalRoot/uploadfrom/one-file $::FtpTestRemoteRoot/uploadto/temp}]
+set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -129,7 +129,7 @@ proc FtpMirrorLocalToRemoteTest::Test-10 {} {
 proc FtpMirrorLocalToRemoteTest::Test-11 {} {
 
 ::tcltest::test FtpMirrorLocalToRemote-10 {Bad remote directory}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
-}  -body {set Result [catch {FtpMirrorLocalToRemote $::FtpTestLocalRoot/uploadfrom/one-file aasertgwsdfasdf}]
+}  -body {set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file aasertgwsdfasdf}]
 set Result [Flip $Result]
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -182,7 +182,7 @@ set GenNS::Ftp::DryRun 0
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      FtpMirrorLocalToRemoteTest::Test-1
      FtpMirrorLocalToRemoteTest::Test-2
      FtpMirrorLocalToRemoteTest::Test-3
@@ -199,7 +199,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      FtpMirrorLocalToRemoteTest::Test-14
      FtpMirrorLocalToRemoteTest::Test-15
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           FtpMirrorLocalToRemoteTest::Test-[set Element]
      }
 }

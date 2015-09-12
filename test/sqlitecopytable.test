@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SqliteCopyTableTest {}
 
@@ -97,7 +97,7 @@ QQ {INSERT INTO gen_temp_table (desc) VALUES ('three')}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SqliteCopyTableTest::Test-1
      SqliteCopyTableTest::Test-2
      SqliteCopyTableTest::Test-3
@@ -105,7 +105,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      SqliteCopyTableTest::Test-5
      SqliteCopyTableTest::Test-6
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SqliteCopyTableTest::Test-[set Element]
      }
 }

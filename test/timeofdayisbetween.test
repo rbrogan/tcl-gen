@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval TimeOfDayIsBetweenTest {}
 
@@ -220,7 +220,7 @@ proc TimeOfDayIsBetweenTest::Test-25 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      TimeOfDayIsBetweenTest::Test-1
      TimeOfDayIsBetweenTest::Test-2
      TimeOfDayIsBetweenTest::Test-3
@@ -247,7 +247,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      TimeOfDayIsBetweenTest::Test-24
      TimeOfDayIsBetweenTest::Test-25
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           TimeOfDayIsBetweenTest::Test-[set Element]
      }
 }

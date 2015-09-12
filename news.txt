@@ -2,8 +2,17 @@ Gen
 
 NEWS
 
+2015.09.12
+v1.7.1 Revision
+
+This is a revision: (1) an update of the error messages to make them more 
+consistent, (2) content added to the exception pages, and (3) (limited) 
+support for running FTP (upload) tests on other setups.
+
+See the changelog for more information.
+
 2015.08.24
-v1.7.0 Release
+v1.7.0 Revision
 
 We continue on with our assortment of FTP-related commands. Also for this
 release, we have begun putting things in place for a couple of new features.

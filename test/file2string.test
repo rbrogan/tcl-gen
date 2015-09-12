@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval File2StringTest {}
 
@@ -39,12 +39,12 @@ puts $Result}  -cleanup {}  -result {}  -output {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      File2StringTest::Test-1
      File2StringTest::Test-2
      File2StringTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           File2StringTest::Test-[set Element]
      }
 }

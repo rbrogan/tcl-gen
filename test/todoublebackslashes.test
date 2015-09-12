@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval ToDoubleBackslashesTest {}
 
@@ -42,13 +42,13 @@ puts $MyString
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      ToDoubleBackslashesTest::Test-1
      ToDoubleBackslashesTest::Test-2
      ToDoubleBackslashesTest::Test-3
      ToDoubleBackslashesTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           ToDoubleBackslashesTest::Test-[set Element]
      }
 }

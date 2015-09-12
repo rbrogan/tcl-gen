@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DivideByTest {}
 
@@ -54,14 +54,14 @@ DivideBy MyVar ""
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DivideByTest::Test-1
      DivideByTest::Test-2
      DivideByTest::Test-3
      DivideByTest::Test-4
      DivideByTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DivideByTest::Test-[set Element]
      }
 }

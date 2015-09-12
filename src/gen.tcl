@@ -1,4 +1,4 @@
-package provide gen 1.7.0
+package provide gen 1.7.1
 package require sqlite3
 package require Tclx
 package require textutil::string
@@ -52,7 +52,7 @@ array set ErrorMessage {
      LIST_HAS_INVALID_ELEMENT {List variable %s at index %s has invalid value %s.}
 }
 
-set PackageRoot [file dirname [lindex [package ifneeded gen 1.7.0]  1]]
+set PackageRoot [file dirname [lindex [package ifneeded gen 1.7.1]  1]]
 
 source $PackageRoot/addepilogue.tcl
 
@@ -389,5 +389,5 @@ source $PackageRoot/varexistsincaller.tcl
 source $PackageRoot/yesterday.tcl
 
 proc GenCurrentVersion {} {
-     puts 1.7.0
+     puts 1.7.1
 }

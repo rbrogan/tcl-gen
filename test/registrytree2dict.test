@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval RegistryTree2DictTest {}
 
@@ -59,13 +59,13 @@ PrintDict $MyDict
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      RegistryTree2DictTest::Test-1
      RegistryTree2DictTest::Test-2
      RegistryTree2DictTest::Test-3
      RegistryTree2DictTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           RegistryTree2DictTest::Test-[set Element]
      }
 }

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval FtpDownloadDirectoryTest {}
 
@@ -8,8 +8,8 @@ namespace eval FtpDownloadDirectoryTest {
 
 proc Setup {LocalDirectoryName} {
      source ftp-test-config.tcl
-     DeleteEverythingInDirectory $::FtpTestLocalRoot/downloadto/temp
-     CopyAllFilesIntoDirectory $::FtpTestLocalRoot/downloadto/original/$LocalDirectoryName $::FtpTestLocalRoot/downloadto/temp
+     DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+     CopyAllFilesIntoDirectory $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp
      SaveWorkingDirectory
 }
 
@@ -31,9 +31,9 @@ proc Test {RemoteDirectory LocalExpectedDirectory OverwritePolicy RecursePolicy 
                }
 
                # Switch to directory
-               cd $::FtpTestLocalRoot/downloadto/temp
+               cd $GenTest::Ftp::LocalRoot/downloadto/temp
 
-               set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/downloadfrom/$RemoteDirectory]
+               set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/downloadfrom/$RemoteDirectory]
                if {$Ok == 0} {
                     error "Could not change into remote directory $RemoteDirectory. Quitting."
                }
@@ -46,7 +46,7 @@ proc Test {RemoteDirectory LocalExpectedDirectory OverwritePolicy RecursePolicy 
           }
      }
      if {$Ok == 1} {
-          set DiffCommand "$::FtpTestDiffCommandPrefix $::FtpTestLocalRoot/downloadto/temp $::FtpTestLocalRoot/downloadto/expected/FtpDownloadDirectory/$LocalExpectedDirectory"
+          set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadDirectory/$LocalExpectedDirectory"
           set Result [catch {exec {*}$DiffCommand}]     
      } else {
           set Result 1
@@ -228,7 +228,7 @@ proc FtpDownloadDirectoryTest::Test-16 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      FtpDownloadDirectoryTest::Test-1
      FtpDownloadDirectoryTest::Test-2
      FtpDownloadDirectoryTest::Test-3
@@ -246,7 +246,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      FtpDownloadDirectoryTest::Test-15
      FtpDownloadDirectoryTest::Test-16
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           FtpDownloadDirectoryTest::Test-[set Element]
      }
 }

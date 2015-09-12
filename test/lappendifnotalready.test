@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval LappendIfNotAlreadyTest {}
 
@@ -53,14 +53,14 @@ LappendIfNotAlready MyList {four {} six}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      LappendIfNotAlreadyTest::Test-1
      LappendIfNotAlreadyTest::Test-2
      LappendIfNotAlreadyTest::Test-3
      LappendIfNotAlreadyTest::Test-4
      LappendIfNotAlreadyTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           LappendIfNotAlreadyTest::Test-[set Element]
      }
 }

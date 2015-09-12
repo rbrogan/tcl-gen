@@ -2,6 +2,67 @@ Gen
 
 CHANGELOG
 
+2015.09.12
+v1.7.1
+
+Changes by functionality
+
+The error messages for some commands have had minor changes. All error that 
+involve a failure with an FTP operation have an "FTP: " prefix.
+
+Content added to the exception pages.
+
+(Limited) support for running FTP (upload) tests on other setups.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Update Recent Changes section.
+          README.txt
+               Update Recent Changes section.
+     /doc
+          Added index pages with new version number.
+          Put info into FTP exceptions pages.
+          Change error messages that involve FTP operations to use "FTP: " prefix.
+     /src
+          ftpcleanremotedirectory.tcl
+               Minor changes on error messages.
+               Added check for success on deleting remote file.
+          ftpdownloaddirectory.tcl
+               Check for valid Policies at the start of the command.
+               Minor changes on error messages.
+          ftpdownloadsite.tcl
+               Minor change to error message
+          ftpmirrorlocaltoremote.tcl
+               Minor change to error message
+          ftpmirrorremotetolocal.tcl
+               Minor change on error message
+          ftpuploaddirectory.tcl
+               Check for valid Policies at the start of the command.
+               Minor changes on error messages.
+          ftpwhichislarger.tcl
+               Changed error message to include name of file.
+          pkgIndex.tcl
+               Updated version.
+     /test
+          lastid.test
+               Make sure test table is cleared out first before starting test.
+          runsqlcreate.test
+               Make sure test table is cleared out first before starting test.
+          ftp-test-config.tcl
+               Updated to support other setups
+          ftp*.test
+               Updated to match changes to ftp-test-config.tcl and minor changes to error
+               messages.
+          README-test-ftp.txt
+          README-test-ftp.html
+               Updated to include more info on setting up to run (upload) tests.
+                         
 2015.08.24
 v1.7.0
 

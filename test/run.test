@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval RunTest {}
 
@@ -56,13 +56,13 @@ Run doesnotwork.tcl
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      RunTest::Test-1
      RunTest::Test-2
      RunTest::Test-3
      RunTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           RunTest::Test-[set Element]
      }
 }

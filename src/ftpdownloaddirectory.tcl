@@ -1,11 +1,23 @@
 proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
 
-     DbgPrint "OverwritePolicy is $OverwritePolicy"
+     DbgPrint "OverwritePolicy is $OverwritePolicy; RecursePolicy is $RecursePolicy, DeleteUnmatchedPolicy is $DeleteUnmatchedPolicy"
+
+     if {($OverwritePolicy ne "OverwriteAll") && ($OverwritePolicy ne "RemoteNewer") && ($OverwritePolicy ne "SizeDifferent") && ($OverwritePolicy ne "RemoteNewerOrSizeDifferent") && ($OverwritePolicy ne "RemoteNewerAndSizeDifferent")} {
+          error "Invalid OverwritePolicy: $OverwritePolicy. Should be OverwriteAll, RemoteNewer, SizeDifferent, RemoteNewerOrSizeDifferent, or RemoteNewerAndSizeDifferent."
+     }
+
+     if {($RecursePolicy ne "NoRecurse") && ($RecursePolicy ne "RecurseIntoSubdirectories")} {
+          error "Invalid RecursePolicy: $RecursePolicy. Should be either NoRecurse or RecurseIntoSubdirectories."
+     }
+
+     if {($DeleteUnmatchedPolicy ne "DeleteUnmatched") && ($DeleteUnmatchedPolicy ne "LeaveUnmatched")} {
+          error "Invalid DeleteUnmatchedPolicy: $DeleteUnmatchedPolicy. Should be either DeleteUnmatched or LeaveUnmatched."
+     }
 
      cd $Directory
      set Ok [ftp::Cd $FtpHandle $Directory]
      if {$Ok == 0} {
-          error "Could not change into remote directory $Directory. Quitting."
+          error "FTP: Could not change into remote directory $Directory. Quitting."
      }
      
      # Get list of files in remote directory
@@ -77,10 +89,9 @@ proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Del
                     } else {
                          set DoDownload 0
                     }
-               } elseif {$OverwritePolicy eq "OverwriteAll"} {
-                    set DoDownload 1
                } else {
-                    error "Invalid OverwritePolicy $OverwritePolicy. Valid options are: RemoteNewer, SizeDifferent, RemoteNewerAndSizeDifferent, RemoteNewerOrSizeDifferent, OverwriteAll"
+                    # $OverwritePolicy eq "OverwriteAll"
+                    set DoDownload 1
                }
           }
           
@@ -89,7 +100,7 @@ proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Del
                     DbgPrint "Downloading $FileName"
                     set Ok [ftp::Get $FtpHandle $FileName $FileName]
                     if {$Ok == 0} {
-                         error "FTP error: Could not get $FileName"
+                         error "FTP: Could not get $FileName."
                     }
                } else {
                     puts "Would have downloaded $FileName"

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SplitAndTrimTest {}
 
@@ -67,7 +67,7 @@ puts $MyString
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SplitAndTrimTest::Test-1
      SplitAndTrimTest::Test-2
      SplitAndTrimTest::Test-3
@@ -76,7 +76,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      SplitAndTrimTest::Test-6
      SplitAndTrimTest::Test-7
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SplitAndTrimTest::Test-[set Element]
      }
 }

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DecrTest {}
 
@@ -58,7 +58,7 @@ Decr x 2.2}  -cleanup {}  -result {Variable IntegerValue has invalid value 2.2.}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DecrTest::Test-1
      DecrTest::Test-2
      DecrTest::Test-3
@@ -66,7 +66,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      DecrTest::Test-5
      DecrTest::Test-6
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DecrTest::Test-[set Element]
      }
 }

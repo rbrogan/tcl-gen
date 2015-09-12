@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval MultiplyHhmmssTest {}
 
@@ -84,7 +84,7 @@ proc MultiplyHhmmssTest::Test-9 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      MultiplyHhmmssTest::Test-1
      MultiplyHhmmssTest::Test-2
      MultiplyHhmmssTest::Test-3
@@ -95,7 +95,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      MultiplyHhmmssTest::Test-8
      MultiplyHhmmssTest::Test-9
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           MultiplyHhmmssTest::Test-[set Element]
      }
 }

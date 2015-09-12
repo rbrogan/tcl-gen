@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval FlipTest {}
 
@@ -58,7 +58,7 @@ puts $MyVar
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      FlipTest::Test-1
      FlipTest::Test-2
      FlipTest::Test-3
@@ -66,7 +66,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      FlipTest::Test-5
      FlipTest::Test-6
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           FlipTest::Test-[set Element]
      }
 }

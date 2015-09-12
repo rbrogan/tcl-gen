@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval EndsWithTest {}
 
@@ -46,14 +46,14 @@ proc EndsWithTest::Test-5 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      EndsWithTest::Test-1
      EndsWithTest::Test-2
      EndsWithTest::Test-3
      EndsWithTest::Test-4
      EndsWithTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           EndsWithTest::Test-[set Element]
      }
 }

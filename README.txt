@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.7.0
+1.7.1
 % set Number 1
 1
 % AddTo Number 2
@@ -308,7 +308,7 @@ documentation structure so that each command has a separate documentation page
 to hold all information relating to exceptional conditions (e.g. errors, warning
 policies, debug modes, etc.).
 
-Version 1.7.0. You can find a change summary in news.txt / news.html and details
+Version 1.7.1. You can find a change summary in news.txt / news.html and details
 in changelog.txt / changelog.html.
 
 ---19| LICENSE

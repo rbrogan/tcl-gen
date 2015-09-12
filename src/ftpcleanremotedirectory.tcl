@@ -4,7 +4,7 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
      # Switch into directory
      set Ok [ftp::Cd $FtpHandle $RemoteDirectory]
      if {$Ok == 0} {
-          error "Could not change into remote directory $RemoteDirectory. Quitting."
+          error "FTP: Could not change into remote directory $RemoteDirectory. Quitting."
      }
      # Get a list of contents
      set RemoteList [ftp::List $FtpHandle]
@@ -24,7 +24,7 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
                     FtpCleanRemoteDirectory $FtpHandle $Element
                     set Ok [ftp::RmDir $FtpHandle $Element]
                     if {$Ok == 0} {
-                         error "Could not delete remote directory $Element"
+                         error "FTP: Could not delete remote directory $Element"
                     }
                } else {
                     puts "Dry Run, would have deleted remote directory $Element"
@@ -33,7 +33,10 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
                DbgPrint "This is a file."
                if {$GenNS::Ftp::DryRun == 0} {
                     DbgPrint "Deleting remote file $Element"
-                    ftp::Delete $FtpHandle $Element
+                    set Ok [ftp::Delete $FtpHandle $Element]
+                    if {$Ok == 0} {
+                         error "FTP: Could not delete remote file $Element"
+                    }
                } else {
                     puts "Dry Run, would have deleted remote file $Element"
                }
@@ -41,6 +44,6 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
      }
      set Ok [ftp::Cd $FtpHandle ..]
      if {$Ok == 0} {
-          error "Could not step back out of remote directory $RemoteDirectory. Quitting."
+          error "FTP: Could not step back out of remote directory $RemoteDirectory. Quitting."
      }
 }

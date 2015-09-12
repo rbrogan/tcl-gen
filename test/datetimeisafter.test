@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DatetimeIsAfterTest {}
 
@@ -59,7 +59,7 @@ DatetimeIsAfter {01/02/2000 0304} {01/02/2000 0303}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DatetimeIsAfterTest::Test-1
      DatetimeIsAfterTest::Test-2
      DatetimeIsAfterTest::Test-3
@@ -67,7 +67,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      DatetimeIsAfterTest::Test-5
      DatetimeIsAfterTest::Test-6
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DatetimeIsAfterTest::Test-[set Element]
      }
 }

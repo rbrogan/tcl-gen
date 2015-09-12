@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval RaiseTest {}
 
@@ -84,7 +84,7 @@ puts $MyList
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      RaiseTest::Test-1
      RaiseTest::Test-2
      RaiseTest::Test-3
@@ -94,7 +94,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      RaiseTest::Test-7
      RaiseTest::Test-8
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           RaiseTest::Test-[set Element]
      }
 }

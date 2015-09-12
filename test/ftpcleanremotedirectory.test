@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval FtpCleanRemoteDirectoryTest {}
 
@@ -16,7 +16,7 @@ if {$FtpHandle == -1} {
 } else {
      try {
           # Switch to directory
-          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory]
           if {$Ok == 0} {
                error "Could not change into remote directory $RemoteDirectory. Quitting."
           }
@@ -29,7 +29,7 @@ if {$FtpHandle == -1} {
 }
 if {$Ok == 1} {
      # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -54,7 +54,7 @@ if {$FtpHandle == -1} {
           ftp::Close $FtpHandle
      }
 }
-}  -cleanup {}  -result {Could not change into remote directory asdf. Quitting.}  -output {}  -returnCodes {1}  
+}  -cleanup {}  -result {FTP: Could not change into remote directory asdf. Quitting.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -64,7 +64,7 @@ proc FtpCleanRemoteDirectoryTest::Test-3 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-2 {No ftp connection}  -constraints {}  -setup {}  -body {set FtpHandle -1
 FtpCleanRemoteDirectory $FtpHandle .
-}  -cleanup {}  -result {Could not change into remote directory .. Quitting.}  -output {}  -returnCodes {1}  
+}  -cleanup {}  -result {FTP: Could not change into remote directory .. Quitting.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -81,7 +81,7 @@ if {$FtpHandle == -1} {
 } else {
      try {
           # Switch to directory
-          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory]
           if {$Ok == 0} {
                error "Could not change into remote directory $RemoteDirectory. Quitting."
           }
@@ -94,7 +94,7 @@ if {$FtpHandle == -1} {
 }
 if {$Ok == 1} {
      # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -115,7 +115,7 @@ if {$FtpHandle == -1} {
 } else {
      try {
           # Switch to directory
-          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory]
           if {$Ok == 0} {
                error "Could not change into remote directory $RemoteDirectory. Quitting."
           }
@@ -128,7 +128,7 @@ if {$FtpHandle == -1} {
 }
 if {$Ok == 1} {
      # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -149,7 +149,7 @@ if {$FtpHandle == -1} {
 } else {
      try {
           # Switch to directory
-          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory]
           if {$Ok == 0} {
                error "Could not change into remote directory $RemoteDirectory. Quitting."
           }
@@ -162,7 +162,7 @@ if {$FtpHandle == -1} {
 }
 if {$Ok == 1} {
      # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -183,7 +183,7 @@ if {$FtpHandle == -1} {
 } else {
      try {
           # Switch to directory
-          set Ok [ftp::Cd $FtpHandle $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory]
+          set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory]
           if {$Ok == 0} {
                error "Could not change into remote directory $RemoteDirectory. Quitting."
           }
@@ -196,7 +196,7 @@ if {$FtpHandle == -1} {
 }
 if {$Ok == 1} {
      # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $::FtpTestRemoteRoot/clean/temp/$RemoteDirectory $::FtpTestRemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -206,7 +206,7 @@ if {$Ok == 1} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      FtpCleanRemoteDirectoryTest::Test-1
      FtpCleanRemoteDirectoryTest::Test-2
      FtpCleanRemoteDirectoryTest::Test-3
@@ -215,7 +215,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      FtpCleanRemoteDirectoryTest::Test-6
      FtpCleanRemoteDirectoryTest::Test-7
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           FtpCleanRemoteDirectoryTest::Test-[set Element]
      }
 }

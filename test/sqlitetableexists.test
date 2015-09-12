@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SqliteTableExistsTest {}
 
@@ -34,12 +34,12 @@ proc SqliteTableExistsTest::Test-3 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SqliteTableExistsTest::Test-1
      SqliteTableExistsTest::Test-2
      SqliteTableExistsTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SqliteTableExistsTest::Test-[set Element]
      }
 }

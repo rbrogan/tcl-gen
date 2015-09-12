@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval ListRemoveAtTest {}
 
@@ -129,7 +129,7 @@ ListRemoveAt $MyList end
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      ListRemoveAtTest::Test-1
      ListRemoveAtTest::Test-2
      ListRemoveAtTest::Test-3
@@ -143,7 +143,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      ListRemoveAtTest::Test-11
      ListRemoveAtTest::Test-12
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           ListRemoveAtTest::Test-[set Element]
      }
 }

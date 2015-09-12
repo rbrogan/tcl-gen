@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval StringMidTest {}
 
@@ -69,7 +69,7 @@ proc StringMidTest::Test-8 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      StringMidTest::Test-1
      StringMidTest::Test-2
      StringMidTest::Test-3
@@ -79,7 +79,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      StringMidTest::Test-7
      StringMidTest::Test-8
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           StringMidTest::Test-[set Element]
      }
 }

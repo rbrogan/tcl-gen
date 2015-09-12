@@ -1,0 +1,268 @@
+package require tcltest
+package require -exact gen 1.7.1
+
+namespace eval FtpMirrorRemoteToLocalTest {}
+
+
+namespace eval FtpMirrorRemoteToLocalTest {
+
+proc Setup {LocalDirectoryName} {
+     source ftp-test-config.tcl
+     DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+     CopyAllFilesIntoDirectory $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp
+     SaveWorkingDirectory
+}
+
+proc Test {RemoteDirectory ExpectedLocalDirectory} {
+     set Result [catch {FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/$RemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp}]
+     if {$Result == 0} {
+          set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpMirrorRemoteToLocal/$ExpectedLocalDirectory"
+          set Result [catch {exec {*}$DiffCommand}]     
+     }     
+     set Result
+}
+
+}
+
+proc FtpMirrorRemoteToLocalTest::Test-1 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-0 {Basic test}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {FtpMirrorRemoteToLocalTest::Test one-file one-file
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-2 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-1 {Empty directory}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup empty
+}  -body {FtpMirrorRemoteToLocalTest::Test empty empty
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-3 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-2 {Has subdirectory}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup has-subdir
+}  -body {FtpMirrorRemoteToLocalTest::Test has-subdir has-subdir
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-4 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-3 {Has unmatched files}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup has-unmatched-files
+}  -body {FtpMirrorRemoteToLocalTest::Test one-file has-unmatched-files
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-5 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-4 {Two files}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup two-files
+}  -body {FtpMirrorRemoteToLocalTest::Test two-files two-files
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-6 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-5 {Has two levels of subdirectories}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup has-subdir-two-levels
+}  -body {FtpMirrorRemoteToLocalTest::Test has-subdir-two-levels has-subdir-two-levels
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-7 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-6 {Server not found}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set GenNS::Ftp::Server 10.10.10.10
+set Result [catch {FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-8 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-7 {Username invalid}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set GenNS::Ftp::Username qwerasdfzxcv
+set Result [catch {FtpMirrorRemoteToLocal $::RemoteRoot/one-file $::LocalRoot/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-9 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-8 {Password invalid}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set GenNS::Ftp::Password qwerasdfzxcv
+set Result [catch {FtpMirrorRemoteToLocal $::RemoteRoot/one-file $::LocalRoot/temp/one-file}]
+set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-10 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-9 {Bad local directory}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {catch {FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/yuiop}
+}  -cleanup {RestoreWorkingDirectory
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-11 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-10 {Bad remote directory}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {catch {FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/qwerpoiu $GenTest::Ftp::LocalRoot/downloadto/temp/empty}
+}  -cleanup {RestoreWorkingDirectory
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-12 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-11 {Binary transfer type}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set GenNS::Ftp::FileTransferType binary
+FtpMirrorRemoteToLocalTest::Test one-file one-file
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-13 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-13 {Bad transfer type}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set GenNS::Ftp::FileTransferType asdf
+FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file
+}  -cleanup {RestoreWorkingDirectory
+}  -result {Unknown FTP file transfer type asdf! Should be ascii, binary, tenex, or left empty.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-14 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-14 {Bad test}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup one-file
+}  -body {set Result [catch {FtpMirrorRemoteToLocal $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/empty}]
+if {$Result == 0} {
+     set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp/empty $GenTest::Ftp::LocalRoot/downloadto/expected/empty"
+     set Result [catch {exec {*}$DiffCommand}]     
+}     
+set Result
+}  -cleanup {RestoreWorkingDirectory
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-15 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-15 {Different sizes}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup different-sizes
+}  -body {FtpMirrorRemoteToLocalTest::Test different-sizes different-sizes
+}  -cleanup {FtpMirrorRemoteToLocalTest::Setup different-sizes
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-16 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-16 {Has unmatched subdir}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup has-unmatched-subdir
+}  -body {FtpMirrorRemoteToLocalTest::Test one-file has-unmatched-subdir
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-17 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-17 {Various times and sizes}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup different-times
+}  -body {FtpMirrorRemoteToLocalTest::Test different-times different-times
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpMirrorRemoteToLocalTest::Test-18 {} {
+
+::tcltest::test FtpMirrorRemoteToLocal-18 {Test dry run}  -constraints {}  -setup {FtpMirrorRemoteToLocalTest::Setup different-times
+}  -body {set GenNS::Ftp::DryRun 1
+FtpMirrorRemoteToLocalTest::Test different-times different-times
+}  -cleanup {set GenNS::Ftp::DryRun 0
+RestoreWorkingDirectory
+}  -result {1}  -output {Would have downloaded does-not-exist-on-local.txt
+Would have downloaded local-newer-and-bigger.txt
+Would have downloaded local-newer-and-smaller.txt
+Would have downloaded remote-newer-and-bigger.txt
+Would have downloaded remote-newer-and-smaller.txt
+Would have downloaded remote-newer.txt
+Would have deleted does-not-exist-on-remote.txt
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FtpMirrorRemoteToLocalTest::Test-1
+     FtpMirrorRemoteToLocalTest::Test-2
+     FtpMirrorRemoteToLocalTest::Test-3
+     FtpMirrorRemoteToLocalTest::Test-4
+     FtpMirrorRemoteToLocalTest::Test-5
+     FtpMirrorRemoteToLocalTest::Test-6
+     FtpMirrorRemoteToLocalTest::Test-7
+     FtpMirrorRemoteToLocalTest::Test-8
+     FtpMirrorRemoteToLocalTest::Test-9
+     FtpMirrorRemoteToLocalTest::Test-10
+     FtpMirrorRemoteToLocalTest::Test-11
+     FtpMirrorRemoteToLocalTest::Test-12
+     FtpMirrorRemoteToLocalTest::Test-13
+     FtpMirrorRemoteToLocalTest::Test-14
+     FtpMirrorRemoteToLocalTest::Test-15
+     FtpMirrorRemoteToLocalTest::Test-16
+     FtpMirrorRemoteToLocalTest::Test-17
+     FtpMirrorRemoteToLocalTest::Test-18
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FtpMirrorRemoteToLocalTest::Test-[set Element]
+     }
+}
+

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval DbaseRegsubTest {}
 
@@ -104,7 +104,7 @@ QQ {SELECT desc FROM my_table WHERE notes = 'regsub_target'}
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      DbaseRegsubTest::Test-1
      DbaseRegsubTest::Test-2
      DbaseRegsubTest::Test-3
@@ -114,7 +114,7 @@ if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
      DbaseRegsubTest::Test-7
      DbaseRegsubTest::Test-8
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           DbaseRegsubTest::Test-[set Element]
      }
 }

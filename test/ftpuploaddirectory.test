@@ -1,0 +1,200 @@
+package require tcltest
+package require -exact gen 1.7.1
+
+namespace eval FtpUploadDirectoryTest {}
+
+
+namespace eval FtpUploadDirectoryTest { 
+
+proc Setup {RemoteDirectory} {
+     source ftp-test-config.tcl
+     $GenTest::Ftp::ResetRemoteDirectoryCommandName $RemoteDirectory
+     SaveWorkingDirectory
+}
+
+proc Test {LocalDirectory ExpectedRemoteDirectory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
+
+     # Open connection
+     set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
+     if {$FtpHandle == -1} {
+          error "FTP: Could not open connection!"
+     } else {
+          try {
+               if {[NotEmpty $GenNS::Ftp::FileTransferType]} {
+                    if {[lsearch [list ascii binary tenex] $GenNS::Ftp::FileTransferType] != -1} {
+                         DbgPrint "Setting file transfer type to $GenNS::Ftp::FileTransferType"
+                         ftp::Type $FtpHandle $GenNS::Ftp::FileTransferType
+                    } else {
+                         error "Unknown FTP file transfer type $GenNS::Ftp::FileTransferType! Should be ascii, binary, tenex, or left empty."
+                    }
+               }
+
+               # Switch to directory
+               cd $GenTest::Ftp::LocalRoot/uploadfrom/$LocalDirectory
+
+               set Ok [ftp::Cd $FtpHandle $GenTest::Ftp::RemoteRoot/uploadto/temp]
+               if {$Ok == 0} {
+                    error "Could not change into remote directory $GenTest::Ftp::RemoteRoot/uploadto/temp. Quitting."
+               }
+
+               FtpUploadDirectory $FtpHandle . $OverwritePolicy $RecursePolicy $DeleteUnmatchedPolicy
+               set Ok 1
+          } finally {
+               DbgPrint "Closing connection"
+               ftp::Close $FtpHandle
+          }
+     }
+     if {$Ok == 1} {          
+          set Result [$GenTest::Ftp::DiffRemoteDirectoriesCommandName FtpUploadDirectory/$ExpectedRemoteDirectory]     
+     } else {
+          set Result 1
+     }
+
+     return $Result
+}
+
+}
+
+proc FtpUploadDirectoryTest::Test-1 {} {
+
+::tcltest::test FtpUploadDirectory-0 {OverwriteAll}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup different-times
+}  -body {FtpUploadDirectoryTest::Test different-times OverwriteAll OverwriteAll RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-2 {} {
+
+::tcltest::test FtpUploadDirectory-2 {SizeDifferent}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup different-times}  -body {FtpUploadDirectoryTest::Test different-times SizeDifferent SizeDifferent RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-3 {} {
+
+::tcltest::test FtpUploadDirectory-3 {LocalNewerAndSizeDifferent}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup different-times}  -body {FtpUploadDirectoryTest::Test different-times LocalNewerAndSizeDifferent LocalNewerAndSizeDifferent RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-4 {} {
+
+::tcltest::test FtpUploadDirectory-4 {LocalNewerOrSizeDifferent}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup different-times}  -body {FtpUploadDirectoryTest::Test different-times LocalNewerOrSizeDifferent LocalNewerOrSizeDifferent RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-5 {} {
+
+::tcltest::test FtpUploadDirectory-5 {DeleteUnmatched}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-files}  -body {FtpUploadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-files OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-6 {} {
+
+::tcltest::test FtpUploadDirectory-6 {DeleteUnmatched-2}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-subdir}  -body {FtpUploadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-7 {} {
+
+::tcltest::test FtpUploadDirectory-7 {DeleteUnmatched-3}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-subdir-2-levels}  -body {FtpUploadDirectoryTest::Test one-file DeleteUnmatched/has-unmatched-subdir-2-levels OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-8 {} {
+
+::tcltest::test FtpUploadDirectory-8 {LeaveUnmatched-1}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-files}  -body {FtpUploadDirectoryTest::Test one-file LeaveUnmatched/has-unmatched-files OverwriteAll RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-9 {} {
+
+::tcltest::test FtpUploadDirectory-9 {LeaveUnmatched-2}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-subdir}  -body {FtpUploadDirectoryTest::Test one-file LeaveUnmatched/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories LeaveUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-10 {} {
+
+::tcltest::test FtpUploadDirectory-10 {Recurse-1}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-subdir-already}  -body {FtpUploadDirectoryTest::Test has-subdir Recurse/has-subdir-already OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-11 {} {
+
+::tcltest::test FtpUploadDirectory-11 {Recurse-2}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-subdir}  -body {FtpUploadDirectoryTest::Test has-subdir Recurse/has-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-12 {} {
+
+::tcltest::test FtpUploadDirectory-12 {Recurse-3}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-subdir}  -body {FtpUploadDirectoryTest::Test has-subdir Recurse/has-unmatched-subdir OverwriteAll RecurseIntoSubdirectories DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-13 {} {
+
+::tcltest::test FtpUploadDirectory-13 {NoRecurse-1}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-subdir-already}  -body {FtpUploadDirectoryTest::Test has-subdir NoRecurse/has-subdir-already OverwriteAll NoRecurse DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-14 {} {
+
+::tcltest::test FtpUploadDirectory-14 {NoRecurse-2}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-subdir}  -body {FtpUploadDirectoryTest::Test has-subdir NoRecurse/has-subdir OverwriteAll NoRecurse DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadDirectoryTest::Test-15 {} {
+
+::tcltest::test FtpUploadDirectory-15 {NoRecurse-3}  -constraints {}  -setup {FtpUploadDirectoryTest::Setup has-unmatched-subdir}  -body {FtpUploadDirectoryTest::Test has-subdir NoRecurse/has-unmatched-subdir OverwriteAll NoRecurse DeleteUnmatched}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FtpUploadDirectoryTest::Test-1
+     FtpUploadDirectoryTest::Test-2
+     FtpUploadDirectoryTest::Test-3
+     FtpUploadDirectoryTest::Test-4
+     FtpUploadDirectoryTest::Test-5
+     FtpUploadDirectoryTest::Test-6
+     FtpUploadDirectoryTest::Test-7
+     FtpUploadDirectoryTest::Test-8
+     FtpUploadDirectoryTest::Test-9
+     FtpUploadDirectoryTest::Test-10
+     FtpUploadDirectoryTest::Test-11
+     FtpUploadDirectoryTest::Test-12
+     FtpUploadDirectoryTest::Test-13
+     FtpUploadDirectoryTest::Test-14
+     FtpUploadDirectoryTest::Test-15
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FtpUploadDirectoryTest::Test-[set Element]
+     }
+}
+

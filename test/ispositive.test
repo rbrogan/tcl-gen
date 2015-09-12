@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval IsPositiveTest {}
 
@@ -37,13 +37,13 @@ proc IsPositiveTest::Test-4 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      IsPositiveTest::Test-1
      IsPositiveTest::Test-2
      IsPositiveTest::Test-3
      IsPositiveTest::Test-4
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           IsPositiveTest::Test-[set Element]
      }
 }

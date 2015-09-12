@@ -5,7 +5,7 @@ proc FtpWhichIsLarger {FtpHandle TargetName} {
      DbgPrint "Local file size is $LocalFileSize"
      DbgPrint "Remote file size is $RemoteFileSize"
      if {[IsEmpty $RemoteFileSize]} {
-          error "FTP: Could not get remote file size."
+          error "FTP: Could not get remote file size for $TargetName."
      }
      if {$RemoteFileSize > $LocalFileSize} {
           return remote

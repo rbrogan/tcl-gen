@@ -14,7 +14,26 @@ FtpUploadSite  &mdash;  Make connection, upload all files, close connection.
 ERRORS
 </div>
 <div class="section_content">
-
+<div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Unable to open connection to remote server.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not open connection!</td>
+</tr>
+<tr><td>
+Could not change to remote directory.</td>
+<td class="error_code">N/A</td>
+<td>Could not change into remote directory $Directory. Quitting.</td>
+</tr>
+<tr><td>File transfer type is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Unknown FTP file transfer type $GenNS::Ftp::FileTransferType! Should be ascii, binary, tenex, or left empty.</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="section_header" hidden>
 COMMENTS

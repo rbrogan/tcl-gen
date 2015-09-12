@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval SqlSetClauseTest {}
 
@@ -33,12 +33,12 @@ proc SqlSetClauseTest::Test-3 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      SqlSetClauseTest::Test-1
      SqlSetClauseTest::Test-2
      SqlSetClauseTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           SqlSetClauseTest::Test-[set Element]
      }
 }

@@ -22,7 +22,7 @@ proc FtpDownloadSite {RemoteDirectory LocalDirectory} {
                ftp::Cd $FtpHandle $RemoteDirectory
                set Ok [ftp::Cd $FtpHandle $RemoteDirectory]
                if {$Ok == 0} {
-                    error "Could not change into remote directory $RemoteDirectory. Quitting."
+                    error "FTP: Could not change into remote directory $RemoteDirectory. Quitting."
                }
 
                FtpDownloadDirectory $FtpHandle . OverwriteAll RecurseIntoSubdirectories LeaveUnmatched

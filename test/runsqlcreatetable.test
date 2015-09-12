@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval RunSqlCreateTableTest {}
 
@@ -8,11 +8,12 @@ namespace eval RunSqlCreateTableTest {}
 proc RunSqlCreateTableTest::Test-1 {} {
 
 ::tcltest::test RunSqlCreateTable-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
-QQ {DROP TABLE temp_table}
+catch {QQ {DROP TABLE temp_table}}
 }  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text notes text}
 QQ [SqlInsertStatement temp_table {desc 'first' notes '1-2-3'}]
 SqlRecordExists temp_table {desc 'first'}
-}  -cleanup {QQ {DROP TABLE temp_table}
+}  -cleanup {catch {QQ {DROP TABLE temp_table}}
+
 }  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -36,12 +37,12 @@ proc RunSqlCreateTableTest::Test-3 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      RunSqlCreateTableTest::Test-1
      RunSqlCreateTableTest::Test-2
      RunSqlCreateTableTest::Test-3
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           RunSqlCreateTableTest::Test-[set Element]
      }
 }

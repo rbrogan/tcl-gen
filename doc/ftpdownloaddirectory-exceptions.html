@@ -14,7 +14,33 @@ FtpDownloadDirectory  &mdash;  Download from remote directory into local directo
 ERRORS
 </div>
 <div class="section_content">
-
+<div class = 'subsection_header'>Error Conditions</div>
+<div class= 'subsection_content'>
+<table>
+<tr>
+<th>Condition</th><th>Error Code</th><th>Error Message</th></tr>
+<tr><td>Could not change to remote directory.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not change into remote directory $Directory. Quitting.</td>
+</tr>
+<tr><td>Overwrite policy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid OverwritePolicy: $OverwritePolicy. Should be OverwriteAll, RemoteNewer, SizeDifferent, RemoteNewerOrDifferent, or RemoteNewerAndSizeDifferent.</td>
+</tr>
+<tr><td>Doing a GET on a file failed.</td>
+<td class="error_code">N/A</td>
+<td>FTP: Could not get $FileName.</td>
+</tr>
+<tr><td>RecursePolicy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid RecursePolicy: $RecursePolicy. Should be either NoRecurse or RecurseIntoSubdirectories.</td>
+</tr>
+<tr><td>DeleteUnmatchedPolicy is invalid.</td>
+<td class="error_code">N/A</td>
+<td>Invalid DeleteUnmatchedPolicy: $DeleteUnmatchedPolicy. Should be either DeleteUnmatched or LeaveUnmatched.</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="section_header" hidden>
 COMMENTS

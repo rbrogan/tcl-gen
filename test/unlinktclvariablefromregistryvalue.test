@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.0
+package require -exact gen 1.7.1
 
 namespace eval UnlinkTclVariableFromRegistryValueTest {}
 
@@ -86,14 +86,14 @@ proc UnlinkTclVariableFromRegistryValueTest::Test-5 {} {
 
 
 
-if {([llength $argv] == 0) || ([lindex $argv 0] ne "target")} {
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      UnlinkTclVariableFromRegistryValueTest::Test-1
      UnlinkTclVariableFromRegistryValueTest::Test-2
      UnlinkTclVariableFromRegistryValueTest::Test-3
      UnlinkTclVariableFromRegistryValueTest::Test-4
      UnlinkTclVariableFromRegistryValueTest::Test-5
 } else {
-     foreach Element [lrange $argv 1 end] {
+     foreach Element [lrange $::argv 1 end] {
           UnlinkTclVariableFromRegistryValueTest::Test-[set Element]
      }
 }
