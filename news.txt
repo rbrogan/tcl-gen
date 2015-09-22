@@ -2,7 +2,7 @@ Gen
 
 NEWS
 
-2015.08.24
+2015.09.21
 v1.8.0 Release
 
 This month we have a few file system related commands and the start of the
