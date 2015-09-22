@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.1
+package require -exact gen 1.8.0
 
 namespace eval RestoreWorkingDirectoryTest {}
 
@@ -34,7 +34,8 @@ if {[pwd] eq "$OriginalWorkingDirectory/TestSaveWorkingDirectory"} {
 } else {
 	set Result 0
 }
-}  -cleanup {file delete -force TestSaveWorkingDirectory}  -result {1}  -output {}  -returnCodes {0}  
+cd $OriginalWorkingDirectory
+set Result}  -cleanup {file delete -force TestSaveWorkingDirectory}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 

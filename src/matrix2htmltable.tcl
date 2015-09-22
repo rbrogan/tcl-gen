@@ -1,3 +1,19 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/ismatrix.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "Matrix2HtmlTable not loaded because missing packages: $::GenMissingPackages."
+
+     proc Matrix2HtmlTable {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc Matrix2HtmlTable {MatrixValue {FirstRowOption --first-row-is-not-header}} {
 
      if {![IsMatrix $MatrixValue]} {

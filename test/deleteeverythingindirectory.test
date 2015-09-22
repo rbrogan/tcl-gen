@@ -1,0 +1,59 @@
+package require tcltest
+package require -exact gen 1.8.0
+
+namespace eval DeleteEverythingInDirectoryTest {}
+
+
+
+proc DeleteEverythingInDirectoryTest::Test-1 {} {
+
+::tcltest::test DeleteEverythingInDirectory-0 {Basic test}  -constraints {}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/BasicTest ./DeleteEverythingInDirectory/BasicTest
+}  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/BasicTest
+IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DeleteEverythingInDirectoryTest::Test-2 {} {
+
+::tcltest::test DeleteEverythingInDirectory-2 {TargetDirectoryPath is empty}  -constraints {}  -setup {}  -body {DeleteEverythingInDirectory ""
+}  -cleanup {}  -result {Variable TargetDirectoryPath has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc DeleteEverythingInDirectoryTest::Test-3 {} {
+
+::tcltest::test DeleteEverythingInDirectory-3 {Target directory is empty}  -constraints {}  -setup {}  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/EmptyTest
+IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DeleteEverythingInDirectoryTest::Test-4 {} {
+
+::tcltest::test DeleteEverythingInDirectory-4 {Target directory has subdirectories with contents}  -constraints {}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/WithSubdirectoriesTest ./DeleteEverythingInDirectory/WithSubdirectoriesTest
+}  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/WithSubdirectoriesTest
+IsDirectoryEmpty "./DeleteEverythingInDirectory/WithSubdirectoriesTest"
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     DeleteEverythingInDirectoryTest::Test-1
+     DeleteEverythingInDirectoryTest::Test-2
+     DeleteEverythingInDirectoryTest::Test-3
+     DeleteEverythingInDirectoryTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          DeleteEverythingInDirectoryTest::Test-[set Element]
+     }
+}
+

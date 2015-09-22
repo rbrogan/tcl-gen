@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.1
+package require -exact gen 1.8.0
 
 namespace eval FtpCleanRemoteDirectoryTest {}
 
@@ -8,7 +8,7 @@ namespace eval FtpCleanRemoteDirectoryTest {}
 proc FtpCleanRemoteDirectoryTest::Test-1 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-0 {Basic test}  -constraints {}  -setup {source ftp-test-config.tcl
-RunRemote "./ResetDirectory.sh one-file"
+::GenTest::Ftp::RunRemote "./ResetDirectory.sh one-file"
 }  -body {set RemoteDirectory one-file
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
@@ -28,8 +28,7 @@ if {$FtpHandle == -1} {
      }
 }
 if {$Ok == 1} {
-     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [::GenTest::Ftp::RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -73,7 +72,7 @@ FtpCleanRemoteDirectory $FtpHandle .
 proc FtpCleanRemoteDirectoryTest::Test-4 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-3 {Empty already}  -constraints {}  -setup {source ftp-test-config.tcl
-RunRemote "./ResetDirectory.sh empty-already"
+::GenTest::Ftp::RunRemote "./ResetDirectory.sh empty-already"
 }  -body {set RemoteDirectory empty-already
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
@@ -93,8 +92,7 @@ if {$FtpHandle == -1} {
      }
 }
 if {$Ok == 1} {
-     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [::GenTest::Ftp::RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -107,7 +105,7 @@ if {$Ok == 1} {
 proc FtpCleanRemoteDirectoryTest::Test-5 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-4 {Has empty subdir}  -constraints {}  -setup {source ftp-test-config.tcl
-RunRemote "./ResetDirectory.sh has-empty-subdir"
+::GenTest::Ftp::RunRemote "./ResetDirectory.sh has-empty-subdir"
 }  -body {set RemoteDirectory has-empty-subdir
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
@@ -127,8 +125,7 @@ if {$FtpHandle == -1} {
      }
 }
 if {$Ok == 1} {
-     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [::GenTest::Ftp::RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -141,7 +138,7 @@ if {$Ok == 1} {
 proc FtpCleanRemoteDirectoryTest::Test-6 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-5 {Has subdir with file}  -constraints {}  -setup {source ftp-test-config.tcl
-RunRemote "./ResetDirectory.sh has-subdir-with-file"
+::GenTest::Ftp::RunRemote "./ResetDirectory.sh has-subdir-with-file"
 }  -body {set RemoteDirectory has-subdir-with-file
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
@@ -161,8 +158,7 @@ if {$FtpHandle == -1} {
      }
 }
 if {$Ok == 1} {
-     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [::GenTest::Ftp::RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }
@@ -175,7 +171,7 @@ if {$Ok == 1} {
 proc FtpCleanRemoteDirectoryTest::Test-7 {} {
 
 ::tcltest::test FtpCleanRemoteDirectory-6 {Two files}  -constraints {}  -setup {source ftp-test-config.tcl
-RunRemote "./ResetDirectory.sh two-files"
+::GenTest::Ftp::RunRemote "./ResetDirectory.sh two-files"
 }  -body {set RemoteDirectory two-files
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
@@ -195,8 +191,7 @@ if {$FtpHandle == -1} {
      }
 }
 if {$Ok == 1} {
-     # Somehow run remote command that will verify directory is empty by comparing with empty directory.
-	set Result [RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
+	set Result [::GenTest::Ftp::RunRemote "diff -w -r $GenTest::Ftp::RemoteRoot/clean/temp/$RemoteDirectory $GenTest::Ftp::RemoteRoot/clean/expected/$RemoteDirectory"]
 } else {
      set Result 1
 }

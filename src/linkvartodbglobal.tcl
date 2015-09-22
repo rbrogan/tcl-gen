@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/upvarx.tcl
+
+source $PackageRoot/setdbglobal.tcl
+
+source $PackageRoot/updatedbglobal.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "LinkVarToDbGlobal not loaded because missing packages: $::GenMissingPackages."
+
+     proc LinkVarToDbGlobal {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc LinkVarToDbGlobal {VarName {DbGlobalName ""}} {
 
      if {[IsEmpty $VarName]} {

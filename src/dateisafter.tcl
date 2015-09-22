@@ -1,3 +1,19 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isdate.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "DateIsAfter not loaded because missing packages: $::GenMissingPackages."
+
+     proc DateIsAfter {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc DateIsAfter {FirstDate SecondDate} {
 
      if {![IsDate $FirstDate]} {

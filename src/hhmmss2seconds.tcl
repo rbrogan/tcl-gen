@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/ishhmmss.tcl
+
+source $PackageRoot/startswith.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "Hhmmss2Seconds not loaded because missing packages: $::GenMissingPackages."
+
+     proc Hhmmss2Seconds {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc Hhmmss2Seconds StringVariable {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String

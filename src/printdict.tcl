@@ -1,3 +1,21 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isdict.tcl
+
+source $PackageRoot/ter.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "PrintDict not loaded because missing packages: $::GenMissingPackages."
+
+     proc PrintDict {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc PrintDict {DictValue {IndentationSpaces 0}} {
 
      if {![IsDict $DictValue]} {

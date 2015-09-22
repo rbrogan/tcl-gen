@@ -1,0 +1,98 @@
+package require tcltest
+package require -exact gen 1.8.0
+
+namespace eval RestoreIfExistsTest {}
+
+
+
+proc RestoreIfExistsTest::Test-1 {} {
+
+::tcltest::test RestoreIfExists-0 {Basic test}  -constraints {}  -setup {file delete -force asdfg.txt
+file delete -force asdfg.txt.bak}  -body {String2File asdfg asdfg.txt
+BackupIfExists asdfg.txt
+String2File gfdsa asdfg.txt
+puts [File2String asdfg.txt]
+RestoreIfExists asdfg.txt
+puts [File2String asdfg.txt]}  -cleanup {file delete -force asdfg.txt
+file delete -force asdfg.txt.bak}  -result {}  -output {gfdsa
+asdfg
+}  -returnCodes {0}  
+
+}
+
+
+
+proc RestoreIfExistsTest::Test-2 {} {
+
+::tcltest::test RestoreIfExists-1 {File does not exist}  -constraints {}  -setup {file delete -force asdfg.txt
+file delete -force asdfg.txt.bak}  -body {puts [RestoreIfExists asdfg.txt]
+file exists asdfg.txt}  -cleanup {}  -result {0}  -output {0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc RestoreIfExistsTest::Test-3 {} {
+
+::tcltest::test RestoreIfExists-2 {FilePathValue is empty}  -constraints {}  -setup {}  -body {RestoreIfExists ""
+
+}  -cleanup {}  -result {Variable FilePathValue has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc RestoreIfExistsTest::Test-4 {} {
+
+::tcltest::test RestoreIfExists-4 {Extension is empty}  -constraints {}  -setup {}  -body {RestoreIfExists my.txt ""
+
+}  -cleanup {}  -result {Variable Extension has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc RestoreIfExistsTest::Test-5 {} {
+
+::tcltest::test RestoreIfExists-6 {Use different extension}  -constraints {}  -setup {file delete -force asdfg.txt
+file delete -force asdfg.txt.backup}  -body {String2File asdfg asdfg.txt
+BackupIfExists asdfg.txt backup
+String2File gfdsa asdfg.txt
+puts [File2String asdfg.txt]
+RestoreIfExists asdfg.txt backup
+puts [File2String asdfg.txt]}  -cleanup {file delete -force asdfg.txt
+file delete -force asdfg.txt.backup}  -result {}  -output {gfdsa
+asdfg
+}  -returnCodes {0}  
+
+}
+
+
+
+proc RestoreIfExistsTest::Test-6 {} {
+
+::tcltest::test RestoreIfExists-7 {Original was deleted}  -constraints {}  -setup {}  -body {String2File asdfg asdfg.txt
+BackupIfExists asdfg.txt
+file delete -force asdfg.txt
+RestoreIfExists asdfg.txt
+puts [File2String asdfg.txt]}  -cleanup {}  -result {}  -output {asdfg
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     RestoreIfExistsTest::Test-1
+     RestoreIfExistsTest::Test-2
+     RestoreIfExistsTest::Test-3
+     RestoreIfExistsTest::Test-4
+     RestoreIfExistsTest::Test-5
+     RestoreIfExistsTest::Test-6
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          RestoreIfExistsTest::Test-[set Element]
+     }
+}
+

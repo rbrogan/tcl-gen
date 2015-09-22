@@ -1,3 +1,29 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/isnonnumeric.tcl
+
+source $PackageRoot/isnegative.tcl
+
+source $PackageRoot/ispositive.tcl
+
+source $PackageRoot/ter.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "StringInsert not loaded because missing packages: $::GenMissingPackages."
+
+     proc StringInsert {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc StringInsert {StringVariable InsertValue WhereAt} {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String

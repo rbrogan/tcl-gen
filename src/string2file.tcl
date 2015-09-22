@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "String2File not loaded because missing packages: $::GenMissingPackages."
+
+     proc String2File {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc String2File {StringValue OutFilePath} {
 
      # Open for writing

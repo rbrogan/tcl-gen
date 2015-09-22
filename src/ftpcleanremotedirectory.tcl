@@ -1,3 +1,27 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/notempty.tcl
+
+if {[catch {package require ftp}]} {
+     lappend ::GenMissingPackages ftp
+}
+
+source $PackageRoot/dbgprint.tcl
+
+source $PackageRoot/ftpisdirectoryonremote.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "FtpCleanRemoteDirectory not loaded because missing packages: $::GenMissingPackages."
+
+     proc FtpCleanRemoteDirectory {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
 
      DbgPrint "Cleaning remote directory $RemoteDirectory"
@@ -46,4 +70,6 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
      if {$Ok == 0} {
           error "FTP: Could not step back out of remote directory $RemoteDirectory. Quitting."
      }
+
+     return
 }

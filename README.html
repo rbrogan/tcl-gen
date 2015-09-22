@@ -94,7 +94,7 @@ Since this is a utilities library, you do not need to do much of anything to get
 If you would like to confirm the library is installed and working then try the following from a Tcl shell.<br>
 </p><code>
 % package require gen<br>
-1.7.1<br>
+1.8.0<br>
 % set Number 1<br>
 1<br>
 % AddTo Number 2<br>
@@ -252,13 +252,13 @@ The latest version can be found at <a href="http://www.robertbrogan.com/gen/down
 </p>
 <h3><a id="C_RECENT_CHANGES">&mdash;18| RECENT CHANGES</a></h3>
 <p>
-The Run command has changed to save the pre-existing contents of ::argv and restore them before exiting.
+Gen will try to source a file called gen-user-config.tcl. You do not need to create this file. But if you like, you can make such a file, put in your own settings, and then when you update your version of Gen, you do not have to worry about overwriting what you had changed in gen-config.tcl.
 </p>
 <p>
-Changed source structure so that each command has its own separate file. Changed documentation structure so that each command has a separate documentation page to hold all information relating to exceptional conditions (e.g. errors, warning policies, debug modes, etc.).
+We also have begun implementing a partial loading feature. This means that you do not need all the packages. You may (or may not) notice a slowdown in loading. We hope to change that within a few releases by doing one-time checking and loading. But what we have now is an incremental first step. See <a href='news.html'>NEWS</a> for more info.
 </p>
 <p>
-Version 1.7.1 released. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
+Version 1.8.0 released. You can view a summary of changes in the <a href='news.html'>news</a> page and further details in the <a href='changelog.html'>changelog</a>.
 </p>
 <h3><a id="C_LICENSE">&mdash;19| LICENSE</a></h3>
 

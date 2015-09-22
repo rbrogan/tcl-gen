@@ -29,6 +29,54 @@
 <p><i>Want more detailed info?</i> We also have a <a href="changelog.html">Changelog</a> with more detailed information to help you with diffing commits.</p>
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
+
+<div class="section-header">
+<div class="section-header-left">2015.09.21</div><div class="section-header-right">v1.8.0 Release</div>
+</div>
+<div class="section-content">
+<p>
+This month we have a few file system related commands.
+</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/backupifexists.html" class="command_link">BackupIfExists</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Make a backup if the file exists.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/copyeverythingindirectory.html" class="command_link">CopyEverythingInDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Copy all the files in the source directory to destination.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/deleteeverythingindirectory.html" class="command_link">DeleteEverythingInDirectory</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Deletes contents of directory, all files and subdirectories.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/limitlinelengthinfile.html" class="command_link">LimitLineLengthInFile</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Take file and run textutil::adjust::adjust on each line.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/restoreifexists.html" class="command_link">RestoreIfExists</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Replace file with backup, if one can be found.</p></div>
+
+
+
+<p>
+Gen will try to source a file called gen-user-config.tcl. You do not need to create this file. But if you like, you can make such a file, put in your own settings, and then when you update your version of Gen, you do not have to worry about overwriting what you had changed in gen-config.tcl.
+</p>
+<p>
+We also have begun implementing a partial loading feature. This means that you do not need all the packages. You may (or may not) notice a slowdown in loading. We hope to change that within a few releases by doing one-time checking and loading. But what we have now is an incremental first step.
+</p>
+<p>
+What follows is an excerpt from the documentation that goes over Partial Loading in more detail --
+</p>
+<p>
+Gen is meant to be a utility library that anyone can use. It is a bit problematic to require someone to have every package that every Gen command uses, especially if you want Gen only for certain commands. If Gen is about convenience commands, then it should grow over time to include many commands across many packages. But as it does that and its usefulness goes up, its usability goes down because it puts extra burden on you to find and install many packages. This is a problem we would like to solve.
+</p>
+<p>
+The solution we are moving towards is to have Gen try to load what it can based on what the you have available at load-time. If a command needs a missing package then that command will not load, but still the Gen library will load. If you do not need that command, then you do not need to bother with getting the package.
+</p>
+<p>
+It is expected that this feature will need to evolve out over time.
+</p>
+<p>
+As of the current release, you will not see any apparent changes when you load Gen. If you go to use a command that was not loaded, it will throw an error saying the command was not successfully loaded because a certain dependency was missing. This is not so different from trying to use the command and having it complain that the command was not found. But it is better in that it will tell you what package you need to get.
+</p>
+<p>
+But suppose you want to know what commands are not being loaded right away? There you can do <code>set GenNS::WarnOnFailureToLoadCommand 1</code> within <code>gen-config.tcl</code>, and when you load Gen it will print out a warning for each command that failed to load and it will tell you what packages that were missing which caused it to fail to load.
+</p>
+
+
 <div class="section-header">
 <div class="section-header-left">2015.09.12</div><div class="section-header-right">v1.7.1 Revision</div>
 </div>
@@ -98,6 +146,7 @@ So we will look to put out a revision that addresses these, get going with a Kno
 
 <br>
 
+
 <div class="section-header">
 <div class="section-header-left">2015.08.10</div><div class="section-header-right">v1.6.0 Release</div>
 </div>
@@ -163,7 +212,7 @@ So we will look to put out a revision that addresses these, get going with a Kno
 SIGNATURE
     String2File {StringValue OutFilePath}
 
-
+This month lots of things happening.
     Create a file, write string to it, and close the file.
 
 RETURNS
@@ -403,7 +452,7 @@ What follows is a listing of new commands:<br>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlsetclause.html" class="command_link">SqlSetClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Derive a set clause for an update query, using a dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlupdatestatement.html" class="command_link">SqlUpdateStatement</a></p></div>
-<div class="command_desc"><p class="quasi_table_right">Create an UP2015.08.24 statement.</p></div>
+<div class="command_desc"><p class="quasi_table_right">Create an UP2015.09.21 statement.</p></div>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sqlwhereclause.html" class="command_link">SqlWhereClause</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Create a WHERE clause using the values in dict.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sqlitecolumnnameandtypelist.html" class="command_link">SqliteColumnNameAndTypeList</a></p></div>

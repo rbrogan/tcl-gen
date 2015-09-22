@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BackupIfExists</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+BackupIfExists  &mdash;  Make a backup if the file exists.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>BackupIfExists</b> <i>FilePathValue</i> <i>?Extension?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> Did do a backup.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Did not do a backup.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FilePathValue</i></td><td class='argument_right'>File path for the original file.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Extension</i></td><td class='argument_right'>Optional. Name of the extension the backup version should get. Defaults to bak.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command will check to see if the file exists and if so, create a copy ending with .bak (or any other extension).<p>This command is meant to be paired with <a href='restoreifexists.html'>RestoreIfExists</a> to make for a very primitive, "one version only" backup mechanism to use with applications.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="backupifexists-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% String2File "testing 1 2 3" test.txt<br>% cat test.txt<br>testing 1 2 3<br>% BackupIfExists test.txt<br>Copying test.txt to test.txt.bak<br>        1 file(s) copied.<br>% cat test.txt.bak<br>testing 1 2 3<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'restoreifexists.html'>RestoreIfExists</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/file.htm'>file</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>
+</div>
+</body>
+</html>

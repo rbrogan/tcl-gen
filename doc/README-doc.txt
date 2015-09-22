@@ -90,6 +90,8 @@ appendstring2file.html
      Page for the command AppendString2File.
 arrangedict.html
      Page for the command ArrangeDict.
+backupifexists.html
+     Page for the command BackupIfExists.
 changecasing.html
      Page for the command ChangeCasing.
 chopleft.html
@@ -100,6 +102,8 @@ coe.html
      Page for the command Coe.
 commaseparatedstringtolist.html
      Page for the command CommaSeparatedStringToList.
+copyeverythingindirectory.html
+     Page for the command CopyEverythingInDirectory.
 currenttimeofday.html
      Page for the command CurrentTimeOfDay.
 dateisafter.html
@@ -136,6 +140,8 @@ decr.html
      Page for the command Decr.
 decrdbglobal.html
      Page for the command DecrDbGlobal.
+deleteeverythingindirectory.html
+     Page for the command DeleteEverythingInDirectory.
 dict2registrytree.html
      Page for the command Dict2RegistryTree.
 diffhhmmss.html
@@ -222,6 +228,8 @@ lastid.html
      Page for the command LastId.
 lastof.html
      Page for the command LastOf.
+limitlinelengthinfile.html
+     Page for the command LimitLineLengthInFile.
 linktclvariabletoregistryvalue.html
      Page for the command LinkTclVariableToRegistryValue.
 linkvartodbglobal.html
@@ -268,6 +276,8 @@ registrytree2dict.html
      Page for the command RegistryTree2Dict.
 reloadpackage.html
      Page for the command ReloadPackage.
+restoreifexists.html
+     Page for the command RestoreIfExists.
 restoreworkingdirectory.html
      Page for the command RestoreWorkingDirectory.
 retzeroifempty.html

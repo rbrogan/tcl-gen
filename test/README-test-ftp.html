@@ -11,7 +11,7 @@
 <a href="../index.html" class="navbar" >Home</a>
 <a href="../README.html" class="navbar" >Readme</a>
 <a href="../doc/README-doc.html" class="navbar" >doc / Readme</a>
-<a href="README-test.html" class="navbar" id = "current">test / Readme</a>
+<a href="README-test.html" class="navbar">test / Readme</a>
 <a href="../doc/manual-home.html" class="navbar" >Manual</a>
 <a href="../news.html" class="navbar">News</a>
 <a href="../changelog.html" class="navbar">Changelog</a>
@@ -36,7 +36,6 @@ The FTP tests will not work unless you do set up. To run the FTP tests, you need
 <li>Open <code>ftp-test-config.tcl</code> and set the values for your setup (e.g. IP address, etc.). The comments in that file and <a href="../doc/about-ftp-use.html">doc/about-ftp-use.html</a> should help you.</li>
 <li>To get some tests to pass, the local copy must be newer than the remote. So you might want to go through <code>ftp-local/original/different-times</code> and touch all <code>local-newer*.txt</code> files.</li>
 <li>The tests use a diff command to check if the results match what is expected. You may need to install diff software.</li>
-<li>For some of the (uploading) tests you will have to adapt the commands used in ftp-test-config.tcl if you want to run them. Included is what we use for our Windows-to-Linux setup using plink. In the future, we may offer more support for helping you to set up your own test environment. Alternatively, you can try to manually test the commands yourself.<li>
 </ol>
 </p>
 <p>
@@ -55,7 +54,7 @@ If you get failures, be aware you can do ...<br>
 Note that all the tests are set up to run with binary transfer type. ASCII has not been tested because have not decided how to handle the fact that results may be different depending on what kind of machines are used in the tests.
 </p>
 <p>
-For more information about FTP use, see <a href="../doc/about-ftp-use.html">doc/about-ftp-use.html</a>doc/about-ftp-use.html</a>.
+For more information about FTP use, see <a href="../doc/about-ftp-use.html">doc/about-ftp-use.html</a>.
 </p>
 </div>
 <div id = "footer">

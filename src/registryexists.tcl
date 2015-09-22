@@ -1,3 +1,23 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+if {[catch {package require registry}]} {
+     lappend ::GenMissingPackages registry
+}
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "RegistryExists not loaded because missing packages: $::GenMissingPackages."
+
+     proc RegistryExists {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc RegistryExists {KeyName {ValueName ""}} {
 
      if {[IsEmpty $KeyName]} {

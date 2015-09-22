@@ -2,11 +2,77 @@ Gen
 
 NEWS
 
+2015.08.24
+v1.8.0 Release
+
+This month we have a few file system related commands and the start of the
+partial loading feature.
+
+BackupIfExists
+     Make a backup if the file exists.
+
+CopyEverythingInDirectory
+     Copy all the files in the source directory to destination.
+
+DeleteEverythingInDirectory
+     Deletes contents of directory, all files and subdirectories.
+
+LimitLineLengthInFile
+     Take file and run textutil::adjust::adjust on each line.
+
+RestoreIfExists
+     Replace file with backup, if one can be found.
+
+
+
+
+Gen will try to source a file called gen-user-config.tcl. You do not need to
+create this file. But if you like, you can make such a file, put in your own
+settings, and then when you update your version of Gen, you do not have to worry
+about overwriting what you had changed in gen-config.tcl.
+
+We also have begun implementing a partial loading feature. This means that you
+do not need all the packages. You may (or may not) notice a slowdown in loading.
+We hope to change that within a few releases by doing one-time checking and
+loading. But what we have now is an incremental first step.
+
+What follows is an excerpt from the documentation that goes over Partial Loading
+in more detail --
+
+Gen is meant to be a utility library that anyone can use. It is a bit
+problematic to require someone to have every package that every Gen command
+uses, especially if you want Gen only for certain commands. If Gen is about
+convenience commands, then it should grow over time to include many commands
+across many packages. But as it does that and its usefulness goes up, its
+usability goes down because it puts extra burden on you to find and install many
+packages. This is a problem we would like to solve.
+
+The solution we are moving towards is to have Gen try to load what it can based
+on what the you have available at load-time. If a command needs a missing
+package then that command will not load, but still the Gen library will load. If
+you do not need that command, then you do not need to bother with getting the
+package.
+
+It is expected that this feature will need to evolve out over time.
+
+As of the current release, you will not see any apparent changes when you load
+Gen. If you go to use a command that was not loaded, it will throw an error
+saying the command was not successfully loaded because a certain dependency was
+missing. This is not so different from trying to use the command and having it
+complain that the command was not found. But it is better in that it will tell
+you what package you need to get.
+
+But suppose you want to know what commands are not being loaded right away?
+There you can do set GenNS::WarnOnFailureToLoadCommand 1 within gen-config.tcl,
+and when you load Gen it will print out a warning for each command that failed
+to load and it will tell you what packages that were missing which caused it to
+fail to load.
+
 2015.09.12
 v1.7.1 Revision
 
-This is a revision: (1) an update of the error messages to make them more 
-consistent, (2) content added to the exception pages, and (3) (limited) 
+This is a revision: (1) an update of the error messages to make them more
+consistent, (2) content added to the exception pages, and (3) (limited)
 support for running FTP (upload) tests on other setups.
 
 See the changelog for more information.

@@ -1,3 +1,21 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/istimeofday.tcl
+
+source $PackageRoot/timeofday2seconds.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "TimeOfDayIsBetween not loaded because missing packages: $::GenMissingPackages."
+
+     proc TimeOfDayIsBetween {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc TimeOfDayIsBetween {FirstTimeOfDay SecondTimeOfDay ThirdTimeOfDay {Option BothExclusive}} {
 
      if {![IsTimeOfDay $FirstTimeOfDay]} {

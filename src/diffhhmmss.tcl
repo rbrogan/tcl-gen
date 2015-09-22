@@ -1,3 +1,27 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/ishhmmss.tcl
+
+source $PackageRoot/hhmmss2seconds.tcl
+
+source $PackageRoot/seconds2hhmmss.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "DiffHhmmss not loaded because missing packages: $::GenMissingPackages."
+
+     proc DiffHhmmss {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc DiffHhmmss {MinuendVariable Subtrahend} {
      if {[string first @ $MinuendVariable] == 0} {
           UpvarExistingOrDie [string range $MinuendVariable 1 end] Minuend

@@ -1,3 +1,19 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "ArrangeDict not loaded because missing packages: $::GenMissingPackages."
+
+     proc ArrangeDict {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc ArrangeDict {DictVariable Arrangement} {
      if {[string first @ $DictVariable] == 0} {
           UpvarExistingOrDie [string range $DictVariable 1 end] Dict

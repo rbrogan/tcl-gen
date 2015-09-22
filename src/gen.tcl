@@ -1,393 +1,355 @@
-package provide gen 1.7.1
-package require sqlite3
-package require Tclx
-package require textutil::string
-package require ftp
-if {[string equal $::tcl_platform(platform) "windows"]} {
-     package require registry
-}
+package provide gen 1.8.0
 
+set PackageRoot [file dirname [lindex [package ifneeded gen 1.8.0]  1]]
 
-array set ErrorCode {
-     VARIABLE_NOT_FOUND -1
-     INPUT_NON_NUMERIC -2
-     VARIABLE_NAME_EMPTY -3
-     INDEX_OUT_OF_RANGE -4
-     INPUT_NOT_WELL_FORMED -5
-     CANNOT_FACTOR_INPUT_LIST -6
-     INPUT_INVALID -7
-     INPUT_OUT_OF_RANGE -8
-     INPUT_NON_POSITIVE -9
-     SEARCH_STRING_EMPTY -10
-     VARIABLE_CONTENTS_INVALID -11
-     VARIABLE_CONTENTS_EMPTY -12
-     DATABASE_VARIABLE_NOT_FOUND -13
-     TABLE_NOT_FOUND -14
-     ARGUMENTS_INCOHERENT -15
-     REGISTRY_ELEMENT_NOT_FOUND -16
-     PROC_NOT_FOUND -17
-     ALREADY_EXISTS -18
-     LIST_HAS_INVALID_ELEMENT -19
-}
+source $PackageRoot/gen-error.tcl
 
-array set ErrorMessage {
-     VARIABLE_NOT_FOUND {Could not find variable %s in caller.}
-     INPUT_NON_NUMERIC {Got input value %s. Expected numeric value.}
-     VARIABLE_NAME_EMPTY {Variable name is missing. Got empty string.}
-     INDEX_OUT_OF_RANGE {List index %s is invalid.}
-     INPUT_NOT_WELL_FORMED {Got input value %s. Expected input of the form %s.}
-     CANNOT_FACTOR_INPUT_LIST {Input value %s does not divide list evenly.}
-     INPUT_INVALID {Input value %s is invalid.}
-     INPUT_OUT_OF_RANGE {Input value %s is out-of-range.}
-     INPUT_NON_POSITIVE {Expected positive input value, got input value %s instead.}
-     SEARCH_STRING_EMPTY {Got empty string for search value.}
-     VARIABLE_CONTENTS_INVALID {Variable %s has invalid value %s.}
-     VARIABLE_CONTENTS_EMPTY {Variable %s has empty value.}
-     DATABASE_VARIABLE_NOT_FOUND {No variable called %s was found in the database globals table.}
-     TABLE_NOT_FOUND {Table %s not found.}
-     ARGUMENTS_INCOHERENT {Arguments %s and %s have incoherent values %s and %s.}
-     REGISTRY_ELEMENT_NOT_FOUND {Registry key/value %s not found.}
-     PROC_NOT_FOUND {Could not find proc %s.}
-     ALREADY_EXISTS {Value %s in variable %s already exists.}
-     LIST_HAS_INVALID_ELEMENT {List variable %s at index %s has invalid value %s.}
-}
+source $PackageRoot/gen-config.tcl
 
-set PackageRoot [file dirname [lindex [package ifneeded gen 1.7.1]  1]]
+catch {source $PackageRoot/gen-user-config.tcl}
 
-source $PackageRoot/addepilogue.tcl
+source $PackageRoot/addepilogue.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/addprologue.tcl
+source $PackageRoot/addprologue.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/addto.tcl
+source $PackageRoot/addto.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/appendstring2file.tcl
+source $PackageRoot/appendstring2file.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/arrangedict.tcl
+source $PackageRoot/arrangedict.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/changecasing.tcl
+source $PackageRoot/backupifexists.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/chopleft.tcl
+source $PackageRoot/changecasing.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/chopright.tcl
+source $PackageRoot/chopleft.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/coe.tcl
+source $PackageRoot/chopright.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/commaseparatedstringtolist.tcl
+source $PackageRoot/coe.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/copyallfilesintodirectory.tcl
+source $PackageRoot/commaseparatedstringtolist.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/currenttimeofday.tcl
+source $PackageRoot/copyeverythingindirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateisafter.tcl
+source $PackageRoot/currenttimeofday.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateisbefore.tcl
+source $PackageRoot/dateisafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateisbetween.tcl
+source $PackageRoot/dateisbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateison.tcl
+source $PackageRoot/dateisbetween.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateisonorafter.tcl
+source $PackageRoot/dateison.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateisonorbefore.tcl
+source $PackageRoot/dateisonorafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateminusdays.tcl
+source $PackageRoot/dateisonorbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dateplusdays.tcl
+source $PackageRoot/dateminusdays.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisafter.tcl
+source $PackageRoot/dateplusdays.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisat.tcl
+source $PackageRoot/datetimeisafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisatorafter.tcl
+source $PackageRoot/datetimeisat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisatorbefore.tcl
+source $PackageRoot/datetimeisatorafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisbefore.tcl
+source $PackageRoot/datetimeisatorbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/datetimeisbetween.tcl
+source $PackageRoot/datetimeisbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dbaseregsub.tcl
+source $PackageRoot/datetimeisbetween.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dbgoff.tcl
+source $PackageRoot/dbaseregsub.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dbgon.tcl
+source $PackageRoot/dbgoff.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dbgprint.tcl
+source $PackageRoot/dbgon.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/decr.tcl
+source $PackageRoot/dbgprint.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/decrdbglobal.tcl
+source $PackageRoot/decr.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/deleteeverythingindirectory.tcl
+source $PackageRoot/decrdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/deleteonlyfilesindirectory.tcl
+source $PackageRoot/deleteeverythingindirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dict2registrytree.tcl
+source $PackageRoot/deleteonlyfilesindirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/diffhhmmss.tcl
+source $PackageRoot/dict2registrytree.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/divideby.tcl
+source $PackageRoot/diffhhmmss.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/dividesevenly.tcl
+source $PackageRoot/divideby.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/doublechop.tcl
+source $PackageRoot/dividesevenly.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/endswith.tcl
+source $PackageRoot/doublechop.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/escapedsqlstring.tcl
+source $PackageRoot/endswith.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/evallist.tcl
+source $PackageRoot/escapedsqlstring.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/file2list.tcl
+source $PackageRoot/evallist.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/file2string.tcl
+source $PackageRoot/file2list.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/findandremove.tcl
+source $PackageRoot/file2string.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/firstof.tcl
+source $PackageRoot/findandremove.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/flip.tcl
+source $PackageRoot/firstof.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/foreachrecord.tcl
+source $PackageRoot/flip.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpcleanremotedirectory.tcl
+source $PackageRoot/foreachrecord.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpdownloaddirectory.tcl
+source $PackageRoot/ftpcleanremotedirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpdownloadsite.tcl
+source $PackageRoot/ftpdownloaddirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpisdirectoryonremote.tcl
+source $PackageRoot/ftpdownloadsite.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpmirrorlocaltoremote.tcl
+source $PackageRoot/ftpisdirectoryonremote.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpmirrorremotetolocal.tcl
+source $PackageRoot/ftpmirrorlocaltoremote.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpuploaddirectory.tcl
+source $PackageRoot/ftpmirrorremotetolocal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpuploadsite.tcl
+source $PackageRoot/ftpuploaddirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpwhichislarger.tcl
+source $PackageRoot/ftpuploadsite.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ftpwhichisnewer.tcl
+source $PackageRoot/ftpwhichislarger.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/getdbglobal.tcl
+source $PackageRoot/ftpwhichisnewer.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/guesspackagerootdirectory.tcl
+source $PackageRoot/getdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/hhmmss2seconds.tcl
+source $PackageRoot/guesspackagerootdirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/incrdbglobal.tcl
+source $PackageRoot/hhmmss2seconds.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isdate.tcl
+source $PackageRoot/incrdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isdatetime.tcl
+source $PackageRoot/isdate.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isdict.tcl
+source $PackageRoot/isdatetime.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isempty.tcl
+source $PackageRoot/isdict.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ishhmmss.tcl
+source $PackageRoot/isdirectoryempty.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ismatrix.tcl
+source $PackageRoot/isempty.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnegative.tcl
+source $PackageRoot/ishhmmss.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnonnegative.tcl
+source $PackageRoot/ismatrix.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnonnumeric.tcl
+source $PackageRoot/isnegative.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnonpositive.tcl
+source $PackageRoot/isnonnegative.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnonzero.tcl
+source $PackageRoot/isnonnumeric.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isnumeric.tcl
+source $PackageRoot/isnonpositive.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ispositive.tcl
+source $PackageRoot/isnonzero.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/istimeofday.tcl
+source $PackageRoot/isnumeric.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/isvalidlistindex.tcl
+source $PackageRoot/ispositive.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/iszero.tcl
+source $PackageRoot/istimeofday.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/lappendifnotalready.tcl
+source $PackageRoot/isvalidlistindex.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/lastid.tcl
+source $PackageRoot/iszero.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/lastof.tcl
+source $PackageRoot/lappendifnotalready.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/linktclvariabletoregistryvalue.tcl
+source $PackageRoot/lastid.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/linkvartodbglobal.tcl
+source $PackageRoot/lastof.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/list2file.tcl
+source $PackageRoot/limitlinelengthinfile.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/listendindex.tcl
+source $PackageRoot/linktclvariabletoregistryvalue.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/listremoveat.tcl
+source $PackageRoot/linkvartodbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/mash.tcl
+source $PackageRoot/list2file.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/matrix2htmltable.tcl
+source $PackageRoot/listendindex.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/multiset.tcl
+source $PackageRoot/listremoveat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/multiplyby.tcl
+source $PackageRoot/mash.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/multiplyhhmmss.tcl
+source $PackageRoot/matrix2htmltable.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/notempty.tcl
+source $PackageRoot/multiset.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/now.tcl
+source $PackageRoot/multiplyby.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/prepend.tcl
+source $PackageRoot/multiplyhhmmss.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/printdict.tcl
+source $PackageRoot/notempty.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/printmatrix.tcl
+source $PackageRoot/now.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/printvar.tcl
+source $PackageRoot/prepend.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/q1.tcl
+source $PackageRoot/printdict.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/qq.tcl
+source $PackageRoot/printmatrix.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/quoteifcolumntypeistext.tcl
+source $PackageRoot/printvar.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/raise.tcl
+source $PackageRoot/q1.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/registryexists.tcl
+source $PackageRoot/qq.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/registryprint.tcl
+source $PackageRoot/quoteifcolumntypeistext.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/registrytree2dict.tcl
+source $PackageRoot/raise.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/reloadpackage.tcl
+source $PackageRoot/registryexists.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/restoreworkingdirectory.tcl
+source $PackageRoot/registryprint.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/retzeroifempty.tcl
+source $PackageRoot/registrytree2dict.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/run.tcl
+source $PackageRoot/reloadpackage.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/runsqlcreatetable.tcl
+source $PackageRoot/restoreifexists.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/runsqlenter.tcl
+source $PackageRoot/restoreworkingdirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/runsqlinsertifdoesnotexist.tcl
+source $PackageRoot/retzeroifempty.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/saveworkingdirectory.tcl
+source $PackageRoot/run.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/seconds2hhmmss.tcl
+source $PackageRoot/runsqlcreatetable.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/setdateformat.tcl
+source $PackageRoot/runsqlenter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/setdatetimeformat.tcl
+source $PackageRoot/runsqlinsertifdoesnotexist.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/setdbglobal.tcl
+source $PackageRoot/saveworkingdirectory.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/settimeofdayformat.tcl
+source $PackageRoot/seconds2hhmmss.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/setzeroifempty.tcl
+source $PackageRoot/setdateformat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sliceleft.tcl
+source $PackageRoot/setdatetimeformat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sliceright.tcl
+source $PackageRoot/setdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/splitandtrim.tcl
+source $PackageRoot/settimeofdayformat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/splitntimes.tcl
+source $PackageRoot/setzeroifempty.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlcountstatement.tcl
+source $PackageRoot/sliceleft.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlinsertstatement.tcl
+source $PackageRoot/sliceright.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlrecordexists.tcl
+source $PackageRoot/splitandtrim.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlselectstatement.tcl
+source $PackageRoot/splitntimes.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlsetclause.tcl
+source $PackageRoot/sqlcountstatement.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlupdatestatement.tcl
+source $PackageRoot/sqlinsertstatement.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlwhereclause.tcl
+source $PackageRoot/sqlrecordexists.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlitecolumnnameandtypelist.tcl
+source $PackageRoot/sqlselectstatement.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlitecolumnnamelist.tcl
+source $PackageRoot/sqlsetclause.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlitecolumntype.tcl
+source $PackageRoot/sqlupdatestatement.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlitecopytable.tcl
+source $PackageRoot/sqlwhereclause.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqliterenamecolumn.tcl
+source $PackageRoot/sqlitecolumnnameandtypelist.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sqlitetableexists.tcl
+source $PackageRoot/sqlitecolumnnamelist.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/startsandendswith.tcl
+source $PackageRoot/sqlitecolumntype.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/startswith.tcl
+source $PackageRoot/sqlitecopytable.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/string2file.tcl
+source $PackageRoot/sqliterenamecolumn.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/stringcontains.tcl
+source $PackageRoot/sqlitetableexists.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/stringinsert.tcl
+source $PackageRoot/startsandendswith.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/stringmid.tcl
+source $PackageRoot/startswith.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/subtractfrom.tcl
+source $PackageRoot/string2file.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/sumhhmmss.tcl
+source $PackageRoot/stringcontains.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/surroundeach.tcl
+source $PackageRoot/stringinsert.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/swap.tcl
+source $PackageRoot/stringmid.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/ter.tcl
+source $PackageRoot/subtractfrom.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofday2seconds.tcl
+source $PackageRoot/sumhhmmss.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisafter.tcl
+source $PackageRoot/surroundeach.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisat.tcl
+source $PackageRoot/swap.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisatorafter.tcl
+source $PackageRoot/ter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisatorbefore.tcl
+source $PackageRoot/timeofday2seconds.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisbefore.tcl
+source $PackageRoot/timeofdayisafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/timeofdayisbetween.tcl
+source $PackageRoot/timeofdayisat.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/tobackslashes.tcl
+source $PackageRoot/timeofdayisatorafter.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/todoublebackslashes.tcl
+source $PackageRoot/timeofdayisatorbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/toforwardslashes.tcl
+source $PackageRoot/timeofdayisbefore.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/today.tcl
+source $PackageRoot/timeofdayisbetween.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/tomorrow.tcl
+source $PackageRoot/tobackslashes.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/unlinktclvariablefromregistryvalue.tcl
+source $PackageRoot/todoublebackslashes.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/unlinkvarfromdbglobal.tcl
+source $PackageRoot/toforwardslashes.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/unsetdbglobal.tcl
+source $PackageRoot/today.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/updatedbglobal.tcl
+source $PackageRoot/tomorrow.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/updateregistryvalue.tcl
+source $PackageRoot/unlinktclvariablefromregistryvalue.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/upvarexistingordie.tcl
+source $PackageRoot/unlinkvarfromdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/upvarx.tcl
+source $PackageRoot/unsetdbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/varexistsincaller.tcl
+source $PackageRoot/updatedbglobal.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
-source $PackageRoot/yesterday.tcl
+source $PackageRoot/updateregistryvalue.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
+
+source $PackageRoot/upvarexistingordie.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
+
+source $PackageRoot/upvarx.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
+
+source $PackageRoot/varexistsincaller.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
+
+source $PackageRoot/yesterday.tcl; if {($::GenPackageWarning ne "") && ($::GenNS::WarnOnFailureToLoadCommand != 0)} { puts $::GenPackageWarning }
 
 proc GenCurrentVersion {} {
-     puts 1.7.1
+     puts 1.8.0
 }

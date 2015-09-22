@@ -2,12 +2,61 @@ Gen
 
 CHANGELOG
 
+2015.09.21
+v1.8.0
+
+Changes by functionality
+
+    Monthly release of new commands, with corresponding files in test and doc
+directories.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Update Recent Changes section.
+          README.txt
+               Update Recent Changes section.
+          roadmap.html
+               Update with info for next release.
+     /doc
+          Added main and exception pages for new commands.
+          Added index pages with new version number.
+          Updated index pages with new commands.
+          Added new page to explain Partial Loading feature.
+     /src
+          Each command file has added code to load its dependencies and if they fail then
+it will instead make the body throw an error that tells what packages failed to
+load. It will also print a warning if GenNS::WarnOnFailureToLoadCommand is set
+to 1.
+          Added gen-error.tcl to hold error tables.
+          Commands added.
+          Internal commands added.
+          gen.tcl
+               Took out package requires.
+               Moved error tables to gen-error.tcl.
+               Revised sourcing code to check for failures to load packages and conditionally
+put up a warning.
+          pkgIndex.tcl
+               Updated version.
+          *.tcl
+               Added a command for each file.
+          
+     /test
+          Added tests for new commands.
+          Added directory for CopyEverythingInDirectory test materials.
+          Added directory for DeleteEverythingInDirectory test materials.
+
 2015.09.12
 v1.7.1
 
 Changes by functionality
 
-The error messages for some commands have had minor changes. All error that 
+The error messages for some commands have had minor changes. All error that
 involve a failure with an FTP operation have an "FTP: " prefix.
 
 Content added to the exception pages.
@@ -55,7 +104,7 @@ By files
           runsqlcreate.test
                Make sure test table is cleared out first before starting test.
           ftp-test-config.tcl
-               Updated to support other setups
+               Updated to support other setups.
           ftp*.test
                Updated to match changes to ftp-test-config.tcl and minor changes to error
                messages.

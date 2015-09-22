@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/isnonnumeric.tcl
+
+source $PackageRoot/isnonpositive.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "ListRemoveAt not loaded because missing packages: $::GenMissingPackages."
+
+     proc ListRemoveAt {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc ListRemoveAt {ListVariable Index {Count 1}} {
      if {[string first @ $ListVariable] == 0} {
           UpvarExistingOrDie [string range $ListVariable 1 end] List

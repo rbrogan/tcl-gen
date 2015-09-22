@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "SliceLeft not loaded because missing packages: $::GenMissingPackages."
+
+     proc SliceLeft {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc SliceLeft {TargetString Characters} {
 
      set List {}

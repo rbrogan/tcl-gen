@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "AddPrologue not loaded because missing packages: $::GenMissingPackages."
+
+     proc AddPrologue {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc AddPrologue {ProcName Prologue} {
 
      # Verify proc exists

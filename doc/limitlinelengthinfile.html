@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LimitLineLengthInFile</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+LimitLineLengthInFile  &mdash;  Take file and run textutil::adjust::adjust on each line.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>LimitLineLengthInFile</b> <i>MaxLength</i> <i>InputFilePath</i> <i>?OutputFilePath?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>MaxLength</i></td><td class='argument_right'>Maximum length that any line in the file can have.</td></tr><tr class='table_row_a'><td class='argument_left'><i>InFilePath</i></td><td class='argument_right'>Path of the file to read.</td></tr><tr class='table_row_b'><td class='argument_left'><i>OutFilePath</i></td><td class='argument_right'>Optional. Path of the file to write. By default, this command will read and write the same file.</td></tr><tr class='table_row_a'><td class='argument_left'><i></i></td><td class='argument_right'></td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>For any lines with leading whitespace, this command will preserve that whitespace.<p>This command is really for files that have not had their line length previously limited. It is not for files that have paragraphs broken across lines based on a certain width and now you want to change that width.</p><p>For instance, it is more for this:
+<pre>
+     Here is the start of a paragraph. This paragraph is continuing on one line for over 80 characters, but will be split over several lines, with newlines, once we run the command.</p><p>Here is another paragraph that is also all on one line in the source file. This will also be broken up and we end with two paragraphs.
+</pre>
+than for this:
+<pre>
+Here is another paragraph,
+which has been limited to
+xxx characters in width
+already.
+</pre></p><p>See also: <a href='https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/textutil/adjust.html'>::textutil::adjust</a>, especially if you find that this command will not give you the exact results you are looking for.</p><p>Note that this command uses the -length $MaxLength and -strictlength true options of <a href='https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/textutil/adjust.html'>::textutil::adjust::adjust</a>. The result may be slightly off from what you would expect, but we decided not to make any adjustments. Specifically, if you specify a MaxLength of 80 and one of the lines has 81 characters with no whitespace, then it will have 81 characters in the output. But so long as the line has at least one whitespace then it will be 80 or less. The examples and tests make this more clear.</p><p>It is recommended that you try this out on some files and see if you get results you like. If not, and you know just what you want, it may be well to use a more sophisticated (and more complex) tool.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="limitlinelengthinfile-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set Lines {333 4444 55555 666666}<br>% List2File $Lines temp.txt<br>% <b>LimitLineLengthInFile 4 temp.txt</b><br>% cat temp.txt<br>333<br>4444<br>55555<br><br>66666<br>6<br></pre></div><div class="code_sample"><pre>% set Lines {333 4444 { 5 55} {   6 66}}<br>% List2File $Lines temp.txt<br>% <b>LimitLineLengthInFile 4 temp.txt</b><br>% puts [File2String temp.txt]<br>333<br>4444<br> 5<br>55<br>   6<br>66<br><br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_format">format</a>, <a href="keyword-index.html#C_string">string</a>
+</div>
+</body>
+</html>

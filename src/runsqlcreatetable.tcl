@@ -1,3 +1,21 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/qq.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "RunSqlCreateTable not loaded because missing packages: $::GenMissingPackages."
+
+     proc RunSqlCreateTable {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc RunSqlCreateTable {TableName ColumnNameTypeList} {
 
      if {[IsEmpty $TableName]} {

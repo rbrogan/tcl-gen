@@ -1,3 +1,27 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+if {[catch {package require textutil::string}]} {
+     lappend ::GenMissingPackages textutil::string
+}
+
+if {[catch {package require Tclx}]} {
+     lappend ::GenMissingPackages Tclx
+}
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "ChangeCasing not loaded because missing packages: $::GenMissingPackages."
+
+     proc ChangeCasing {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc ChangeCasing {StringVariable From To} {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String

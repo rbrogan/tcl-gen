@@ -127,6 +127,8 @@ appendstring2file.test
      Tests for the command AppendString2File.
 arrangedict.test
      Tests for the command ArrangeDict.
+backupifexists.test
+     Tests for the command BackupIfExists.
 changecasing.test
      Tests for the command ChangeCasing.
 chopleft.test
@@ -137,6 +139,8 @@ coe.test
      Tests for the command Coe.
 commaseparatedstringtolist.test
      Tests for the command CommaSeparatedStringToList.
+copyeverythingindirectory.test
+     Tests for the command CopyEverythingInDirectory.
 currenttimeofday.test
      Tests for the command CurrentTimeOfDay.
 dateisafter.test
@@ -173,6 +177,8 @@ decr.test
      Tests for the command Decr.
 decrdbglobal.test
      Tests for the command DecrDbGlobal.
+deleteeverythingindirectory.test
+     Tests for the command DeleteEverythingInDirectory.
 dict2registrytree.test
      Tests for the command Dict2RegistryTree.
 diffhhmmss.test
@@ -259,6 +265,8 @@ lastid.test
      Tests for the command LastId.
 lastof.test
      Tests for the command LastOf.
+limitlinelengthinfile.test
+     Tests for the command LimitLineLengthInFile.
 linktclvariabletoregistryvalue.test
      Tests for the command LinkTclVariableToRegistryValue.
 linkvartodbglobal.test
@@ -305,6 +313,8 @@ registrytree2dict.test
      Tests for the command RegistryTree2Dict.
 reloadpackage.test
      Tests for the command ReloadPackage.
+restoreifexists.test
+     Tests for the command RestoreIfExists.
 restoreworkingdirectory.test
      Tests for the command RestoreWorkingDirectory.
 retzeroifempty.test

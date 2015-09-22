@@ -1,3 +1,35 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/notempty.tcl
+
+source $PackageRoot/ftpwhichisnewer.tcl
+
+source $PackageRoot/ftpwhichislarger.tcl
+
+source $PackageRoot/findandremove.tcl
+
+if {[catch {package require ftp}]} {
+     lappend ::GenMissingPackages ftp
+}
+
+source $PackageRoot/dbgprint.tcl
+
+source $PackageRoot/ftpisdirectoryonremote.tcl
+
+source $PackageRoot/ftpcleanremotedirectory.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "FtpUploadDirectory not loaded because missing packages: $::GenMissingPackages."
+
+     proc FtpUploadDirectory {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy DeleteUnmatchedPolicy} {
 
      DbgPrint "OverwritePolicy is $OverwritePolicy; RecursePolicy is $RecursePolicy, DeleteUnmatchedPolicy is $DeleteUnmatchedPolicy"
@@ -149,4 +181,6 @@ proc FtpUploadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Delet
      
      cd ..
      ftp::Cd $FtpHandle ..
+
+     return
 }

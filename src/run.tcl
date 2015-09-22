@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "Run not loaded because missing packages: $::GenMissingPackages."
+
+     proc Run {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc Run {Script args} {
 
      if {[info exists ::argv]} {

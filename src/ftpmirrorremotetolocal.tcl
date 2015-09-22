@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/notempty.tcl
+
+source $PackageRoot/ftpdownloaddirectory.tcl
+
+if {[catch {package require ftp}]} {
+     lappend ::GenMissingPackages ftp
+}
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "FtpMirrorRemoteToLocal not loaded because missing packages: $::GenMissingPackages."
+
+     proc FtpMirrorRemoteToLocal {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc FtpMirrorRemoteToLocal {RemoteDirectory LocalDirectory} {
 
      set OriginalLocation [pwd]

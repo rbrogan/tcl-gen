@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CopyEverythingInDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+CopyEverythingInDirectory  &mdash;  Copy all the files in the source directory to destination.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>CopyEverythingInDirectory</b> <i>SourceDirectoryPath</i> <i>DestinationDirectoryPath</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>SourceDirectoryPath</i></td><td class='argument_right'>Path of directory to copy files from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>DestinationDirectoryPath</i></td><td class='argument_right'>Path of directory to copy files to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>You can think of this like doing a copy-and-paste in the file explorer for your OS, and when the dialog comes up and asks about what to do for conflicts, it is as if you say to do an overwrite for them all.<p>Note that this will create the directory if it does not already exist. In a future release, we may add an option to throw an error if the destination directory does not already exist.</p><p>This command will also copy subdirectories and their contents.</p><p>This command will overwrite any files in the destination that have the same name as a file or directory in the source. It will also do this for subdirectories.</p><p>This command will leave in-place any existing files and subdirectories in the destination. Again, if files have the same name as a file in the source, then the source file will overwrite.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="copyeverythingindirectory-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% mkdir dir1<br>% cd dir1<br>% String2File asdf file1.txt<br>% String2File hjkl file2.txt<br>% cd ..<br>% <b>CopyEverythingInDirectory dir1 dir2</b><br>% glob -directory dir2 *<br>dir2/file1.txt dir2/file2.txt<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'deleteeverythingindirectory.html'>DeleteEverythingInDirectory</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/file.htm'>file</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/glob.htm'>glob</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_directory">directory</a>, <a href="keyword-index.html#C_file">file</a>
+</div>
+</body>
+</html>

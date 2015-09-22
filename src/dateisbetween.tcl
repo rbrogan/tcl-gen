@@ -1,3 +1,19 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isdate.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "DateIsBetween not loaded because missing packages: $::GenMissingPackages."
+
+     proc DateIsBetween {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc DateIsBetween {FirstDate SecondDate ThirdDate {Option BothExclusive}} {
 
      if {![IsDate $FirstDate]} {

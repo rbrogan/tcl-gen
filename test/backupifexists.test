@@ -1,0 +1,93 @@
+package require tcltest
+package require -exact gen 1.8.0
+
+namespace eval BackupIfExistsTest {}
+
+
+
+proc BackupIfExistsTest::Test-1 {} {
+
+::tcltest::test BackupIfExists-0 {Basic positive}  -constraints {}  -setup {file delete -force test.txt.bak
+}  -body {String2File "testing 1 2 3" test.txt
+BackupIfExists test.txt
+puts [File2String test.txt.bak]
+
+}  -cleanup {}  -result {}  -output {testing 1 2 3
+}  -returnCodes {0}  
+
+}
+
+
+
+proc BackupIfExistsTest::Test-2 {} {
+
+::tcltest::test BackupIfExists-1 {File does not exist}  -constraints {}  -setup {}  -body {file delete -force asdfg.txt
+BackupIfExists asdfg.txt
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc BackupIfExistsTest::Test-3 {} {
+
+::tcltest::test BackupIfExists-3 {FilePathValue is empty}  -constraints {}  -setup {}  -body {BackupIfExists ""
+}  -cleanup {}  -result {Variable FilePathValue has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc BackupIfExistsTest::Test-4 {} {
+
+::tcltest::test BackupIfExists-5 {Extension is empty}  -constraints {}  -setup {}  -body {BackupIfExists asdf.txt ""
+
+}  -cleanup {}  -result {Variable Extension has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc BackupIfExistsTest::Test-5 {} {
+
+::tcltest::test BackupIfExists-7 {Use another extension}  -constraints {}  -setup {file delete -force test.txt.backup
+}  -body {String2File "testing 1 2 3" test.txt
+BackupIfExists test.txt backup
+puts [File2String test.txt.backup]
+}  -cleanup {}  -result {}  -output {testing 1 2 3
+}  -returnCodes {0}  
+
+}
+
+
+
+proc BackupIfExistsTest::Test-6 {} {
+
+::tcltest::test BackupIfExists-8 {Run two times}  -constraints {}  -setup {file delete -force test.txt.bak
+}  -body {String2File "testing 1 2 3" test.txt
+BackupIfExists test.txt
+puts [File2String test.txt.bak]
+String2File "testing 3 2 1" test.txt
+BackupIfExists test.txt
+puts [File2String test.txt.bak]
+}  -cleanup {}  -result {}  -output {testing 1 2 3
+testing 3 2 1
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     BackupIfExistsTest::Test-1
+     BackupIfExistsTest::Test-2
+     BackupIfExistsTest::Test-3
+     BackupIfExistsTest::Test-4
+     BackupIfExistsTest::Test-5
+     BackupIfExistsTest::Test-6
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          BackupIfExistsTest::Test-[set Element]
+     }
+}
+

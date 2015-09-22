@@ -1,3 +1,23 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/sqlrecordexists.tcl
+
+source $PackageRoot/q1.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "GetDbGlobal not loaded because missing packages: $::GenMissingPackages."
+
+     proc GetDbGlobal {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc GetDbGlobal {VarName {Type text}} {
 
      if {[IsEmpty $VarName]} {

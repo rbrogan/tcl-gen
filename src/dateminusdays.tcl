@@ -1,3 +1,23 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isdate.tcl
+
+source $PackageRoot/isnonnumeric.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "DateMinusDays not loaded because missing packages: $::GenMissingPackages."
+
+     proc DateMinusDays {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc DateMinusDays {DateVariable NumDays} {
      if {[string first @ $DateVariable] == 0} {
           UpvarExistingOrDie [string range $DateVariable 1 end] Date

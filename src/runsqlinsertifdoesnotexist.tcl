@@ -1,3 +1,27 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/sqlselectstatement.tcl
+
+source $PackageRoot/q1.tcl
+
+source $PackageRoot/qq.tcl
+
+source $PackageRoot/lastid.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "RunSqlInsertIfDoesNotExist not loaded because missing packages: $::GenMissingPackages."
+
+     proc RunSqlInsertIfDoesNotExist {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc RunSqlInsertIfDoesNotExist {TableName DictValue} {
 
      if {[IsEmpty $TableName]} {

@@ -1,0 +1,128 @@
+package require tcltest
+package require -exact gen 1.8.0
+
+namespace eval LimitLineLengthInFileTest {}
+
+
+
+proc LimitLineLengthInFileTest::Test-1 {} {
+
+::tcltest::test LimitLineLengthInFile-0 {Basic test}  -constraints {}  -setup {}  -body {set Lines {333 4444 55555 666666}
+List2File $Lines temp.txt
+LimitLineLengthInFile 4 temp.txt
+puts [File2String temp.txt]
+}  -cleanup {file delete -force temp.txt
+}  -result {}  -output {333
+4444
+55555
+
+66666
+6
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-2 {} {
+
+::tcltest::test LimitLineLengthInFile-1 {Max length non-positive}  -constraints {}  -setup {}  -body {LimitLineLengthInFile 0 temp.txt
+}  -cleanup {}  -result {Variable MaxLength has invalid value 0.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-3 {} {
+
+::tcltest::test LimitLineLengthInFile-3 {File path is empty}  -constraints {}  -setup {}  -body {LimitLineLengthInFile 10 ""
+}  -cleanup {}  -result {Variable InputFilePath has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-4 {} {
+
+::tcltest::test LimitLineLengthInFile-4 {OutFilePath is set}  -constraints {}  -setup {}  -body {set Lines {333 4444 55555 666666}
+List2File $Lines temp.txt
+LimitLineLengthInFile 4 temp.txt temp2.txt
+puts [File2String temp2.txt]
+}  -cleanup {}  -result {}  -output {333
+4444
+55555
+
+66666
+6
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-5 {} {
+
+::tcltest::test LimitLineLengthInFile-5 {File is empty}  -constraints {}  -setup {}  -body {String2File "" temp.txt
+LimitLineLengthInFile 4 temp.txt
+puts [File2String temp.txt]
+}  -cleanup {}  -result {}  -output {
+}  -returnCodes {0}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-6 {} {
+
+::tcltest::test LimitLineLengthInFile-6 {Leading whitespace 1}  -constraints {}  -setup {}  -body {set Lines {{ 33} {  44} {   55} {    66}}
+List2File $Lines temp.txt
+LimitLineLengthInFile 4 temp.txt
+puts [File2String temp.txt]
+}  -cleanup {}  -result {}  -output { 33
+  44
+   55
+
+66
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc LimitLineLengthInFileTest::Test-7 {} {
+
+::tcltest::test LimitLineLengthInFile-8 {Leading whitespace 2}  -constraints {}  -setup {}  -body {set Lines {333 4444 { 5 55} {   6 66}}
+List2File $Lines temp.txt
+LimitLineLengthInFile 4 temp.txt
+puts [File2String temp.txt]
+}  -cleanup {}  -result {}  -output {333
+4444
+ 5
+55
+   6
+66
+
+
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     LimitLineLengthInFileTest::Test-1
+     LimitLineLengthInFileTest::Test-2
+     LimitLineLengthInFileTest::Test-3
+     LimitLineLengthInFileTest::Test-4
+     LimitLineLengthInFileTest::Test-5
+     LimitLineLengthInFileTest::Test-6
+     LimitLineLengthInFileTest::Test-7
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          LimitLineLengthInFileTest::Test-[set Element]
+     }
+}
+

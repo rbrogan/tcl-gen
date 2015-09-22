@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.7.1
+1.8.0
 % set Number 1
 1
 % AddTo Number 2
@@ -300,15 +300,18 @@ message body.) You will get an email every time we have a new release.
 
 ---18| RECENT CHANGES
 
-The Run command has changed to save the pre-existing contents of ::argv and
-restore them before exiting.
+We also have begun implementing a partial loading feature. This means that you
+do not need all the packages. You may (or may not) notice a slowdown in loading.
+We hope to change that within a few releases by doing one-time checking and
+loading. But what we have now is an incremental first step. See NEWS.txt for
+more info.
 
 Changed source structure so that each command has its own separate file. Changed
 documentation structure so that each command has a separate documentation page
 to hold all information relating to exceptional conditions (e.g. errors, warning
 policies, debug modes, etc.).
 
-Version 1.7.1. You can find a change summary in news.txt / news.html and details
+Version 1.8.0. You can find a change summary in news.txt / news.html and details
 in changelog.txt / changelog.html.
 
 ---19| LICENSE

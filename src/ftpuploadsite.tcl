@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/notempty.tcl
+
+source $PackageRoot/ftpuploaddirectory.tcl
+
+if {[catch {package require ftp}]} {
+     lappend ::GenMissingPackages ftp
+}
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "FtpUploadSite not loaded because missing packages: $::GenMissingPackages."
+
+     proc FtpUploadSite {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc FtpUploadSite {LocalDirectory RemoteDirectory} {
 
      set OriginalLocation [pwd]
@@ -29,4 +51,6 @@ proc FtpUploadSite {LocalDirectory RemoteDirectory} {
                cd $OriginalLocation
           }
      }
+
+     return
 }

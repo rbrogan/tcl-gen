@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DeleteEverythingInDirectory</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DeleteEverythingInDirectory  &mdash;  Deletes contents of directory, all files and subdirectories.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DeleteEverythingInDirectory</b> <i>TargetDirectoryPath</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetDirectoryPath</i></td><td class='argument_right'>Path of directory to delete contents of.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command will not delete the directory itself.
+</div>
+<br>
+For information regarding exceptions / errors, see <a href="deleteeverythingindirectory-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% mkdir MyDir<br>% String2File one MyDir/one.txt<br>% <b>DeleteEverythingInDirectory MyDir</b><br>% file exists MyDir/one.txt<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'copyeverythingindirectory.html'>CopyEverythingInDirectory</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/file.htm'>file</a>, <a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/glob.htm'>glob</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_directory">directory</a>, <a href="keyword-index.html#C_file">file</a>
+</div>
+</body>
+</html>

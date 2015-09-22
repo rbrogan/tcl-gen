@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "TimeOfDay2Seconds not loaded because missing packages: $::GenMissingPackages."
+
+     proc TimeOfDay2Seconds {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc TimeOfDay2Seconds StringVariable {
      if {[string first @ $StringVariable] == 0} {
           UpvarExistingOrDie [string range $StringVariable 1 end] String

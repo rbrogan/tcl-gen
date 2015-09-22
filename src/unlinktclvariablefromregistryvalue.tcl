@@ -1,3 +1,25 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/todoublebackslashes.tcl
+
+if {[catch {package require registry}]} {
+     lappend ::GenMissingPackages registry
+}
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "UnlinkTclVariableFromRegistryValue not loaded because missing packages: $::GenMissingPackages."
+
+     proc UnlinkTclVariableFromRegistryValue {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc UnlinkTclVariableFromRegistryValue {VarName RegistryKeyPath {RegistryValueName ""}} {
 
      if {[IsEmpty $VarName]} {

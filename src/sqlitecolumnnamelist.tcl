@@ -1,3 +1,21 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/q1.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "SqliteColumnNameList not loaded because missing packages: $::GenMissingPackages."
+
+     proc SqliteColumnNameList {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc SqliteColumnNameList TableName {
 
      if {[IsEmpty $TableName]} {

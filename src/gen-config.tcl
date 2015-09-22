@@ -1,4 +1,5 @@
  namespace eval GenNS {
+     variable WarnOnFailureToLoadCommand 0
      variable DatabaseName "testdb"
      variable GlobalsTable "globals"
      variable DateFormat %Y-%m-%d     

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.7.1
+package require -exact gen 1.8.0
 
 namespace eval FtpDownloadDirectoryTest {}
 
@@ -47,7 +47,11 @@ proc Test {RemoteDirectory LocalExpectedDirectory OverwritePolicy RecursePolicy 
      }
      if {$Ok == 1} {
           set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadDirectory/$LocalExpectedDirectory"
-          set Result [catch {exec {*}$DiffCommand}]     
+          set Result [catch {exec {*}$DiffCommand}]
+	  if {$Result ne "0"} {
+               puts "Result is $Result"
+               puts $DiffCommand
+          }
      } else {
           set Result 1
      }

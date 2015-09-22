@@ -1,3 +1,21 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/varexistsincaller.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "UpvarExistingOrDie not loaded because missing packages: $::GenMissingPackages."
+
+     proc UpvarExistingOrDie {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc UpvarExistingOrDie {VarName Var} {
 
      if {[IsEmpty $VarName]} {

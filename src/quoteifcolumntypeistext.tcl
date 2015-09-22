@@ -1,3 +1,17 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "QuoteIfColumnTypeIsText not loaded because missing packages: $::GenMissingPackages."
+
+     proc QuoteIfColumnTypeIsText {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc QuoteIfColumnTypeIsText {TableName ColumnName TargetVariable} {
      if {[string first @ $TargetVariable] == 0} {
           UpvarExistingOrDie [string range $TargetVariable 1 end] Target

@@ -1,3 +1,23 @@
+set ::GenMissingPackages {}
+set ::GenPackageWarning ""
+
+source $PackageRoot/gen-error.tcl
+
+source $PackageRoot/isempty.tcl
+
+source $PackageRoot/upvarexistingordie.tcl
+
+source $PackageRoot/isnonnumeric.tcl
+
+if {[llength $::GenMissingPackages] > 0} {
+     set ::GenPackageWarning "DivideBy not loaded because missing packages: $::GenMissingPackages."
+
+     proc DivideBy {VarName Value} "error \"$::GenPackageWarning\""
+
+     return
+}
+
+
 proc DivideBy {VarName Value} {
 
      if {[IsEmpty $VarName]} {
