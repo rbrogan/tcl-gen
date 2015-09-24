@@ -1,0 +1,131 @@
+package require tcltest
+package require -exact gen 1.8.1
+
+namespace eval CopyEverythingInDirectoryTest {}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-1 {} {
+
+::tcltest::test CopyEverythingInDirectory-0 {Basic test}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/BasicTest
+CopyEverythingInDirectory ./CopyEverythingInDirectory/original/BasicTest ./CopyEverythingInDirectory/destination/BasicTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/BasicTest ./CopyEverythingInDirectory/destination/BasicTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/BasicTest ./CopyEverythingInDirectory/expected/BasicTest"
+set Result [catch {exec {*}$DiffCommand}]  
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-2 {} {
+
+::tcltest::test CopyEverythingInDirectory-3 {SourceDestinationPath is empty}  -constraints {}  -setup {}  -body {CopyEverythingInDirectory "" ""
+}  -cleanup {}  -result {Variable SourceDirectoryPath has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-3 {} {
+
+::tcltest::test CopyEverythingInDirectory-4 {DestinationDirectoryPath is empty}  -constraints {}  -setup {}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/BasicTest ""
+}  -cleanup {}  -result {Variable DestinationDirectoryPath has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-4 {} {
+
+::tcltest::test CopyEverythingInDirectory-5 {Destination already has a file with same name}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/SameNameTest
+CopyEverythingInDirectory ./CopyEverythingInDirectory/original/SameNameTest ./CopyEverythingInDirectory/destination/SameNameTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/SameNameTest ./CopyEverythingInDirectory/destination/SameNameTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/SameNameTest ./CopyEverythingInDirectory/expected/SameNameTest"
+set Result [catch {exec {*}$DiffCommand}]  
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-5 {} {
+
+::tcltest::test CopyEverythingInDirectory-6 {Source has directories}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/WithSubdirectoriesTest
+CopyEverythingInDirectory ./CopyEverythingInDirectory/original/WithSubdirectoriesTest ./CopyEverythingInDirectory/destination/WithSubdirectoriesTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/WithSubdirectoriesTest ./CopyEverythingInDirectory/destination/WithSubdirectoriesTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/WithSubdirectoriesTest ./CopyEverythingInDirectory/expected/WithSubdirectoriesTest"
+set Result [catch {exec {*}$DiffCommand}]  
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-6 {} {
+
+::tcltest::test CopyEverythingInDirectory-7 {Source directory is empty}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/SourceEmptyTest
+}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/SourceEmptyTest ./CopyEverythingInDirectory/destination/SourceEmptyTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/SourceEmptyTest ./CopyEverythingInDirectory/expected/SourceEmptyTest"
+set Result [catch {exec {*}$DiffCommand}]  
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-7 {} {
+
+::tcltest::test CopyEverythingInDirectory-8 {Source and destination are the same}  -constraints {}  -setup {}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/BasicTest ./CopyEverythingInDirectory/source/BasicTest
+}  -cleanup {}  -result {Source and destination directory are both ./CopyEverythingInDirectory/source/BasicTest.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-8 {} {
+
+::tcltest::test CopyEverythingInDirectory-9 {Destination already has files}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/DestinationHasFilesTest
+CopyEverythingInDirectory ./CopyEverythingInDirectory/original/DestinationHasFilesTest ./CopyEverythingInDirectory/destination/DestinationHasFilesTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/DestinationHasFilesTest ./CopyEverythingInDirectory/destination/DestinationHasFilesTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/DestinationHasFilesTest ./CopyEverythingInDirectory/expected/DestinationHasFilesTest"
+set Result [catch {exec {*}$DiffCommand}]  }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-9 {} {
+
+::tcltest::test CopyEverythingInDirectory-10 {Destination already has a directory with the same name}  -constraints {}  -setup {DeleteEverythingInDirectory ./CopyEverythingInDirectory/destination/DestinationHasSameDirectoryTest
+CopyEverythingInDirectory ./CopyEverythingInDirectory/original/DestinationHasSameDirectoryTest ./CopyEverythingInDirectory/destination/DestinationHasSameDirectoryTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/DestinationHasSameDirectoryTest ./CopyEverythingInDirectory/destination/DestinationHasSameDirectoryTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/DestinationHasSameDirectoryTest ./CopyEverythingInDirectory/expected/DestinationHasSameDirectoryTest"
+set Result [catch {exec {*}$DiffCommand}]  }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CopyEverythingInDirectoryTest::Test-10 {} {
+
+::tcltest::test CopyEverythingInDirectory-11 {Destination directory does not already exist}  -constraints {}  -setup {file delete -force ./CopyEverythingInDirectory/destination/DestinationDoesNotExistTest}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/DestinationDoesNotExistTest ./CopyEverythingInDirectory/destination/DestinationDoesNotExistTest
+set DiffCommand "diff -w -r ./CopyEverythingInDirectory/destination/DestinationDoesNotExistTest ./CopyEverythingInDirectory/expected/DestinationDoesNotExistTest"
+set Result [catch {exec {*}$DiffCommand}]  }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     CopyEverythingInDirectoryTest::Test-1
+     CopyEverythingInDirectoryTest::Test-2
+     CopyEverythingInDirectoryTest::Test-3
+     CopyEverythingInDirectoryTest::Test-4
+     CopyEverythingInDirectoryTest::Test-5
+     CopyEverythingInDirectoryTest::Test-6
+     CopyEverythingInDirectoryTest::Test-7
+     CopyEverythingInDirectoryTest::Test-8
+     CopyEverythingInDirectoryTest::Test-9
+     CopyEverythingInDirectoryTest::Test-10
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          CopyEverythingInDirectoryTest::Test-[set Element]
+     }
+}
+

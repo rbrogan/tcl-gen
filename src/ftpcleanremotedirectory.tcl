@@ -39,6 +39,9 @@ proc FtpCleanRemoteDirectory {FtpHandle RemoteDirectory} {
      # Iterate over them, and
      # delete if file, recurse then delete if directory
      foreach Element $RemoteList {
+          if {($Element eq ".") || ($Element eq "..")} {
+               continue
+          }
           DbgPrint "Considering $Element"
           set IsDirectory [FtpIsDirectoryOnRemote $FtpHandle $Element]
           if {$IsDirectory} {

@@ -61,6 +61,9 @@ proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Del
      DbgPrint "LocalList is $LocalList"
      DbgPrint "RemoteList is $RemoteList"
      foreach FileName $RemoteList {
+          if {($FileName eq ".") || ($FileName eq "..")} {
+               continue
+          }
           DbgPrint "Considering $FileName ..."
           # Check to see if it exists on local machine
           if {[FtpIsDirectoryOnRemote $FtpHandle $FileName]} {
@@ -144,6 +147,9 @@ proc FtpDownloadDirectory {FtpHandle Directory OverwritePolicy RecursePolicy Del
      if {$DeleteUnmatchedPolicy eq "DeleteUnmatched"} {
           # Delete the remaining files from the local
           foreach FileName $LocalList {
+               if {($FileName eq ".") || ($FileName eq "..")} {
+                    continue
+               }
                set IsDirectory [file isdirectory $FileName]
                if {$IsDirectory} {
                     if {$GenNS::Ftp::DryRun == 0} {
