@@ -118,8 +118,12 @@ dateisonorafter.html
      Page for the command DateIsOnOrAfter.
 dateisonorbefore.html
      Page for the command DateIsOnOrBefore.
+dateminus.html
+     Page for the command DateMinus.
 dateminusdays.html
      Page for the command DateMinusDays.
+dateplus.html
+     Page for the command DatePlus.
 dateplusdays.html
      Page for the command DatePlusDays.
 datetimeisafter.html
@@ -134,6 +138,10 @@ datetimeisbefore.html
      Page for the command DatetimeIsBefore.
 datetimeisbetween.html
      Page for the command DatetimeIsBetween.
+datetimeminus.html
+     Page for the command DatetimeMinus.
+datetimeplus.html
+     Page for the command DatetimePlus.
 dbaseregsub.html
      Page for the command DbaseRegsub.
 decr.html
@@ -292,8 +300,14 @@ runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.html
      Page for the command SaveWorkingDirectory.
+seconds2datequantity.html
+     Page for the command Seconds2DateQuantity.
+seconds2datetimequantity.html
+     Page for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.html
      Page for the command Seconds2Hhmmss.
+seconds2timeofdayquantity.html
+     Page for the command Seconds2TimeOfDayQuantity.
 setdateformat.html
      Page for the command SetDateFormat.
 setdatetimeformat.html

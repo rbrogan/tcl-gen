@@ -1,23 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-source $PackageRoot/isnonpositive.tcl
-
-source $PackageRoot/decr.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SplitNTimes not loaded because missing packages: $::GenMissingPackages."
-
-     proc SplitNTimes {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SplitNTimes {StringValue SplitChars Count} {
 
      if {[IsNonNumeric $Count] || [IsNonPositive $Count]} {

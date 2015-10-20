@@ -1,25 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/registryexists.tcl
-
-if {[catch {package require registry}]} {
-     lappend ::GenMissingPackages registry
-}
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "RegistryTree2Dict not loaded because missing packages: $::GenMissingPackages."
-
-     proc RegistryTree2Dict {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc RegistryTree2Dict {CurrentRegKey {CurrentDictName ""}} {
 
      if {[IsEmpty $CurrentRegKey]} {

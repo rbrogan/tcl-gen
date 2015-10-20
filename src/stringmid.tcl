@@ -1,21 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-source $PackageRoot/isnonpositive.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "StringMid not loaded because missing packages: $::GenMissingPackages."
-
-     proc StringMid {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc StringMid {TargetString Position {Count -1}} {
 
      if {[IsNonNumeric $Count]} {

@@ -1,25 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/q1.tcl
-
-if {[catch {package require Tclx}]} {
-     lappend ::GenMissingPackages Tclx
-}
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SqliteColumnNameAndTypeList not loaded because missing packages: $::GenMissingPackages."
-
-     proc SqliteColumnNameAndTypeList {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SqliteColumnNameAndTypeList TableName {
 
      if {[IsEmpty $TableName]} {

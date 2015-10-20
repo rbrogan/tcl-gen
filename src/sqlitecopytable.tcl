@@ -1,27 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/sqlitetableexists.tcl
-
-source $PackageRoot/sqlitecolumnnameandtypelist.tcl
-
-source $PackageRoot/runsqlcreatetable.tcl
-
-source $PackageRoot/qq.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SqliteCopyTable not loaded because missing packages: $::GenMissingPackages."
-
-     proc SqliteCopyTable {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SqliteCopyTable {SourceTableName TargetTableName {ColumnNames ""}} {
 
      if {[IsEmpty $SourceTableName]} {

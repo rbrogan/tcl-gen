@@ -1,31 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/upvarx.tcl
-
-source $PackageRoot/registryexists.tcl
-
-source $PackageRoot/todoublebackslashes.tcl
-
-if {[catch {package require registry}]} {
-     lappend ::GenMissingPackages registry
-}
-
-source $PackageRoot/updateregistryvalue.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "LinkTclVariableToRegistryValue not loaded because missing packages: $::GenMissingPackages."
-
-     proc LinkTclVariableToRegistryValue {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc LinkTclVariableToRegistryValue {VarName RegistryKeyPath RegistryValueName} {
 
      if {[IsEmpty $VarName]} {

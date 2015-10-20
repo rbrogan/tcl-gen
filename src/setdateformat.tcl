@@ -1,17 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SetDateFormat not loaded because missing packages: $::GenMissingPackages."
-
-     proc SetDateFormat {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SetDateFormat FormatString {
 
      if {[catch {eval "clock format 0 -format $FormatString"} Result]} {

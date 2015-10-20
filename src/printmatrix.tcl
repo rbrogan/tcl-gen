@@ -1,27 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/ismatrix.tcl
-
-source $PackageRoot/notempty.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-source $PackageRoot/isnonpositive.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "PrintMatrix not loaded because missing packages: $::GenMissingPackages."
-
-     proc PrintMatrix {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc PrintMatrix {Matrix {HeaderList ""} {ColumnMaxWidthList ""}} {
 
      if {![IsMatrix $Matrix]} {

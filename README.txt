@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.8.0
+1.9.0
 % set Number 1
 1
 % AddTo Number 2
@@ -108,12 +108,19 @@ Gen uses the following packages, which you likely will already have got in your
 Tcl distribution:
 * sqlite3
 * Tclx
+* textutil::adjust
 * textutil::string
 * ftp
 * registry (Windows only)
 
 If you do not have these, then check the documentation that came with your
 distro for information on how to get them.
+
+However! Since the introduction of the Partial Loading feature, it is possible
+to use Gen without having these packages installed. Of course, any commands that
+need missing packages will not work, but you can still use any other commands
+that do not need the missing packages. Inside the MANUAL you can find a page
+with more details.
 
 ---05| BUILDING
 
@@ -141,6 +148,12 @@ WARNING.txt
           Main script file.
      gen-config.tcl
           Configuration variables (e.g. datetime format).
+     gen-error.tcl
+          Error codes and messages used by Gen.
+     loading-module.tcl
+          Code that tries to load packages and then Gen commands.
+     loading-module-data.tcl
+          Data used to do the loading.
      *.tcl
           Each command has its own source file.
 /doc
@@ -241,9 +254,8 @@ or 11|KNOWN ISSUES.
 
 ---12| KNOWN ISSUES
 
-None at this time.
-
-None at this time. We will post them here as they arise.
+See known-issues.html or the online version at
+http://www.robertbrogan.com/gen/known-issues.html.
 
 ---13| BUG REPORTING
 
@@ -258,6 +270,9 @@ gen.wishlist@robertbrogan.com
 gen.other@robertbrogan.com
 
 and we will try to get back to you ASAP.
+
+Note that you may also want to check known-issues.html and latest-fixes.html to
+see if your issue has already been reported or perhaps already fixed.
 
 ---14| FEEDBACK
 
@@ -298,20 +313,13 @@ announcements mailing list by sending an email to
 gen-announce-subscribe@robertbrogan.com. (No need for anything in subject or
 message body.) You will get an email every time we have a new release.
 
+Note that you may want to check out policies.html to find out how releases are
+done. You may also want to check out roadmap.html to find out when the next
+release is coming out.
+
 ---18| RECENT CHANGES
 
-We also have begun implementing a partial loading feature. This means that you
-do not need all the packages. You may (or may not) notice a slowdown in loading.
-We hope to change that within a few releases by doing one-time checking and
-loading. But what we have now is an incremental first step. See NEWS.txt for
-more info.
-
-Changed source structure so that each command has its own separate file. Changed
-documentation structure so that each command has a separate documentation page
-to hold all information relating to exceptional conditions (e.g. errors, warning
-policies, debug modes, etc.).
-
-Version 1.8.0. You can find a change summary in news.txt / news.html and details
+Version 1.9.0. You can find a change summary in news.txt / news.html and details
 in changelog.txt / changelog.html.
 
 ---19| LICENSE

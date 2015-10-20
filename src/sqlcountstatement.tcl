@@ -1,23 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/coe.tcl
-
-source $PackageRoot/sqlwhereclause.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SqlCountStatement not loaded because missing packages: $::GenMissingPackages."
-
-     proc SqlCountStatement {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SqlCountStatement {TableName DictValue} {
 
      if {[IsEmpty $TableName]} {

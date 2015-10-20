@@ -1,35 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/runsqlinsertifdoesnotexist.tcl
-
-source $PackageRoot/sqlwhereclause.tcl
-
-source $PackageRoot/q1.tcl
-
-source $PackageRoot/notempty.tcl
-
-source $PackageRoot/sqlupdatestatement.tcl
-
-source $PackageRoot/qq.tcl
-
-source $PackageRoot/sqlinsertstatement.tcl
-
-source $PackageRoot/lastid.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "RunSqlEnter not loaded because missing packages: $::GenMissingPackages."
-
-     proc RunSqlEnter {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc RunSqlEnter {TableName WhereDict {SetDict ""}} {
 
      if {[IsEmpty $TableName]} {

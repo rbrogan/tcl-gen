@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "EndsWith not loaded because missing packages: $::GenMissingPackages."
-
-     proc EndsWith {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc EndsWith {StringValue SearchValue} {
 
      if {[IsEmpty $SearchValue]} {

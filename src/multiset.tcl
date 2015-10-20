@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/upvarx.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "MultiSet not loaded because missing packages: $::GenMissingPackages."
-
-     proc MultiSet {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc MultiSet {VarNameList {ValueList ""}} {
 
      set OutList {}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="my.css">
+<link rel="stylesheet" type="text/css" href="doc.css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<title>Policies - Gen</title>
+</head>
+<body>
+<div id = "left">
+<a href="index.html" class="navbar" >Home</a>
+<a href="known-issues.html" class="navbar">Known Issues</a>
+<a href="latest-fixes.html" class="navbar">Latest Fixes</a>
+<a href="README.html" class="navbar" >Readme</a>
+<a href="doc/README-doc.html" class="navbar" >doc / Readme</a>
+<a href="test/README-test.html" class="navbar" >test / Readme</a>
+<a href="doc/manual-home.html" class="navbar" >Manual</a>
+<a href="news.html" class="navbar">News</a>
+<a href="changelog.html" class="navbar">Changelog</a>
+<a href="policies.html" class="navbar" id = "current">Policies</a>
+<a href="roadmap.html" class="navbar" >Roadmap</a>
+<a href="wishlist.html" class="navbar">Wishlist</a>
+<a href="license.html" class="navbar">License</a>
+</div>
+
+<div id = "center">
+<div id = "content">
+<div id = "AppTitle">Gen</div>
+<div id = "PageTitle">Policies</div>
+<p>The following are rules and policies used in the Gen project. If you check these, then you can better know what to expect.</p>
+<div class="section-header">Version Numbers</div>
+<div class="section-content">
+<p>
+Gen follows versioning that is pretty close to (though not exactly the same as) <a href='http://semver.org/'>Semantic Versioning</a> -- MAJOR-VERSION.MINOR-VERSION.REVISION. Specifically, it means that:
+<ul>
+<li>The <i>major version</i> will not change until an overhaul is made and many breaking changes are introduced at once. A breaking change could occur before that, but it will be most likely an unintentional break. If an unintentional break happens then it will be (1) fixed to make it work the way it is supposed to or (2) rolled back to the way it was before or (3) left in as known issue until the next planned major version. <u>We will not do an unplanned major version change.</u></li>
+<li>The <i>minor version</i> will change when more functionality is added. All minor versions are planned and have specific release dates that do not change (should be a Monday).</li>
+<li><i>Revisions</i> are any changes published between minor versions. Revisions do not have to happen, but if they will happen, then they will happen on a Monday and there will be an announcement posted after the revision is made. They will include any Hot Fixes made up to that point.</li>
+<li><i>Hot Fixes</i> are changes committed to the <code>x.y.z-hot-fixes</code> branch, where x.y.z is the number for the last release version, but hot fixes are considered unpublished except for updates made on the Known Issues and Latest Fixes pages; these changes are unannounced, but are publically available (because the branch is up there on the repo). If you want the fix immediately, before the next regular revision, then you can pull from the <code>x.y.z-hot-fixes</code> branch. The fix will be merged into the main branch on the next regular revision, which is most likely within days. Hot Fixes do not have any associated version number since they are not on the main branch. They do have an associated Issue Number and Change Number.</li>
+</ul>
+</p>
+</div>
+<div class="section-header">Major Release</div>
+<div class="section-content">
+<p>
+A major release can introduce many breaking changes. It should be treated like it is a separate product, a sequel. It will have a lot of continuity, but it will also break any continuity that makes sense for moving the project forward; it is not a continuation. Think of a major release as a separate product made by the same project.
+</p>
+<p>
+A major release can remove any functionality without notice (without deprecation notice). Again, it is different from other major releases in that it is considered a separate, fresh product that is based on the previous major release, but is not bound by it. But what will this mean? Most likely it will mean:
+<ul>
+<li>Removing commands that are clutter and bring the overall level of quality down. (Possibly they could be re-introduced if a better way is found to do them.) The project is open source, so if you still want the commands, you can just make your own copies.</li>
+<li>Changing command interfaces to better support additional functionality (e.g. introducing flags should change things because now we are putting things in as optional arguments when some of them should be done as flags).</li>
+<li>Changing policies as far as error handling, etc. goes.</li>
+</ul>
+</p>
+<p>
+The main point of a major release is to be able to have a fresh re-start and better support things at scale.
+</p>
+</div>
+<div class="section-header">Minor Release</div>
+<div class="section-content">
+<p>
+Minor releases should always go out on the release date posted on the <a href="roadmap.html">Roadmap page</a>. If not, then it is not because some functionality is not yet finished, but rather because some emergency unexpectedly took up time and prevented the release. If that happens, the release will still go out as soon as possible (which means having a few spare hours to go through the process). Other than that, the release will always go out on-time; we will not push back the release date. We will rather remove functionality that is not ready, put out a smaller release, and then get the functionality into a revision or in the next version (depending on how close the functionality is to completion).
+</p>
+<p>
+The distance between releases varies, but they should always be scheduled for a Monday.
+</p>
+</div>
+<div class="section-header">Weekly Revisions</div>
+<div class="section-content">
+<p>
+Revisions may optionally go out each Monday (except for the Monday of a new version). It is expected they will mostly include bug fixes, but they can include functionality that we tried to get into the current version, but it was not ready on the release date. Perhaps it was 95% done. So rather than either moving the release date or having to wait until the next release, we will instead finish the remaining 5% and put it into the next revision.
+</p>
+</div>
+<div class="section-header">Hot Fixes</div>
+<div class="section-content">
+<p>
+If some piece of functionality does not work, and it has already been fixed, you may want to get that fix before the next Monday, when the revision with the fix will go out. In that case, you can check the <a href="known-issues.html">Known Issues page</a> and the <a href="latest-fixes.html">Latest Fixes page</a>. On the <a href="known-issues.html">Known Issues page</a> you will be able to see if your issue is known (and, in the future, you can see whether efforts are being made to get it fixed for the next revision). You can also check the <a href="latest-fixes.html">Latest Fixes page</a> and see if your issue has been fixed. (And if you still do not find it you can use the <a href="http://www.robertbrogan.com/gen/feedback.html">Feedback page</a> or send an email to <code>gen.bugreport@robertbrogan.com</code> to report your issue so it can get fixed.) We are not going to send an email announcement for every change made and posted to the <code>x.y.z-hot-fixes</code> branch. We do send an email for every release.
+</p>
+<p>(The <a href="latest-fixes.html">Latest Fixes page</a> has both the Hot Fixes posted to the <code>x.y.z-hot-fixes</code> branch and also the fixes that went into the last release that was posted.)</p>
+</div>
+<div id = "footer">
+<p id = "footer-content">General Utilities For Tcl</p>
+</div>
+</div>
+</body>
+</html>

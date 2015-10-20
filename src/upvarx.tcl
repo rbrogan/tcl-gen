@@ -1,23 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/varexistsincaller.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/notempty.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "UpvarX not loaded because missing packages: $::GenMissingPackages."
-
-     proc UpvarX {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc UpvarX {VarName Var {DefaultValue ""}} {
 
      if {[IsEmpty $VarName]} {

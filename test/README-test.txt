@@ -155,8 +155,12 @@ dateisonorafter.test
      Tests for the command DateIsOnOrAfter.
 dateisonorbefore.test
      Tests for the command DateIsOnOrBefore.
+dateminus.test
+     Tests for the command DateMinus.
 dateminusdays.test
      Tests for the command DateMinusDays.
+dateplus.test
+     Tests for the command DatePlus.
 dateplusdays.test
      Tests for the command DatePlusDays.
 datetimeisafter.test
@@ -171,6 +175,10 @@ datetimeisbefore.test
      Tests for the command DatetimeIsBefore.
 datetimeisbetween.test
      Tests for the command DatetimeIsBetween.
+datetimeminus.test
+     Tests for the command DatetimeMinus.
+datetimeplus.test
+     Tests for the command DatetimePlus.
 dbaseregsub.test
      Tests for the command DbaseRegsub.
 decr.test
@@ -329,8 +337,14 @@ runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.test
      Tests for the command SaveWorkingDirectory.
+seconds2datequantity.test
+     Tests for the command Seconds2DateQuantity.
+seconds2datetimequantity.test
+     Tests for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.test
      Tests for the command Seconds2Hhmmss.
+seconds2timeofdayquantity.test
+     Tests for the command Seconds2TimeOfDayQuantity.
 setdateformat.test
      Tests for the command SetDateFormat.
 setdatetimeformat.test

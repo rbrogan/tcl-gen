@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isdatetime.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "DatetimeIsBetween not loaded because missing packages: $::GenMissingPackages."
-
-     proc DatetimeIsBetween {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc DatetimeIsBetween {FirstDatetime SecondDatetime ThirdDatetime {Option BothExclusive}} {
 
      if {![IsDatetime $FirstDatetime]} {

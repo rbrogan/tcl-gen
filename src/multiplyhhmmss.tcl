@@ -1,29 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/upvarexistingordie.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/ishhmmss.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-source $PackageRoot/hhmmss2seconds.tcl
-
-source $PackageRoot/seconds2hhmmss.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "MultiplyHhmmss not loaded because missing packages: $::GenMissingPackages."
-
-     proc MultiplyHhmmss {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc MultiplyHhmmss {TimeVariable Multiplier} {
      if {[string first @ $TimeVariable] == 0} {
           UpvarExistingOrDie [string range $TimeVariable 1 end] Time

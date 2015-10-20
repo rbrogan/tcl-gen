@@ -1,0 +1,248 @@
+package require tcltest
+package require -exact gen 1.9.0
+
+namespace eval DatetimeMinusTest {}
+
+
+
+proc DatetimeMinusTest::Test-1 {} {
+
+::tcltest::test DatetimeMinus-0 {Basic test}  -constraints {}  -setup {}  -body {DatetimeMinus {2001-02-10 04:05:06} {1Y 1M 1W 1D 1H 1M 1S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-2 {} {
+
+::tcltest::test DatetimeMinus-1 {At test}  -constraints {}  -setup {}  -body {set MyVar {2001-02-10 04:05:06}
+DatetimeMinus @MyVar {1Y 1M 1W 1D 1H 1M 1S}
+puts $MyVar
+}  -cleanup {}  -result {}  -output {2000-01-02 03:04:05
+}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-3 {} {
+
+::tcltest::test DatetimeMinus-2 {Datetime is invalid}  -constraints {}  -setup {}  -body {DatetimeMinus asdf {00T00:00:01}
+}  -cleanup {}  -result {Variable DatetimeVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-4 {} {
+
+::tcltest::test DatetimeMinus-3 {TimeAmount is invalid}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-01-02 03:04:05} asdf
+}  -cleanup {}  -result {Variable TimeAmount has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-5 {} {
+
+::tcltest::test DatetimeMinus-4 {Test years}  -constraints {}  -setup {}  -body {DatetimeMinus {2010-01-02 03:04:05} {10Y 0M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-6 {} {
+
+::tcltest::test DatetimeMinus-5 {Test months}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-02-02 03:04:05} {0Y 1M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-7 {} {
+
+::tcltest::test DatetimeMinus-6 {Test months 2}  -constraints {}  -setup {}  -body {DatetimeMinus {2001-01-02 03:04:05} {0Y 12M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-8 {} {
+
+::tcltest::test DatetimeMinus-7 {Test months 3}  -constraints {}  -setup {}  -body {DatetimeMinus {2002-02-02 03:04:05} {0Y 26M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {1999-12-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-9 {} {
+
+::tcltest::test DatetimeMinus-8 {Test days}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-02-01 03:04:05} {0Y 0M 0W 30D 0H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-10 {} {
+
+::tcltest::test DatetimeMinus-9 {Test weeks}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-02-06 03:04:05} {0Y 0M 5W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-11 {} {
+
+::tcltest::test DatetimeMinus-10 {Test hours}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-01-03 04:04:05} {0Y 0M 0W 0D 25H 0M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-12 {} {
+
+::tcltest::test DatetimeMinus-11 {Test minutes}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-01-02 04:05:05} {0Y 0M 0W 0D 0H 61M 0S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-13 {} {
+
+::tcltest::test DatetimeMinus-12 {Test seconds}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-01-02 03:05:06} {0Y 0M 0W 0D 0H 0M 61S}
+}  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-14 {} {
+
+::tcltest::test DatetimeMinus-13 {Test leap year}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-03-01 00:00:00} {0Y 0M 0W 2D 0H 0M 0S}
+}  -cleanup {}  -result {2000-02-28 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-15 {} {
+
+::tcltest::test DatetimeMinus-14 {Test negative values}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-01-02 03:04:05} {-1Y -1M -1W -1D -1H -1M -1S}
+}  -cleanup {}  -result {2001-02-10 04:05:06}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-16 {} {
+
+::tcltest::test DatetimeMinus-15 {Subtract from a month with more days into one with fewer}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-05-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2000-05-01 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-17 {} {
+
+::tcltest::test DatetimeMinus-16 {Subtract one and four years from February 29th}  -constraints {}  -setup {}  -body {set One [DatetimeMinus {2004-02-29 00:00:00} {1Y 0M 0W 0D 0H 0M 0S}]
+set Two [DatetimeMinus {2004-02-29 00:00:00} {4Y 0M 0W 0D 0H 0M 0S}]
+puts $One
+puts $Two
+}  -cleanup {}  -result {}  -output {2003-03-01 00:00:00
+2000-02-29 00:00:00
+}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-18 {} {
+
+::tcltest::test DatetimeMinus-17 {Use invalid date that clock scan would accept}  -constraints {}  -setup {}  -body {DatetimeMinus {2003-02-29 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
+}  -cleanup {}  -result {2003-01-31 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-19 {} {
+
+::tcltest::test DatetimeMinus-18 {Subtract and add a month between months with 31/30}  -constraints {}  -setup {}  -body {set Temp [DatetimeMinus {2001-05-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}]
+DatetimeMinus $Temp {0Y -1M 0W 0D 0H 0M 0S}
+}  -cleanup {}  -result {2001-06-01 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-20 {} {
+
+::tcltest::test DatetimeMinus-19 {Test that daylight savings figured in}  -constraints {}  -setup {}  -body {set One [DatetimeMinus {2000-04-02 03:00:00} {0Y 0M 0W 0D 1H 0M 0S}]
+set Two [DatetimeMinus {2000-10-29 02:00:00} {0Y 0M 0W 0D 2H 0M 0S}]
+puts $One
+puts $Two}  -cleanup {}  -result {}  -output {2000-04-02 01:00:00
+2000-10-29 01:00:00
+}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-21 {} {
+
+::tcltest::test DatetimeMinus-20 {Test effect of subtracting a month and a day}  -constraints {}  -setup {}  -body {DatetimeMinus {2000-06-01 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
+}  -cleanup {}  -result {2000-04-30 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeMinusTest::Test-22 {} {
+
+::tcltest::test DatetimeMinus-21 {Test different configured date format}  -constraints {}  -setup {}  -body {set GenNS::DatetimeFormat {{%m/%d/%Y %H:%M:%S}}
+DatetimeMinus {05/01/2000 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
+}  -cleanup {set GenNS::DatetimeFormat {{%Y-%m-%d %H:%M:%S}}}  -result {03/31/2000 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     DatetimeMinusTest::Test-1
+     DatetimeMinusTest::Test-2
+     DatetimeMinusTest::Test-3
+     DatetimeMinusTest::Test-4
+     DatetimeMinusTest::Test-5
+     DatetimeMinusTest::Test-6
+     DatetimeMinusTest::Test-7
+     DatetimeMinusTest::Test-8
+     DatetimeMinusTest::Test-9
+     DatetimeMinusTest::Test-10
+     DatetimeMinusTest::Test-11
+     DatetimeMinusTest::Test-12
+     DatetimeMinusTest::Test-13
+     DatetimeMinusTest::Test-14
+     DatetimeMinusTest::Test-15
+     DatetimeMinusTest::Test-16
+     DatetimeMinusTest::Test-17
+     DatetimeMinusTest::Test-18
+     DatetimeMinusTest::Test-19
+     DatetimeMinusTest::Test-20
+     DatetimeMinusTest::Test-21
+     DatetimeMinusTest::Test-22
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          DatetimeMinusTest::Test-[set Element]
+     }
+}
+

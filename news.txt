@@ -2,6 +2,43 @@ Gen
 
 NEWS
 
+2015.10.19
+v1.9.0 Release
+
+This month Gen adds a handful of date and datetime arithmetic commands to the
+repetoire.
+
+DateMinus
+     Find the date that comes some time before the given one.
+
+DatePlus
+     Find the date that comes some time after the given one.
+
+DatetimeMinus
+     Find the datetime that comes some time before the given one.
+
+DatetimePlus
+     Find the datetime that comes some time after the given one.
+
+
+
+We also have improved how the "Partial Loading" feature works. It will now try
+to load each package and source one time only, and so it loads significantly
+faster now. Note also the diagnostic / warning output for packages that fail to
+load has changed. It will now show each package that does not load, followed by
+a list of commands which cannot be used because of it. This should help in
+deciding whether it is worthwhile to find and install the package. As before,
+you must do set GenNS::WarnOnFailureToLoadCommand to 1 in gen-config.tcl or else
+Gen will be silent about packages and commands not loaded.
+
+Finally, we have sharpened up our release policies and added three new pages to
+the site. The Policies page explains how the releases and hot fixes are done and
+how the version number changes. The Known Issues page will show any known
+issues, so if you run into a problem, you can check that to see if your problem
+is known about. And you can also check the Latest Fixes page to see what issues
+have been fixed and are either up now on the hot fixes branch (unofficial
+changes between releases) or got put into the latest release.
+
 2015.09.21
 v1.8.0 Release
 
@@ -67,6 +104,8 @@ There you can do set GenNS::WarnOnFailureToLoadCommand 1 within gen-config.tcl,
 and when you load Gen it will print out a warning for each command that failed
 to load and it will tell you what packages that were missing which caused it to
 fail to load.
+
+
 
 2015.09.12
 v1.7.1 Revision

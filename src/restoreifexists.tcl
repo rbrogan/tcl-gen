@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "RestoreIfExists not loaded because missing packages: $::GenMissingPackages."
-
-     proc RestoreIfExists {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc RestoreIfExists {FilePathValue {Extension "bak"}} {
 
      if {[IsEmpty $FilePathValue]} {

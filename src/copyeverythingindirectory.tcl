@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "CopyEverythingInDirectory not loaded because missing packages: $::GenMissingPackages."
-
-     proc CopyEverythingInDirectory {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc CopyEverythingInDirectory {SourceDirectoryPath DestinationDirectoryPath} {
 
      if {[IsEmpty $SourceDirectoryPath]} {

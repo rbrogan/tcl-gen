@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "IsZero not loaded because missing packages: $::GenMissingPackages."
-
-     proc IsZero {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc IsZero Value {
 
      if {[IsNonNumeric $Value]} {

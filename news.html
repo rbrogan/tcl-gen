@@ -10,12 +10,15 @@
 <body>
 <div id = "left">
 <a href="index.html" class="navbar" >Home</a>
+<a href="known-issues.html" class="navbar">Known Issues</a>
+<a href="latest-fixes.html" class="navbar">Latest Fixes</a>
 <a href="README.html" class="navbar" >Readme</a>
 <a href="doc/README-doc.html" class="navbar" >doc / Readme</a>
 <a href="test/README-test.html" class="navbar" >test / Readme</a>
 <a href="doc/manual-home.html" class="navbar" >Manual</a>
 <a href="news.html" class="navbar" id = "current">News</a>
 <a href="changelog.html" class="navbar">Changelog</a>
+<a href="policies.html" class="navbar">Policies</a>
 <a href="roadmap.html" class="navbar" >Roadmap</a>
 <a href="wishlist.html" class="navbar">Wishlist</a>
 <a href="license.html" class="navbar">License</a>
@@ -29,6 +32,30 @@
 <p><i>Want more detailed info?</i> We also have a <a href="changelog.html">Changelog</a> with more detailed information to help you with diffing commits.</p>
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
+
+<div class="section-header">
+<div class="section-header-left">2015.10.19</div><div class="section-header-right">v1.9.0 Release</div>
+</div>
+<div class="section-content">
+<p>
+This month Gen adds a handful of date and datetime arithmetic commands to the repetoire.
+</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/dateminus.html" class="command_link">DateMinus</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the date that comes some time before the given one.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/dateplus.html" class="command_link">DatePlus</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the date that comes some time after the given one.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/datetimeminus.html" class="command_link">DatetimeMinus</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the datetime that comes some time before the given one.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/datetimeplus.html" class="command_link">DatetimePlus</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the datetime that comes some time after the given one.</p></div>
+
+
+
+<p>We also have improved how the "Partial Loading" feature works. It will now try to load each package and source one time only, and so it loads significantly faster now. Note also the diagnostic / warning output for packages that fail to load has changed. It will now show each package that does not load, followed by a list of commands which cannot be used because of it. This should help in deciding whether it is worthwhile to find and install the package. As before, you must do <code>set GenNS::WarnOnFailureToLoadCommand</code> 1 </code> in <code>gen-config.tcl</code> or else Gen will be silent about packages and commands not loaded.</p>
+
+<p>Finally, we have sharpened up our release policies and added three new pages to the site. The <a href="policies.html">Policies page</a> explains how the releases and hot fixes are done and how the version number changes. The <a href="known-issues.html">Known Issues page</a> will show any known issues, so you can check that to see if your problem is known. And you can also check the <a href="latest-fixes.html">Latest Fixes page</a> to see what issues have been fixed and are either up now on the hot fixes branch (unofficial changes between releases) or got put into the latest release.</p>
+</div>
 
 <div class="section-header">
 <div class="section-header-left">2015.09.21</div><div class="section-header-right">v1.8.0 Release</div>
@@ -48,8 +75,6 @@ This month we have a few file system related commands.
 <div class="command_desc"><p class="quasi_table_right">Take file and run textutil::adjust::adjust on each line.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/restoreifexists.html" class="command_link">RestoreIfExists</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Replace file with backup, if one can be found.</p></div>
-
-
 
 <p>
 Gen will try to source a file called gen-user-config.tcl. You do not need to create this file. But if you like, you can make such a file, put in your own settings, and then when you update your version of Gen, you do not have to worry about overwriting what you had changed in gen-config.tcl.
@@ -75,7 +100,7 @@ As of the current release, you will not see any apparent changes when you load G
 <p>
 But suppose you want to know what commands are not being loaded right away? There you can do <code>set GenNS::WarnOnFailureToLoadCommand 1</code> within <code>gen-config.tcl</code>, and when you load Gen it will print out a warning for each command that failed to load and it will tell you what packages that were missing which caused it to fail to load.
 </p>
-
+</div>
 
 <div class="section-header">
 <div class="section-header-left">2015.09.12</div><div class="section-header-right">v1.7.1 Revision</div>

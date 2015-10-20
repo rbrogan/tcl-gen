@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.8.0
+package require -exact gen 1.9.0
 
 namespace eval CopyEverythingInDirectoryTest {}
 
@@ -74,7 +74,7 @@ set Result [catch {exec {*}$DiffCommand}]
 proc CopyEverythingInDirectoryTest::Test-7 {} {
 
 ::tcltest::test CopyEverythingInDirectory-8 {Source and destination are the same}  -constraints {}  -setup {}  -body {CopyEverythingInDirectory ./CopyEverythingInDirectory/source/BasicTest ./CopyEverythingInDirectory/source/BasicTest
-}  -cleanup {}  -result {Source and destination directory are both ./CopyAllFilesIntoDirectory/source/BasicTest.}  -output {}  -returnCodes {1}  
+}  -cleanup {}  -result {Source and destination directory are both ./CopyEverythingInDirectory/source/BasicTest.}  -output {}  -returnCodes {1}  
 
 }
 

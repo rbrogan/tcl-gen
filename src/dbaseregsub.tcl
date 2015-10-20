@@ -1,27 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/coe.tcl
-
-source $PackageRoot/sqlwhereclause.tcl
-
-source $PackageRoot/qq.tcl
-
-source $PackageRoot/escapedsqlstring.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "DbaseRegsub not loaded because missing packages: $::GenMissingPackages."
-
-     proc DbaseRegsub {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc DbaseRegsub {TableName ColumnName FindValue ReplaceValue {WhereDict ""}} {
 
      if {[IsEmpty $TableName]} {

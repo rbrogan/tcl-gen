@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatePlus</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatePlus  &mdash;  Find the date that comes some time after the given one.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatePlus</b> <i>DateVariable</i> <i>TimeAmount</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Date got by adding some amount of time to given date.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DateVariable</i></td><td class='argument_right'>Date to add to.</td></tr><tr class='table_row_a'><td class='argument_left'><i>TimeAmount</i></td><td class='argument_right'>How much to add. See More Info and Examples for format.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The format of the TimeAmount argument is "xY xM xW xD" where each x is an integer (can be negative, but no decimals) and the components represent years, months, weeks, and days. Currently, it is not possible to change this format and each of the components must be included. But perhaps in a future release we may support something like "1 year 7 days" or the like.<p>The rest can be summarized as follows: <i>it works pretty much the same as OO Calc</i>, which is based on Excel, but in various scenarios what you get back may  not be what you would have expected. So we will go over how it works and specific cases where what you get back may seem odd.</p><p>If you add one month to a date then the month will increase by one, so long as the day is the 28th or earlier. If the date you add to starts on the 1st and you add one month then you will get back a date that is on the 1st of the next month, 2nd goes to the 2nd, 3rd to the 3rd, etc. The exception is when the month it would be going to does not have the day you are adding from. In that case, it will go into the next month. So if you are at the 31st, and add one month, and the next month has only 30 days, then  it will it will go to the 1st of the next month. For example, <code>DatePlus {2000-03-31} {0Y 1M 0W 0D}</code> returns <code>2000-05-01</code> because April has only 30 days.</p><p>But suppose you call <code>DatePlus {2000-03-31} {0Y 1M 0W 1D}</code>? Will it first add the day and go to April 1st, and then go to May 1st? No, what actually happens is that the months and years are added first and then <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> is called to convert that date into seconds (since start of epoch), then the rest of the components are added. <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> accepts "invalid" dates like 2000-04-31 and will convert that to the same number of seconds as 2000-05-01.</p><p>It may well be that, say, adding one month 12 times gives you a different results than adding 12 months one time. (Of course, it is also possible to avoid using months or years if you do not think they will work and use some number of days instead).</p><p>But still, overall, this way is good in that you can schedule something to happen on the 1st of the month and then use this to get the 1st of the next month, etc. It is only in cases of days after the 28th that it may not work.</p><p>Likewise, for the years it will first add to the year component of the date before converting to seconds. This means that if you add one year to February 29th (a leap year) then you will get back March 1st, but if you instead add four years, then you will get back February 29th again.</p><p>Note that in various instances you could add a month and then subtract it or add a year and then subtract it and you will not get back to the date you started with. For instance, if you add a year to February 29th, 2000 then you get back March 1st, 2001. If you then subtract a year, you get back March 1st, 2000. There is no way for the code to know you wanted to have February 29, 2000 (certainly not without complications). So this command is not intended for use in those scenarios. But, again, this is consistent with OO Calc and Excel (most likely).</p><p>For serious and critical applications for this command, it is recommended you review the source code, the tests, and the examples to get a strong feeling for exactly how it behaves.</p><p>Most likely the behavior of this command will remain simple in future releases. If you want complex date handling, you might use this simple command to get going, figure out what you want, and then find or make your own functionality to give you the complexities you need.</p><p>Note that this command uses <code><a href="isdate.html">IsDate</a></code> to validate the input date. That command is, in turn, (currently) only as good as <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code>. So if <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> allows an invalid date, then this will as well.</p><p>Finally, note that you may simply want to use a combination of <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code>, <code><a href="https://www.tcl.tk/man/tcl/TclCmd/expr.htm">expr</a></code>, and <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M7">clock format</a></code> to get the behavior you want. This command was created to be able to support, for instance, scheduling things on the same day each month, regardless of how many days there are in the month.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="dateplus-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DatePlus {2000-01-02} {1Y 1M 1W 1D}</b><br>2001-02-10<br></pre></div><div class="code_sample"><pre>% set MyVar {2000-01-02}<br>% <b>DatePlus @MyVar {1Y 1M 1W 1D}</b><br>2001-02-10<br>% puts $MyVar<br>2001-02-10<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateminus.html'>DateMinus</a>, <a href = 'datetimeplus.html'>DatetimePlus</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_date">date</a>, <a href="keyword-index.html#C_math">math</a>
+</div>
+</body>
+</html>

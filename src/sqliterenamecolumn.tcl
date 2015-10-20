@@ -1,27 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/sqlitecolumnnameandtypelist.tcl
-
-source $PackageRoot/sqlitetableexists.tcl
-
-source $PackageRoot/qq.tcl
-
-source $PackageRoot/runsqlcreatetable.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "SqliteRenameColumn not loaded because missing packages: $::GenMissingPackages."
-
-     proc SqliteRenameColumn {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc SqliteRenameColumn {TableName OldColumnName NewColumnName} {
 
      if {[IsEmpty $TableName]} {

@@ -1,29 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isnonpositive.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/file2list.tcl
-
-source $PackageRoot/list2file.tcl
-
-if {[catch {package require textutil::adjust}]} {
-     lappend ::GenMissingPackages textutil::adjust
-}
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "LimitLineLengthInFile not loaded because missing packages: $::GenMissingPackages."
-
-     proc LimitLineLengthInFile {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc LimitLineLengthInFile {MaxLength InputFilePath {OutputFilePath ""}} {
 
      if {[IsNonPositive $MaxLength]} {

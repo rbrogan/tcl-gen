@@ -1,27 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-source $PackageRoot/sqlrecordexists.tcl
-
-source $PackageRoot/q1.tcl
-
-source $PackageRoot/isnonnumeric.tcl
-
-source $PackageRoot/setdbglobal.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "DecrDbGlobal not loaded because missing packages: $::GenMissingPackages."
-
-     proc DecrDbGlobal {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc DecrDbGlobal {VarName {Amount 1}} {
 
      if {[IsEmpty $VarName]} {

@@ -2,6 +2,64 @@ Gen
 
 CHANGELOG
 
+2015.10.19
+v1.9.0
+
+Changes by functionality
+
+By files
+
+     /
+          Added policies.html, known-issues.html, latest-fixes.html.
+          Updated *.html to include menu links to the new HTML files.
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Updated Recent Changes section.
+          README.txt
+               Updated Recent Changes section.
+          roadmap.html
+               Update with info for next release.
+          wishlist.html
+               Removed Partial Loading from the wishlist.
+               
+     /doc
+          Added a main and an exception page for each new command:
+               dateplus.html, dateplus-exceptions.html
+               dateminus.html, dateminus-exceptions.html
+               datetimeplus.html, datetimeplus-exceptions.html
+               datetimeminus.html, datetimeminus-exceptions.html
+          Updated index pages with the new version number.
+          Updated index pages with new commands.
+          Updated explanation of the Partial Loading feature.
+          
+     /src
+          Added loading-module.tcl, which has code that loads every command it can, based
+on what packages it finds on the user machine.
+          Added loading-module-data.tcl, which has data used by the loading module.
+          Changed the source files for each command back to how they were. The loading
+module takes over that responsibility.
+          New commands added:
+               dateplus.tcl
+               dateminus.tcl
+               datetimeplus.tcl
+               datetimeminus.tcl
+          gen.tcl
+               Took out calls to source each command individually.
+               Make call out to GenLoadingNS::DoLoading to load every package and command it
+can.
+          pkgIndex.tcl
+               Updated version.
+          
+     /test
+          Added tests for new commands:
+               dateplus.test
+               dateminus.test
+               datetimeplus.test
+               datetimeminus.test
+
 2015.09.21
 v1.8.0
 

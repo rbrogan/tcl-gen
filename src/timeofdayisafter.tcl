@@ -1,21 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/istimeofday.tcl
-
-source $PackageRoot/timeofday2seconds.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "TimeOfDayIsAfter not loaded because missing packages: $::GenMissingPackages."
-
-     proc TimeOfDayIsAfter {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc TimeOfDayIsAfter {FirstTimeOfDay SecondTimeOfDay} {
 
      if {![IsTimeOfDay $FirstTimeOfDay]} {

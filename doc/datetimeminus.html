@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatetimeMinus</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatetimeMinus  &mdash;  Find the datetime that comes some time before the given one.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatetimeMinus</b> <i>DatetimeVariable</i> <i>TimeAmount</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Datetime got by subtracting a time amount from the given datetime.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DatetimeVariable</i></td><td class='argument_right'>Datetime to subtract from.</td></tr><tr class='table_row_a'><td class='argument_left'><i>TimeAmount</i></td><td class='argument_right'>How much to subtract. See More Info and Examples for format.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command will multiply each component by -1 and then call <code><a href="datetimeplus.html>DatetimePlus</a></code>.<p>The format of the TimeAmount argument is "xY xM xW xD xH xM xS" where each x is an integer (can be negative, but no decimals) and the components represent years, months, weeks, days, hours, minutes, and seconds. Currently, it is not possible to change this format, and so each of the components must be included. But perhaps in a future release we may support something like "1 year 7 days" or the like.</p><p>The rest can be summarized as follows: <i>it works pretty much the same as OO Calc</i>, which is based on Excel, but in various scenarios what you get back may not be what you would have expected. So we will go over how it works and specific cases where what you get back may seem odd.</p><p>If you subtract one month from a datetime, then the month will go back by one, so long as the day is the 28th or earlier. If the datetime you subtract from starts on the 1st and you subtract one month then you will get back a date that is on the 1st of the previous month, 2nd goes to the 2nd, 3rd to 3rd, and so on. The exception is when the month it would be going to does not have the day you are subtracting from. In that case, it will go forward again, over into the next month. So if you are at the 31st, and subtract one month, and the next month has only 30 days then it will go back to the 1st of the current month. For example, <code>DatetimeMinus {2000-05-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}</code> returns <code>2000-05-01 00:00:00</code> because we would have had April 31st, but April has only 30 days, and so we take that extra day and go forward again to May 1st.</p><p>But suppose you call <code>DatetimeMinus {2000-06-01 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}</code>? Will it first subtract the day and go to May 31st, and then go to May 1st as before? No, you will get back April 30th. What actually happens is that the months and years are subtracted first and then <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> is called to convert that datetime into to seconds (since start of epoch), then the rest of the components are subtracted.</p><p>It may well be that, say, subtracting one month 12 times gives you a different result than adding 12 months one time. (Of course, it is also possible to avoid using months or years if you do not think they will work and use some number of days instead).</p><p>But still, overall, this way is good in that you can schedule something to happen on the 1st of the month and then use this to get the 1st of the next month, etc. It is only in cases of days after the 28th that they may not work.</p><p>Likewise, for the years it will first add to the year component of the date before converting to seconds. This means if you subtract one year from February 29th (a leap year) then you will get back March 1st, but if you instead subtract four years, then you will get back February 29th again.</p><p>Note that in various instances you could add a month and then subtract it or add a year and then subtract it and you will not get back to the start. For instance, if you add a year to February 29th, 2000 then you get back March 1st, 2001. If you then subtract a year, you get back March 1st, 2000. There is no way for the code to know you wanted to have February 29, 2000 (certainly not without complications). So this command is not intended for use in those scenarios. But, again, this is consistent with OO Calc and Excel (most likely).</p><p>As far as daylight savings goes, it handles it the same as <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> / <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M7">clock format</a></code> do. So it may well be that you subtract some number of months from a datetime and find that it has also changed by an hour due to daylight savings.</p><p>For serious and critical applications for this command, it is recommended you review the source code, the tests, and the examples to get a strong feeling for exactly how it behaves. </p><p>Most likely the behavior of this command will remain simple in future releases. If you want complex datetime handling, you might use this simple command to get going, figure out what you want, and then find or make your own functionality to give you the complexities you need.</p><p>Note that this command uses <code><a href="isdatetime.html">IsDatetime</a></code> to validate the input datetime. That command is, in turn, (currently) only as good as <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code>. So if <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code> allows an invalid date, then this will as well.</p><p>Finally, note that you may simply want to use a combination of <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M10">clock scan</a></code>, <code><a href="https://www.tcl.tk/man/tcl/TclCmd/expr.htm">expr</a></code>, and <code><a href="https://www.tcl.tk/man/tcl/TclCmd/clock.htm#M7">clock format<a/></code> to get the behavior you want. This command was created to be able support, for instance, scheduling things on the same day each month, regardless of how many days are in the month.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="datetimeminus-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DatetimeMinus {2001-02-10 04:05:06} {1Y 1M 1W 1D 1H 1M 1S}<br></b><br>2000-01-02 03:04:05<br></pre></div><div class="code_sample"><pre>% set MyVar {2001-02-10 04:05:06}<br>2001-02-10 04:05:06<br>% <b>DatetimeMinus @MyVar {1Y 1M 1W 1D 1H 1M 1S}</b><br>2000-01-02 03:04:05<br>% puts $MyVar<br>2000-01-02 03:04:05</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'dateminus.html'>DateMinus</a>, <a href = 'dateplus.html'>DatePlus</a>, <a href = 'datetimeplus.html'>DatetimePlus</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_date">date</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_math">math</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

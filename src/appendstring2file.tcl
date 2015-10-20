@@ -1,19 +1,3 @@
-set ::GenMissingPackages {}
-set ::GenPackageWarning ""
-
-source $PackageRoot/gen-error.tcl
-
-source $PackageRoot/isempty.tcl
-
-if {[llength $::GenMissingPackages] > 0} {
-     set ::GenPackageWarning "AppendString2File not loaded because missing packages: $::GenMissingPackages."
-
-     proc AppendString2File {VarName Value} "error \"$::GenPackageWarning\""
-
-     return
-}
-
-
 proc AppendString2File {StringValue FilePath} {
 
      if {[IsEmpty $FilePath]} {
