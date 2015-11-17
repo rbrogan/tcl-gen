@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CurrentTimeOfDayIsAfter</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+CurrentTimeOfDayIsAfter  &mdash;  Check whether the current time-of-day is after the target.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>CurrentTimeOfDayIsAfter</b> <i>TargetTimeOfDay</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> Current time-of-day is after target time.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Current time-of-day is at or before target time.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetTimeOfDay</i></td><td class='argument_right'>Time of day that the current time must come after in order for this to return true.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This is a convenience command which combines <code><a href="timeofdayisafter.html">TimeOfDayIsAfter</a></code> and <code><a href="currenttimeofday.html">CurrentTimeOfDay</a></code>.<p>The time-of-day should be formatted according to the configuration (see <a href="about-date-and-time-commands.html">here</a> for details or <code><a href="settimeofdayformat.html">SetTimeOfDayFormat</a></code>). The configuration defaults to %H:%M:%S, which means 12 o'clock is 12:00:00. (And if you are happy with that, you do not have to do anything to make it work, only if you want something different.)</p><p>This is intended for use, for instance, with calendar / appointment / reminder apps.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="currenttimeofdayisafter-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose it is now 12:00 PM<br>% <b>CurrentTimeOfDayIsAfter 11:00:00</b><br>1<br>% CurrentTimeOfDayIsAfter 12:01:00<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'currenttimeofday.html'>CurrentTimeOfDay</a>, <a href = 'currenttimeofdayisatorafter.html'>CurrentTimeOfDayIsAtOrAfter</a>, <a href = 'currenttimeofdayisbefore.html'>CurrentTimeOfDayIsBefore</a>, <a href = 'currenttimeofdayisbetween.html'>CurrentTimeOfDayIsBetween</a>, <a href = 'timeofdayisafter.html'>TimeOfDayIsAfter</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_clock">clock</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CurrentTimeOfDayIsBetween</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+CurrentTimeOfDayIsBetween  &mdash;  Check if current time-of-day is between the two targets.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>CurrentTimeOfDayIsBetween</b> <i>EarlierTimeOfDay</i> <i>LaterTimeOfDay</i> <i>?Option?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> Current time-of-day is between the target times.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Current time-of-day is not between the target times.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>EarlierTimeOfDay</i></td><td class='argument_right'>Time of day that the current time must come after in order for this to return true.</td></tr><tr class='table_row_a'><td class='argument_left'><i>LaterTimeOfDay</i></td><td class='argument_right'>Time of day that the current time must come before in order for this to return true.</td></tr><tr class='table_row_b'><td class='argument_left'><i>Option</i></td><td class='argument_right'>Whether to count a time-of-day that happens at the very beginning or end as being between. Defaults to BothExclusive (see More Info).</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This is a convenience command which combines <code><a href="timeofdayisbetween.html">TimeOfDayIsBetween</a></code> and <code><a href="currenttimeofday.html">CurrentTimeOfDay</a></code>.<p>The time-of-day should be formatted according to the configuration (see <a href="about-date-and-time-commands.html">here</a> for details or <code><a href="settimeofdayformat.html">SetTimeOfDayFormat</a></code>). The configuration defaults to %H:%M:%S, which means 12 o'clock is 12:00:00. (And if you are happy with that, you do not have to do anything to make it work, only if you want something different.)</p><p>This is intended for use, for instance, with calendar / appointment / reminder apps.</p><p>Options are:<br>
+1. BothExclusive (Second &lt; First &lt; Third).<br>
+2. BothInclusive (Second &lt;= First &lt;= Third).<br>
+3. LeftExclusive (Second &lt; First &lt;= Third).<br>
+4. LeftInclusive (Second &lt;= First &lt; Third).<br>
+5. RightExclusive (Second &lt;= First &lt; Third).<br>
+6. RightInclusive (Second &lt; First &lt;= Third).<br>
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="currenttimeofdayisbetween-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose it is now 12:00 PM<br>% <b>CurrentTimeOfDayIsBetween 11:59:00 12:01:00</b><br>1<br>% CurrentTimeOfDayIsBetween 10:59:00 11:01:00<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'currenttimeofday.html'>CurrentTimeOfDay</a>, <a href = 'currenttimeofdayisabout.html'>CurrentTimeOfDayIsAbout</a>, <a href = 'currenttimeofdayisafter.html'>CurrentTimeOfDayIsAfter</a>, <a href = 'currenttimeofdayisbefore.html'>CurrentTimeOfDayIsBefore</a>, <a href = 'timeofdayisbetween.html'>TimeOfDayIsBetween</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_clock">clock</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

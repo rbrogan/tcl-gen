@@ -2,6 +2,67 @@ Gen
 
 CHANGELOG
 
+2015.11.16
+v1.10.0
+
+Changes by functionality
+     Monthly release of new commands, with corresponding files in test and doc
+directories.
+     Update the Partial Loading feature.
+     Add Gen namespacing option.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          README.html
+               Updated Recent Changes section.
+               Updated Dependencies section.
+          README.txt
+               Updated Recent Changes section.
+               Updated Dependencies section.
+          roadmap.html
+               Update with info for next release.
+               
+     /doc
+          Added a main and an exception page for each new command:
+               currenttimeofdayisabout.html, currenttimeofdayisabout-exceptions.html
+               currenttimeofdayisafter.html, currenttimeofdayisafter-exceptions.html
+               currenttimeofdayisatorafter.html, currenttimeofdayisatorafter-exceptions.html
+               currenttimeofdayisatorbefore.html, currenttimeofdayisatorbefore-exceptions.html
+               currenttimeofdayisbefore.html, currenttimeofdayisbefore-exceptions.html
+               currenttimeofdayisbetween.html, currenttimeofdayisbetween-exceptions.html
+          Updated index pages with the new version number.
+          Updated index pages with new commands.
+          
+     /src
+          Modified loading-module.tcl, changed namespace name, see NEWS for details.
+          Updated loading-module-data.tcl to reformat and include new commands.
+          New commands added:
+               currenttimeofdayisabout.tcl
+               currenttimeofdayisafter.tcl
+               currenttimeofdayisatorafter.tcl
+               currenttimeofdayisatorbefore.tcl
+               currenttimeofdayisbefore.tcl
+               currenttimeofdayisbetween.tcl
+          gen.tcl
+               Update call to DoLoading to use new namespace name.
+can.
+          pkgIndex.tcl
+               Updated version.
+          
+     /test
+          Added tests for new commands:
+               currenttimeofdayisabout.test
+               currenttimeofdayisafter.test
+               currenttimeofdayisatorafter.test
+               currenttimeofdayisatorbefore.test
+               currenttimeofdayisbefore.test
+               currenttimeofdayisbetween.test
+
 2015.10.19
 v1.9.0
 

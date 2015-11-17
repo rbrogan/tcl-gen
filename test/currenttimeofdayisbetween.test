@@ -1,0 +1,118 @@
+package require tcltest
+package require -exact gen 1.10.0
+
+namespace eval CurrentTimeOfDayIsBetweenTest {}
+
+
+namespace eval CurrentTimeOfDayIsBetweenTest {
+
+proc SetupClock {ClockTime} {
+     set ::CurrentTimeOfDayIsBetweenTest::MySeconds [eval [subst {clock scan "[::Today] $ClockTime" -format $::GenNS::DatetimeFormat}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::CurrentTimeOfDayIsBetweenTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc CurrentTimeOfDayIsBetweenTest::Test-1 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-0 {Current time-of-day is between earlier and later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsBetween 11:59:59 12:00:01
+}  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
+
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-2 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-1 {Current time-of-day is earlier than the earlier}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsBetween 12:00:01 13:00:00
+}  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-3 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-2 {Current time-of-day is at the earlier}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsBetween 12:00:00 13:00:00]
+}  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
+}  -result {}  -output {0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-4 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-3 {Current time-of-day is later than the later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsBetween 11:00:00 11:59:59
+}  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-5 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-4 {Current time-of-day is at the later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsBetween 11:00:00 12:00:00]
+
+}  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
+}  -result {}  -output {0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-6 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-5 {EarlierTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsBetween asdf 12:00:00
+}  -cleanup {}  -result {Variable EarlierTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBetweenTest::Test-7 {} {
+
+::tcltest::test CurrentTimeOfDayIsBetween-6 {LaterTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsBetween 12:00:00 asdf
+}  -cleanup {}  -result {Variable LaterTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     CurrentTimeOfDayIsBetweenTest::Test-1
+     CurrentTimeOfDayIsBetweenTest::Test-2
+     CurrentTimeOfDayIsBetweenTest::Test-3
+     CurrentTimeOfDayIsBetweenTest::Test-4
+     CurrentTimeOfDayIsBetweenTest::Test-5
+     CurrentTimeOfDayIsBetweenTest::Test-6
+     CurrentTimeOfDayIsBetweenTest::Test-7
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          CurrentTimeOfDayIsBetweenTest::Test-[set Element]
+     }
+}
+

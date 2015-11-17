@@ -106,6 +106,18 @@ copyeverythingindirectory.html
      Page for the command CopyEverythingInDirectory.
 currenttimeofday.html
      Page for the command CurrentTimeOfDay.
+currenttimeofdayisabout.html
+     Page for the command CurrentTimeOfDayIsAbout.
+currenttimeofdayisafter.html
+     Page for the command CurrentTimeOfDayIsAfter.
+currenttimeofdayisatorafter.html
+     Page for the command CurrentTimeOfDayIsAtOrAfter.
+currenttimeofdayisatorbefore.html
+     Page for the command CurrentTimeOfDayIsAtOrBefore.
+currenttimeofdayisbefore.html
+     Page for the command CurrentTimeOfDayIsBefore.
+currenttimeofdayisbetween.html
+     Page for the command CurrentTimeOfDayIsBetween.
 dateisafter.html
      Page for the command DateIsAfter.
 dateisbefore.html
@@ -300,14 +312,8 @@ runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.html
      Page for the command SaveWorkingDirectory.
-seconds2datequantity.html
-     Page for the command Seconds2DateQuantity.
-seconds2datetimequantity.html
-     Page for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.html
      Page for the command Seconds2Hhmmss.
-seconds2timeofdayquantity.html
-     Page for the command Seconds2TimeOfDayQuantity.
 setdateformat.html
      Page for the command SetDateFormat.
 setdatetimeformat.html

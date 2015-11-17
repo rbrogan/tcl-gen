@@ -1,0 +1,59 @@
+package require tcltest
+package require -exact gen 1.10.0
+
+namespace eval CurrentTimeOfDayIsBeforeTest {}
+
+
+namespace eval CurrentTimeOfDayIsBeforeTest {
+
+proc SetupClock {ClockTime} {
+     set ::CurrentTimeOfDayIsBeforeTest::MySeconds [eval [subst {clock scan "[::Today] $ClockTime" -format $::GenNS::DatetimeFormat}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::CurrentTimeOfDayIsBeforeTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc CurrentTimeOfDayIsBeforeTest::Test-1 {} {
+
+::tcltest::test CurrentTimeOfDayIsBefore-0 {Basic test}  -constraints {}  -setup {::CurrentTimeOfDayIsBeforeTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsBefore 12:01:00]
+puts [CurrentTimeOfDayIsBefore 12:00:00]
+}  -cleanup {::CurrentTimeOfDayIsBeforeTest::RestoreClock
+}  -result {}  -output {1
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsBeforeTest::Test-2 {} {
+
+::tcltest::test CurrentTimeOfDayIsBefore-1 {TargetTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsBefore asdf
+}  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     CurrentTimeOfDayIsBeforeTest::Test-1
+     CurrentTimeOfDayIsBeforeTest::Test-2
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          CurrentTimeOfDayIsBeforeTest::Test-[set Element]
+     }
+}
+

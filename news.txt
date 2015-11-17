@@ -2,11 +2,95 @@ Gen
 
 NEWS
 
+2015.11.16
+v1.10.0 Release
+
+This month Gen adds a few more time convenience commands, perhaps for use in
+applications which involve scheduling, or that otherwise want to trigger things
+at certain times of the day. After all, a design goal of Gen is to be
+anti-minimalist and have convenience commands which directly match the immediate
+intentions of the developer (ideally).
+
+CurrentTimeOfDayIsAbout
+     Check if current time is within an interval around target.
+
+CurrentTimeOfDayIsAfter
+     Check whether the current time-of-day is after the target.
+
+CurrentTimeOfDayIsAtOrAfter
+     Check whether the current time is at or after the target.
+
+CurrentTimeOfDayIsAtOrBefore
+     Check whether current time-of-day is at or before target.
+
+CurrentTimeOfDayIsBefore
+     Check whether current time-of-day is before target.
+
+CurrentTimeOfDayIsBetween
+     Check if current time-of-day is between the two targets.
+
+
+
+On the non-command front, we have an experimental / preview feature, which you
+can choose to use if you want (by default it is disabled). Say you would like to
+see Gen commands go into their own namespace (rather than use the global
+namespace), you can do [set GenNS::PutGenCommandsInNamespace 1]. After that
+StringInsert becomes GenNS::StringInsert, ChangeCasing becomes
+GenNS::ChangeCasing, and so on. (But, if you want nothing to change, you do not
+have to change anything; by default, your current Gen code will act no
+different.) Suppose further, that you want to then import those commands into a
+namespace, so that you can leave out the GenNS:: part. You can do [namespace
+eval :: {namespace import GenNS::*}] to import them into the global namespace
+and then can use plain old StringInsert (for example) once again. Or suppose you
+want to import them into your namespace called MyNS. You can do [namespace eval
+MyNS {namespace import GenNS::*}] and then within code for that namespace you
+can do plain old StringInsert.
+
+However, consider this an experimental / preview feature. It is still too soon
+to settle on namespacing for Gen. Why? We have the following open problem:
+Suppose that two different libraries use different versions of Gen. These Gen
+versions have incompatible commands. So long as only one of these libraries is
+loaded (and it gets the version of Gen that it wants) then everything is fine.
+But if an application were to use both the two libraries then there is a
+problem. Each library will try to load a different version of Gen and one
+library is not going to get the version that it wants. (Tcl does not support
+separate versions of the same package being loaded at the same time, unless
+separate slave interpreters are used.) At this point, one potential solution, or
+scheme, would involve the use of namespaces. Different versions of commands
+would go into separate namespaces. The namespace name would include versioning
+information, and use of the namespace import command would be used to help hide
+that information and keep things simple for the caller. Alternatively, we may
+decide to simply change the package name for each major version (e.g. you do
+[package require gen2]). Though this solution would work, it seems a bit ugly
+and undesirable. At any rate, deciding how to do a namespace for Gen seems to be
+a tricky thing. This overall problem will take more time to work out. Once
+something is worked out, you will be able to find it on the Policies page and we
+will likely post up a paper that goes through the problem, the different options
+and how they were evaluated, which option was ultimately selected, and why.
+
+There should be no Gen namespacing changes that would break current code until
+the next major version change. (And if so, there would be a revision put out
+that restores things.) Configurable experimental features like this one are the
+exception, because they must be turned on to take effect.
+
+The Partial Loading feature has been updated. In addition to
+::GenNS::WarnOnFailureToLoadCommand (which will print out which commands do not
+load due to not finding the needed package and version installed on the
+machine), there is now ::GenNS::ReportOnPackagesLoaded. This option, if set,
+will print out each package that Gen tries to load. If a package is not found or
+if the version of package is less than what is desired, then you will get a
+report which lists those commands which could not be loaded, and what version
+they need in order to load. By default, both options are off, so Gen will load
+silently.
+
+Also, if you go to use a command which was not loaded, Gen will now print out
+the missing dependencies and then throw an error.
+
 2015.10.19
 v1.9.0 Release
 
 This month Gen adds a handful of date and datetime arithmetic commands to the
-repetoire.
+repertoire.
 
 DateMinus
      Find the date that comes some time before the given one.

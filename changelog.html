@@ -31,6 +31,111 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.10.0</div><div class="section-header-right">2015.11.16</div>
+</div>
+<div class="section-content">
+<p>
+Changes by functionality<br>
+<ul>
+<li>Monthly release of new commands, with corresponding files in test and doc directories.</li>
+<li>Update the Partial Loading feature</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>README.html
+<ul>
+<li>Updated Dependencies section.</li>
+<li>Updated Recent Changes section.</li>
+</ul>
+</li>
+<li>
+README.txt
+<ul>
+<li>Updated Dependencies section.</li>
+<li>Updated Recent Changes section.</li>
+</ul>
+</li>
+<li>roadmap.html
+<ul><li>Update with info for next release.</li></ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/doc
+<ul>
+<li>Added a main and an exception page for each new command:
+<ul>
+<li>currenttimeofdayisabout.html, currenttimeofdayisabout-exceptions.html</li>
+<li>currenttimeofdayisafter.html, currenttimeofdayisafter-exceptions.html</li>
+<li>currenttimeofdayisatorafter.html, currenttimeofdayisatorafter-exceptions.html</li>
+<li>currenttimeofdayisatorbefore.html, currenttimeofdayisatorbefore-exceptions.html</li>
+<li>currenttimeofdayisbefore.html, currenttimeofdayisbefore-exceptions.html</li>
+<li>currenttimeofdayisbetween.html, currenttimeofdayisbetween-exceptions.html</li>
+</ul>
+</li>
+<li>Updated index pages with the new version number.</li>
+<li>Updated index pages with new commands.</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>Modified loading-module.tcl, changed namespace name, see NEWS for details.</li>
+<li>Updated loading-module-data.tcl to reformat and include new commands.</li>
+<li>New commands added:
+<ul>
+<li>currenttimeofdayisabout.tcl</li>
+<li>currenttimeofdayisafter.tcl</li>
+<li>currenttimeofdayisatorafter.tcl</li>
+<li>currenttimeofdayisatorbefore.tcl</li>
+<li>currenttimeofdayisbefore.tcl</li>
+<li>currenttimeofdayisbetween.tcl</li>
+</ul>
+</li>
+<li>gen.tcl
+<ul>
+<li>Update call to DoLoading to use new namespace name.
+can.</li>
+</ul>
+</li>
+<li>pkgIndex.tcl
+<ul>
+<li>Updated version.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/test
+<ul>
+<li>Added tests for new commands:
+<ul>
+<li>currenttimeofdayisabout.test</li>
+<li>currenttimeofdayisafter.test</li>
+<li>currenttimeofdayisatorafter.test</li>
+<li>currenttimeofdayisatorbefore.test</li>
+<li>currenttimeofdayisbefore.test</li>
+<li>currenttimeofdayisbetween.test</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+<div class="section-header">
 <div class="section-header-left">1.9.0</div><div class="section-header-right">2015.10.19</div>
 </div>
 <div class="section-content">

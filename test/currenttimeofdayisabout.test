@@ -1,0 +1,300 @@
+package require tcltest
+package require -exact gen 1.10.0
+
+namespace eval CurrentTimeOfDayIsAboutTest {}
+
+
+namespace eval CurrentTimeOfDayIsAboutTest {
+
+proc SetupClock {ClockTime} {
+     set ::CurrentTimeOfDayIsAboutTest::MySeconds [eval [subst {clock scan "[::Today] $ClockTime" -format $::GenNS::DatetimeFormat}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::CurrentTimeOfDayIsAboutTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc CurrentTimeOfDayIsAboutTest::Test-1 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-0 {Current time-of-day falls within interval}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S}]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S}]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+1
+0
+1
+0
+1
+0
+1
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-2 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-5 {TargetTime is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAbout asdf {1H 1M 1S}
+}  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-6 {WithinInterval is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAbout 12:00:00 asdf
+}  -cleanup {}  -result {Variable WithinInterval has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-4 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-7 {Use BothInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} BothInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:01 {1H 0M 0S} BothInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:58:59 {0H 1M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S} BothInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:01 {0H 1M 0S} BothInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S} BothInclusive]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} BothInclusive]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+1
+1
+1
+1
+0
+0
+1
+1
+1
+1
+0
+1
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-5 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-8 {Use LeftInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} LeftInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:01 {1H 0M 0S} LeftInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:58:59 {0H 1M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S} LeftInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:01 {0H 1M 0S} LeftInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S} LeftInclusive]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftInclusive]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-6 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-9 {Use LeftExclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} LeftExclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:01 {1H 0M 0S} LeftExclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:58:59 {0H 1M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S} LeftExclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:01 {0H 1M 0S} LeftExclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S} LeftExclusive]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftExclusive]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-7 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-10 {Use RightExclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} RightExclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:01 {1H 0M 0S} RightExclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:58:59 {0H 1M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S} RightExclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:01 {0H 1M 0S} RightExclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S} RightExclusive]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} RightExclusive]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-8 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-11 {Use RightInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+}  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} RightInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:59:59 {1H 0M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 13:00:01 {1H 0M 0S} RightInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:58:59 {0H 1M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 11:59:01 {0H 1M 0S} RightInclusive]
+
+puts [CurrentTimeOfDayIsAbout 12:00:59 {0H 1M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 12:01:01 {0H 1M 0S} RightInclusive]
+
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S} RightInclusive]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} RightInclusive]
+}  -cleanup {::CurrentTimeOfDayIsAboutTest::RestoreClock
+}  -result {}  -output {0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     CurrentTimeOfDayIsAboutTest::Test-1
+     CurrentTimeOfDayIsAboutTest::Test-2
+     CurrentTimeOfDayIsAboutTest::Test-3
+     CurrentTimeOfDayIsAboutTest::Test-4
+     CurrentTimeOfDayIsAboutTest::Test-5
+     CurrentTimeOfDayIsAboutTest::Test-6
+     CurrentTimeOfDayIsAboutTest::Test-7
+     CurrentTimeOfDayIsAboutTest::Test-8
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          CurrentTimeOfDayIsAboutTest::Test-[set Element]
+     }
+}
+

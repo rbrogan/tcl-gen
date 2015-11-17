@@ -143,6 +143,18 @@ copyeverythingindirectory.test
      Tests for the command CopyEverythingInDirectory.
 currenttimeofday.test
      Tests for the command CurrentTimeOfDay.
+currenttimeofdayisabout.test
+     Tests for the command CurrentTimeOfDayIsAbout.
+currenttimeofdayisafter.test
+     Tests for the command CurrentTimeOfDayIsAfter.
+currenttimeofdayisatorafter.test
+     Tests for the command CurrentTimeOfDayIsAtOrAfter.
+currenttimeofdayisatorbefore.test
+     Tests for the command CurrentTimeOfDayIsAtOrBefore.
+currenttimeofdayisbefore.test
+     Tests for the command CurrentTimeOfDayIsBefore.
+currenttimeofdayisbetween.test
+     Tests for the command CurrentTimeOfDayIsBetween.
 dateisafter.test
      Tests for the command DateIsAfter.
 dateisbefore.test
@@ -337,14 +349,8 @@ runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.test
      Tests for the command SaveWorkingDirectory.
-seconds2datequantity.test
-     Tests for the command Seconds2DateQuantity.
-seconds2datetimequantity.test
-     Tests for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.test
      Tests for the command Seconds2Hhmmss.
-seconds2timeofdayquantity.test
-     Tests for the command Seconds2TimeOfDayQuantity.
 setdateformat.test
      Tests for the command SetDateFormat.
 setdatetimeformat.test

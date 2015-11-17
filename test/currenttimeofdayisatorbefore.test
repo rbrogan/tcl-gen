@@ -1,0 +1,80 @@
+package require tcltest
+package require -exact gen 1.10.0
+
+namespace eval CurrentTimeOfDayIsAtOrBeforeTest {}
+
+
+namespace eval CurrentTimeOfDayIsAtOrBeforeTest {
+
+proc SetupClock {ClockTime} {
+     set ::CurrentTimeOfDayIsAtOrBeforeTest::MySeconds [eval [subst {clock scan "[::Today] $ClockTime" -format $::GenNS::DatetimeFormat}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::CurrentTimeOfDayIsAtOrBeforeTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc CurrentTimeOfDayIsAtOrBeforeTest::Test-1 {} {
+
+::tcltest::test CurrentTimeOfDayIsAtOrBefore-0 {Current time is after}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrBeforeTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsAtOrBefore 11:59:00
+}  -cleanup {::CurrentTimeOfDayIsAtOrBeforeTest::RestoreClock
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAtOrBeforeTest::Test-2 {} {
+
+::tcltest::test CurrentTimeOfDayIsAtOrBefore-1 {Current time is at}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrBeforeTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsAtOrBefore 12:00:00
+}  -cleanup {::CurrentTimeOfDayIsAtOrBeforeTest::RestoreClock
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAtOrBeforeTest::Test-3 {} {
+
+::tcltest::test CurrentTimeOfDayIsAtOrBefore-2 {Current time is before}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrBeforeTest::SetupClock 12:00:00
+}  -body {CurrentTimeOfDayIsAtOrBefore 12:01:00
+}  -cleanup {::CurrentTimeOfDayIsAtOrBeforeTest::RestoreClock
+}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAtOrBeforeTest::Test-4 {} {
+
+::tcltest::test CurrentTimeOfDayIsAtOrBefore-3 {TargetTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAtOrBefore asdf
+}  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     CurrentTimeOfDayIsAtOrBeforeTest::Test-1
+     CurrentTimeOfDayIsAtOrBeforeTest::Test-2
+     CurrentTimeOfDayIsAtOrBeforeTest::Test-3
+     CurrentTimeOfDayIsAtOrBeforeTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          CurrentTimeOfDayIsAtOrBeforeTest::Test-[set Element]
+     }
+}
+

@@ -34,11 +34,46 @@
 
 
 <div class="section-header">
+<div class="section-header-left">2015.11.16</div><div class="section-header-right">v1.10.0 Release</div>
+</div>
+<div class="section-content">
+<p>
+This month Gen adds a few more time convenience commands, perhaps for use in applications which involve scheduling, or that otherwise want to trigger things at certain times of the day. After all, a design goal of Gen is to be anti-minimalist and have convenience commands which directly match the immediate intentions of the developer (ideally).
+</p>
+
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/currenttimeofdayisabout.html" class="command_link">CurrentTimeOfDayIsAbout</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check if current time is within an interval around target.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/currenttimeofdayisafter.html" class="command_link">CurrentTimeOfDayIsAfter</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether the current time-of-day is after the target.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/currenttimeofdayisatorafter.html" class="command_link">CurrentTimeOfDayIsAtOrAfter</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether the current time is at or after the target.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/currenttimeofdayisatorbefore.html" class="command_link">CurrentTimeOfDayIsAtOrBefore</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether current time-of-day is at or before target.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/currenttimeofdayisbefore.html" class="command_link">CurrentTimeOfDayIsBefore</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether current time-of-day is before target.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="doc/currenttimeofdayisbetween.html" class="command_link">CurrentTimeOfDayIsBetween</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check if current time-of-day is between the two targets.</p></div>
+
+
+
+<p>On the non-command front, we have an experimental / preview feature, which you can choose to use if you want (by default it is disabled). Say you would like to see Gen commands go into their own namespace (rather than use the global namespace), you can do <code>[set GenNS::PutGenCommandsInNamespace 1]</code>. After that <code>StringInsert</code> becomes <code>GenNS::StringInsert</code>, <code>ChangeCasing</code> becomes <code>GenNS::ChangeCasing</code>, and so on. (But, if you want nothing to change, you do not have to change anything; by default, your current Gen code will act no different.) Suppose further, that you want to then import those commands into a namespace, so that you can leave out the <code>GenNS::</code> part. You can do <code>[namespace eval :: {namespace import GenNS::*}]</code> to import them into the global namespace and then can use plain old <code>StringInsert</code> (for example) once again. Or suppose you want to import them into your namespace called <code>MyNS</code>. You can do <code>[namespace eval MyNS {namespace import GenNS::*}]</code> and then within code for that namespace you can do plain old <code>StringInsert</code>.</p>
+
+<p>However, consider this an experimental / preview feature. It is still too soon to settle on namespacing for Gen. Why? We have the following open problem: Suppose that two different libraries use different versions of Gen. These Gen versions have incompatible commands. So long as only one of these libraries is loaded (and it gets the version of Gen that it wants) then everything is fine. But if an application were to use both the two libraries then there is a problem. Each library will try to load a different version of Gen and one library is not going to get the version that it wants. (Tcl does not support separate versions of the same package being loaded at the same time, unless separate slave interpreters are used.) At this point, one potential solution, or scheme, would involve the use of namespaces. Different versions of commands would go into separate namespaces. The namespace name would include versioning information, and use of the <code>namespace import</code> command would be used to help hide that information and keep things simple for the caller. Alternatively, we may decide to simply change the package name for each major version (e.g. you do <code>[package require gen2]</code>). Though this solution would work, it seems a bit ugly and undesirable. At any rate, deciding how to do a namespace for Gen seems to be a tricky thing. This overall problem will take more time to work out. Once something is worked out, you will be able to find it on the <a href="http://www.robertbrogan.com/gen/policies.html">Policies</a> page and we will likely post up a paper that goes through the problem, the different options and how they were evaluated, which option was ultimately selected, and why.</p>
+
+<p>There should be no Gen namespacing changes that would break current code until the next major version change. (And if so, there would be a revision put out that restores things.) Configurable experimental features like this one are the exception, because they must be turned on to take effect.</p>
+
+<p>The Partial Loading feature has been updated. In addition to <code>::GenNS::WarnOnFailureToLoadCommand</code> (which will print out which commands do not load due to not finding the needed package and version installed on the machine), there is now <code>::GenNS::ReportOnPackagesLoaded</code>. This option, if set, will print out each package that Gen tries to load. If a package is not found or if the version of package is less than what is desired, then you will get a report which lists those commands which could not be loaded, and what version they need in order to load. By default, both options are off, so Gen will load silently.</p>
+
+<p>Also, if you go to use a command which was not loaded, Gen will now print out the missing dependencies and then throw an error.</p>
+
+</div>
+
+<div class="section-header">
 <div class="section-header-left">2015.10.19</div><div class="section-header-right">v1.9.0 Release</div>
 </div>
 <div class="section-content">
 <p>
-This month Gen adds a handful of date and datetime arithmetic commands to the repetoire.
+This month Gen adds a handful of date and datetime arithmetic commands to the repertoire.
 </p>
 
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="doc/dateminus.html" class="command_link">DateMinus</a></p></div>
@@ -56,6 +91,7 @@ This month Gen adds a handful of date and datetime arithmetic commands to the re
 
 <p>Finally, we have sharpened up our release policies and added three new pages to the site. The <a href="policies.html">Policies page</a> explains how the releases and hot fixes are done and how the version number changes. The <a href="known-issues.html">Known Issues page</a> will show any known issues, so you can check that to see if your problem is known. And you can also check the <a href="latest-fixes.html">Latest Fixes page</a> to see what issues have been fixed and are either up now on the hot fixes branch (unofficial changes between releases) or got put into the latest release.</p>
 </div>
+
 
 <div class="section-header">
 <div class="section-header-left">2015.09.21</div><div class="section-header-right">v1.8.0 Release</div>

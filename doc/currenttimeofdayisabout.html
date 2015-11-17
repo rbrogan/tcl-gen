@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CurrentTimeOfDayIsAbout</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+CurrentTimeOfDayIsAbout  &mdash;  Check if current time is within an interval around target.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>CurrentTimeOfDayIsAbout</b> <i>TargetTimeOfDay</i> <i>WithinInterval</i> <i>?Option?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> Current time-of-day is within interval around target.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Current time-of-day is outside of interval around target.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetTimeOfDay</i></td><td class='argument_right'>Time of day to check current time against.</td></tr><tr class='table_row_a'><td class='argument_left'><i>WithinInterval</i></td><td class='argument_right'>How much time to add/subtract from the target time to form a range that the current time must go in in order for this to return true. See More Info and Examples for format.</td></tr><tr class='table_row_b'><td class='argument_left'><i>Option</i></td><td class='argument_right'>Whether to count a time-of-day that happens at the very beginning or end as being between. Defaults to BothExclusive (see More Info).</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>The time-of-day should be formatted according to the configuration (see <a href="about-date-and-time-commands.html">here</a> for details or <code><a href="settimeofdayformat.html">SetTimeOfDayFormat</a></code>). The configuration defaults to %H:%M:%S, which means 12 o'clock is 12:00:00. (And if you are happy with that, you do not have to do anything to make it work, only if you want something different.)<p>The interval format is {xH yM zS} where x, y, and z are all integers and stand for hours, minutes, and seconds. See examples for usage.</p><p>This command will take a target time-of-day, and some interval before and after it, it will then see if the current time-of-day is within that range around the target. If so, it will return 1, and, if not, then it will return 0.</p><p>You might use this command, for example, with a timer that goes off and has to check what time it is and then do something based on how close it is to some appointed time.</p><p>Options are:<br>
+1. BothExclusive (Second &lt; First &lt; Third).<br>
+2. BothInclusive (Second &lt;= First &lt;= Third).<br>
+3. LeftExclusive (Second &lt; First &lt;= Third).<br>
+4. LeftInclusive (Second &lt;= First &lt; Third).<br>
+5. RightExclusive (Second &lt;= First &lt; Third).<br>
+6. RightInclusive (Second &lt; First &lt;= Third).<br></p><p>Left and right are referring to the interval going around the target time, not the current time. So if the target time is 06:00:00 and the interval is an hour, then LeftInclusive includes 05:00:00, and RightInclusive includes 07:00:00. See examples to understand the options.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="currenttimeofdayisabout-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose it is now 12:00 PM<br>% <b>CurrentTimeOfDayIsAbout "12:30:00" "1H 0M 0S"</b><br>1<br>% CurrentTimeOfDayIsAbout "12:30:00" "0H 5M 0S"<br>0<br>% CurrentTimeOfDayIsAbout "13:00:00" "1H 0M 0S" RightInclusive<br>0<br>% CurrentTimeOfDayIsAbout "13:00:00" "1H 0M 0S" LeftInclusive<br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'currenttimeofdayisafter.html'>CurrentTimeOfDayIsAfter</a>, <a href = 'currenttimeofdayisbefore.html'>CurrentTimeOfDayIsBefore</a>, <a href = 'currenttimeofdayisbetween.html'>CurrentTimeOfDayIsBetween</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_clock">clock</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

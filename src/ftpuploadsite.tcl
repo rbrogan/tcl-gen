@@ -3,7 +3,6 @@ proc FtpUploadSite {LocalDirectory RemoteDirectory} {
      set OriginalLocation [pwd]
      # Open connection
      set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
-               DbgPrint ccc
      if {$FtpHandle == -1} {
           error "FTP: Could not open connection!"
      } else {

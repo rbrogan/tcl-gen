@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.9.0
+1.10.0
 % set Number 1
 1
 % AddTo Number 2
@@ -104,8 +104,8 @@ You should be all set!
 
 ---04| DEPENDENCIES
 
-Gen uses the following packages, which you likely will already have got in your
-Tcl distribution:
+Gen CAN use the following packages, but they are not strictly necessary (see
+below). You likely will already have got them as part of your Tcl distribution:
 * sqlite3
 * Tclx
 * textutil::adjust
@@ -143,7 +143,7 @@ WARNING.txt
 /src
      Source files
      pkgIndex.tcl
-          Used by the TCL package mechanism.
+          Used by the Tcl package mechanism.
      gen.tcl
           Main script file.
      gen-config.tcl
@@ -319,8 +319,12 @@ release is coming out.
 
 ---18| RECENT CHANGES
 
-Version 1.9.0. You can find a change summary in news.txt / news.html and details
-in changelog.txt / changelog.html.
+Version 1.10.0. Changed how the Partial Loading feature works. If you try to use
+a command which does not have both the package and version it needs, it will
+print out a message telling you what is missing. Also, introduced experimental
+feature (disabled by default) with which you can put Gen commands into their own
+namespace and auto-import from that namespace. You can find a change summary in
+news.txt / news.html and details in changelog.txt / changelog.html.
 
 ---19| LICENSE
 
