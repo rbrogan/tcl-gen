@@ -12,7 +12,7 @@ set ::GenNS::LoadingNS::CommandsInPackage(ftp) { {ftp::Cd 2.4.13} {ftp::List 2.4
 
 set ::GenNS::LoadingNS::CommandsInPackage(registry) { {registry 1.3.0} }
 
-set ::GenNS::LoadingNS::CommandsInPackage(sqlite3) { {sqlite3 3.8.6} }
+set ::GenNS::LoadingNS::CommandsInPackage(sqlite3) { {sqlite3 3.5.9} }
 
 set ::GenNS::LoadingNS::CommandsInPackage(textutil::adjust) { {::textutil::adjust::adjust 0.7.1} }
 
@@ -46,7 +46,7 @@ set ::GenNS::LoadingNS::DependentsList(DatetimeIsBefore) {DatetimeIsAtOrAfter}
 
 set ::GenNS::LoadingNS::DependentsList(DatetimePlus) {DatetimeMinus}
 
-set ::GenNS::LoadingNS::DependentsList(DbgPrint) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpUploadDirectory FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(DbgPrint) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpUploadDirectory}
 
 set ::GenNS::LoadingNS::DependentsList(Decr) {SplitNTimes}
 
@@ -104,7 +104,7 @@ set ::GenNS::LoadingNS::DependentsList(List2File) {LimitLineLengthInFile}
 
 set ::GenNS::LoadingNS::DependentsList(MultiplyBy) {DatetimePlus DatePlus}
 
-set ::GenNS::LoadingNS::DependentsList(NotEmpty) {File2String UpvarX Decr File2List FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadDirectory FtpUploadSite PrintMatrix RestoreWorkingDirectory RunSqlEnter SplitAndTrim FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(NotEmpty) {File2String UpvarX Decr File2List FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadDirectory FtpUploadSite PrintMatrix RestoreWorkingDirectory RunSqlEnter SplitAndTrim}
 
 set ::GenNS::LoadingNS::DependentsList(PrintDict) {RegistryPrint}
 
@@ -180,15 +180,15 @@ set ::GenNS::LoadingNS::DependentsList(UpvarX) {AddTo Decr LappendIfNotAlready L
 
 set ::GenNS::LoadingNS::DependentsList(VarExistsInCaller) {UpvarX UpvarExistingOrDie}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Close) {FtpDownloadSite FtpMirrorLocalToRemote FtpMirrorRemoteToLocal FtpUploadSite FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Close) {FtpDownloadSite FtpMirrorLocalToRemote FtpMirrorRemoteToLocal FtpUploadSite}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Delete) {FtpCleanRemoteDirectory FtpUploadDirectory}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::FileSize) {FtpIsDirectoryOnRemote FtpWhichIsLarger}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Get) {FtpDownloadDirectory FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Get) {FtpDownloadDirectory}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::List) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpUploadDirectory}
 
@@ -198,13 +198,13 @@ set ::GenNS::LoadingNS::DependentsList(ftp::ModTime) {FtpWhichIsNewer}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::NList) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpUploadDirectory}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Open) {FtpMirrorRemoteToLocal FtpUploadSite FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Open) {FtpMirrorRemoteToLocal FtpUploadSite}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Put) {FtpUploadDirectory FtpUploadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Put) {FtpUploadDirectory}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::RmDir) {FtpCleanRemoteDirectory FtpUploadDirectory}
 
-set ::GenNS::LoadingNS::DependentsList(ftp::Type) {FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadSite FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(ftp::Type) {FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadSite}
 
 set ::GenNS::LoadingNS::DependentsList(lvarpop) {ChangeCasing SqliteColumnNameAndTypeList}
 
@@ -212,7 +212,7 @@ set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVaria
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
-set ::GenNS::LoadingNS::DependentsList(try) {FtpUploadFiles FtpDownloadFiles}
+set ::GenNS::LoadingNS::DependentsList(try) {}
 
 set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX}
 set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty}
@@ -264,13 +264,11 @@ set ::GenNS::LoadingNS::DependencyList(Flip) { IsNonNumeric UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(ForeachRecord) { IsEmpty QQ}
 set ::GenNS::LoadingNS::DependencyList(FtpCleanRemoteDirectory) { DbgPrint FtpIsDirectoryOnRemote NotEmpty ftp::Cd ftp::Delete ftp::List ftp::NList ftp::RmDir}
 set ::GenNS::LoadingNS::DependencyList(FtpDownloadDirectory) { DbgPrint FindAndRemove FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Get ftp::List ftp::NList}
-set ::GenNS::LoadingNS::DependencyList(FtpDownloadFiles) { DbgPrint NotEmpty ftp::Cd ftp::Close ftp::Get ftp::Open ftp::Type try}
 set ::GenNS::LoadingNS::DependencyList(FtpDownloadSite) { FtpDownloadDirectory NotEmpty RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close ftp::Type}
 set ::GenNS::LoadingNS::DependencyList(FtpIsDirectoryOnRemote) { ftp::FileSize}
 set ::GenNS::LoadingNS::DependencyList(FtpMirrorLocalToRemote) { FtpUploadDirectory RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close}
 set ::GenNS::LoadingNS::DependencyList(FtpMirrorRemoteToLocal) { FtpDownloadDirectory NotEmpty ftp::Close ftp::Open ftp::Type}
 set ::GenNS::LoadingNS::DependencyList(FtpUploadDirectory) { DbgPrint FindAndRemove FtpCleanRemoteDirectory FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Delete ftp::List ftp::MkDir ftp::NList ftp::Put ftp::RmDir}
-set ::GenNS::LoadingNS::DependencyList(FtpUploadFiles) { DbgPrint NotEmpty ftp::Cd ftp::Close ftp::Open ftp::Put ftp::Type try}
 set ::GenNS::LoadingNS::DependencyList(FtpUploadSite) { FtpUploadDirectory NotEmpty ftp::Cd ftp::Close ftp::Open ftp::Type}
 set ::GenNS::LoadingNS::DependencyList(FtpWhichIsLarger) { IsEmpty ftp::FileSize}
 set ::GenNS::LoadingNS::DependencyList(FtpWhichIsNewer) { IsEmpty ftp::ModTime}
