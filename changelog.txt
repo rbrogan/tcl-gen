@@ -2,6 +2,36 @@ Gen
 
 CHANGELOG
 
+2015.12.07
+v1.10.1
+
+Changes by functionality
+     CN_0001
+          Take out attempts to load unreleased commands. (Fix for KI_0001.)
+          Reduce sqlite version requirement. (Partial fix for KI_0002.)
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          known-issues.html
+               Add new issues.
+          latest-fixes.html
+               Add latest fixes.
+
+     /src
+          copyallfilesintodirectory.tcl
+               Removed (extraneous).
+          deleteonlyfilesindirectory.tcl
+               Removed (extraneous).
+          loading-module-data.tcl
+               Take out references to unreleased commands (CN_0001 / KI_0001).
+               Reduce sqlite version requirement (CN_0001 / KI_0002).
+          
+          
 2015.11.16
 v1.10.0
 

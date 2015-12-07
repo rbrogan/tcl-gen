@@ -31,6 +31,62 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.10.1</div><div class="section-header-right">2015.12.07</div>
+</div>
+<div class="section-content">
+<p>
+Changes by functionality<br>
+<ul>
+<li>CN_0001
+<ul>
+<li>Take out attempts to load unreleased commands. (Fix for KI_0001.)</li>
+<li>Reduce sqlite version requirement. (Partial fix for KI_0002.)</li>
+</ul>
+</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>known-issues.html
+<ul>
+<li>Add new issues.</li>
+<li>Add latest fixes.</li>
+</ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>copyallfilesintodirectory.tcl</li>
+<ul><li>Removed (extraneous).</li></ul>
+<li>deleteonlyfilesindirectory.tcl</li>
+<ul><li>Removed (extraneous).</li></ul>
+<li>loading-module-data.tcl
+<ul>
+<li>Take out references to unreleased commands (CN_0001 / KI_0001).</li>
+<li>Reduce sqlite version requirement (CN_0001 / KI_0002).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+<div class="section-header">
 <div class="section-header-left">1.10.0</div><div class="section-header-right">2015.11.16</div>
 </div>
 <div class="section-content">

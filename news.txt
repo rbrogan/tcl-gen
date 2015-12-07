@@ -2,6 +2,14 @@ Gen
 
 NEWS
 
+2015.12.07
+
+v1.10.1 Revision
+
+CN_0001
+     Take out attempts to load unreleased commands. (Fix for KI_0001.) 
+     Reduce sqlite version requirement. (Partial fix for KI_0002.)
+
 2015.11.16
 v1.10.0 Release
 
