@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval MultiplyHhmmssTest {}
 
@@ -7,7 +8,7 @@ namespace eval MultiplyHhmmssTest {}
 
 proc MultiplyHhmmssTest::Test-1 {} {
 
-::tcltest::test MultiplyHhmmss-0 {Basic test}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:02:03 2}  -cleanup {}  -result {02:04:06}  -output {}  -returnCodes {0}  
+::tcltest::test MultiplyHhmmss-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:02:03 2}  -cleanup {}  -result {02:04:06}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc MultiplyHhmmssTest::Test-1 {} {
 
 proc MultiplyHhmmssTest::Test-2 {} {
 
-::tcltest::test MultiplyHhmmss-1 {Multiplier is real number}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:02:04 1.5}  -cleanup {}  -result {01:33:06}  -output {}  -returnCodes {0}  
+::tcltest::test MultiplyHhmmss-1 {Multiplier is real number}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:02:04 1.5}  -cleanup {}  -result {01:33:06}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc MultiplyHhmmssTest::Test-2 {} {
 
 proc MultiplyHhmmssTest::Test-3 {} {
 
-::tcltest::test MultiplyHhmmss-2 {Time is invalid}  -constraints {}  -setup {}  -body {MultiplyHhmmss asdf 2}  -cleanup {}  -result {Variable TimeVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test MultiplyHhmmss-2 {Time is invalid}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss asdf 2}  -cleanup {}  -result {Variable TimeVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -31,7 +32,7 @@ proc MultiplyHhmmssTest::Test-3 {} {
 
 proc MultiplyHhmmssTest::Test-4 {} {
 
-::tcltest::test MultiplyHhmmss-3 {Multiplier is invalid}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:02:03 asdf}  -cleanup {}  -result {Variable Multiplier has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test MultiplyHhmmss-3 {Multiplier is invalid}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:02:03 asdf}  -cleanup {}  -result {Variable Multiplier has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -39,7 +40,7 @@ proc MultiplyHhmmssTest::Test-4 {} {
 
 proc MultiplyHhmmssTest::Test-5 {} {
 
-::tcltest::test MultiplyHhmmss-4 {Round up number of seconds}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:00:01 0.5
+::tcltest::test MultiplyHhmmss-4 {Round up number of seconds}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:00:01 0.5
 }  -cleanup {}  -result {00:30:01}  -output {}  -returnCodes {0}  
 
 }
@@ -48,7 +49,7 @@ proc MultiplyHhmmssTest::Test-5 {} {
 
 proc MultiplyHhmmssTest::Test-6 {} {
 
-::tcltest::test MultiplyHhmmss-5 {Round down number of seconds}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:00:01 0.1
+::tcltest::test MultiplyHhmmss-5 {Round down number of seconds}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:00:01 0.1
 }  -cleanup {}  -result {00:06:00}  -output {}  -returnCodes {0}  
 
 }
@@ -57,7 +58,7 @@ proc MultiplyHhmmssTest::Test-6 {} {
 
 proc MultiplyHhmmssTest::Test-7 {} {
 
-::tcltest::test MultiplyHhmmss-6 {Use at designator}  -constraints {}  -setup {}  -body {set MyVar 01:00:00
+::tcltest::test MultiplyHhmmss-6 {Use at designator}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {set MyVar 01:00:00
 MultiplyHhmmss @MyVar 2
 puts $MyVar
 }  -cleanup {}  -result {}  -output {02:00:00
@@ -69,7 +70,7 @@ puts $MyVar
 
 proc MultiplyHhmmssTest::Test-8 {} {
 
-::tcltest::test MultiplyHhmmss-7 {TimeVariable is empty}  -constraints {}  -setup {}  -body {MultiplyHhmmss "" 1.0
+::tcltest::test MultiplyHhmmss-7 {TimeVariable is empty}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss "" 1.0
 }  -cleanup {}  -result {Variable TimeVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -78,7 +79,7 @@ proc MultiplyHhmmssTest::Test-8 {} {
 
 proc MultiplyHhmmssTest::Test-9 {} {
 
-::tcltest::test MultiplyHhmmss-8 {Multiplier is empty}  -constraints {}  -setup {}  -body {MultiplyHhmmss 01:00:00 ""}  -cleanup {}  -result {Variable Multiplier has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test MultiplyHhmmss-8 {Multiplier is empty}  -constraints {[expr [CheckAllDependenciesLoaded MultiplyHhmmss]]}  -setup {}  -body {MultiplyHhmmss 01:00:00 ""}  -cleanup {}  -result {Variable Multiplier has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

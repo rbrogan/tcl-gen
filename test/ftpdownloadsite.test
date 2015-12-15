@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpDownloadSiteTest {}
 
@@ -26,7 +27,7 @@ proc Test {RemoteDirectoryName ExpectedLocalDirectoryName} {
 
 proc FtpDownloadSiteTest::Test-1 {} {
 
-::tcltest::test FtpDownloadSite-0 {Basic test}  -constraints {}  -setup {FtpDownloadSiteTest::Setup one-file
+::tcltest::test FtpDownloadSite-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup one-file
 }  -body {FtpDownloadSiteTest::Test one-file one-file
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -37,7 +38,7 @@ proc FtpDownloadSiteTest::Test-1 {} {
 
 proc FtpDownloadSiteTest::Test-2 {} {
 
-::tcltest::test FtpDownloadSite-1 {Cannot connect to server}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Server 10.10.10.10
+::tcltest::test FtpDownloadSite-1 {Cannot connect to server}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Server 10.10.10.10
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -47,7 +48,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 
 proc FtpDownloadSiteTest::Test-3 {} {
 
-::tcltest::test FtpDownloadSite-2 {Username invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Username asldfkher
+::tcltest::test FtpDownloadSite-2 {Username invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Username asldfkher
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -57,7 +58,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 
 proc FtpDownloadSiteTest::Test-4 {} {
 
-::tcltest::test FtpDownloadSite-3 {Password invalid}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Password erifuhw
+::tcltest::test FtpDownloadSite-3 {Password invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::Password erifuhw
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -67,7 +68,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 
 proc FtpDownloadSiteTest::Test-5 {} {
 
-::tcltest::test FtpDownloadSite-4 {Cannot switch to local directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory asferer
+::tcltest::test FtpDownloadSite-4 {Cannot switch to local directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory asferer
 set ::TestRemoteDirectory one-file
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
@@ -83,7 +84,7 @@ set Result [Flip $Result]
 
 proc FtpDownloadSiteTest::Test-6 {} {
 
-::tcltest::test FtpDownloadSite-5 {Cannot switch to remote directory}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory one-file
+::tcltest::test FtpDownloadSite-5 {Cannot switch to remote directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set ::TestLocalDirectory one-file
 set ::TestRemoteDirectory asferfwer
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/$::TestRemoteDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$::TestLocalDirectory}]
 if {$Result == 0} {
@@ -99,7 +100,7 @@ set Result [Flip $Result]
 
 proc FtpDownloadSiteTest::Test-7 {} {
 
-::tcltest::test FtpDownloadSite-6 {Bad transfer type}  -constraints {}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::FileTransferType asldfkher
+::tcltest::test FtpDownloadSite-6 {Bad transfer type}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl}  -body {set GenNS::Ftp::FileTransferType asldfkher
 set Result [catch {FtpDownloadSite $GenTest::Ftp::RemoteRoot/downloadfrom/one-file $GenTest::Ftp::LocalRoot/downloadto/temp/one-file}]
 set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -109,7 +110,7 @@ set Result [Flip $Result]}  -cleanup {}  -result {0}  -output {}  -returnCodes {
 
 proc FtpDownloadSiteTest::Test-8 {} {
 
-::tcltest::test FtpDownloadSite-7 {Bad test}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpDownloadSite-7 {Bad test}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl
 set LocalDirectory one-file
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
@@ -129,7 +130,7 @@ set Result
 
 proc FtpDownloadSiteTest::Test-9 {} {
 
-::tcltest::test FtpDownloadSite-8 {Empty directory, nothing to upload}  -constraints {}  -setup {FtpDownloadSiteTest::Setup empty
+::tcltest::test FtpDownloadSite-8 {Empty directory, nothing to upload}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup empty
 }  -body {FtpDownloadSiteTest::Test empty empty
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -139,7 +140,7 @@ proc FtpDownloadSiteTest::Test-9 {} {
 
 proc FtpDownloadSiteTest::Test-10 {} {
 
-::tcltest::test FtpDownloadSite-9 {Has unmatched files}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-unmatched-files
+::tcltest::test FtpDownloadSite-9 {Has unmatched files}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-unmatched-files
 }  -body {FtpDownloadSiteTest::Test one-file has-unmatched-files
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -149,7 +150,7 @@ proc FtpDownloadSiteTest::Test-10 {} {
 
 proc FtpDownloadSiteTest::Test-11 {} {
 
-::tcltest::test FtpDownloadSite-10 {Has unmatched directory}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-unmatched-subdir
+::tcltest::test FtpDownloadSite-10 {Has unmatched directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-unmatched-subdir
 }  -body {FtpDownloadSiteTest::Test one-file has-unmatched-subdir
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -159,7 +160,7 @@ proc FtpDownloadSiteTest::Test-11 {} {
 
 proc FtpDownloadSiteTest::Test-12 {} {
 
-::tcltest::test FtpDownloadSite-11 {Has existing files with same name}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-one-file-already
+::tcltest::test FtpDownloadSite-11 {Has existing files with same name}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-one-file-already
 }  -body {FtpDownloadSiteTest::Test one-file has-one-file-already
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -169,7 +170,7 @@ proc FtpDownloadSiteTest::Test-12 {} {
 
 proc FtpDownloadSiteTest::Test-13 {} {
 
-::tcltest::test FtpDownloadSite-12 {Has existing directory with same name}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir-already
+::tcltest::test FtpDownloadSite-12 {Has existing directory with same name}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-subdir-already
 }  -body {FtpDownloadSiteTest::Test has-subdir has-subdir-already
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -179,7 +180,7 @@ proc FtpDownloadSiteTest::Test-13 {} {
 
 proc FtpDownloadSiteTest::Test-14 {} {
 
-::tcltest::test FtpDownloadSite-13 {Must create new directory}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir
+::tcltest::test FtpDownloadSite-13 {Must create new directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-subdir
 }  -body {FtpDownloadSiteTest::Test has-subdir has-subdir
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -189,7 +190,7 @@ proc FtpDownloadSiteTest::Test-14 {} {
 
 proc FtpDownloadSiteTest::Test-15 {} {
 
-::tcltest::test FtpDownloadSite-14 {Has existing directory two levels deep}  -constraints {}  -setup {FtpDownloadSiteTest::Setup has-subdir-two-levels
+::tcltest::test FtpDownloadSite-14 {Has existing directory two levels deep}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {FtpDownloadSiteTest::Setup has-subdir-two-levels
 }  -body {FtpDownloadSiteTest::Test has-subdir-two-levels has-subdir-two-levels
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -199,7 +200,7 @@ proc FtpDownloadSiteTest::Test-15 {} {
 
 proc FtpDownloadSiteTest::Test-16 {} {
 
-::tcltest::test FtpDownloadSite-15 {Test dry run}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpDownloadSite-15 {Test dry run}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadSite]]}  -setup {source ftp-test-config.tcl
 set LocalDirectory one-file
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectory $GenTest::Ftp::LocalRoot/downloadto/temp/$LocalDirectory

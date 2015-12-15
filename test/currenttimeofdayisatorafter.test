@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CurrentTimeOfDayIsAtOrAfterTest {}
 
@@ -27,7 +28,7 @@ proc RestoreClock {} {
 
 proc CurrentTimeOfDayIsAtOrAfterTest::Test-1 {} {
 
-::tcltest::test CurrentTimeOfDayIsAtOrAfter-0 {Current time is at}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAtOrAfter-0 {Current time is at}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAtOrAfter]]}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsAtOrAfter 12:00:00
 }  -cleanup {::CurrentTimeOfDayIsAtOrAfterTest::RestoreClock
 }  -result {1}  -output {}  -returnCodes {0}  
@@ -38,7 +39,7 @@ proc CurrentTimeOfDayIsAtOrAfterTest::Test-1 {} {
 
 proc CurrentTimeOfDayIsAtOrAfterTest::Test-2 {} {
 
-::tcltest::test CurrentTimeOfDayIsAtOrAfter-1 {Current time is after}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAtOrAfter-1 {Current time is after}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAtOrAfter]]}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsAtOrAfter 11:59:00
 }  -cleanup {::CurrentTimeOfDayIsAtOrAfterTest::RestoreClock
 }  -result {1}  -output {}  -returnCodes {0}  
@@ -49,7 +50,7 @@ proc CurrentTimeOfDayIsAtOrAfterTest::Test-2 {} {
 
 proc CurrentTimeOfDayIsAtOrAfterTest::Test-3 {} {
 
-::tcltest::test CurrentTimeOfDayIsAtOrAfter-2 {Current time is before}  -constraints {}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAtOrAfter-2 {Current time is before}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAtOrAfter]]}  -setup {::CurrentTimeOfDayIsAtOrAfterTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsAtOrAfter 12:01:00
 }  -cleanup {::CurrentTimeOfDayIsAtOrAfterTest::RestoreClock
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -60,7 +61,7 @@ proc CurrentTimeOfDayIsAtOrAfterTest::Test-3 {} {
 
 proc CurrentTimeOfDayIsAtOrAfterTest::Test-4 {} {
 
-::tcltest::test CurrentTimeOfDayIsAtOrAfter-3 {TargetTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAtOrAfter asdf
+::tcltest::test CurrentTimeOfDayIsAtOrAfter-3 {TargetTimeOfDay is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAtOrAfter]]}  -setup {}  -body {CurrentTimeOfDayIsAtOrAfter asdf
 }  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }

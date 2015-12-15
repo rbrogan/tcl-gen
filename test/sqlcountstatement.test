@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqlCountStatementTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqlCountStatementTest {}
 
 proc SqlCountStatementTest::Test-1 {} {
 
-::tcltest::test SqlCountStatement-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqlCountStatement-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqlCountStatement]]}  -setup {sqlite3 testdb test.db
 }  -body {SqlCountStatement my_table {desc 'first'}
 }  -cleanup {}  -result {SELECT count(1) FROM my_table WHERE desc = 'first'}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ proc SqlCountStatementTest::Test-1 {} {
 
 proc SqlCountStatementTest::Test-2 {} {
 
-::tcltest::test SqlCountStatement-1 {Table name is empty}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqlCountStatement-1 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqlCountStatement]]}  -setup {sqlite3 testdb test.db
 }  -body {SqlCountStatement "" {desc first}
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 

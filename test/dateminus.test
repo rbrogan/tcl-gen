@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DateMinusTest {}
 
@@ -7,7 +8,7 @@ namespace eval DateMinusTest {}
 
 proc DateMinusTest::Test-1 {} {
 
-::tcltest::test DateMinus-0 {Basic test}  -constraints {}  -setup {}  -body {DateMinus {2001-02-10} {1Y 1M 1W 1D}}  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
+::tcltest::test DateMinus-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2001-02-10} {1Y 1M 1W 1D}}  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc DateMinusTest::Test-1 {} {
 
 proc DateMinusTest::Test-2 {} {
 
-::tcltest::test DateMinus-1 {At test}  -constraints {}  -setup {}  -body {set MyVar {2001-02-10}
+::tcltest::test DateMinus-1 {At test}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {set MyVar {2001-02-10}
 DateMinus @MyVar {1Y 1M 1W 1D}
 puts $MyVar
 }  -cleanup {}  -result {}  -output {2000-01-02
@@ -27,7 +28,7 @@ puts $MyVar
 
 proc DateMinusTest::Test-3 {} {
 
-::tcltest::test DateMinus-2 {Date is invalid}  -constraints {}  -setup {}  -body {DateMinus asdf asdf}  -cleanup {}  -result {Variable DateVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateMinus-2 {Date is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus asdf asdf}  -cleanup {}  -result {Variable DateVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -35,7 +36,7 @@ proc DateMinusTest::Test-3 {} {
 
 proc DateMinusTest::Test-4 {} {
 
-::tcltest::test DateMinus-3 {TimeAmount is invalid}  -constraints {}  -setup {}  -body {DateMinus {2000-01-02} asdf}  -cleanup {}  -result {Variable TimeAmount has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateMinus-3 {TimeAmount is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-01-02} asdf}  -cleanup {}  -result {Variable TimeAmount has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -43,7 +44,7 @@ proc DateMinusTest::Test-4 {} {
 
 proc DateMinusTest::Test-5 {} {
 
-::tcltest::test DateMinus-4 {Test years}  -constraints {}  -setup {}  -body {DateMinus {2010-01-02} {10Y 0M 0W 0D}
+::tcltest::test DateMinus-4 {Test years}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2010-01-02} {10Y 0M 0W 0D}
 }  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
@@ -52,7 +53,7 @@ proc DateMinusTest::Test-5 {} {
 
 proc DateMinusTest::Test-6 {} {
 
-::tcltest::test DateMinus-5 {Test months}  -constraints {}  -setup {}  -body {DateMinus {2000-02-02} {0Y 1M 0W 0D}
+::tcltest::test DateMinus-5 {Test months}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-02-02} {0Y 1M 0W 0D}
 }  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
@@ -61,7 +62,7 @@ proc DateMinusTest::Test-6 {} {
 
 proc DateMinusTest::Test-7 {} {
 
-::tcltest::test DateMinus-6 {Test months 2}  -constraints {}  -setup {}  -body {DateMinus {2001-01-02} {0Y 12M 0W 0D}
+::tcltest::test DateMinus-6 {Test months 2}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2001-01-02} {0Y 12M 0W 0D}
 }  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
@@ -70,7 +71,7 @@ proc DateMinusTest::Test-7 {} {
 
 proc DateMinusTest::Test-8 {} {
 
-::tcltest::test DateMinus-7 {Test months 3}  -constraints {}  -setup {}  -body {DateMinus {2002-02-02} {0Y 26M 0W 0D}
+::tcltest::test DateMinus-7 {Test months 3}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2002-02-02} {0Y 26M 0W 0D}
 }  -cleanup {}  -result {1999-12-02}  -output {}  -returnCodes {0}  
 
 }
@@ -79,7 +80,7 @@ proc DateMinusTest::Test-8 {} {
 
 proc DateMinusTest::Test-9 {} {
 
-::tcltest::test DateMinus-8 {Test days}  -constraints {}  -setup {}  -body {DateMinus {2000-02-01} {0Y 0M 0W 30D}
+::tcltest::test DateMinus-8 {Test days}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-02-01} {0Y 0M 0W 30D}
 }  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
@@ -88,7 +89,7 @@ proc DateMinusTest::Test-9 {} {
 
 proc DateMinusTest::Test-10 {} {
 
-::tcltest::test DateMinus-9 {Test weeks}  -constraints {}  -setup {}  -body {DateMinus {2000-02-06} {0Y 0M 5W 0D}
+::tcltest::test DateMinus-9 {Test weeks}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-02-06} {0Y 0M 5W 0D}
 }  -cleanup {}  -result {2000-01-02}  -output {}  -returnCodes {0}  
 
 }
@@ -97,7 +98,7 @@ proc DateMinusTest::Test-10 {} {
 
 proc DateMinusTest::Test-11 {} {
 
-::tcltest::test DateMinus-10 {Test leap year}  -constraints {}  -setup {}  -body {DateMinus {2000-03-01} {0Y 0M 0W 2D}
+::tcltest::test DateMinus-10 {Test leap year}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-03-01} {0Y 0M 0W 2D}
 }  -cleanup {}  -result {2000-02-28}  -output {}  -returnCodes {0}  
 
 }
@@ -106,7 +107,7 @@ proc DateMinusTest::Test-11 {} {
 
 proc DateMinusTest::Test-12 {} {
 
-::tcltest::test DateMinus-11 {Test negative values}  -constraints {}  -setup {}  -body {DateMinus {2000-01-02} {-1Y -1M -1W -1D}
+::tcltest::test DateMinus-11 {Test negative values}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-01-02} {-1Y -1M -1W -1D}
 }  -cleanup {}  -result {2001-02-10}  -output {}  -returnCodes {0}  
 
 }
@@ -115,7 +116,7 @@ proc DateMinusTest::Test-12 {} {
 
 proc DateMinusTest::Test-13 {} {
 
-::tcltest::test DateMinus-12 {Subtract from a month with more days into one with fewer}  -constraints {}  -setup {}  -body {DateMinus {2000-05-31} {0Y 1M 0W 0D}
+::tcltest::test DateMinus-12 {Subtract from a month with more days into one with fewer}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2000-05-31} {0Y 1M 0W 0D}
 }  -cleanup {}  -result {2000-05-01}  -output {}  -returnCodes {0}  
 
 }
@@ -124,7 +125,7 @@ proc DateMinusTest::Test-13 {} {
 
 proc DateMinusTest::Test-14 {} {
 
-::tcltest::test DateMinus-13 {Subtract one and four years from February 29th}  -constraints {}  -setup {}  -body {set One [DateMinus {2004-02-29} {1Y 0M 0W 0D}]
+::tcltest::test DateMinus-13 {Subtract one and four years from February 29th}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {set One [DateMinus {2004-02-29} {1Y 0M 0W 0D}]
 set Two [DateMinus {2004-02-29} {4Y 0M 0W 0D}]
 puts $One
 puts $Two
@@ -138,7 +139,7 @@ puts $Two
 
 proc DateMinusTest::Test-15 {} {
 
-::tcltest::test DateMinus-14 {Use invalid date that clock scan would accept}  -constraints {}  -setup {}  -body {DateMinus {2003-02-29} {0Y 1M 0W 1D}
+::tcltest::test DateMinus-14 {Use invalid date that clock scan would accept}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {DateMinus {2003-02-29} {0Y 1M 0W 1D}
 }  -cleanup {}  -result {2003-01-31}  -output {}  -returnCodes {0}  
 
 }
@@ -147,7 +148,7 @@ proc DateMinusTest::Test-15 {} {
 
 proc DateMinusTest::Test-16 {} {
 
-::tcltest::test DateMinus-15 {Subtract and add a month between months with 31/30}  -constraints {}  -setup {}  -body {set Temp [DateMinus {2001-05-31} {0Y 1M 0W 0D}]
+::tcltest::test DateMinus-15 {Subtract and add a month between months with 31/30}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {set Temp [DateMinus {2001-05-31} {0Y 1M 0W 0D}]
 DateMinus $Temp {0Y -1M 0W 0D}
 }  -cleanup {}  -result {2001-06-01}  -output {}  -returnCodes {0}  
 
@@ -157,7 +158,7 @@ DateMinus $Temp {0Y -1M 0W 0D}
 
 proc DateMinusTest::Test-17 {} {
 
-::tcltest::test DateMinus-16 {Test effect of subtracting a month and day}  -constraints {}  -setup {}  -body {set One [DateMinus {2000-05-02} {0Y 1M 0W 1D}]
+::tcltest::test DateMinus-16 {Test effect of subtracting a month and day}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {set One [DateMinus {2000-05-02} {0Y 1M 0W 1D}]
 set Two [DateMinus {2000-05-31} {0Y 1M 0W 1D}]
 puts $One
 puts $Two
@@ -171,7 +172,7 @@ puts $Two
 
 proc DateMinusTest::Test-18 {} {
 
-::tcltest::test DateMinus-17 {Use alternative date format}  -constraints {}  -setup {}  -body {set GenNS::DateFormat {%m/%d/%Y}
+::tcltest::test DateMinus-17 {Use alternative date format}  -constraints {[expr [CheckAllDependenciesLoaded DateMinus]]}  -setup {}  -body {set GenNS::DateFormat {%m/%d/%Y}
 DateMinus {05/01/2000} {0Y 1M 0W 1D}
 }  -cleanup {set GenNS::DateFormat %Y-%m-%d
 }  -result {03/31/2000}  -output {}  -returnCodes {0}  

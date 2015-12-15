@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval EvalListTest {}
 
@@ -7,7 +8,7 @@ namespace eval EvalListTest {}
 
 proc EvalListTest::Test-1 {} {
 
-::tcltest::test EvalList-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList {{puts One} {puts Two}}
+::tcltest::test EvalList-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded EvalList]]}  -setup {}  -body {set MyList {{puts One} {puts Two}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 Two
 }  -returnCodes {0}  
@@ -18,7 +19,7 @@ Two
 
 proc EvalListTest::Test-2 {} {
 
-::tcltest::test EvalList-1 {Empty list}  -constraints {}  -setup {}  -body {set MyList {}
+::tcltest::test EvalList-1 {Empty list}  -constraints {[expr [CheckAllDependenciesLoaded EvalList]]}  -setup {}  -body {set MyList {}
 EvalList $MyList}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -27,7 +28,7 @@ EvalList $MyList}  -cleanup {}  -result {}  -output {}  -returnCodes {0}
 
 proc EvalListTest::Test-3 {} {
 
-::tcltest::test EvalList-2 {One element}  -constraints {}  -setup {}  -body {set MyList {{puts One}}
+::tcltest::test EvalList-2 {One element}  -constraints {[expr [CheckAllDependenciesLoaded EvalList]]}  -setup {}  -body {set MyList {{puts One}}
 EvalList $MyList}  -cleanup {}  -result {}  -output {One
 }  -returnCodes {0}  
 

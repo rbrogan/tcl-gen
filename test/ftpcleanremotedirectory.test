@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpCleanRemoteDirectoryTest {}
 
@@ -7,7 +8,7 @@ namespace eval FtpCleanRemoteDirectoryTest {}
 
 proc FtpCleanRemoteDirectoryTest::Test-1 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-0 {Basic test}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 ::GenTest::Ftp::RunRemote "./ResetDirectory.sh one-file"
 }  -body {set RemoteDirectory one-file
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -41,7 +42,7 @@ if {$Ok == 1} {
 
 proc FtpCleanRemoteDirectoryTest::Test-2 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-1 {Remote directory does not exist}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-1 {Remote directory does not exist}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 }  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
 if {$FtpHandle == -1} {
      error "FTP: Could not open connection!"
@@ -61,7 +62,7 @@ if {$FtpHandle == -1} {
 
 proc FtpCleanRemoteDirectoryTest::Test-3 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-2 {No ftp connection}  -constraints {}  -setup {}  -body {set FtpHandle -1
+::tcltest::test FtpCleanRemoteDirectory-2 {No ftp connection}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {}  -body {set FtpHandle -1
 FtpCleanRemoteDirectory $FtpHandle .
 }  -cleanup {}  -result {FTP: Could not change into remote directory .. Quitting.}  -output {}  -returnCodes {1}  
 
@@ -71,7 +72,7 @@ FtpCleanRemoteDirectory $FtpHandle .
 
 proc FtpCleanRemoteDirectoryTest::Test-4 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-3 {Empty already}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-3 {Empty already}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 ::GenTest::Ftp::RunRemote "./ResetDirectory.sh empty-already"
 }  -body {set RemoteDirectory empty-already
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -104,7 +105,7 @@ if {$Ok == 1} {
 
 proc FtpCleanRemoteDirectoryTest::Test-5 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-4 {Has empty subdir}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-4 {Has empty subdir}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 ::GenTest::Ftp::RunRemote "./ResetDirectory.sh has-empty-subdir"
 }  -body {set RemoteDirectory has-empty-subdir
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -137,7 +138,7 @@ if {$Ok == 1} {
 
 proc FtpCleanRemoteDirectoryTest::Test-6 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-5 {Has subdir with file}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-5 {Has subdir with file}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 ::GenTest::Ftp::RunRemote "./ResetDirectory.sh has-subdir-with-file"
 }  -body {set RemoteDirectory has-subdir-with-file
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -170,7 +171,7 @@ if {$Ok == 1} {
 
 proc FtpCleanRemoteDirectoryTest::Test-7 {} {
 
-::tcltest::test FtpCleanRemoteDirectory-6 {Two files}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpCleanRemoteDirectory-6 {Two files}  -constraints {[expr [CheckAllDependenciesLoaded FtpCleanRemoteDirectory]]}  -setup {source ftp-test-config.tcl
 ::GenTest::Ftp::RunRemote "./ResetDirectory.sh two-files"
 }  -body {set RemoteDirectory two-files
 set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]

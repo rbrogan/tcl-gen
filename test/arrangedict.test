@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ArrangeDictTest {}
 
@@ -7,7 +8,7 @@ namespace eval ArrangeDictTest {}
 
 proc ArrangeDictTest::Test-1 {} {
 
-::tcltest::test ArrangeDict-0 {Illustration}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
+::tcltest::test ArrangeDict-0 {Illustration}  -constraints {[expr [CheckAllDependenciesLoaded ArrangeDict]]}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
 dict for {Key Value} [ArrangeDict $MyDict {three two one}] { puts "$Key = $Value" }
 }  -cleanup {}  -result {}  -output {one = uno
@@ -24,7 +25,7 @@ one = uno
 
 proc ArrangeDictTest::Test-2 {} {
 
-::tcltest::test ArrangeDict-1 {Empty Dict}  -constraints {}  -setup {}  -body {ArrangeDict "" {one two three}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ArrangeDict-1 {Empty Dict}  -constraints {[expr [CheckAllDependenciesLoaded ArrangeDict]]}  -setup {}  -body {ArrangeDict "" {one two three}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -32,7 +33,7 @@ proc ArrangeDictTest::Test-2 {} {
 
 proc ArrangeDictTest::Test-3 {} {
 
-::tcltest::test ArrangeDict-2 {Empty List}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos]
+::tcltest::test ArrangeDict-2 {Empty List}  -constraints {[expr [CheckAllDependenciesLoaded ArrangeDict]]}  -setup {}  -body {set MyDict [dict create one uno two dos]
 ArrangeDict $MyDict {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -41,7 +42,7 @@ ArrangeDict $MyDict {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}
 
 proc ArrangeDictTest::Test-4 {} {
 
-::tcltest::test ArrangeDict-3 {Test at}  -constraints {}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
+::tcltest::test ArrangeDict-3 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded ArrangeDict]]}  -setup {}  -body {set MyDict [dict create one uno two dos three tres]
 dict for {Key Value} $MyDict { puts "$Key = $Value" }
 ArrangeDict @MyDict {three two one}
 dict for {Key Value} $MyDict { puts "$Key = $Value" }

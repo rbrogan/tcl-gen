@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpUploadSiteTest {}
 
@@ -24,7 +25,7 @@ proc Test {LocalDirectoryName ExpectedRemoteDirectory} {
 
 proc FtpUploadSiteTest::Test-1 {} {
 
-::tcltest::test FtpUploadSite-0 {Basic test}  -constraints {}  -setup {FtpUploadSiteTest::Setup one-file
+::tcltest::test FtpUploadSite-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup one-file
 }  -body {FtpUploadSiteTest::Test one-file FtpUploadSite/one-file
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -35,7 +36,7 @@ proc FtpUploadSiteTest::Test-1 {} {
 
 proc FtpUploadSiteTest::Test-2 {} {
 
-::tcltest::test FtpUploadSite-1 {Cannot connect to server}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-1 {Cannot connect to server}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenNS::Ftp::Server 10.10.10.10
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -48,7 +49,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
 
 proc FtpUploadSiteTest::Test-3 {} {
 
-::tcltest::test FtpUploadSite-2 {Username invalid}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-2 {Username invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenNS::Ftp::Username asdfqwersdfg
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -62,7 +63,7 @@ set Result [Flip $Result]
 
 proc FtpUploadSiteTest::Test-4 {} {
 
-::tcltest::test FtpUploadSite-3 {Password invalid}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-3 {Password invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenNS::Ftp::Password erfjwepoijaspdi
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -75,7 +76,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
 
 proc FtpUploadSiteTest::Test-5 {} {
 
-::tcltest::test FtpUploadSite-4 {Cannot switch to local directory}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-4 {Cannot switch to local directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenTest::Ftp::LocalRoot eporfjwepoijr
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -88,7 +89,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
 
 proc FtpUploadSiteTest::Test-6 {} {
 
-::tcltest::test FtpUploadSite-5 {Cannot switch to remote directory}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-5 {Cannot switch to remote directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenTest::Ftp::RemoteRoot eporfjwepoijr
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -101,7 +102,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory
 
 proc FtpUploadSiteTest::Test-7 {} {
 
-::tcltest::test FtpUploadSite-6 {Bad transfer type}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpUploadSite-6 {Bad transfer type}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {source ftp-test-config.tcl
 SaveWorkingDirectory
 }  -body {set GenNS::Ftp::FileTransferType asdf
 set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp/one-file}]
@@ -115,7 +116,7 @@ set Result [Flip $Result]
 
 proc FtpUploadSiteTest::Test-8 {} {
 
-::tcltest::test FtpUploadSite-7 {Bad test}  -constraints {}  -setup {FtpUploadSiteTest::Setup empty
+::tcltest::test FtpUploadSite-7 {Bad test}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup empty
 }  -body {set Result [catch {FtpUploadSite $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 if {$Result == 0} {
      set Result [$GenTest::Ftp::DiffRemoteDirectoriesCommandName FtpUploadSite/empty]
@@ -130,7 +131,7 @@ set Result
 
 proc FtpUploadSiteTest::Test-9 {} {
 
-::tcltest::test FtpUploadSite-8 {Dry run}  -constraints {}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test FtpUploadSite-8 {Dry run}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -138,7 +139,7 @@ proc FtpUploadSiteTest::Test-9 {} {
 
 proc FtpUploadSiteTest::Test-10 {} {
 
-::tcltest::test FtpUploadSite-9 {Empty directory, nothing to upload}  -constraints {}  -setup {FtpUploadSiteTest::Setup empty}  -body {FtpUploadSiteTest::Test empty FtpUploadSite/empty
+::tcltest::test FtpUploadSite-9 {Empty directory, nothing to upload}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup empty}  -body {FtpUploadSiteTest::Test empty FtpUploadSite/empty
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
 
@@ -148,7 +149,7 @@ proc FtpUploadSiteTest::Test-10 {} {
 
 proc FtpUploadSiteTest::Test-11 {} {
 
-::tcltest::test FtpUploadSite-10 {Has unmatched files}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-unmatched-files
+::tcltest::test FtpUploadSite-10 {Has unmatched files}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-unmatched-files
 }  -body {FtpUploadSiteTest::Test one-file FtpUploadSite/has-unmatched-files
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -159,7 +160,7 @@ proc FtpUploadSiteTest::Test-11 {} {
 
 proc FtpUploadSiteTest::Test-12 {} {
 
-::tcltest::test FtpUploadSite-11 {Has unmatched directory}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-unmatched-subdir
+::tcltest::test FtpUploadSite-11 {Has unmatched directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-unmatched-subdir
 }  -body {FtpUploadSiteTest::Test one-file FtpUploadSite/has-unmatched-subdir
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -170,7 +171,7 @@ proc FtpUploadSiteTest::Test-12 {} {
 
 proc FtpUploadSiteTest::Test-13 {} {
 
-::tcltest::test FtpUploadSite-12 {Has existing files with same name}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-one-file-already
+::tcltest::test FtpUploadSite-12 {Has existing files with same name}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-one-file-already
 }  -body {FtpUploadSiteTest::Test one-file FtpUploadSite/has-one-file-already
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -181,7 +182,7 @@ proc FtpUploadSiteTest::Test-13 {} {
 
 proc FtpUploadSiteTest::Test-14 {} {
 
-::tcltest::test FtpUploadSite-13 {Has existing directory with same name}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-subdir-already
+::tcltest::test FtpUploadSite-13 {Has existing directory with same name}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-subdir-already
 }  -body {FtpUploadSiteTest::Test has-subdir FtpUploadSite/has-subdir-already
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -192,7 +193,7 @@ proc FtpUploadSiteTest::Test-14 {} {
 
 proc FtpUploadSiteTest::Test-15 {} {
 
-::tcltest::test FtpUploadSite-14 {Must create new directory}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-subdir
+::tcltest::test FtpUploadSite-14 {Must create new directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-subdir
 }  -body {FtpUploadSiteTest::Test has-subdir FtpUploadSite/has-subdir
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -203,7 +204,7 @@ proc FtpUploadSiteTest::Test-15 {} {
 
 proc FtpUploadSiteTest::Test-16 {} {
 
-::tcltest::test FtpUploadSite-15 {Has existing directory two levels deep}  -constraints {}  -setup {FtpUploadSiteTest::Setup has-subdir-two-levels
+::tcltest::test FtpUploadSite-15 {Has existing directory two levels deep}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadSite]]}  -setup {FtpUploadSiteTest::Setup has-subdir-two-levels
 }  -body {FtpUploadSiteTest::Test has-subdir-two-levels FtpUploadSite/has-subdir-two-levels
 }  -cleanup {RestoreWorkingDirectory
 }  -result {0}  -output {}  -returnCodes {0}  

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DecrDbGlobalTest {}
 
@@ -7,7 +8,7 @@ namespace eval DecrDbGlobalTest {}
 
 proc DecrDbGlobalTest::Test-1 {} {
 
-::tcltest::test DecrDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test DecrDbGlobal-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable
 GetDbGlobal MyDecrVariable text
@@ -19,7 +20,7 @@ GetDbGlobal MyDecrVariable text
 
 proc DecrDbGlobalTest::Test-2 {} {
 
-::tcltest::test DecrDbGlobal-1 {Variable does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test DecrDbGlobal-1 {Variable does not exist}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {sqlite3 testdb test.db
 }  -body {UnsetDbGlobal MyVariable
 DecrDbGlobal MyVariable
 GetDbGlobal MyVariable
@@ -31,7 +32,7 @@ GetDbGlobal MyVariable
 
 proc DecrDbGlobalTest::Test-3 {} {
 
-::tcltest::test DecrDbGlobal-2 {Variable does not hold numerical value}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test DecrDbGlobal-2 {Variable does not hold numerical value}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable abc
 DecrDbGlobal MyDecrVariable
 }  -cleanup {}  -result {Variable MyDecrVariable has invalid value abc.}  -output {}  -returnCodes {1}  
@@ -42,7 +43,7 @@ DecrDbGlobal MyDecrVariable
 
 proc DecrDbGlobalTest::Test-4 {} {
 
-::tcltest::test DecrDbGlobal-3 {VarName is empty}  -constraints {}  -setup {}  -body {DecrDbGlobal ""
+::tcltest::test DecrDbGlobal-3 {VarName is empty}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {}  -body {DecrDbGlobal ""
 }  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
@@ -51,7 +52,7 @@ proc DecrDbGlobalTest::Test-4 {} {
 
 proc DecrDbGlobalTest::Test-5 {} {
 
-::tcltest::test DecrDbGlobal-4 {Decrement by an amount}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test DecrDbGlobal-4 {Decrement by an amount}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {sqlite3 testdb test.db
 }  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable 2
 GetDbGlobal MyDecrVariable text
@@ -63,7 +64,7 @@ GetDbGlobal MyDecrVariable text
 
 proc DecrDbGlobalTest::Test-6 {} {
 
-::tcltest::test DecrDbGlobal-5 {Non-numeric value used for decrement amount}  -constraints {}  -setup {}  -body {SetDbGlobal MyDecrVariable 11
+::tcltest::test DecrDbGlobal-5 {Non-numeric value used for decrement amount}  -constraints {[expr [CheckAllDependenciesLoaded DecrDbGlobal]]}  -setup {}  -body {SetDbGlobal MyDecrVariable 11
 DecrDbGlobal MyDecrVariable asdf
 GetDbGlobal MyDecrVariable text
 }  -cleanup {}  -result {Amount is invalid. Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  

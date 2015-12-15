@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CurrentTimeOfDayIsBetweenTest {}
 
@@ -27,7 +28,7 @@ proc RestoreClock {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-1 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-0 {Current time-of-day is between earlier and later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-0 {Current time-of-day is between earlier and later}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsBetween 11:59:59 12:00:01
 }  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
 
@@ -39,7 +40,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-1 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-2 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-1 {Current time-of-day is earlier than the earlier}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-1 {Current time-of-day is earlier than the earlier}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsBetween 12:00:01 13:00:00
 }  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -50,7 +51,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-2 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-3 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-2 {Current time-of-day is at the earlier}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-2 {Current time-of-day is at the earlier}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsBetween 12:00:00 13:00:00]
 }  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
 }  -result {}  -output {0
@@ -62,7 +63,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-3 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-4 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-3 {Current time-of-day is later than the later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-3 {Current time-of-day is later than the later}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
 }  -body {CurrentTimeOfDayIsBetween 11:00:00 11:59:59
 }  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
 }  -result {0}  -output {}  -returnCodes {0}  
@@ -73,7 +74,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-4 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-5 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-4 {Current time-of-day is at the later}  -constraints {}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-4 {Current time-of-day is at the later}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {::CurrentTimeOfDayIsBetweenTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsBetween 11:00:00 12:00:00]
 
 }  -cleanup {::CurrentTimeOfDayIsBetweenTest::RestoreClock
@@ -86,7 +87,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-5 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-6 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-5 {EarlierTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsBetween asdf 12:00:00
+::tcltest::test CurrentTimeOfDayIsBetween-5 {EarlierTimeOfDay is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {}  -body {CurrentTimeOfDayIsBetween asdf 12:00:00
 }  -cleanup {}  -result {Variable EarlierTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -95,7 +96,7 @@ proc CurrentTimeOfDayIsBetweenTest::Test-6 {} {
 
 proc CurrentTimeOfDayIsBetweenTest::Test-7 {} {
 
-::tcltest::test CurrentTimeOfDayIsBetween-6 {LaterTimeOfDay is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsBetween 12:00:00 asdf
+::tcltest::test CurrentTimeOfDayIsBetween-6 {LaterTimeOfDay is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsBetween]]}  -setup {}  -body {CurrentTimeOfDayIsBetween 12:00:00 asdf
 }  -cleanup {}  -result {Variable LaterTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }

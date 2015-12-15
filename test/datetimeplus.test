@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DatetimePlusTest {}
 
@@ -7,7 +8,7 @@ namespace eval DatetimePlusTest {}
 
 proc DatetimePlusTest::Test-1 {} {
 
-::tcltest::test DatetimePlus-0 {Basic test}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {1Y 1M 1W 1D 1H 1M 1S}
+::tcltest::test DatetimePlus-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {1Y 1M 1W 1D 1H 1M 1S}
 }  -cleanup {}  -result {2001-02-10 04:05:06}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc DatetimePlusTest::Test-1 {} {
 
 proc DatetimePlusTest::Test-2 {} {
 
-::tcltest::test DatetimePlus-1 {At test}  -constraints {}  -setup {}  -body {set MyVar {2000-01-02 03:04:05}
+::tcltest::test DatetimePlus-1 {At test}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {set MyVar {2000-01-02 03:04:05}
 DatetimePlus @MyVar {1Y 1M 1W 1D 1H 1M 1S}
 puts $MyVar
 }  -cleanup {}  -result {}  -output {2001-02-10 04:05:06
@@ -28,7 +29,7 @@ puts $MyVar
 
 proc DatetimePlusTest::Test-3 {} {
 
-::tcltest::test DatetimePlus-2 {Datetime is invalid}  -constraints {}  -setup {}  -body {DatetimePlus asdf {00T00:00:01}
+::tcltest::test DatetimePlus-2 {Datetime is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus asdf {00T00:00:01}
 }  -cleanup {}  -result {Variable DatetimeVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -37,7 +38,7 @@ proc DatetimePlusTest::Test-3 {} {
 
 proc DatetimePlusTest::Test-4 {} {
 
-::tcltest::test DatetimePlus-3 {TimeAmount is invalid}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} asdf
+::tcltest::test DatetimePlus-3 {TimeAmount is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} asdf
 }  -cleanup {}  -result {Variable TimeAmount has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -46,7 +47,7 @@ proc DatetimePlusTest::Test-4 {} {
 
 proc DatetimePlusTest::Test-5 {} {
 
-::tcltest::test DatetimePlus-4 {Test years}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {10Y 0M 0W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-4 {Test years}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {10Y 0M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2010-01-02 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -55,7 +56,7 @@ proc DatetimePlusTest::Test-5 {} {
 
 proc DatetimePlusTest::Test-6 {} {
 
-::tcltest::test DatetimePlus-5 {Test months}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 1M 0W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-5 {Test months}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 1M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2000-02-02 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -64,7 +65,7 @@ proc DatetimePlusTest::Test-6 {} {
 
 proc DatetimePlusTest::Test-7 {} {
 
-::tcltest::test DatetimePlus-6 {Test months 2}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 12M 0W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-6 {Test months 2}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 12M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2001-01-02 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -73,7 +74,7 @@ proc DatetimePlusTest::Test-7 {} {
 
 proc DatetimePlusTest::Test-8 {} {
 
-::tcltest::test DatetimePlus-7 {Test months 3}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 25M 0W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-7 {Test months 3}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 25M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2002-02-02 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -82,7 +83,7 @@ proc DatetimePlusTest::Test-8 {} {
 
 proc DatetimePlusTest::Test-9 {} {
 
-::tcltest::test DatetimePlus-8 {Test days}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 30D 0H 0M 0S}
+::tcltest::test DatetimePlus-8 {Test days}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 30D 0H 0M 0S}
 }  -cleanup {}  -result {2000-02-01 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -91,7 +92,7 @@ proc DatetimePlusTest::Test-9 {} {
 
 proc DatetimePlusTest::Test-10 {} {
 
-::tcltest::test DatetimePlus-9 {Test weeks}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 5W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-9 {Test weeks}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 5W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2000-02-06 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -100,7 +101,7 @@ proc DatetimePlusTest::Test-10 {} {
 
 proc DatetimePlusTest::Test-11 {} {
 
-::tcltest::test DatetimePlus-10 {Test hours}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 25H 0M 0S}
+::tcltest::test DatetimePlus-10 {Test hours}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 25H 0M 0S}
 }  -cleanup {}  -result {2000-01-03 04:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -109,7 +110,7 @@ proc DatetimePlusTest::Test-11 {} {
 
 proc DatetimePlusTest::Test-12 {} {
 
-::tcltest::test DatetimePlus-11 {Test minutes}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 0H 61M 0S}
+::tcltest::test DatetimePlus-11 {Test minutes}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 0H 61M 0S}
 }  -cleanup {}  -result {2000-01-02 04:05:05}  -output {}  -returnCodes {0}  
 
 }
@@ -118,7 +119,7 @@ proc DatetimePlusTest::Test-12 {} {
 
 proc DatetimePlusTest::Test-13 {} {
 
-::tcltest::test DatetimePlus-12 {Test seconds}  -constraints {}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 0H 0M 61S}
+::tcltest::test DatetimePlus-12 {Test seconds}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-01-02 03:04:05} {0Y 0M 0W 0D 0H 0M 61S}
 }  -cleanup {}  -result {2000-01-02 03:05:06}  -output {}  -returnCodes {0}  
 
 }
@@ -127,7 +128,7 @@ proc DatetimePlusTest::Test-13 {} {
 
 proc DatetimePlusTest::Test-14 {} {
 
-::tcltest::test DatetimePlus-13 {Test leap year}  -constraints {}  -setup {}  -body {DatetimePlus {2000-02-28 00:00:00} {0Y 0M 0W 2D 0H 0M 0S}
+::tcltest::test DatetimePlus-13 {Test leap year}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-02-28 00:00:00} {0Y 0M 0W 2D 0H 0M 0S}
 }  -cleanup {}  -result {2000-03-01 00:00:00}  -output {}  -returnCodes {0}  
 
 }
@@ -136,7 +137,7 @@ proc DatetimePlusTest::Test-14 {} {
 
 proc DatetimePlusTest::Test-15 {} {
 
-::tcltest::test DatetimePlus-14 {Test negative values}  -constraints {}  -setup {}  -body {DatetimePlus {2001-02-10 04:05:06} {-1Y -1M -1W -1D -1H -1M -1S}
+::tcltest::test DatetimePlus-14 {Test negative values}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2001-02-10 04:05:06} {-1Y -1M -1W -1D -1H -1M -1S}
 }  -cleanup {}  -result {2000-01-02 03:04:05}  -output {}  -returnCodes {0}  
 
 }
@@ -145,7 +146,7 @@ proc DatetimePlusTest::Test-15 {} {
 
 proc DatetimePlusTest::Test-16 {} {
 
-::tcltest::test DatetimePlus-15 {Add months into next year}  -constraints {}  -setup {}  -body {DatetimePlus {2000-12-11 10:09:08} {1Y 1M 1W 1D 1H 1M 1S}
+::tcltest::test DatetimePlus-15 {Add months into next year}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-12-11 10:09:08} {1Y 1M 1W 1D 1H 1M 1S}
 }  -cleanup {}  -result {2002-01-19 11:10:09}  -output {}  -returnCodes {0}  
 
 }
@@ -154,7 +155,7 @@ proc DatetimePlusTest::Test-16 {} {
 
 proc DatetimePlusTest::Test-17 {} {
 
-::tcltest::test DatetimePlus-16 {Use invalid date that clock scan would accept}  -constraints {}  -setup {}  -body {DatetimePlus {2001-02-29 00:00:00} {0Y 0M 0W 1D 0H 0M 0S}
+::tcltest::test DatetimePlus-16 {Use invalid date that clock scan would accept}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2001-02-29 00:00:00} {0Y 0M 0W 1D 0H 0M 0S}
 }  -cleanup {}  -result {2001-03-02 00:00:00}  -output {}  -returnCodes {0}  
 
 }
@@ -163,7 +164,7 @@ proc DatetimePlusTest::Test-17 {} {
 
 proc DatetimePlusTest::Test-18 {} {
 
-::tcltest::test DatetimePlus-17 {Add a month to the 31st when next month has 30 days}  -constraints {}  -setup {}  -body {DatetimePlus {2001-03-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}
+::tcltest::test DatetimePlus-17 {Add a month to the 31st when next month has 30 days}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2001-03-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2001-05-01 00:00:00}  -output {}  -returnCodes {0}  
 
 }
@@ -172,7 +173,7 @@ proc DatetimePlusTest::Test-18 {} {
 
 proc DatetimePlusTest::Test-19 {} {
 
-::tcltest::test DatetimePlus-18 {Add a year and four years to February 29th}  -constraints {}  -setup {}  -body {set OneYear [DatetimePlus {2000-02-29 00:00:00} {1Y 0M 0W 0D 0H 0M 0S}]
+::tcltest::test DatetimePlus-18 {Add a year and four years to February 29th}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {set OneYear [DatetimePlus {2000-02-29 00:00:00} {1Y 0M 0W 0D 0H 0M 0S}]
 set FourYear [DatetimePlus {2000-02-29 00:00:00} {4Y 0M 0W 0D 0H 0M 0S}]
 puts $OneYear
 puts $FourYear
@@ -186,7 +187,7 @@ puts $FourYear
 
 proc DatetimePlusTest::Test-20 {} {
 
-::tcltest::test DatetimePlus-19 {Add a month and subtract a month when between months with 31/30 days}  -constraints {}  -setup {}  -body {set Temp [DatetimePlus {2001-03-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}]
+::tcltest::test DatetimePlus-19 {Add a month and subtract a month when between months with 31/30 days}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {set Temp [DatetimePlus {2001-03-31 00:00:00} {0Y 1M 0W 0D 0H 0M 0S}]
 DatetimePlus $Temp {0Y -1M 0W 0D 0H 0M 0S}
 }  -cleanup {}  -result {2001-04-01 00:00:00}  -output {}  -returnCodes {0}  
 
@@ -196,7 +197,7 @@ DatetimePlus $Temp {0Y -1M 0W 0D 0H 0M 0S}
 
 proc DatetimePlusTest::Test-21 {} {
 
-::tcltest::test DatetimePlus-20 {Test daylight savings is figured in}  -constraints {}  -setup {}  -body {set One [DatetimePlus {2000-04-02 01:00:00} {0Y 0M 0W 0D 1H 0M 0S}]
+::tcltest::test DatetimePlus-20 {Test daylight savings is figured in}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {set One [DatetimePlus {2000-04-02 01:00:00} {0Y 0M 0W 0D 1H 0M 0S}]
 set Two [DatetimePlus {2000-10-29 01:00:00} {0Y 0M 0W 0D 2H 0M 0S}]
 puts $One
 puts $Two}  -cleanup {}  -result {}  -output {2000-04-02 03:00:00
@@ -209,7 +210,7 @@ puts $Two}  -cleanup {}  -result {}  -output {2000-04-02 03:00:00
 
 proc DatetimePlusTest::Test-22 {} {
 
-::tcltest::test DatetimePlus-21 {Test effect of adding a month and a day}  -constraints {}  -setup {}  -body {DatetimePlus {2000-03-31 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
+::tcltest::test DatetimePlus-21 {Test effect of adding a month and a day}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {}  -body {DatetimePlus {2000-03-31 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
 }  -cleanup {}  -result {2000-05-02 00:00:00}  -output {}  -returnCodes {0}  
 
 }
@@ -218,7 +219,7 @@ proc DatetimePlusTest::Test-22 {} {
 
 proc DatetimePlusTest::Test-23 {} {
 
-::tcltest::test DatetimePlus-22 {Test different configured date format}  -constraints {}  -setup {
+::tcltest::test DatetimePlus-22 {Test different configured date format}  -constraints {[expr [CheckAllDependenciesLoaded DatetimePlus]]}  -setup {
 }  -body {set GenNS::DatetimeFormat {{%m/%d/%Y %H:%M:%S}}
 DatetimePlus {03/31/2000 00:00:00} {0Y 1M 0W 1D 0H 0M 0S}
 }  -cleanup {set GenNS::DatetimeFormat {{%Y-%m-%d %H:%M:%S}}

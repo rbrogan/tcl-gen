@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RunSqlInsertIfDoesNotExistTest {}
 
@@ -7,7 +8,7 @@ namespace eval RunSqlInsertIfDoesNotExistTest {}
 
 proc RunSqlInsertIfDoesNotExistTest::Test-1 {} {
 
-::tcltest::test RunSqlInsertIfDoesNotExist-0 {Basic test - record does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test RunSqlInsertIfDoesNotExist-0 {Basic test - record does not exist}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlInsertIfDoesNotExist]]}  -setup {sqlite3 testdb test.db
 }  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}
 RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
 QQ [SqlCountStatement my_table {desc 'first' notes '1-2-3'}]
@@ -19,7 +20,7 @@ QQ [SqlCountStatement my_table {desc 'first' notes '1-2-3'}]
 
 proc RunSqlInsertIfDoesNotExistTest::Test-2 {} {
 
-::tcltest::test RunSqlInsertIfDoesNotExist-2 {Dict is empty}  -constraints {}  -setup {}  -body {RunSqlInsertIfDoesNotExist my_table {}
+::tcltest::test RunSqlInsertIfDoesNotExist-2 {Dict is empty}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlInsertIfDoesNotExist]]}  -setup {}  -body {RunSqlInsertIfDoesNotExist my_table {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -28,7 +29,7 @@ proc RunSqlInsertIfDoesNotExistTest::Test-2 {} {
 
 proc RunSqlInsertIfDoesNotExistTest::Test-3 {} {
 
-::tcltest::test RunSqlInsertIfDoesNotExist-3 {Basic test - record already exists}  -constraints {}  -setup {}  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}
+::tcltest::test RunSqlInsertIfDoesNotExist-3 {Basic test - record already exists}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlInsertIfDoesNotExist]]}  -setup {}  -body {QQ {DELETE FROM my_table WHERE desc = 'first'}
 QQ [SqlInsertStatement my_table {desc 'first' notes '1-2-3'}]
 RunSqlInsertIfDoesNotExist my_table {desc 'first' notes '1-2-3'}
 QQ [SqlCountStatement my_table {desc 'first'}]
@@ -40,7 +41,7 @@ QQ [SqlCountStatement my_table {desc 'first'}]
 
 proc RunSqlInsertIfDoesNotExistTest::Test-4 {} {
 
-::tcltest::test RunSqlInsertIfDoesNotExist-4 {Table name is empty}  -constraints {}  -setup {}  -body {RunSqlInsertIfDoesNotExist "" {}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test RunSqlInsertIfDoesNotExist-4 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlInsertIfDoesNotExist]]}  -setup {}  -body {RunSqlInsertIfDoesNotExist "" {}}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

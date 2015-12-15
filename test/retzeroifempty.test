@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RetZeroIfEmptyTest {}
 
@@ -7,7 +8,7 @@ namespace eval RetZeroIfEmptyTest {}
 
 proc RetZeroIfEmptyTest::Test-1 {} {
 
-::tcltest::test RetZeroIfEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set Something 1
+::tcltest::test RetZeroIfEmpty-0 {Basic positive}  -constraints {[expr [CheckAllDependenciesLoaded RetZeroIfEmpty]]}  -setup {}  -body {set Something 1
 RetZeroIfEmpty $Something}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ RetZeroIfEmpty $Something}  -cleanup {}  -result {1}  -output {}  -returnCodes {
 
 proc RetZeroIfEmptyTest::Test-2 {} {
 
-::tcltest::test RetZeroIfEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set Nothing ""
+::tcltest::test RetZeroIfEmpty-1 {Basic negative}  -constraints {[expr [CheckAllDependenciesLoaded RetZeroIfEmpty]]}  -setup {}  -body {set Nothing ""
 RetZeroIfEmpty $Nothing}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }

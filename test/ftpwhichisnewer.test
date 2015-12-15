@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpWhichIsNewerTest {}
 
@@ -7,7 +8,7 @@ namespace eval FtpWhichIsNewerTest {}
 
 proc FtpWhichIsNewerTest::Test-1 {} {
 
-::tcltest::test FtpWhichIsNewer-0 {Local file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsNewer-0 {Local file is newer}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsNewer]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -28,7 +29,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $G
 
 proc FtpWhichIsNewerTest::Test-2 {} {
 
-::tcltest::test FtpWhichIsNewer-1 {Remote file is newer}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsNewer-1 {Remote file is newer}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsNewer]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -49,7 +50,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $G
 
 proc FtpWhichIsNewerTest::Test-3 {} {
 
-::tcltest::test FtpWhichIsNewer-3 {File not available locally}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsNewer-3 {File not available locally}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsNewer]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -70,7 +71,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $G
 
 proc FtpWhichIsNewerTest::Test-4 {} {
 
-::tcltest::test FtpWhichIsNewer-4 {File not available remotely}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsNewer-4 {File not available remotely}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsNewer]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-times $GenTest::Ftp::LocalRoot/downloadto/temp/different-times
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]

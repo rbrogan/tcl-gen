@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval UpvarXTest {}
 
@@ -7,7 +8,7 @@ namespace eval UpvarXTest {}
 
 proc UpvarXTest::Test-1 {} {
 
-::tcltest::test UpvarX-0 {Basic test}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded UpvarX]]}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var; puts "$VarName holds value $Var."}
 TestUpvarX NoSuchVar
 }  -cleanup {}  -result {}  -output {NoSuchVar holds value .
@@ -19,7 +20,7 @@ TestUpvarX NoSuchVar
 
 proc UpvarXTest::Test-2 {} {
 
-::tcltest::test UpvarX-1 {Basic test - set default value}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test UpvarX-1 {Basic test - set default value}  -constraints {[expr [CheckAllDependenciesLoaded UpvarX]]}  -setup {}  -body {unset -nocomplain NoSuchVar
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
 TestUpvarX NoSuchVar}  -cleanup {}  -result {}  -output {NoSuchVar holds value 0.
 }  -returnCodes {0}  
@@ -30,7 +31,7 @@ TestUpvarX NoSuchVar}  -cleanup {}  -result {}  -output {NoSuchVar holds value 0
 
 proc UpvarXTest::Test-3 {} {
 
-::tcltest::test UpvarX-2 {Basic test - variable already exists}  -constraints {}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-2 {Basic test - variable already exists}  -constraints {[expr [CheckAllDependenciesLoaded UpvarX]]}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName Var 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {}  -output {MyVar holds value 123.
 }  -returnCodes {0}  
@@ -41,7 +42,7 @@ TestUpvarX MyVar}  -cleanup {}  -result {}  -output {MyVar holds value 123.
 
 proc UpvarXTest::Test-4 {} {
 
-::tcltest::test UpvarX-3 {First input is empty string}  -constraints {}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-3 {First input is empty string}  -constraints {[expr [CheckAllDependenciesLoaded UpvarX]]}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX "" Var 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
@@ -51,7 +52,7 @@ TestUpvarX MyVar}  -cleanup {}  -result {Variable name is missing. Got empty str
 
 proc UpvarXTest::Test-5 {} {
 
-::tcltest::test UpvarX-4 {Second input is empty string}  -constraints {}  -setup {}  -body {set MyVar 123
+::tcltest::test UpvarX-4 {Second input is empty string}  -constraints {[expr [CheckAllDependenciesLoaded UpvarX]]}  -setup {}  -body {set MyVar 123
 proc TestUpvarX {VarName} { UpvarX $VarName "" 0; puts "$VarName holds value $Var."}
 TestUpvarX MyVar}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
 

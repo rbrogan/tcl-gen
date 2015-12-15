@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ForeachRecordTest {}
 
@@ -7,7 +8,7 @@ namespace eval ForeachRecordTest {}
 
 proc ForeachRecordTest::Test-1 {} {
 
-::tcltest::test ForeachRecord-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {ForeachRecord {Desc Notes} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes" }
+::tcltest::test ForeachRecord-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ForeachRecord]]}  -setup {sqlite3 testdb test.db}  -body {ForeachRecord {Desc Notes} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes" }
 }  -cleanup {}  -result {}  -output {desc = uno, notes = one
 desc = dos, notes = two
 desc = tres, notes = three
@@ -19,7 +20,7 @@ desc = tres, notes = three
 
 proc ForeachRecordTest::Test-2 {} {
 
-::tcltest::test ForeachRecord-1 {FieldNameList is empty}  -constraints {}  -setup {}  -body {ForeachRecord {} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes }
+::tcltest::test ForeachRecord-1 {FieldNameList is empty}  -constraints {[expr [CheckAllDependenciesLoaded ForeachRecord]]}  -setup {}  -body {ForeachRecord {} {SELECT desc, notes FROM my_table} { puts "desc = $Desc, notes = $Notes }
 }  -cleanup {}  -result {Variable FieldNameList has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -28,7 +29,7 @@ proc ForeachRecordTest::Test-2 {} {
 
 proc ForeachRecordTest::Test-3 {} {
 
-::tcltest::test ForeachRecord-2 {Select statement is empty}  -constraints {}  -setup {}  -body {ForeachRecord {Desc Notes} {} { puts "desc = $Desc, notes = $Notes }}  -cleanup {}  -result {Variable SelectStatement has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test ForeachRecord-2 {Select statement is empty}  -constraints {[expr [CheckAllDependenciesLoaded ForeachRecord]]}  -setup {}  -body {ForeachRecord {Desc Notes} {} { puts "desc = $Desc, notes = $Notes }}  -cleanup {}  -result {Variable SelectStatement has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

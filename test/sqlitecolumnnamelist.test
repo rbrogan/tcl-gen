@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqliteColumnNameListTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqliteColumnNameListTest {}
 
 proc SqliteColumnNameListTest::Test-1 {} {
 
-::tcltest::test SqliteColumnNameList-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteColumnNameList-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnNameList]]}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameList globals
 }  -cleanup {}  -result {id desc intvalue realvalue textvalue}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ proc SqliteColumnNameListTest::Test-1 {} {
 
 proc SqliteColumnNameListTest::Test-2 {} {
 
-::tcltest::test SqliteColumnNameList-1 {Table does not exist}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteColumnNameList-1 {Table does not exist}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnNameList]]}  -setup {sqlite3 testdb test.db
 }  -body {SqliteColumnNameList no_such_table
 }  -cleanup {}  -result {Table no_such_table not found.}  -output {}  -returnCodes {1}  
 
@@ -27,7 +28,7 @@ proc SqliteColumnNameListTest::Test-2 {} {
 
 proc SqliteColumnNameListTest::Test-3 {} {
 
-::tcltest::test SqliteColumnNameList-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteColumnNameList ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test SqliteColumnNameList-2 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnNameList]]}  -setup {}  -body {SqliteColumnNameList ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DeleteEverythingInDirectoryTest {}
 
@@ -7,7 +8,7 @@ namespace eval DeleteEverythingInDirectoryTest {}
 
 proc DeleteEverythingInDirectoryTest::Test-1 {} {
 
-::tcltest::test DeleteEverythingInDirectory-0 {Basic test}  -constraints {}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/BasicTest ./DeleteEverythingInDirectory/BasicTest
+::tcltest::test DeleteEverythingInDirectory-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DeleteEverythingInDirectory]]}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/BasicTest ./DeleteEverythingInDirectory/BasicTest
 }  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/BasicTest
 IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
@@ -18,7 +19,7 @@ IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
 
 proc DeleteEverythingInDirectoryTest::Test-2 {} {
 
-::tcltest::test DeleteEverythingInDirectory-2 {TargetDirectoryPath is empty}  -constraints {}  -setup {}  -body {DeleteEverythingInDirectory ""
+::tcltest::test DeleteEverythingInDirectory-2 {TargetDirectoryPath is empty}  -constraints {[expr [CheckAllDependenciesLoaded DeleteEverythingInDirectory]]}  -setup {}  -body {DeleteEverythingInDirectory ""
 }  -cleanup {}  -result {Variable TargetDirectoryPath has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -27,7 +28,7 @@ proc DeleteEverythingInDirectoryTest::Test-2 {} {
 
 proc DeleteEverythingInDirectoryTest::Test-3 {} {
 
-::tcltest::test DeleteEverythingInDirectory-3 {Target directory is empty}  -constraints {}  -setup {}  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/EmptyTest
+::tcltest::test DeleteEverythingInDirectory-3 {Target directory is empty}  -constraints {[expr [CheckAllDependenciesLoaded DeleteEverythingInDirectory]]}  -setup {}  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/EmptyTest
 IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -37,7 +38,7 @@ IsDirectoryEmpty "./DeleteEverythingInDirectory/BasicTest"
 
 proc DeleteEverythingInDirectoryTest::Test-4 {} {
 
-::tcltest::test DeleteEverythingInDirectory-4 {Target directory has subdirectories with contents}  -constraints {}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/WithSubdirectoriesTest ./DeleteEverythingInDirectory/WithSubdirectoriesTest
+::tcltest::test DeleteEverythingInDirectory-4 {Target directory has subdirectories with contents}  -constraints {[expr [CheckAllDependenciesLoaded DeleteEverythingInDirectory]]}  -setup {CopyEverythingInDirectory ./DeleteEverythingInDirectory/original/WithSubdirectoriesTest ./DeleteEverythingInDirectory/WithSubdirectoriesTest
 }  -body {DeleteEverythingInDirectory ./DeleteEverythingInDirectory/WithSubdirectoriesTest
 IsDirectoryEmpty "./DeleteEverythingInDirectory/WithSubdirectoriesTest"
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ChopLeftTest {}
 
@@ -7,7 +8,7 @@ namespace eval ChopLeftTest {}
 
 proc ChopLeftTest::Test-1 {} {
 
-::tcltest::test ChopLeft-0 {Basic test}  -constraints {}  -setup {}  -body {ChopLeft "abcd"}  -cleanup {}  -result {bcd}  -output {}  -returnCodes {0}  
+::tcltest::test ChopLeft-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ChopLeft]]}  -setup {}  -body {ChopLeft "abcd"}  -cleanup {}  -result {bcd}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc ChopLeftTest::Test-1 {} {
 
 proc ChopLeftTest::Test-2 {} {
 
-::tcltest::test ChopLeft-1 {Basic test - specify count}  -constraints {}  -setup {}  -body {ChopLeft "xyz" 2}  -cleanup {}  -result {z}  -output {}  -returnCodes {0}  
+::tcltest::test ChopLeft-1 {Basic test - specify count}  -constraints {[expr [CheckAllDependenciesLoaded ChopLeft]]}  -setup {}  -body {ChopLeft "xyz" 2}  -cleanup {}  -result {z}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc ChopLeftTest::Test-2 {} {
 
 proc ChopLeftTest::Test-3 {} {
 
-::tcltest::test ChopLeft-2 {Chop count greater than string length}  -constraints {}  -setup {}  -body {ChopLeft "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ChopLeft-2 {Chop count greater than string length}  -constraints {[expr [CheckAllDependenciesLoaded ChopLeft]]}  -setup {}  -body {ChopLeft "xyz" 4}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc ChopLeftTest::Test-3 {} {
 
 proc ChopLeftTest::Test-4 {} {
 
-::tcltest::test ChopLeft-3 {Test at}  -constraints {}  -setup {}  -body {set MyString abcd
+::tcltest::test ChopLeft-3 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded ChopLeft]]}  -setup {}  -body {set MyString abcd
 ChopLeft @MyString 2
 puts $MyString
 }  -cleanup {}  -result {}  -output {cd
@@ -43,7 +44,7 @@ puts $MyString
 
 proc ChopLeftTest::Test-5 {} {
 
-::tcltest::test ChopLeft-4 {Count is not an integer}  -constraints {}  -setup {}  -body {ChopLeft "abcd" 1.2
+::tcltest::test ChopLeft-4 {Count is not an integer}  -constraints {[expr [CheckAllDependenciesLoaded ChopLeft]]}  -setup {}  -body {ChopLeft "abcd" 1.2
 }  -cleanup {}  -result {Variable Count has invalid value 1.2.}  -output {}  -returnCodes {1}  
 
 }

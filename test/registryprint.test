@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RegistryPrintTest {}
 
@@ -7,7 +8,7 @@ namespace eval RegistryPrintTest {}
 
 proc RegistryPrintTest::Test-1 {} {
 
-::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-0 {Registry key has nothing in it}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  
@@ -18,7 +19,7 @@ registry set {HKEY_CURRENT_USER\Software\GenTest}
 
 proc RegistryPrintTest::Test-2 {} {
 
-::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-1 {Registry key has one value under it}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}}  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {one uno
 }  -returnCodes {0}  
@@ -29,7 +30,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}}  -cleanup {registry delete {
 
 proc RegistryPrintTest::Test-3 {} {
 
-::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-2 {Registry key  has multiple values under it}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest} three tres
@@ -46,7 +47,7 @@ three tres
 
 proc RegistryPrintTest::Test-4 {} {
 
-::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-3 {Registry key has one subkey}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -68,7 +69,7 @@ three
 
 proc RegistryPrintTest::Test-5 {} {
 
-::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-4 {Registry key has multiple subkeys}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -98,7 +99,7 @@ three
 
 proc RegistryPrintTest::Test-6 {} {
 
-::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-5 {Registry key has subkeys two deep}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
@@ -129,7 +130,7 @@ three
 
 proc RegistryPrintTest::Test-7 {} {
 
-::tcltest::test RegistryPrint-6 {No registry key found}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-6 {No registry key found}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {}  -result {Registry key/value HKEY_CURRENT_USER\Software\GenTest not found.}  -output {}  -returnCodes {1}  
 
 }
@@ -138,7 +139,7 @@ proc RegistryPrintTest::Test-7 {} {
 
 proc RegistryPrintTest::Test-8 {} {
 
-::tcltest::test RegistryPrint-7 {Multiple subkeys two levels deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-7 {Multiple subkeys two levels deep}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
@@ -178,7 +179,7 @@ three
 
 proc RegistryPrintTest::Test-9 {} {
 
-::tcltest::test RegistryPrint-8 {Subkey three levels deep}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryPrint-8 {Subkey three levels deep}  -constraints {[expr [CheckAllDependenciesLoaded RegistryPrint]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos

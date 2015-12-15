@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsZeroTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsZeroTest {}
 
 proc IsZeroTest::Test-1 {} {
 
-::tcltest::test IsZero-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsZero 0.0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsZero-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded IsZero]]}  -setup {}  -body {IsZero 0.0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc IsZeroTest::Test-1 {} {
 
 proc IsZeroTest::Test-2 {} {
 
-::tcltest::test IsZero-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsZero 1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsZero-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded IsZero]]}  -setup {}  -body {IsZero 1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc IsZeroTest::Test-2 {} {
 
 proc IsZeroTest::Test-3 {} {
 
-::tcltest::test IsZero-2 {Non-numeric input}  -constraints {}  -setup {}  -body {IsZero asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test IsZero-2 {Non-numeric input}  -constraints {[expr [CheckAllDependenciesLoaded IsZero]]}  -setup {}  -body {IsZero asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -31,7 +32,7 @@ proc IsZeroTest::Test-3 {} {
 
 proc IsZeroTest::Test-4 {} {
 
-::tcltest::test IsZero-3 {Empty string input}  -constraints {}  -setup {}  -body {IsZero ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test IsZero-3 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded IsZero]]}  -setup {}  -body {IsZero ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
 

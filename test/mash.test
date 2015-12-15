@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval MashTest {}
 
@@ -7,7 +8,7 @@ namespace eval MashTest {}
 
 proc MashTest::Test-1 {} {
 
-::tcltest::test Mash-0 {Basic test}  -constraints {}  -setup {}  -body {set DisplayName "Two Words"
+::tcltest::test Mash-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Mash]]}  -setup {}  -body {set DisplayName "Two Words"
 set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -o
 
 proc MashTest::Test-2 {} {
 
-::tcltest::test Mash-1 {Already mashed}  -constraints {}  -setup {}  -body {set DisplayName "twowords"
+::tcltest::test Mash-1 {Already mashed}  -constraints {[expr [CheckAllDependenciesLoaded Mash]]}  -setup {}  -body {set DisplayName "twowords"
 set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ set FileName "[Mash $DisplayName].txt"}  -cleanup {}  -result {twowords.txt}  -o
 
 proc MashTest::Test-3 {} {
 
-::tcltest::test Mash-2 {Empty string input}  -constraints {}  -setup {}  -body {Mash ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test Mash-2 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded Mash]]}  -setup {}  -body {Mash ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -33,7 +34,7 @@ proc MashTest::Test-3 {} {
 
 proc MashTest::Test-4 {} {
 
-::tcltest::test Mash-3 {Test at}  -constraints {}  -setup {}  -body {set MyString "Mash ed"
+::tcltest::test Mash-3 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded Mash]]}  -setup {}  -body {set MyString "Mash ed"
 Mash @MyString
 puts $MyString
 }  -cleanup {}  -result {}  -output {mashed

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ToBackslashesTest {}
 
@@ -7,7 +8,7 @@ namespace eval ToBackslashesTest {}
 
 proc ToBackslashesTest::Test-1 {} {
 
-::tcltest::test ToBackslashes-0 {Basic test}  -constraints {}  -setup {}  -body {ToBackslashes c:/some/path/to/file.txt}  -cleanup {}  -result {c:\some\path\to\file.txt}  -output {}  -returnCodes {0}  
+::tcltest::test ToBackslashes-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ToBackslashes]]}  -setup {}  -body {ToBackslashes c:/some/path/to/file.txt}  -cleanup {}  -result {c:\some\path\to\file.txt}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc ToBackslashesTest::Test-1 {} {
 
 proc ToBackslashesTest::Test-2 {} {
 
-::tcltest::test ToBackslashes-1 {Empty string input}  -constraints {}  -setup {}  -body {ToBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test ToBackslashes-1 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded ToBackslashes]]}  -setup {}  -body {ToBackslashes ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc ToBackslashesTest::Test-2 {} {
 
 proc ToBackslashesTest::Test-3 {} {
 
-::tcltest::test ToBackslashes-2 {Basic test - from double backslashes}  -constraints {}  -setup {}  -body {set MyVar c:\\\\path\\\\to\\\\somefile.txt
+::tcltest::test ToBackslashes-2 {Basic test - from double backslashes}  -constraints {[expr [CheckAllDependenciesLoaded ToBackslashes]]}  -setup {}  -body {set MyVar c:\\\\path\\\\to\\\\somefile.txt
 ToBackslashes $MyVar}  -cleanup {}  -result {c:\path\to\somefile.txt}  -output {}  -returnCodes {0}  
 
 }
@@ -32,7 +33,7 @@ ToBackslashes $MyVar}  -cleanup {}  -result {c:\path\to\somefile.txt}  -output {
 
 proc ToBackslashesTest::Test-4 {} {
 
-::tcltest::test ToBackslashes-3 {Test at}  -constraints {}  -setup {}  -body {set MyString c:/some/path/to/file.txt
+::tcltest::test ToBackslashes-3 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded ToBackslashes]]}  -setup {}  -body {set MyString c:/some/path/to/file.txt
 ToBackslashes @MyString
 puts $MyString
 }  -cleanup {}  -result {}  -output {c:\some\path\to\file.txt

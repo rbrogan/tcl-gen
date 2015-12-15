@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsEmptyTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsEmptyTest {}
 
 proc IsEmptyTest::Test-1 {} {
 
-::tcltest::test IsEmpty-0 {Basic positive}  -constraints {}  -setup {}  -body {set EmptyString ""
+::tcltest::test IsEmpty-0 {Basic positive}  -constraints {[expr [CheckAllDependenciesLoaded IsEmpty]]}  -setup {}  -body {set EmptyString ""
 IsEmpty $EmptyString}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ IsEmpty $EmptyString}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}
 
 proc IsEmptyTest::Test-2 {} {
 
-::tcltest::test IsEmpty-1 {Basic negative}  -constraints {}  -setup {}  -body {set MyString 123
+::tcltest::test IsEmpty-1 {Basic negative}  -constraints {[expr [CheckAllDependenciesLoaded IsEmpty]]}  -setup {}  -body {set MyString 123
 IsEmpty $MyString}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }

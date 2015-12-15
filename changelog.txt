@@ -2,6 +2,47 @@ Gen
 
 CHANGELOG
 
+2015.12.14
+v1.10.2
+
+Changes by functionality
+     CN_0002
+          Updated loading-module-data.tcl to include try command in various entries. (Fix for KI_0003.)
+          Added test constraint that all the dependencies of the command must be loaded, and, if not, then the command is skipped. (Fix for KI_0004.)
+          Put in data files for CopyEverythingInDirectory tests. (Fix for KI_0005.)
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          known-issues.html
+               Add new issues.
+               Update with latest fixes.
+          latest-fixes.html
+               Add latest fixes.
+               
+     /src
+          gen.tcl
+               Change version number and make sure it has the rev.
+          loading-module-data.tcl
+               Updated to include the try command as dependency.
+          pkgIndex.tcl
+               Changed the rev.
+               
+     /test
+          *.test
+               Update the rev number.
+               Added call to source gen-test-common.tcl.
+               Added test constraint that all the dependencies of the command must be loaded, and if not then the command is skipped.
+          gen-test-common.tcl
+               New file.
+               Contains commands to check if all dependencies of a command are loaded. Also contains command to check if individual commands are loaded.
+          /CopyEverythingInDirectory
+               Added missing files.               
+
 2015.12.07
 v1.10.1
 

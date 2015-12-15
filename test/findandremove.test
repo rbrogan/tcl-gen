@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FindAndRemoveTest {}
 
@@ -7,7 +8,7 @@ namespace eval FindAndRemoveTest {}
 
 proc FindAndRemoveTest::Test-1 {} {
 
-::tcltest::test FindAndRemove-0 {Basic positive}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test FindAndRemove-0 {Basic positive}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {set MyList {one two three}
 FindAndRemove $MyList two
 }  -cleanup {}  -result {one three}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ FindAndRemove $MyList two
 
 proc FindAndRemoveTest::Test-2 {} {
 
-::tcltest::test FindAndRemove-1 {Basic negative}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test FindAndRemove-1 {Basic negative}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {set MyList {one two three}
 FindAndRemove $MyList four
 }  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
@@ -27,7 +28,7 @@ FindAndRemove $MyList four
 
 proc FindAndRemoveTest::Test-3 {} {
 
-::tcltest::test FindAndRemove-2 {Empty search string}  -constraints {}  -setup {}  -body {FindAndRemove "one two three" ""}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test FindAndRemove-2 {Empty search string}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {FindAndRemove "one two three" ""}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -35,7 +36,7 @@ proc FindAndRemoveTest::Test-3 {} {
 
 proc FindAndRemoveTest::Test-4 {} {
 
-::tcltest::test FindAndRemove-3 {Empty target string}  -constraints {}  -setup {}  -body {FindAndRemove "" two}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test FindAndRemove-3 {Empty target string}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {FindAndRemove "" two}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -43,7 +44,7 @@ proc FindAndRemoveTest::Test-4 {} {
 
 proc FindAndRemoveTest::Test-5 {} {
 
-::tcltest::test FindAndRemove-4 {Test at}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test FindAndRemove-4 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {set MyList {one two three}
 FindAndRemove @MyList two
 puts $MyList
 }  -cleanup {}  -result {}  -output {one three
@@ -55,7 +56,7 @@ puts $MyList
 
 proc FindAndRemoveTest::Test-6 {} {
 
-::tcltest::test FindAndRemove-5 {Multiple elements in list}  -constraints {}  -setup {}  -body {set MyList {one two two three}
+::tcltest::test FindAndRemove-5 {Multiple elements in list}  -constraints {[expr [CheckAllDependenciesLoaded FindAndRemove]]}  -setup {}  -body {set MyList {one two two three}
 FindAndRemove $MyList two
 }  -cleanup {}  -result {one three}  -output {}  -returnCodes {0}  
 

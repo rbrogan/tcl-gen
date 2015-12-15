@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval Seconds2HhmmssTest {}
 
@@ -7,7 +8,7 @@ namespace eval Seconds2HhmmssTest {}
 
 proc Seconds2HhmmssTest::Test-1 {} {
 
-::tcltest::test Seconds2Hhmmss-0 {Basic test}  -constraints {}  -setup {}  -body {Seconds2Hhmmss 3661}  -cleanup {}  -result {01:01:01}  -output {}  -returnCodes {0}  
+::tcltest::test Seconds2Hhmmss-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss 3661}  -cleanup {}  -result {01:01:01}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc Seconds2HhmmssTest::Test-1 {} {
 
 proc Seconds2HhmmssTest::Test-2 {} {
 
-::tcltest::test Seconds2Hhmmss-1 {Input seconds negative}  -constraints {}  -setup {}  -body {Seconds2Hhmmss -3661}  -cleanup {}  -result {-01:01:01}  -output {}  -returnCodes {0}  
+::tcltest::test Seconds2Hhmmss-1 {Input seconds negative}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss -3661}  -cleanup {}  -result {-01:01:01}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc Seconds2HhmmssTest::Test-2 {} {
 
 proc Seconds2HhmmssTest::Test-3 {} {
 
-::tcltest::test Seconds2Hhmmss-2 {Input seconds zero}  -constraints {}  -setup {}  -body {Seconds2Hhmmss 0}  -cleanup {}  -result {00:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test Seconds2Hhmmss-2 {Input seconds zero}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss 0}  -cleanup {}  -result {00:00:00}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc Seconds2HhmmssTest::Test-3 {} {
 
 proc Seconds2HhmmssTest::Test-4 {} {
 
-::tcltest::test Seconds2Hhmmss-3 {Input seconds equals number of seconds in 24 hours}  -constraints {}  -setup {}  -body {Seconds2Hhmmss 86400}  -cleanup {}  -result {24:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test Seconds2Hhmmss-3 {Input seconds equals number of seconds in 24 hours}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss 86400}  -cleanup {}  -result {24:00:00}  -output {}  -returnCodes {0}  
 
 }
 
@@ -39,7 +40,7 @@ proc Seconds2HhmmssTest::Test-4 {} {
 
 proc Seconds2HhmmssTest::Test-5 {} {
 
-::tcltest::test Seconds2Hhmmss-4 {Input seconds is non-integer value}  -constraints {}  -setup {}  -body {Seconds2Hhmmss asdf}  -cleanup {}  -result {Variable StringVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test Seconds2Hhmmss-4 {Input seconds is non-integer value}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss asdf}  -cleanup {}  -result {Variable StringVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -47,7 +48,7 @@ proc Seconds2HhmmssTest::Test-5 {} {
 
 proc Seconds2HhmmssTest::Test-6 {} {
 
-::tcltest::test Seconds2Hhmmss-5 {Input seconds is empty string}  -constraints {}  -setup {}  -body {Seconds2Hhmmss ""}  -cleanup {}  -result {Variable StringVariable has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test Seconds2Hhmmss-5 {Input seconds is empty string}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss ""}  -cleanup {}  -result {Variable StringVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -55,7 +56,7 @@ proc Seconds2HhmmssTest::Test-6 {} {
 
 proc Seconds2HhmmssTest::Test-7 {} {
 
-::tcltest::test Seconds2Hhmmss-6 {100 hours}  -constraints {}  -setup {}  -body {Seconds2Hhmmss 360000}  -cleanup {}  -result {100:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test Seconds2Hhmmss-6 {100 hours}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2Hhmmss]]}  -setup {}  -body {Seconds2Hhmmss 360000}  -cleanup {}  -result {100:00:00}  -output {}  -returnCodes {0}  
 
 }
 

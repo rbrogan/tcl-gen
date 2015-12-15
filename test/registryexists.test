@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RegistryExistsTest {}
 
@@ -7,7 +8,7 @@ namespace eval RegistryExistsTest {}
 
 proc RegistryExistsTest::Test-1 {} {
 
-::tcltest::test RegistryExists-0 {Basic test - return 1}  -constraints {win}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded RegistryExists]]}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
@@ -20,7 +21,7 @@ registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
 
 proc RegistryExistsTest::Test-2 {} {
 
-::tcltest::test RegistryExists-1 {Basic test - return 0}  -constraints {win}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded RegistryExists]]}  -setup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -30,7 +31,7 @@ proc RegistryExistsTest::Test-2 {} {
 
 proc RegistryExistsTest::Test-3 {} {
 
-::tcltest::test RegistryExists-2 {ValueName is empty}  -constraints {win}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
+::tcltest::test RegistryExists-2 {ValueName is empty}  -constraints {[expr [CheckAllDependenciesLoaded RegistryExists]]}  -setup {registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {RegistryExists "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -cleanup {registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -result {1}  -output {}  -returnCodes {0}  
@@ -41,7 +42,7 @@ proc RegistryExistsTest::Test-3 {} {
 
 proc RegistryExistsTest::Test-4 {} {
 
-::tcltest::test RegistryExists-3 {KeyName is empty}  -constraints {win}  -setup {}  -body {RegistryExists {} testy
+::tcltest::test RegistryExists-3 {KeyName is empty}  -constraints {[expr [CheckAllDependenciesLoaded RegistryExists]]}  -setup {}  -body {RegistryExists {} testy
 }  -cleanup {}  -result {Variable KeyName has empty value.}  -output {}  -returnCodes {1}  
 
 }

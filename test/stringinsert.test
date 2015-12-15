@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval StringInsertTest {}
 
@@ -7,7 +8,7 @@ namespace eval StringInsertTest {}
 
 proc StringInsertTest::Test-1 {} {
 
-::tcltest::test StringInsert-0 {Basic test}  -constraints {}  -setup {}  -body {StringInsert "01245" 3 3
+::tcltest::test StringInsert-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert "01245" 3 3
 }  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc StringInsertTest::Test-1 {} {
 
 proc StringInsertTest::Test-2 {} {
 
-::tcltest::test StringInsert-1 {Insert at beginning}  -constraints {}  -setup {}  -body {StringInsert "12345" 0 0}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
+::tcltest::test StringInsert-1 {Insert at beginning}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert "12345" 0 0}  -cleanup {}  -result {012345}  -output {}  -returnCodes {0}  
 
 }
 
@@ -24,7 +25,7 @@ proc StringInsertTest::Test-2 {} {
 
 proc StringInsertTest::Test-3 {} {
 
-::tcltest::test StringInsert-2 {Insert at end}  -constraints {}  -setup {}  -body {StringInsert 0123 45 end}  -cleanup {}  -result {012453}  -output {}  -returnCodes {0}  
+::tcltest::test StringInsert-2 {Insert at end}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert 0123 45 end}  -cleanup {}  -result {012453}  -output {}  -returnCodes {0}  
 
 }
 
@@ -32,7 +33,7 @@ proc StringInsertTest::Test-3 {} {
 
 proc StringInsertTest::Test-4 {} {
 
-::tcltest::test StringInsert-3 {Insert location less than zero}  -constraints {}  -setup {}  -body {StringInsert 1234 0 -1}  -cleanup {}  -result {Variable WhereAt has invalid value -1.}  -output {}  -returnCodes {1}  
+::tcltest::test StringInsert-3 {Insert location less than zero}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert 1234 0 -1}  -cleanup {}  -result {Variable WhereAt has invalid value -1.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -40,7 +41,7 @@ proc StringInsertTest::Test-4 {} {
 
 proc StringInsertTest::Test-5 {} {
 
-::tcltest::test StringInsert-4 {Insert location past end}  -constraints {}  -setup {}  -body {StringInsert 01234 5 10
+::tcltest::test StringInsert-4 {Insert location past end}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert 01234 5 10
 }  -cleanup {}  -result {01234     5}  -output {}  -returnCodes {0}  
 
 }
@@ -49,7 +50,7 @@ proc StringInsertTest::Test-5 {} {
 
 proc StringInsertTest::Test-6 {} {
 
-::tcltest::test StringInsert-5 {Insert empty string}  -constraints {}  -setup {}  -body {StringInsert 01234 "" 0}  -cleanup {}  -result {01234}  -output {}  -returnCodes {0}  
+::tcltest::test StringInsert-5 {Insert empty string}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert 01234 "" 0}  -cleanup {}  -result {01234}  -output {}  -returnCodes {0}  
 
 }
 
@@ -57,7 +58,7 @@ proc StringInsertTest::Test-6 {} {
 
 proc StringInsertTest::Test-7 {} {
 
-::tcltest::test StringInsert-6 {Insert into empty string}  -constraints {}  -setup {}  -body {StringInsert "" 123 0}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
+::tcltest::test StringInsert-6 {Insert into empty string}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert "" 123 0}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
 }
 
@@ -65,7 +66,7 @@ proc StringInsertTest::Test-7 {} {
 
 proc StringInsertTest::Test-8 {} {
 
-::tcltest::test StringInsert-7 {Insert location empty}  -constraints {}  -setup {}  -body {StringInsert "01245" 3 ""
+::tcltest::test StringInsert-7 {Insert location empty}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert "01245" 3 ""
 }  -cleanup {}  -result {Variable WhereAt has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -74,7 +75,7 @@ proc StringInsertTest::Test-8 {} {
 
 proc StringInsertTest::Test-9 {} {
 
-::tcltest::test StringInsert-8 {Insert location non-numeric}  -constraints {}  -setup {}  -body {StringInsert "01245" 3 asdf
+::tcltest::test StringInsert-8 {Insert location non-numeric}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {StringInsert "01245" 3 asdf
 
 }  -cleanup {}  -result {Variable WhereAt has invalid value asdf.}  -output {}  -returnCodes {1}  
 
@@ -84,7 +85,7 @@ proc StringInsertTest::Test-9 {} {
 
 proc StringInsertTest::Test-10 {} {
 
-::tcltest::test StringInsert-9 {Use @ designator}  -constraints {}  -setup {}  -body {set MyString 01245
+::tcltest::test StringInsert-9 {Use @ designator}  -constraints {[expr [CheckAllDependenciesLoaded StringInsert]]}  -setup {}  -body {set MyString 01245
 StringInsert @MyString 3 3
 puts $MyString
 }  -cleanup {}  -result {}  -output {012345

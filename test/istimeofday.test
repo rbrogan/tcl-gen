@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsTimeOfDayTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsTimeOfDayTest {}
 
 proc IsTimeOfDayTest::Test-1 {} {
 
-::tcltest::test IsTimeOfDay-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsTimeOfDay asdf
+::tcltest::test IsTimeOfDay-0 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded IsTimeOfDay]]}  -setup {}  -body {IsTimeOfDay asdf
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc IsTimeOfDayTest::Test-1 {} {
 
 proc IsTimeOfDayTest::Test-2 {} {
 
-::tcltest::test IsTimeOfDay-1 {Basic test - return 1}  -constraints {}  -setup {SetTimeOfDayFormat %H:%M:%S}  -body {IsTimeOfDay 01:02:03
+::tcltest::test IsTimeOfDay-1 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded IsTimeOfDay]]}  -setup {SetTimeOfDayFormat %H:%M:%S}  -body {IsTimeOfDay 01:02:03
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc IsTimeOfDayTest::Test-2 {} {
 
 proc IsTimeOfDayTest::Test-3 {} {
 
-::tcltest::test IsTimeOfDay-3 {String is empty}  -constraints {}  -setup {}  -body {IsTimeOfDay ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsTimeOfDay-3 {String is empty}  -constraints {[expr [CheckAllDependenciesLoaded IsTimeOfDay]]}  -setup {}  -body {IsTimeOfDay ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -33,7 +34,7 @@ proc IsTimeOfDayTest::Test-3 {} {
 
 proc IsTimeOfDayTest::Test-4 {} {
 
-::tcltest::test IsTimeOfDay-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test IsTimeOfDay-4 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded IsTimeOfDay]]}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 IsTimeOfDay {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  

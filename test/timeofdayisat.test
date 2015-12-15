@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval TimeOfDayIsAtTest {}
 
@@ -7,7 +8,7 @@ namespace eval TimeOfDayIsAtTest {}
 
 proc TimeOfDayIsAtTest::Test-1 {} {
 
-::tcltest::test TimeOfDayIsAt-0 {First is at second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:00 00:00:00
+::tcltest::test TimeOfDayIsAt-0 {First is at second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {TimeOfDayIsAt 00:00:00 00:00:00
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc TimeOfDayIsAtTest::Test-1 {} {
 
 proc TimeOfDayIsAtTest::Test-2 {} {
 
-::tcltest::test TimeOfDayIsAt-1 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:00
+::tcltest::test TimeOfDayIsAt-1 {First is after second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:00
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc TimeOfDayIsAtTest::Test-2 {} {
 
 proc TimeOfDayIsAtTest::Test-3 {} {
 
-::tcltest::test TimeOfDayIsAt-2 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:02
+::tcltest::test TimeOfDayIsAt-2 {First is before second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {TimeOfDayIsAt 00:00:01 00:00:02
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -34,7 +35,7 @@ proc TimeOfDayIsAtTest::Test-3 {} {
 
 proc TimeOfDayIsAtTest::Test-4 {} {
 
-::tcltest::test TimeOfDayIsAt-3 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAt asdf 00:00:00
+::tcltest::test TimeOfDayIsAt-3 {First is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {TimeOfDayIsAt asdf 00:00:00
 }  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -43,7 +44,7 @@ proc TimeOfDayIsAtTest::Test-4 {} {
 
 proc TimeOfDayIsAtTest::Test-5 {} {
 
-::tcltest::test TimeOfDayIsAt-4 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAt 00:00:00 asdf
+::tcltest::test TimeOfDayIsAt-4 {Second is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {TimeOfDayIsAt 00:00:00 asdf
 }  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -52,7 +53,7 @@ proc TimeOfDayIsAtTest::Test-5 {} {
 
 proc TimeOfDayIsAtTest::Test-6 {} {
 
-::tcltest::test TimeOfDayIsAt-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test TimeOfDayIsAt-5 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAt]]}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsAt {0100 PM} {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  

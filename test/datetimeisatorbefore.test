@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DatetimeIsAtOrBeforeTest {}
 
@@ -7,7 +8,7 @@ namespace eval DatetimeIsAtOrBeforeTest {}
 
 proc DatetimeIsAtOrBeforeTest::Test-1 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-0 {Datetime is at}  -constraints {}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} {2000-01-01 00:00:00}
+::tcltest::test DatetimeIsAtOrBefore-0 {Datetime is at}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} {2000-01-01 00:00:00}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc DatetimeIsAtOrBeforeTest::Test-1 {} {
 
 proc DatetimeIsAtOrBeforeTest::Test-2 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-1 {Datetime is before}  -constraints {}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} {2000-01-01 00:00:01}
+::tcltest::test DatetimeIsAtOrBefore-1 {Datetime is before}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} {2000-01-01 00:00:01}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc DatetimeIsAtOrBeforeTest::Test-2 {} {
 
 proc DatetimeIsAtOrBeforeTest::Test-3 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-2 {Datetime is after}  -constraints {}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:01} {2000-01-01 00:00:00}
+::tcltest::test DatetimeIsAtOrBefore-2 {Datetime is after}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:01} {2000-01-01 00:00:00}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -34,7 +35,7 @@ proc DatetimeIsAtOrBeforeTest::Test-3 {} {
 
 proc DatetimeIsAtOrBeforeTest::Test-4 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-3 {First is invalid}  -constraints {}  -setup {}  -body {DatetimeIsAtOrBefore asdf {2000-01-01 00:00:00}
+::tcltest::test DatetimeIsAtOrBefore-3 {First is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {DatetimeIsAtOrBefore asdf {2000-01-01 00:00:00}
 }  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -43,7 +44,7 @@ proc DatetimeIsAtOrBeforeTest::Test-4 {} {
 
 proc DatetimeIsAtOrBeforeTest::Test-5 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-4 {Second is invalid}  -constraints {}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} asdf
+::tcltest::test DatetimeIsAtOrBefore-4 {Second is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {DatetimeIsAtOrBefore {2000-01-01 00:00:00} asdf
 }  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -52,7 +53,7 @@ proc DatetimeIsAtOrBeforeTest::Test-5 {} {
 
 proc DatetimeIsAtOrBeforeTest::Test-6 {} {
 
-::tcltest::test DatetimeIsAtOrBefore-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
+::tcltest::test DatetimeIsAtOrBefore-5 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeIsAtOrBefore]]}  -setup {}  -body {SetDatetimeFormat {{%m/%d/%Y %H%M} -locale en_US -timezone :America/New_York}
 DatetimeIsAtOrBefore {01/02/2000 0303} {01/02/2000 0303}
 }  -cleanup {SetDatetimeFormat {{%Y-%m-%d %H:%M:%S}}
 }  -result {1}  -output {}  -returnCodes {0}  

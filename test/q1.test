@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval Q1Test {}
 
@@ -7,7 +8,7 @@ namespace eval Q1Test {}
 
 proc Q1Test::Test-1 {} {
 
-::tcltest::test Q1-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test Q1-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Q1]]}  -setup {sqlite3 testdb test.db
 }  -body {Q1 "SELECT integervalue FROM integers_table WHERE id = 1"}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc Q1Test::Test-1 {} {
 
 proc Q1Test::Test-2 {} {
 
-::tcltest::test Q1-1 {Empty query statement}  -constraints {}  -setup {}  -body {Q1 ""}  -cleanup {}  -result {Variable QueryStatement has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test Q1-1 {Empty query statement}  -constraints {[expr [CheckAllDependenciesLoaded Q1]]}  -setup {}  -body {Q1 ""}  -cleanup {}  -result {Variable QueryStatement has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

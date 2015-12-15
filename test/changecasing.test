@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ChangeCasingTest {}
 
@@ -7,7 +8,7 @@ namespace eval ChangeCasingTest {}
 
 proc ChangeCasingTest::Test-1 {} {
 
-::tcltest::test ChangeCasing-0 {PascalCase to xxxx}  -constraints {}  -setup {}  -body {puts [ChangeCasing HelloWorld PascalCase mixedCase]
+::tcltest::test ChangeCasing-0 {PascalCase to xxxx}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {puts [ChangeCasing HelloWorld PascalCase mixedCase]
 puts [ChangeCasing HelloWorld PascalCase {Title Case}]
 puts [ChangeCasing HelloWorld PascalCase hyphenated-case]
 puts [ChangeCasing HelloWorld PascalCase {HYPHENATED-CASE}]
@@ -34,7 +35,7 @@ HELLO_WORLD
 
 proc ChangeCasingTest::Test-2 {} {
 
-::tcltest::test ChangeCasing-1 {xxxx to PascalCase}  -constraints {}  -setup {}  -body {puts [ChangeCasing helloWorld mixedCase PascalCase]
+::tcltest::test ChangeCasing-1 {xxxx to PascalCase}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {puts [ChangeCasing helloWorld mixedCase PascalCase]
 puts [ChangeCasing {Hello World} {Title Case} PascalCase]
 puts [ChangeCasing hello-world hyphenated-case PascalCase]
 puts [ChangeCasing HELLO-WORLD {HYPHENATED-CASE} PascalCase]
@@ -57,7 +58,7 @@ HelloWorld
 
 proc ChangeCasingTest::Test-3 {} {
 
-::tcltest::test ChangeCasing-2 {Empty string for value}  -constraints {}  -setup {}  -body {ChangeCasing "" PascalCase snake_case
+::tcltest::test ChangeCasing-2 {Empty string for value}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {ChangeCasing "" PascalCase snake_case
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -66,7 +67,7 @@ proc ChangeCasingTest::Test-3 {} {
 
 proc ChangeCasingTest::Test-4 {} {
 
-::tcltest::test ChangeCasing-3 {Invalid from case}  -constraints {}  -setup {}  -body {ChangeCasing "Hello World" asdf snake_case}  -cleanup {}  -result {From type asdf not supported. Consider using type none.}  -output {}  -returnCodes {1}  
+::tcltest::test ChangeCasing-3 {Invalid from case}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {ChangeCasing "Hello World" asdf snake_case}  -cleanup {}  -result {From type asdf not supported. Consider using type none.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -74,7 +75,7 @@ proc ChangeCasingTest::Test-4 {} {
 
 proc ChangeCasingTest::Test-5 {} {
 
-::tcltest::test ChangeCasing-4 {Invalid to case}  -constraints {}  -setup {}  -body {ChangeCasing "Hello World" {Title Case} asdf}  -cleanup {}  -result {To type asdf not supported.}  -output {}  -returnCodes {1}  
+::tcltest::test ChangeCasing-4 {Invalid to case}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {ChangeCasing "Hello World" {Title Case} asdf}  -cleanup {}  -result {To type asdf not supported.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -82,7 +83,7 @@ proc ChangeCasingTest::Test-5 {} {
 
 proc ChangeCasingTest::Test-6 {} {
 
-::tcltest::test ChangeCasing-5 {Test at}  -constraints {}  -setup {}  -body {set MyString {snake_case}
+::tcltest::test ChangeCasing-5 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded ChangeCasing]]}  -setup {}  -body {set MyString {snake_case}
 ChangeCasing @MyString snake_lower SNAKE_UPPER
 puts $MyString
 }  -cleanup {}  -result {}  -output {SNAKE_CASE

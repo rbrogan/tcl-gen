@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval VarExistsInCallerTest {}
 
@@ -7,7 +8,7 @@ namespace eval VarExistsInCallerTest {}
 
 proc VarExistsInCallerTest::Test-1 {} {
 
-::tcltest::test VarExistsInCaller-0 {Illustration}  -constraints {}  -setup {}  -body {proc Proc2 {} { \
+::tcltest::test VarExistsInCaller-0 {Illustration}  -constraints {[expr [CheckAllDependenciesLoaded VarExistsInCaller]]}  -setup {}  -body {proc Proc2 {} { \
      puts [VarExistsInCaller abc]; \
      puts [VarExistsInCaller def]; \
      puts [VarExistsInCaller abc 2]; \
@@ -27,7 +28,7 @@ Proc0}  -cleanup {}  -result {}  -output {1
 
 proc VarExistsInCallerTest::Test-2 {} {
 
-::tcltest::test VarExistsInCaller-1 {Empty string input}  -constraints {}  -setup {}  -body {VarExistsInCaller "" 2}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test VarExistsInCaller-1 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded VarExistsInCaller]]}  -setup {}  -body {VarExistsInCaller "" 2}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
 

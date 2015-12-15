@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RestoreIfExistsTest {}
 
@@ -7,7 +8,7 @@ namespace eval RestoreIfExistsTest {}
 
 proc RestoreIfExistsTest::Test-1 {} {
 
-::tcltest::test RestoreIfExists-0 {Basic test}  -constraints {}  -setup {file delete -force asdfg.txt
+::tcltest::test RestoreIfExists-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {file delete -force asdfg.txt
 file delete -force asdfg.txt.bak}  -body {String2File asdfg asdfg.txt
 BackupIfExists asdfg.txt
 String2File gfdsa asdfg.txt
@@ -24,7 +25,7 @@ asdfg
 
 proc RestoreIfExistsTest::Test-2 {} {
 
-::tcltest::test RestoreIfExists-1 {File does not exist}  -constraints {}  -setup {file delete -force asdfg.txt
+::tcltest::test RestoreIfExists-1 {File does not exist}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {file delete -force asdfg.txt
 file delete -force asdfg.txt.bak}  -body {puts [RestoreIfExists asdfg.txt]
 file exists asdfg.txt}  -cleanup {}  -result {0}  -output {0
 }  -returnCodes {0}  
@@ -35,7 +36,7 @@ file exists asdfg.txt}  -cleanup {}  -result {0}  -output {0
 
 proc RestoreIfExistsTest::Test-3 {} {
 
-::tcltest::test RestoreIfExists-2 {FilePathValue is empty}  -constraints {}  -setup {}  -body {RestoreIfExists ""
+::tcltest::test RestoreIfExists-2 {FilePathValue is empty}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {}  -body {RestoreIfExists ""
 
 }  -cleanup {}  -result {Variable FilePathValue has empty value.}  -output {}  -returnCodes {1}  
 
@@ -45,7 +46,7 @@ proc RestoreIfExistsTest::Test-3 {} {
 
 proc RestoreIfExistsTest::Test-4 {} {
 
-::tcltest::test RestoreIfExists-4 {Extension is empty}  -constraints {}  -setup {}  -body {RestoreIfExists my.txt ""
+::tcltest::test RestoreIfExists-4 {Extension is empty}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {}  -body {RestoreIfExists my.txt ""
 
 }  -cleanup {}  -result {Variable Extension has empty value.}  -output {}  -returnCodes {1}  
 
@@ -55,7 +56,7 @@ proc RestoreIfExistsTest::Test-4 {} {
 
 proc RestoreIfExistsTest::Test-5 {} {
 
-::tcltest::test RestoreIfExists-6 {Use different extension}  -constraints {}  -setup {file delete -force asdfg.txt
+::tcltest::test RestoreIfExists-6 {Use different extension}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {file delete -force asdfg.txt
 file delete -force asdfg.txt.backup}  -body {String2File asdfg asdfg.txt
 BackupIfExists asdfg.txt backup
 String2File gfdsa asdfg.txt
@@ -72,7 +73,7 @@ asdfg
 
 proc RestoreIfExistsTest::Test-6 {} {
 
-::tcltest::test RestoreIfExists-7 {Original was deleted}  -constraints {}  -setup {}  -body {String2File asdfg asdfg.txt
+::tcltest::test RestoreIfExists-7 {Original was deleted}  -constraints {[expr [CheckAllDependenciesLoaded RestoreIfExists]]}  -setup {}  -body {String2File asdfg asdfg.txt
 BackupIfExists asdfg.txt
 file delete -force asdfg.txt
 RestoreIfExists asdfg.txt

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpWhichIsLargerTest {}
 
@@ -7,7 +8,7 @@ namespace eval FtpWhichIsLargerTest {}
 
 proc FtpWhichIsLargerTest::Test-1 {} {
 
-::tcltest::test FtpWhichIsLarger-0 {Local file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsLarger-0 {Local file is larger}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsLarger]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -28,7 +29,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 
 
 proc FtpWhichIsLargerTest::Test-2 {} {
 
-::tcltest::test FtpWhichIsLarger-1 {Remote file is larger}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsLarger-1 {Remote file is larger}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsLarger]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -49,7 +50,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 
 
 proc FtpWhichIsLargerTest::Test-3 {} {
 
-::tcltest::test FtpWhichIsLarger-2 {Both files are of equal size}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsLarger-2 {Both files are of equal size}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsLarger]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -70,7 +71,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 
 
 proc FtpWhichIsLargerTest::Test-4 {} {
 
-::tcltest::test FtpWhichIsLarger-3 {File does not exist remotely}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsLarger-3 {File does not exist remotely}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsLarger]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]
@@ -91,7 +92,7 @@ file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 
 
 proc FtpWhichIsLargerTest::Test-5 {} {
 
-::tcltest::test FtpWhichIsLarger-4 {File does not exist locally}  -constraints {}  -setup {source ftp-test-config.tcl
+::tcltest::test FtpWhichIsLarger-4 {File does not exist locally}  -constraints {[expr [CheckAllDependenciesLoaded FtpWhichIsLarger]]}  -setup {source ftp-test-config.tcl
 file delete -force $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 file copy -force $GenTest::Ftp::LocalRoot/downloadto/original/different-sizes-2 $GenTest::Ftp::LocalRoot/downloadto/temp/different-sizes-2
 SaveWorkingDirectory}  -body {set FtpHandle [ftp::Open $GenNS::Ftp::Server $GenNS::Ftp::Username $GenNS::Ftp::Password {*}$GenNS::Ftp::OptionsList]

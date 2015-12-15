@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DiffHhmmssTest {}
 
@@ -7,7 +8,7 @@ namespace eval DiffHhmmssTest {}
 
 proc DiffHhmmssTest::Test-1 {} {
 
-::tcltest::test DiffHhmmss-0 {Basic test}  -constraints {}  -setup {}  -body {DiffHhmmss {03:03:03} {02:02:02}
+::tcltest::test DiffHhmmss-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss {03:03:03} {02:02:02}
 }  -cleanup {}  -result {01:01:01}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc DiffHhmmssTest::Test-1 {} {
 
 proc DiffHhmmssTest::Test-2 {} {
 
-::tcltest::test DiffHhmmss-1 {Minuend is invalid}  -constraints {}  -setup {}  -body {DiffHhmmss asdf {02:02:02}}  -cleanup {}  -result {Variable MinuendVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DiffHhmmss-1 {Minuend is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss asdf {02:02:02}}  -cleanup {}  -result {Variable MinuendVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -24,7 +25,7 @@ proc DiffHhmmssTest::Test-2 {} {
 
 proc DiffHhmmssTest::Test-3 {} {
 
-::tcltest::test DiffHhmmss-2 {Subtrahend is invalid}  -constraints {}  -setup {}  -body {DiffHhmmss {03:03:03} asdf
+::tcltest::test DiffHhmmss-2 {Subtrahend is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss {03:03:03} asdf
 }  -cleanup {}  -result {Variable Subtrahend has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -33,7 +34,7 @@ proc DiffHhmmssTest::Test-3 {} {
 
 proc DiffHhmmssTest::Test-4 {} {
 
-::tcltest::test DiffHhmmss-3 {Go to zero}  -constraints {}  -setup {}  -body {DiffHhmmss {03:03:03} {03:03:03}}  -cleanup {}  -result {00:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test DiffHhmmss-3 {Go to zero}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss {03:03:03} {03:03:03}}  -cleanup {}  -result {00:00:00}  -output {}  -returnCodes {0}  
 
 }
 
@@ -41,7 +42,7 @@ proc DiffHhmmssTest::Test-4 {} {
 
 proc DiffHhmmssTest::Test-5 {} {
 
-::tcltest::test DiffHhmmss-4 {Go below zero}  -constraints {}  -setup {}  -body {DiffHhmmss 00:00:00 01:00:00}  -cleanup {}  -result {-01:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test DiffHhmmss-4 {Go below zero}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss 00:00:00 01:00:00}  -cleanup {}  -result {-01:00:00}  -output {}  -returnCodes {0}  
 
 }
 
@@ -49,7 +50,7 @@ proc DiffHhmmssTest::Test-5 {} {
 
 proc DiffHhmmssTest::Test-6 {} {
 
-::tcltest::test DiffHhmmss-5 {One of the arguments is negative}  -constraints {}  -setup {}  -body {DiffHhmmss 01:00:00 -01:00:00
+::tcltest::test DiffHhmmss-5 {One of the arguments is negative}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss 01:00:00 -01:00:00
 }  -cleanup {}  -result {02:00:00}  -output {}  -returnCodes {0}  
 
 }
@@ -58,7 +59,7 @@ proc DiffHhmmssTest::Test-6 {} {
 
 proc DiffHhmmssTest::Test-7 {} {
 
-::tcltest::test DiffHhmmss-6 {Go to 100 hours negative}  -constraints {}  -setup {}  -body {DiffHhmmss -50:00:00 50:00:00}  -cleanup {}  -result {-100:00:00}  -output {}  -returnCodes {0}  
+::tcltest::test DiffHhmmss-6 {Go to 100 hours negative}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss -50:00:00 50:00:00}  -cleanup {}  -result {-100:00:00}  -output {}  -returnCodes {0}  
 
 }
 
@@ -66,7 +67,7 @@ proc DiffHhmmssTest::Test-7 {} {
 
 proc DiffHhmmssTest::Test-8 {} {
 
-::tcltest::test DiffHhmmss-7 {Minuend is empty}  -constraints {}  -setup {}  -body {DiffHhmmss "" {02:02:02}
+::tcltest::test DiffHhmmss-7 {Minuend is empty}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss "" {02:02:02}
 }  -cleanup {}  -result {Variable MinuendVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -75,7 +76,7 @@ proc DiffHhmmssTest::Test-8 {} {
 
 proc DiffHhmmssTest::Test-9 {} {
 
-::tcltest::test DiffHhmmss-8 {Subtrahend is empty}  -constraints {}  -setup {}  -body {DiffHhmmss {02:02:02} ""
+::tcltest::test DiffHhmmss-8 {Subtrahend is empty}  -constraints {[expr [CheckAllDependenciesLoaded DiffHhmmss]]}  -setup {}  -body {DiffHhmmss {02:02:02} ""
 }  -cleanup {}  -result {Variable SubtrahendVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }

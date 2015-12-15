@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval AddToTest {}
 
@@ -7,7 +8,7 @@ namespace eval AddToTest {}
 
 proc AddToTest::Test-1 {} {
 
-::tcltest::test AddTo-0 {Basic test}  -constraints {}  -setup {}  -body {set MyNumber 123
+::tcltest::test AddTo-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded AddTo]]}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber 4
 puts $MyNumber}  -cleanup {}  -result {}  -output {127
 }  -returnCodes {0}  
@@ -18,7 +19,7 @@ puts $MyNumber}  -cleanup {}  -result {}  -output {127
 
 proc AddToTest::Test-2 {} {
 
-::tcltest::test AddTo-1 {No such variable test}  -constraints {}  -setup {}  -body {AddTo NoSuchVariable 123}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
+::tcltest::test AddTo-1 {No such variable test}  -constraints {[expr [CheckAllDependenciesLoaded AddTo]]}  -setup {}  -body {AddTo NoSuchVariable 123}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
 
 }
 
@@ -26,7 +27,7 @@ proc AddToTest::Test-2 {} {
 
 proc AddToTest::Test-3 {} {
 
-::tcltest::test AddTo-2 {Non-numeric input}  -constraints {}  -setup {}  -body {set MyNumber 123
+::tcltest::test AddTo-2 {Non-numeric input}  -constraints {[expr [CheckAllDependenciesLoaded AddTo]]}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber asdf
 }  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
@@ -36,7 +37,7 @@ AddTo MyNumber asdf
 
 proc AddToTest::Test-4 {} {
 
-::tcltest::test AddTo-4 {Empty string input 2}  -constraints {}  -setup {}  -body {set MyNumber 123
+::tcltest::test AddTo-4 {Empty string input 2}  -constraints {[expr [CheckAllDependenciesLoaded AddTo]]}  -setup {}  -body {set MyNumber 123
 AddTo MyNumber ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
@@ -45,7 +46,7 @@ AddTo MyNumber ""}  -cleanup {}  -result {Got input value . Expected numeric val
 
 proc AddToTest::Test-5 {} {
 
-::tcltest::test AddTo-3 {Empty string input 1}  -constraints {}  -setup {}  -body {AddTo "" 123}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test AddTo-3 {Empty string input 1}  -constraints {[expr [CheckAllDependenciesLoaded AddTo]]}  -setup {}  -body {AddTo "" 123}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
 

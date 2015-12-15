@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval QQTest {}
 
@@ -7,7 +8,7 @@ namespace eval QQTest {}
 
 proc QQTest::Test-1 {} {
 
-::tcltest::test QQ-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "SELECT desc, notes FROM my_table WHERE id = 1"}  -cleanup {}  -result {uno one}  -output {}  -returnCodes {0}  
+::tcltest::test QQ-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded QQ]]}  -setup {sqlite3 testdb test.db}  -body {QQ "SELECT desc, notes FROM my_table WHERE id = 1"}  -cleanup {}  -result {uno one}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc QQTest::Test-1 {} {
 
 proc QQTest::Test-2 {} {
 
-::tcltest::test QQ-1 {Empty query statement}  -constraints {}  -setup {}  -body {QQ ""
+::tcltest::test QQ-1 {Empty query statement}  -constraints {[expr [CheckAllDependenciesLoaded QQ]]}  -setup {}  -body {QQ ""
 }  -cleanup {}  -result {Variable QueryStatement has empty value.}  -output {}  -returnCodes {1}  
 
 }

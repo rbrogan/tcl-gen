@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval LastOfTest {}
 
@@ -7,7 +8,7 @@ namespace eval LastOfTest {}
 
 proc LastOfTest::Test-1 {} {
 
-::tcltest::test LastOf-0 {Basic test}  -constraints {}  -setup {}  -body {LastOf {abc def ghi}}  -cleanup {}  -result {ghi}  -output {}  -returnCodes {0}  
+::tcltest::test LastOf-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded LastOf]]}  -setup {}  -body {LastOf {abc def ghi}}  -cleanup {}  -result {ghi}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc LastOfTest::Test-1 {} {
 
 proc LastOfTest::Test-2 {} {
 
-::tcltest::test LastOf-1 {Empty list}  -constraints {}  -setup {}  -body {LastOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test LastOf-1 {Empty list}  -constraints {[expr [CheckAllDependenciesLoaded LastOf]]}  -setup {}  -body {LastOf {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc LastOfTest::Test-2 {} {
 
 proc LastOfTest::Test-3 {} {
 
-::tcltest::test LastOf-2 {One element}  -constraints {}  -setup {}  -body {LastOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
+::tcltest::test LastOf-2 {One element}  -constraints {[expr [CheckAllDependenciesLoaded LastOf]]}  -setup {}  -body {LastOf {abc}}  -cleanup {}  -result {abc}  -output {}  -returnCodes {0}  
 
 }
 

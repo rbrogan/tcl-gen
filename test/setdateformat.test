@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SetDateFormatTest {}
 
@@ -7,7 +8,7 @@ namespace eval SetDateFormatTest {}
 
 proc SetDateFormatTest::Test-1 {} {
 
-::tcltest::test SetDateFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetDateFormat %Y-%m-%d
+::tcltest::test SetDateFormat-0 {Set to default}  -constraints {[expr [CheckAllDependenciesLoaded SetDateFormat]]}  -setup {}  -body {SetDateFormat %Y-%m-%d
 puts [IsDate 2000-01-02]
 puts [IsDate 02/01/2000]
 }  -cleanup {}  -result {}  -output {1
@@ -20,7 +21,7 @@ puts [IsDate 02/01/2000]
 
 proc SetDateFormatTest::Test-2 {} {
 
-::tcltest::test SetDateFormat-1 {Set to something other than default}  -constraints {}  -setup {}  -body {SetDateFormat %m/%d/%Y
+::tcltest::test SetDateFormat-1 {Set to something other than default}  -constraints {[expr [CheckAllDependenciesLoaded SetDateFormat]]}  -setup {}  -body {SetDateFormat %m/%d/%Y
 puts [IsDate 2000-01-02]
 puts [IsDate 01/02/2000]
 }  -cleanup {SetDateFormat {%Y-%m-%d}
@@ -34,7 +35,7 @@ puts [IsDate 01/02/2000]
 
 proc SetDateFormatTest::Test-3 {} {
 
-::tcltest::test SetDateFormat-2 {Invalid input}  -constraints {}  -setup {}  -body {SetDateFormat asdf
+::tcltest::test SetDateFormat-2 {Invalid input}  -constraints {[expr [CheckAllDependenciesLoaded SetDateFormat]]}  -setup {}  -body {SetDateFormat asdf
 }  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }

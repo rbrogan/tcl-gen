@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsNumericTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsNumericTest {}
 
 proc IsNumericTest::Test-1 {} {
 
-::tcltest::test IsNumeric-0 {Basic test 1 - integer}  -constraints {}  -setup {}  -body {IsNumeric 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsNumeric-0 {Basic test 1 - integer}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc IsNumericTest::Test-1 {} {
 
 proc IsNumericTest::Test-2 {} {
 
-::tcltest::test IsNumeric-1 {Basic test 2 - double}  -constraints {}  -setup {}  -body {IsNumeric 1.1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsNumeric-1 {Basic test 2 - double}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric 1.1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc IsNumericTest::Test-2 {} {
 
 proc IsNumericTest::Test-3 {} {
 
-::tcltest::test IsNumeric-2 {Basic test 3 - wide integer}  -constraints {}  -setup {}  -body {IsNumeric  111111111111111111}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsNumeric-2 {Basic test 3 - wide integer}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric  111111111111111111}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc IsNumericTest::Test-3 {} {
 
 proc IsNumericTest::Test-4 {} {
 
-::tcltest::test IsNumeric-3 {Negative test - Alphabetic}  -constraints {}  -setup {}  -body {IsNumeric asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsNumeric-3 {Negative test - Alphabetic}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -39,7 +40,7 @@ proc IsNumericTest::Test-4 {} {
 
 proc IsNumericTest::Test-5 {} {
 
-::tcltest::test IsNumeric-4 {Negative test - Empty string}  -constraints {}  -setup {}  -body {IsNumeric ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsNumeric-4 {Negative test - Empty string}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -47,7 +48,7 @@ proc IsNumericTest::Test-5 {} {
 
 proc IsNumericTest::Test-6 {} {
 
-::tcltest::test IsNumeric-5 {Basic test - hex}  -constraints {}  -setup {}  -body {IsNumeric 0x10
+::tcltest::test IsNumeric-5 {Basic test - hex}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric 0x10
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -56,7 +57,7 @@ proc IsNumericTest::Test-6 {} {
 
 proc IsNumericTest::Test-7 {} {
 
-::tcltest::test IsNumeric-6 {Basic test - octal}  -constraints {}  -setup {}  -body {IsNumeric 010
+::tcltest::test IsNumeric-6 {Basic test - octal}  -constraints {[expr [CheckAllDependenciesLoaded IsNumeric]]}  -setup {}  -body {IsNumeric 010
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }

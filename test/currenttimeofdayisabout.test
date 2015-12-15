@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CurrentTimeOfDayIsAboutTest {}
 
@@ -27,7 +28,7 @@ proc RestoreClock {} {
 
 proc CurrentTimeOfDayIsAboutTest::Test-1 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-0 {Current time-of-day falls within interval}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-0 {Current time-of-day falls within interval}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S}]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S}]
 puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S}]
@@ -57,7 +58,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S}]
 
 proc CurrentTimeOfDayIsAboutTest::Test-2 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-5 {TargetTime is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAbout asdf {1H 1M 1S}
+::tcltest::test CurrentTimeOfDayIsAbout-5 {TargetTime is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {}  -body {CurrentTimeOfDayIsAbout asdf {1H 1M 1S}
 }  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -66,7 +67,7 @@ proc CurrentTimeOfDayIsAboutTest::Test-2 {} {
 
 proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-6 {WithinInterval is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAbout 12:00:00 asdf
+::tcltest::test CurrentTimeOfDayIsAbout-6 {WithinInterval is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {}  -body {CurrentTimeOfDayIsAbout 12:00:00 asdf
 }  -cleanup {}  -result {Variable WithinInterval has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -75,7 +76,7 @@ proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
 
 proc CurrentTimeOfDayIsAboutTest::Test-4 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-7 {Use BothInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-7 {Use BothInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} BothInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} BothInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} BothInclusive]
@@ -117,7 +118,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} BothInclusive]
 
 proc CurrentTimeOfDayIsAboutTest::Test-5 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-8 {Use LeftInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-8 {Use LeftInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} LeftInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} LeftInclusive]
@@ -159,7 +160,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftInclusive]
 
 proc CurrentTimeOfDayIsAboutTest::Test-6 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-9 {Use LeftExclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-9 {Use LeftExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftExclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} LeftExclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} LeftExclusive]
@@ -201,7 +202,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftExclusive]
 
 proc CurrentTimeOfDayIsAboutTest::Test-7 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-10 {Use RightExclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-10 {Use RightExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightExclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} RightExclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} RightExclusive]
@@ -243,7 +244,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} RightExclusive]
 
 proc CurrentTimeOfDayIsAboutTest::Test-8 {} {
 
-::tcltest::test CurrentTimeOfDayIsAbout-11 {Use RightInclusive option}  -constraints {}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAbout-11 {Use RightInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S} RightInclusive]
 puts [CurrentTimeOfDayIsAbout 11:00:01 {1H 0M 0S} RightInclusive]

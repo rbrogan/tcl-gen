@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval TimeOfDayIsBetweenTest {}
 
@@ -7,7 +8,7 @@ namespace eval TimeOfDayIsBetweenTest {}
 
 proc TimeOfDayIsBetweenTest::Test-1 {} {
 
-::tcltest::test TimeOfDayIsBetween-0 {First is between second and third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-0 {First is between second and third}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc TimeOfDayIsBetweenTest::Test-1 {} {
 
 proc TimeOfDayIsBetweenTest::Test-2 {} {
 
-::tcltest::test TimeOfDayIsBetween-1 {First is before second and third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:01 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-1 {First is before second and third}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:01 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc TimeOfDayIsBetweenTest::Test-2 {} {
 
 proc TimeOfDayIsBetweenTest::Test-3 {} {
 
-::tcltest::test TimeOfDayIsBetween-2 {First is after second and third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:05 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-2 {First is after second and third}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:05 01:02:02 01:02:04}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc TimeOfDayIsBetweenTest::Test-3 {} {
 
 proc TimeOfDayIsBetweenTest::Test-4 {} {
 
-::tcltest::test TimeOfDayIsBetween-3 {First equals second}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04
+::tcltest::test TimeOfDayIsBetween-3 {First equals second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -40,7 +41,7 @@ proc TimeOfDayIsBetweenTest::Test-4 {} {
 
 proc TimeOfDayIsBetweenTest::Test-5 {} {
 
-::tcltest::test TimeOfDayIsBetween-4 {First equals third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04
+::tcltest::test TimeOfDayIsBetween-4 {First equals third}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -49,7 +50,7 @@ proc TimeOfDayIsBetweenTest::Test-5 {} {
 
 proc TimeOfDayIsBetweenTest::Test-6 {} {
 
-::tcltest::test TimeOfDayIsBetween-5 {Second is after third}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:04 01:02:02}  -cleanup {}  -result {Arguments SecondTimeOfDay and ThirdTimeOfDay have incoherent values 01:02:04 and 01:02:02.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsBetween-5 {Second is after third}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:04 01:02:02}  -cleanup {}  -result {Arguments SecondTimeOfDay and ThirdTimeOfDay have incoherent values 01:02:04 and 01:02:02.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -57,7 +58,7 @@ proc TimeOfDayIsBetweenTest::Test-6 {} {
 
 proc TimeOfDayIsBetweenTest::Test-7 {} {
 
-::tcltest::test TimeOfDayIsBetween-6 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween asdf 01:02:02 01:02:04}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsBetween-6 {First is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween asdf 01:02:02 01:02:04}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -65,7 +66,7 @@ proc TimeOfDayIsBetweenTest::Test-7 {} {
 
 proc TimeOfDayIsBetweenTest::Test-8 {} {
 
-::tcltest::test TimeOfDayIsBetween-7 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 asdf 01:02:04}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsBetween-7 {Second is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 asdf 01:02:04}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -73,7 +74,7 @@ proc TimeOfDayIsBetweenTest::Test-8 {} {
 
 proc TimeOfDayIsBetweenTest::Test-9 {} {
 
-::tcltest::test TimeOfDayIsBetween-8 {Third is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 asdf}  -cleanup {}  -result {Variable ThirdTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsBetween-8 {Third is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 asdf}  -cleanup {}  -result {Variable ThirdTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -81,7 +82,7 @@ proc TimeOfDayIsBetweenTest::Test-9 {} {
 
 proc TimeOfDayIsBetweenTest::Test-10 {} {
 
-::tcltest::test TimeOfDayIsBetween-9 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test TimeOfDayIsBetween-9 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsBetween {0101 PM} {0100 PM} {0102 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  
@@ -92,7 +93,7 @@ TimeOfDayIsBetween {0101 PM} {0100 PM} {0102 PM}
 
 proc TimeOfDayIsBetweenTest::Test-11 {} {
 
-::tcltest::test TimeOfDayIsBetween-10 {Option is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 asdf}  -cleanup {}  -result {Variable Option has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test TimeOfDayIsBetween-10 {Option is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 asdf}  -cleanup {}  -result {Variable Option has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -100,7 +101,7 @@ proc TimeOfDayIsBetweenTest::Test-11 {} {
 
 proc TimeOfDayIsBetweenTest::Test-12 {} {
 
-::tcltest::test TimeOfDayIsBetween-11 {First is equal to second and both inclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 BothInclusive
+::tcltest::test TimeOfDayIsBetween-11 {First is equal to second and both inclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -109,7 +110,7 @@ proc TimeOfDayIsBetweenTest::Test-12 {} {
 
 proc TimeOfDayIsBetweenTest::Test-13 {} {
 
-::tcltest::test TimeOfDayIsBetween-12 {First is equal to second and LeftInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftInclusive
+::tcltest::test TimeOfDayIsBetween-12 {First is equal to second and LeftInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -118,7 +119,7 @@ proc TimeOfDayIsBetweenTest::Test-13 {} {
 
 proc TimeOfDayIsBetweenTest::Test-14 {} {
 
-::tcltest::test TimeOfDayIsBetween-13 {First is equal to second and LeftExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftExclusive
+::tcltest::test TimeOfDayIsBetween-13 {First is equal to second and LeftExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 LeftExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -127,7 +128,7 @@ proc TimeOfDayIsBetweenTest::Test-14 {} {
 
 proc TimeOfDayIsBetweenTest::Test-15 {} {
 
-::tcltest::test TimeOfDayIsBetween-14 {First is equal to third and BothInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 BothInclusive
+::tcltest::test TimeOfDayIsBetween-14 {First is equal to third and BothInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 BothInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -136,7 +137,7 @@ proc TimeOfDayIsBetweenTest::Test-15 {} {
 
 proc TimeOfDayIsBetweenTest::Test-16 {} {
 
-::tcltest::test TimeOfDayIsBetween-15 {First is equal to third and LeftInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftInclusive
+::tcltest::test TimeOfDayIsBetween-15 {First is equal to third and LeftInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -145,7 +146,7 @@ proc TimeOfDayIsBetweenTest::Test-16 {} {
 
 proc TimeOfDayIsBetweenTest::Test-17 {} {
 
-::tcltest::test TimeOfDayIsBetween-16 {First is equal to third and LeftExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftExclusive
+::tcltest::test TimeOfDayIsBetween-16 {First is equal to third and LeftExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 LeftExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -154,7 +155,7 @@ proc TimeOfDayIsBetweenTest::Test-17 {} {
 
 proc TimeOfDayIsBetweenTest::Test-18 {} {
 
-::tcltest::test TimeOfDayIsBetween-17 {First is equal to second and RightInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightInclusive
+::tcltest::test TimeOfDayIsBetween-17 {First is equal to second and RightInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightInclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -163,7 +164,7 @@ proc TimeOfDayIsBetweenTest::Test-18 {} {
 
 proc TimeOfDayIsBetweenTest::Test-19 {} {
 
-::tcltest::test TimeOfDayIsBetween-18 {First is equal to second and RightExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightExclusive
+::tcltest::test TimeOfDayIsBetween-18 {First is equal to second and RightExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:02 01:02:02 01:02:04 RightExclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -172,7 +173,7 @@ proc TimeOfDayIsBetweenTest::Test-19 {} {
 
 proc TimeOfDayIsBetweenTest::Test-20 {} {
 
-::tcltest::test TimeOfDayIsBetween-19 {First is equal to third and RightInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightInclusive
+::tcltest::test TimeOfDayIsBetween-19 {First is equal to third and RightInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightInclusive
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -181,7 +182,7 @@ proc TimeOfDayIsBetweenTest::Test-20 {} {
 
 proc TimeOfDayIsBetweenTest::Test-21 {} {
 
-::tcltest::test TimeOfDayIsBetween-20 {First is equal to third and RightExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightExclusive
+::tcltest::test TimeOfDayIsBetween-20 {First is equal to third and RightExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:04 01:02:02 01:02:04 RightExclusive
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -190,7 +191,7 @@ proc TimeOfDayIsBetweenTest::Test-21 {} {
 
 proc TimeOfDayIsBetweenTest::Test-22 {} {
 
-::tcltest::test TimeOfDayIsBetween-21 {First is between second and third, BothInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 BothInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-21 {First is between second and third, BothInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 BothInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -198,7 +199,7 @@ proc TimeOfDayIsBetweenTest::Test-22 {} {
 
 proc TimeOfDayIsBetweenTest::Test-23 {} {
 
-::tcltest::test TimeOfDayIsBetween-22 {First is between second and third, LeftExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 LeftExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-22 {First is between second and third, LeftExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 LeftExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -206,7 +207,7 @@ proc TimeOfDayIsBetweenTest::Test-23 {} {
 
 proc TimeOfDayIsBetweenTest::Test-24 {} {
 
-::tcltest::test TimeOfDayIsBetween-23 {First is between second and third, RightInclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-23 {First is between second and third, RightInclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightInclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -214,7 +215,7 @@ proc TimeOfDayIsBetweenTest::Test-24 {} {
 
 proc TimeOfDayIsBetweenTest::Test-25 {} {
 
-::tcltest::test TimeOfDayIsBetween-24 {First is between second and third, RightExclusive}  -constraints {}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsBetween-24 {First is between second and third, RightExclusive}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsBetween]]}  -setup {}  -body {TimeOfDayIsBetween 01:02:03 01:02:02 01:02:04 RightExclusive}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 

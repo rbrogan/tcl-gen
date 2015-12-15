@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsDictTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsDictTest {}
 
 proc IsDictTest::Test-1 {} {
 
-::tcltest::test IsDict-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsDict [dict create one uno two dos]
+::tcltest::test IsDict-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded IsDict]]}  -setup {}  -body {IsDict [dict create one uno two dos]
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc IsDictTest::Test-1 {} {
 
 proc IsDictTest::Test-2 {} {
 
-::tcltest::test IsDict-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDict {not a dict}
+::tcltest::test IsDict-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded IsDict]]}  -setup {}  -body {IsDict {not a dict}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc IsDictTest::Test-2 {} {
 
 proc IsDictTest::Test-3 {} {
 
-::tcltest::test IsDict-2 {Empty input}  -constraints {}  -setup {}  -body {IsDict {}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsDict-2 {Empty input}  -constraints {[expr [CheckAllDependenciesLoaded IsDict]]}  -setup {}  -body {IsDict {}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 

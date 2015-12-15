@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SetTimeOfDayFormatTest {}
 
@@ -7,7 +8,7 @@ namespace eval SetTimeOfDayFormatTest {}
 
 proc SetTimeOfDayFormatTest::Test-1 {} {
 
-::tcltest::test SetTimeOfDayFormat-0 {Set to default}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat %H:%M:%S
+::tcltest::test SetTimeOfDayFormat-0 {Set to default}  -constraints {[expr [CheckAllDependenciesLoaded SetTimeOfDayFormat]]}  -setup {}  -body {SetTimeOfDayFormat %H:%M:%S
 puts [IsTimeOfDay 00:00:00]
 puts [IsTimeOfDay 0000]
 }  -cleanup {}  -result {}  -output {1
@@ -20,7 +21,7 @@ puts [IsTimeOfDay 0000]
 
 proc SetTimeOfDayFormatTest::Test-2 {} {
 
-::tcltest::test SetTimeOfDayFormat-1 {Set to something other than default}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat %H%M
+::tcltest::test SetTimeOfDayFormat-1 {Set to something other than default}  -constraints {[expr [CheckAllDependenciesLoaded SetTimeOfDayFormat]]}  -setup {}  -body {SetTimeOfDayFormat %H%M
 puts [IsTimeOfDay 00:00:00]
 puts [IsTimeOfDay 0000]
 }  -cleanup {}  -result {}  -output {0
@@ -33,7 +34,7 @@ puts [IsTimeOfDay 0000]
 
 proc SetTimeOfDayFormatTest::Test-3 {} {
 
-::tcltest::test SetTimeOfDayFormat-2 {Invalid input}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat asdf
+::tcltest::test SetTimeOfDayFormat-2 {Invalid input}  -constraints {[expr [CheckAllDependenciesLoaded SetTimeOfDayFormat]]}  -setup {}  -body {SetTimeOfDayFormat asdf
 }  -cleanup {}  -result {Variable FormatString has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }

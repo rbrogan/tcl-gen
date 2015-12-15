@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SplitNTimesTest {}
 
@@ -7,7 +8,7 @@ namespace eval SplitNTimesTest {}
 
 proc SplitNTimesTest::Test-1 {} {
 
-::tcltest::test SplitNTimes-0 {Basic test}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test SplitNTimes-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc SplitNTimesTest::Test-1 {} {
 
 proc SplitNTimesTest::Test-2 {} {
 
-::tcltest::test SplitNTimes-1 {Count is not a positive integer}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" , 0
+::tcltest::test SplitNTimes-1 {Count is not a positive integer}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" , 0
 }  -cleanup {}  -result {Variable Count has invalid value 0.}  -output {}  -returnCodes {1}  
 
 }
@@ -24,7 +25,7 @@ proc SplitNTimesTest::Test-2 {} {
 
 proc SplitNTimesTest::Test-3 {} {
 
-::tcltest::test SplitNTimes-2 {SplitChars is empty}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" "" 1
+::tcltest::test SplitNTimes-2 {SplitChars is empty}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" "" 1
 }  -cleanup {}  -result {one,two,three}  -output {}  -returnCodes {0}  
 
 }
@@ -33,7 +34,7 @@ proc SplitNTimesTest::Test-3 {} {
 
 proc SplitNTimesTest::Test-4 {} {
 
-::tcltest::test SplitNTimes-3 {StringValue is empty}  -constraints {}  -setup {}  -body {SplitNTimes "" , 1
+::tcltest::test SplitNTimes-3 {StringValue is empty}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "" , 1
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -42,7 +43,7 @@ proc SplitNTimesTest::Test-4 {} {
 
 proc SplitNTimesTest::Test-5 {} {
 
-::tcltest::test SplitNTimes-4 {More characters to split than count}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" , 1
+::tcltest::test SplitNTimes-4 {More characters to split than count}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" , 1
 }  -cleanup {}  -result {one two,three}  -output {}  -returnCodes {0}  
 
 }
@@ -51,7 +52,7 @@ proc SplitNTimesTest::Test-5 {} {
 
 proc SplitNTimesTest::Test-6 {} {
 
-::tcltest::test SplitNTimes-5 {Characters to split on matches count}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" , 2
+::tcltest::test SplitNTimes-5 {Characters to split on matches count}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" , 2
 
 }  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
@@ -61,7 +62,7 @@ proc SplitNTimesTest::Test-6 {} {
 
 proc SplitNTimesTest::Test-7 {} {
 
-::tcltest::test SplitNTimes-6 {No split characters in StringValue}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" . 1
+::tcltest::test SplitNTimes-6 {No split characters in StringValue}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" . 1
 }  -cleanup {}  -result {one,two,three}  -output {}  -returnCodes {0}  
 
 }
@@ -70,7 +71,7 @@ proc SplitNTimesTest::Test-7 {} {
 
 proc SplitNTimesTest::Test-8 {} {
 
-::tcltest::test SplitNTimes-7 {Split character at beginning of string}  -constraints {}  -setup {}  -body {SplitNTimes ",one,two,three" , 4
+::tcltest::test SplitNTimes-7 {Split character at beginning of string}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes ",one,two,three" , 4
 }  -cleanup {}  -result {{} one two three}  -output {}  -returnCodes {0}  
 
 }
@@ -79,7 +80,7 @@ proc SplitNTimesTest::Test-8 {} {
 
 proc SplitNTimesTest::Test-9 {} {
 
-::tcltest::test SplitNTimes-8 {Split character at end of string}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three," , 4
+::tcltest::test SplitNTimes-8 {Split character at end of string}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three," , 4
 }  -cleanup {}  -result {one two three {}}  -output {}  -returnCodes {0}  
 
 }
@@ -88,7 +89,7 @@ proc SplitNTimesTest::Test-9 {} {
 
 proc SplitNTimesTest::Test-10 {} {
 
-::tcltest::test SplitNTimes-9 {Multiple split characters in a row}  -constraints {}  -setup {}  -body {SplitNTimes "one,,two,,three" , 4
+::tcltest::test SplitNTimes-9 {Multiple split characters in a row}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,,two,,three" , 4
 }  -cleanup {}  -result {one {} two {} three}  -output {}  -returnCodes {0}  
 
 }
@@ -97,7 +98,7 @@ proc SplitNTimesTest::Test-10 {} {
 
 proc SplitNTimesTest::Test-11 {} {
 
-::tcltest::test SplitNTimes-10 {Multiple characters to split on}  -constraints {}  -setup {}  -body {SplitNTimes "one.two,three" ,. 2
+::tcltest::test SplitNTimes-10 {Multiple characters to split on}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one.two,three" ,. 2
 }  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
@@ -106,7 +107,7 @@ proc SplitNTimesTest::Test-11 {} {
 
 proc SplitNTimesTest::Test-12 {} {
 
-::tcltest::test SplitNTimes-11 {Less characters to split than count}  -constraints {}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test SplitNTimes-11 {Less characters to split than count}  -constraints {[expr [CheckAllDependenciesLoaded SplitNTimes]]}  -setup {}  -body {SplitNTimes "one,two,three" , 4}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 

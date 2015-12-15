@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval Hhmmss2SecondsTest {}
 
@@ -7,7 +8,7 @@ namespace eval Hhmmss2SecondsTest {}
 
 proc Hhmmss2SecondsTest::Test-1 {} {
 
-::tcltest::test Hhmmss2Seconds-0 {Basic test}  -constraints {}  -setup {}  -body {Hhmmss2Seconds 01:01:01
+::tcltest::test Hhmmss2Seconds-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds 01:01:01
 }  -cleanup {}  -result {3661}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc Hhmmss2SecondsTest::Test-1 {} {
 
 proc Hhmmss2SecondsTest::Test-2 {} {
 
-::tcltest::test Hhmmss2Seconds-1 {Zero}  -constraints {}  -setup {}  -body {Hhmmss2Seconds 00:00:00
+::tcltest::test Hhmmss2Seconds-1 {Zero}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds 00:00:00
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc Hhmmss2SecondsTest::Test-2 {} {
 
 proc Hhmmss2SecondsTest::Test-3 {} {
 
-::tcltest::test Hhmmss2Seconds-2 {Negative}  -constraints {}  -setup {}  -body {Hhmmss2Seconds -01:01:01
+::tcltest::test Hhmmss2Seconds-2 {Negative}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds -01:01:01
 }  -cleanup {}  -result {-3661}  -output {}  -returnCodes {0}  
 
 }
@@ -34,7 +35,7 @@ proc Hhmmss2SecondsTest::Test-3 {} {
 
 proc Hhmmss2SecondsTest::Test-4 {} {
 
-::tcltest::test Hhmmss2Seconds-3 {Use at designator}  -constraints {}  -setup {}  -body {set MyVar 01:01:01
+::tcltest::test Hhmmss2Seconds-3 {Use at designator}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {set MyVar 01:01:01
 Hhmmss2Seconds @MyVar
 puts $MyVar}  -cleanup {}  -result {}  -output {3661
 }  -returnCodes {0}  
@@ -45,7 +46,7 @@ puts $MyVar}  -cleanup {}  -result {}  -output {3661
 
 proc Hhmmss2SecondsTest::Test-5 {} {
 
-::tcltest::test Hhmmss2Seconds-4 {More than 3 digits for hours}  -constraints {}  -setup {}  -body {Hhmmss2Seconds 100:00:00
+::tcltest::test Hhmmss2Seconds-4 {More than 3 digits for hours}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds 100:00:00
 }  -cleanup {}  -result {360000}  -output {}  -returnCodes {0}  
 
 }
@@ -54,7 +55,7 @@ proc Hhmmss2SecondsTest::Test-5 {} {
 
 proc Hhmmss2SecondsTest::Test-6 {} {
 
-::tcltest::test Hhmmss2Seconds-5 {Invalid input}  -constraints {}  -setup {}  -body {Hhmmss2Seconds asdf}  -cleanup {}  -result {Variable StringVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test Hhmmss2Seconds-5 {Invalid input}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds asdf}  -cleanup {}  -result {Variable StringVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -62,7 +63,7 @@ proc Hhmmss2SecondsTest::Test-6 {} {
 
 proc Hhmmss2SecondsTest::Test-7 {} {
 
-::tcltest::test Hhmmss2Seconds-6 {Empty input}  -constraints {}  -setup {}  -body {Hhmmss2Seconds ""}  -cleanup {}  -result {Variable StringVariable has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test Hhmmss2Seconds-6 {Empty input}  -constraints {[expr [CheckAllDependenciesLoaded Hhmmss2Seconds]]}  -setup {}  -body {Hhmmss2Seconds ""}  -cleanup {}  -result {Variable StringVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqliteColumnTypeTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqliteColumnTypeTest {}
 
 proc SqliteColumnTypeTest::Test-1 {} {
 
-::tcltest::test SqliteColumnType-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SqliteColumnType globals desc
+::tcltest::test SqliteColumnType-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnType]]}  -setup {sqlite3 testdb test.db}  -body {SqliteColumnType globals desc
 }  -cleanup {}  -result {text}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc SqliteColumnTypeTest::Test-1 {} {
 
 proc SqliteColumnTypeTest::Test-2 {} {
 
-::tcltest::test SqliteColumnType-1 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteColumnType "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test SqliteColumnType-1 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnType]]}  -setup {}  -body {SqliteColumnType "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -24,7 +25,7 @@ proc SqliteColumnTypeTest::Test-2 {} {
 
 proc SqliteColumnTypeTest::Test-3 {} {
 
-::tcltest::test SqliteColumnType-2 {Column name is empty}  -constraints {}  -setup {}  -body {SqliteColumnType globals ""}  -cleanup {}  -result {Variable ColumnName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test SqliteColumnType-2 {Column name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnType]]}  -setup {}  -body {SqliteColumnType globals ""}  -cleanup {}  -result {Variable ColumnName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -32,7 +33,7 @@ proc SqliteColumnTypeTest::Test-3 {} {
 
 proc SqliteColumnTypeTest::Test-4 {} {
 
-::tcltest::test SqliteColumnType-3 {Table does not exist}  -constraints {}  -setup {}  -body {SqliteColumnType no_such_table desc}  -cleanup {}  -result {Table no_such_table not found.}  -output {}  -returnCodes {1}  
+::tcltest::test SqliteColumnType-3 {Table does not exist}  -constraints {[expr [CheckAllDependenciesLoaded SqliteColumnType]]}  -setup {}  -body {SqliteColumnType no_such_table desc}  -cleanup {}  -result {Table no_such_table not found.}  -output {}  -returnCodes {1}  
 
 }
 

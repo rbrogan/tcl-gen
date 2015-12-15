@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval TodayTest {}
 
@@ -7,7 +8,7 @@ namespace eval TodayTest {}
 
 proc TodayTest::Test-1 {} {
 
-::tcltest::test Today-0 {Basic test}  -constraints {}  -setup {}  -body {Ter {[IsDate [Today]]} {return 1} {return 0}
+::tcltest::test Today-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Today]]}  -setup {}  -body {Ter {[IsDate [Today]]} {return 1} {return 0}
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }

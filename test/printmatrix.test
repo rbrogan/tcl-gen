@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval PrintMatrixTest {}
 
@@ -7,7 +8,7 @@ namespace eval PrintMatrixTest {}
 
 proc PrintMatrixTest::Test-1 {} {
 
-::tcltest::test PrintMatrix-0 {Basic test}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix
 }  -cleanup {}  -result {}  -output {1 | 2 | 3
 4 | 5 | 6
@@ -20,7 +21,7 @@ PrintMatrix $MyMatrix
 
 proc PrintMatrixTest::Test-2 {} {
 
-::tcltest::test PrintMatrix-1 {Use header list}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-1 {Use header list}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3}
 }  -cleanup {}  -result {}  -output {Col1 | Col2 | Col3
    1 |    2 |    3
@@ -34,7 +35,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3}
 
 proc PrintMatrixTest::Test-3 {} {
 
-::tcltest::test PrintMatrix-2 {Use max width list}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-2 {Use max width list}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -cleanup {}  -result {}  -output { Col1 |  Col2 |  Col3
     1 |     2 |     3
@@ -48,7 +49,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 
 proc PrintMatrixTest::Test-4 {} {
 
-::tcltest::test PrintMatrix-3 {Uneven header lengths}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-3 {Uneven header lengths}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col22 Col333}
 }  -cleanup {}  -result {}  -output {Col1 | Col22 | Col333
    1 |     2 |      3
@@ -62,7 +63,7 @@ PrintMatrix $MyMatrix {Col1 Col22 Col333}
 
 proc PrintMatrixTest::Test-5 {} {
 
-::tcltest::test PrintMatrix-4 {Uneven max width lengths}  -constraints {}  -setup {}  -body {set MyMatrix {{1111 2222 3333} {44444 55555 66666} {777777 888888 999999}}
+::tcltest::test PrintMatrix-4 {Uneven max width lengths}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1111 2222 3333} {44444 55555 66666} {777777 888888 999999}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {4 5 6}
 }  -cleanup {}  -result {}  -output {Col1 |  Col2 |   Col3
 1111 |  2222 |   3333
@@ -76,7 +77,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {4 5 6}
 
 proc PrintMatrixTest::Test-6 {} {
 
-::tcltest::test PrintMatrix-5 {Column text is truncated}  -constraints {}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
+::tcltest::test PrintMatrix-5 {Column text is truncated}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 }  -cleanup {}  -result {}  -output { Col1 |  Col2 |  Col3
     1 |    22 |   333
@@ -89,7 +90,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5}
 
 proc PrintMatrixTest::Test-7 {} {
 
-::tcltest::test PrintMatrix-6 {Max is used}  -constraints {}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
+::tcltest::test PrintMatrix-6 {Max is used}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 22 333} {4444 55555 666666}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {max max max}
 }  -cleanup {}  -result {}  -output {Col1 |  Col2 |   Col3
    1 |    22 |    333
@@ -102,7 +103,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {max max max}
 
 proc PrintMatrixTest::Test-8 {} {
 
-::tcltest::test PrintMatrix-7 {HeaderList wrong length}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-7 {HeaderList wrong length}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2}
 }  -cleanup {}  -result {Variable HeaderList has invalid value Col1 Col2.}  -output {}  -returnCodes {1}  
 
@@ -112,7 +113,7 @@ PrintMatrix $MyMatrix {Col1 Col2}
 
 proc PrintMatrixTest::Test-9 {} {
 
-::tcltest::test PrintMatrix-8 {ColumnMaxWidthList wrong length}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-8 {ColumnMaxWidthList wrong length}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5 5}
 }  -cleanup {}  -result {Variable ColumnMaxWidthList has invalid value 5 5 5 5.}  -output {}  -returnCodes {1}  
 
@@ -122,7 +123,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {5 5 5 5}
 
 proc PrintMatrixTest::Test-10 {} {
 
-::tcltest::test PrintMatrix-9 {ColumnMaxWidthList has nonpositive element}  -constraints {}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
+::tcltest::test PrintMatrix-9 {ColumnMaxWidthList has nonpositive element}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {{1 2 3} {4 5 6} {7 8 9}}
 PrintMatrix $MyMatrix {Col1 Col2 Col3} {asdf 5 5}
 }  -cleanup {}  -result {Variable ColumnMaxWidthList has invalid value asdf 5 5.}  -output {}  -returnCodes {1}  
 
@@ -132,7 +133,7 @@ PrintMatrix $MyMatrix {Col1 Col2 Col3} {asdf 5 5}
 
 proc PrintMatrixTest::Test-11 {} {
 
-::tcltest::test PrintMatrix-10 {Not a matrix}  -constraints {}  -setup {}  -body {set MyMatrix {1 {4 5 } {7 8 9}}
+::tcltest::test PrintMatrix-10 {Not a matrix}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {set MyMatrix {1 {4 5 } {7 8 9}}
 PrintMatrix $MyMatrix
 }  -cleanup {}  -result {Variable Matrix has invalid value 1 {4 5 } {7 8 9}.}  -output {}  -returnCodes {1}  
 

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval File2StringTest {}
 
@@ -7,7 +8,7 @@ namespace eval File2StringTest {}
 
 proc File2StringTest::Test-1 {} {
 
-::tcltest::test File2String-0 {Basic test 1 - one line}  -constraints {}  -setup {}  -body {String2File "abc" test.txt
+::tcltest::test File2String-0 {Basic test 1 - one line}  -constraints {[expr [CheckAllDependenciesLoaded File2String]]}  -setup {}  -body {String2File "abc" test.txt
 set Result [File2String test.txt]
 puts $Result}  -cleanup {}  -result {}  -output {abc
 }  -returnCodes {0}  
@@ -18,7 +19,7 @@ puts $Result}  -cleanup {}  -result {}  -output {abc
 
 proc File2StringTest::Test-2 {} {
 
-::tcltest::test File2String-1 {Basic test 2 - two lines}  -constraints {}  -setup {}  -body {String2File "abc\ndef" test.txt
+::tcltest::test File2String-1 {Basic test 2 - two lines}  -constraints {[expr [CheckAllDependenciesLoaded File2String]]}  -setup {}  -body {String2File "abc\ndef" test.txt
 set Result [File2String test.txt]
 puts $Result}  -cleanup {}  -result {}  -output {abc
 def
@@ -30,7 +31,7 @@ def
 
 proc File2StringTest::Test-3 {} {
 
-::tcltest::test File2String-2 {Empty string}  -constraints {}  -setup {}  -body {String2File "" test.txt
+::tcltest::test File2String-2 {Empty string}  -constraints {[expr [CheckAllDependenciesLoaded File2String]]}  -setup {}  -body {String2File "" test.txt
 set Result [File2String test.txt]
 puts $Result}  -cleanup {}  -result {}  -output {
 }  -returnCodes {0}  

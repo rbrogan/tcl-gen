@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqlInsertStatementTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqlInsertStatementTest {}
 
 proc SqlInsertStatementTest::Test-1 {} {
 
-::tcltest::test SqlInsertStatement-1 {Basic test}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
+::tcltest::test SqlInsertStatement-1 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqlInsertStatement]]}  -setup {}  -body {SqlInsertStatement MyTable [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {INSERT INTO MyTable (intvalue, realvalue) VALUES (1, 1.1)}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc SqlInsertStatementTest::Test-1 {} {
 
 proc SqlInsertStatementTest::Test-2 {} {
 
-::tcltest::test SqlInsertStatement-2 {Dict is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement MyTable {}
+::tcltest::test SqlInsertStatement-2 {Dict is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqlInsertStatement]]}  -setup {}  -body {SqlInsertStatement MyTable {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -25,7 +26,7 @@ proc SqlInsertStatementTest::Test-2 {} {
 
 proc SqlInsertStatementTest::Test-3 {} {
 
-::tcltest::test SqlInsertStatement-3 {Table name is empty}  -constraints {}  -setup {}  -body {SqlInsertStatement "" ""
+::tcltest::test SqlInsertStatement-3 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqlInsertStatement]]}  -setup {}  -body {SqlInsertStatement "" ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }

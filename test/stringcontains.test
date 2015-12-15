@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval StringContainsTest {}
 
@@ -7,7 +8,7 @@ namespace eval StringContainsTest {}
 
 proc StringContainsTest::Test-1 {} {
 
-::tcltest::test StringContains-0 {Basic test - returns 1}  -constraints {}  -setup {}  -body {StringContains "one two three" two
+::tcltest::test StringContains-0 {Basic test - returns 1}  -constraints {[expr [CheckAllDependenciesLoaded StringContains]]}  -setup {}  -body {StringContains "one two three" two
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc StringContainsTest::Test-1 {} {
 
 proc StringContainsTest::Test-2 {} {
 
-::tcltest::test StringContains-1 {Basic test - returns 0}  -constraints {}  -setup {}  -body {StringContains "one two three" four
+::tcltest::test StringContains-1 {Basic test - returns 0}  -constraints {[expr [CheckAllDependenciesLoaded StringContains]]}  -setup {}  -body {StringContains "one two three" four
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -25,7 +26,7 @@ proc StringContainsTest::Test-2 {} {
 
 proc StringContainsTest::Test-3 {} {
 
-::tcltest::test StringContains-2 {Empty string input}  -constraints {}  -setup {}  -body {StringContains "" one}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StringContains-2 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded StringContains]]}  -setup {}  -body {StringContains "" one}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -33,7 +34,7 @@ proc StringContainsTest::Test-3 {} {
 
 proc StringContainsTest::Test-4 {} {
 
-::tcltest::test StringContains-3 {Empty string input 2}  -constraints {}  -setup {}  -body {StringContains one ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StringContains-3 {Empty string input 2}  -constraints {[expr [CheckAllDependenciesLoaded StringContains]]}  -setup {}  -body {StringContains one ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -41,7 +42,7 @@ proc StringContainsTest::Test-4 {} {
 
 proc StringContainsTest::Test-5 {} {
 
-::tcltest::test StringContains-4 {Search string bigger than target string}  -constraints {}  -setup {}  -body {StringContains asd asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StringContains-4 {Search string bigger than target string}  -constraints {[expr [CheckAllDependenciesLoaded StringContains]]}  -setup {}  -body {StringContains asd asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 

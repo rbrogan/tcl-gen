@@ -31,6 +31,81 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.10.2</div><div class="section-header-right">2015.12.14</div>
+</div>
+<div class="section-content">
+<p>
+Changes by functionality<br>
+<ul>
+<li>CN_0002
+<ul>
+<li>Updated loading-module-data.tcl to include try command in various entries. (Fix for KI_0003.)</li>
+<li>Added test constraint that all the dependencies of the command must be loaded, and, if not, then the command is skipped. (Fix for KI_0004.)</li>
+<li>Put in data files for CopyEverythingInDirectory tests. (Fix for KI_0005.)</li>
+</ul>
+</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>known-issues.html
+<ul>
+<li>Add new issues.</li>
+<li>Update with latest fixes.</li>
+</ul>
+</li>
+<li>latest-fixes.html
+<ul>
+<li>Add latest fixes.</li>
+</ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>gen.tcl</li>
+<ul><li>Change version number and make sure it has the rev.</li></ul>
+<li>loading-module-data.tcl</li>
+<ul><li>Updated to include the try command as dependency.</li></ul>
+<li>pkgIndex.tcl</li>
+<ul><li>Changed the rev.</li></ul>
+</li>
+<li>/test
+<ul>
+<li>*.test</li>
+<ul>
+<li>Update the rev number.</li>
+<li>Added call to source gen-test-common.tcl.</li>
+<li>Added test constraint that all the dependencies of the command must be loaded, and if not then the command is skipped.</li>
+</ul>
+<li>gen-test-common.tcl</li>
+<ul>
+<li>New file.</li>
+<li>Contains commands to check if all dependencies of a command are loaded. Also contains command to check if individual commands are loaded.</li>
+</ul>
+<li>/CopyEverythingInDirectory</li>
+<ul><li>Added missing files.</li></ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+<div class="section-header">
 <div class="section-header-left">1.10.1</div><div class="section-header-right">2015.12.07</div>
 </div>
 <div class="section-content">

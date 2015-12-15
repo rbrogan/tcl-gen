@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CurrentTimeOfDayIsAfterTest {}
 
@@ -27,7 +28,7 @@ proc RestoreClock {} {
 
 proc CurrentTimeOfDayIsAfterTest::Test-1 {} {
 
-::tcltest::test CurrentTimeOfDayIsAfter-0 {Basic test}  -constraints {}  -setup {::CurrentTimeOfDayIsAfterTest::SetupClock 12:00:00
+::tcltest::test CurrentTimeOfDayIsAfter-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAfter]]}  -setup {::CurrentTimeOfDayIsAfterTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAfter 11:59:00]
 puts [CurrentTimeOfDayIsAfter 12:00:00]
 }  -cleanup {::CurrentTimeOfDayIsAfterTest::RestoreClock
@@ -42,7 +43,7 @@ puts [CurrentTimeOfDayIsAfter 12:00:00]
 
 proc CurrentTimeOfDayIsAfterTest::Test-2 {} {
 
-::tcltest::test CurrentTimeOfDayIsAfter-1 {Target is invalid}  -constraints {}  -setup {}  -body {CurrentTimeOfDayIsAfter asdf
+::tcltest::test CurrentTimeOfDayIsAfter-1 {Target is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAfter]]}  -setup {}  -body {CurrentTimeOfDayIsAfter asdf
 }  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }

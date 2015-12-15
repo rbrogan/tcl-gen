@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DateIsOnOrBeforeTest {}
 
@@ -7,7 +8,7 @@ namespace eval DateIsOnOrBeforeTest {}
 
 proc DateIsOnOrBeforeTest::Test-1 {} {
 
-::tcltest::test DateIsOnOrBefore-0 {Date is on}  -constraints {}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 2000-01-01}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test DateIsOnOrBefore-0 {Date is on}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 2000-01-01}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc DateIsOnOrBeforeTest::Test-1 {} {
 
 proc DateIsOnOrBeforeTest::Test-2 {} {
 
-::tcltest::test DateIsOnOrBefore-1 {Date is before}  -constraints {}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 2000-01-02
+::tcltest::test DateIsOnOrBefore-1 {Date is before}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 2000-01-02
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -24,7 +25,7 @@ proc DateIsOnOrBeforeTest::Test-2 {} {
 
 proc DateIsOnOrBeforeTest::Test-3 {} {
 
-::tcltest::test DateIsOnOrBefore-2 {Date is after}  -constraints {}  -setup {}  -body {DateIsOnOrBefore 2000-01-02 2000-01-01
+::tcltest::test DateIsOnOrBefore-2 {Date is after}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore 2000-01-02 2000-01-01
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -33,7 +34,7 @@ proc DateIsOnOrBeforeTest::Test-3 {} {
 
 proc DateIsOnOrBeforeTest::Test-4 {} {
 
-::tcltest::test DateIsOnOrBefore-3 {First is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrBefore asdf 2000-01-01
+::tcltest::test DateIsOnOrBefore-3 {First is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore asdf 2000-01-01
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -42,7 +43,7 @@ proc DateIsOnOrBeforeTest::Test-4 {} {
 
 proc DateIsOnOrBeforeTest::Test-5 {} {
 
-::tcltest::test DateIsOnOrBefore-4 {Second is invalid}  -constraints {}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsOnOrBefore-4 {Second is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 asdf}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -50,7 +51,7 @@ proc DateIsOnOrBeforeTest::Test-5 {} {
 
 proc DateIsOnOrBeforeTest::Test-6 {} {
 
-::tcltest::test DateIsOnOrBefore-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateIsOnOrBefore-5 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsOnOrBefore {January 02, 2000} {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -60,7 +61,7 @@ DateIsOnOrBefore {January 02, 2000} {January 02, 2000}
 
 proc DateIsOnOrBeforeTest::Test-7 {} {
 
-::tcltest::test DateIsOnOrBefore-6 {First is empty}  -constraints {}  -setup {}  -body {DateIsOnOrBefore "" 2000-01-01}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsOnOrBefore-6 {First is empty}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore "" 2000-01-01}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
 }
 
@@ -68,7 +69,7 @@ proc DateIsOnOrBeforeTest::Test-7 {} {
 
 proc DateIsOnOrBeforeTest::Test-8 {} {
 
-::tcltest::test DateIsOnOrBefore-7 {Second is empty}  -constraints {}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsOnOrBefore-7 {Second is empty}  -constraints {[expr [CheckAllDependenciesLoaded DateIsOnOrBefore]]}  -setup {}  -body {DateIsOnOrBefore 2000-01-01 ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
 }
 

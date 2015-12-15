@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval LinkTclVariableToRegistryValueTest {}
 
@@ -7,7 +8,7 @@ namespace eval LinkTclVariableToRegistryValueTest {}
 
 proc LinkTclVariableToRegistryValueTest::Test-1 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123 dword
@@ -29,7 +30,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 
 proc LinkTclVariableToRegistryValueTest::Test-2 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-1 {Registry value does not already exist}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-1 {Registry value does not already exist}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 }  -body {set ::MyVar 345
@@ -49,7 +50,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 
 proc LinkTclVariableToRegistryValueTest::Test-3 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-2 {Tcl variable does not already exist}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-2 {Tcl variable does not already exist}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
@@ -69,7 +70,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 
 proc LinkTclVariableToRegistryValueTest::Test-4 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-3 {Invalid value for Tcl variable name}  -constraints {win}  -setup {}  -body {LinkTclVariableToRegistryValue {} "HKEY_CURRENT_USER\\Software\\GenTest" testy
+::tcltest::test LinkTclVariableToRegistryValue-3 {Invalid value for Tcl variable name}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {}  -body {LinkTclVariableToRegistryValue {} "HKEY_CURRENT_USER\\Software\\GenTest" testy
 }  -cleanup {
 }  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
@@ -79,7 +80,7 @@ proc LinkTclVariableToRegistryValueTest::Test-4 {} {
 
 proc LinkTclVariableToRegistryValueTest::Test-5 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-4 {Invalid value for registry value path}  -constraints {win}  -setup {unset -nocomplain ::MyVar}  -body {LinkTclVariableToRegistryValue ::MyVar {} testy
+::tcltest::test LinkTclVariableToRegistryValue-4 {Invalid value for registry value path}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar}  -body {LinkTclVariableToRegistryValue ::MyVar {} testy
 }  -cleanup {}  -result {Variable RegistryKeyPath has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -88,7 +89,7 @@ proc LinkTclVariableToRegistryValueTest::Test-5 {} {
 
 proc LinkTclVariableToRegistryValueTest::Test-6 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-5 {Registry value is deleted then Tcl variable is updated}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-5 {Registry value is deleted then Tcl variable is updated}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
@@ -112,7 +113,7 @@ registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 
 proc LinkTclVariableToRegistryValueTest::Test-7 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-6 {Tcl variable is deleted}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-6 {Tcl variable is deleted}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123
@@ -137,7 +138,7 @@ puts [registry get "HKEY_CURRENT_USER\\Software\\GenTest" testy]
 
 proc LinkTclVariableToRegistryValueTest::Test-8 {} {
 
-::tcltest::test LinkTclVariableToRegistryValue-7 {Tcl variable is update after call to unlink}  -constraints {win}  -setup {unset -nocomplain ::MyVar
+::tcltest::test LinkTclVariableToRegistryValue-7 {Tcl variable is update after call to unlink}  -constraints {[expr [CheckAllDependenciesLoaded LinkTclVariableToRegistryValue]]}  -setup {unset -nocomplain ::MyVar
 registry delete "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest"
 registry set "HKEY_CURRENT_USER\\Software\\GenTest" testy 123

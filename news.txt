@@ -2,6 +2,15 @@ Gen
 
 NEWS
 
+2015.12.14
+
+v1.10.2 Revision
+
+CN_0002
+     Updated loading-module-data.tcl to include try command in various entries. (Fix for KI_0003.)
+     Added test constraint that all the dependencies of the command must be loaded, and, if not, then the command is skipped. (Fix for KI_0004.)
+     Put in data files for CopyEverythingInDirectory tests. (Fix for KI_0005.)
+
 2015.12.07
 
 v1.10.1 Revision

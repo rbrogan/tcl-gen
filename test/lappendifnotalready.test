@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval LappendIfNotAlreadyTest {}
 
@@ -7,7 +8,7 @@ namespace eval LappendIfNotAlreadyTest {}
 
 proc LappendIfNotAlreadyTest::Test-1 {} {
 
-::tcltest::test LappendIfNotAlready-0 {Basic test}  -constraints {}  -setup {}  -body {set MyList [list one two three]
+::tcltest::test LappendIfNotAlready-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded LappendIfNotAlready]]}  -setup {}  -body {set MyList [list one two three]
 LappendIfNotAlready MyList {four five}
 }  -cleanup {}  -result {one two three four five}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ LappendIfNotAlready MyList {four five}
 
 proc LappendIfNotAlreadyTest::Test-2 {} {
 
-::tcltest::test LappendIfNotAlready-1 {Variable not pre-existing}  -constraints {}  -setup {}  -body {unset -nocomplain NoSuchVar
+::tcltest::test LappendIfNotAlready-1 {Variable not pre-existing}  -constraints {[expr [CheckAllDependenciesLoaded LappendIfNotAlready]]}  -setup {}  -body {unset -nocomplain NoSuchVar
 LappendIfNotAlready NoSuchVar {four five}
 }  -cleanup {}  -result {four five}  -output {}  -returnCodes {0}  
 
@@ -27,7 +28,7 @@ LappendIfNotAlready NoSuchVar {four five}
 
 proc LappendIfNotAlreadyTest::Test-3 {} {
 
-::tcltest::test LappendIfNotAlready-2 {Append nothing}  -constraints {}  -setup {}  -body {set MyList [list one two three]
+::tcltest::test LappendIfNotAlready-2 {Append nothing}  -constraints {[expr [CheckAllDependenciesLoaded LappendIfNotAlready]]}  -setup {}  -body {set MyList [list one two three]
 LappendIfNotAlready MyList {}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
@@ -36,7 +37,7 @@ LappendIfNotAlready MyList {}}  -cleanup {}  -result {one two three}  -output {}
 
 proc LappendIfNotAlreadyTest::Test-4 {} {
 
-::tcltest::test LappendIfNotAlready-3 {List already contains elements}  -constraints {}  -setup {}  -body {set MyList [list one two three]
+::tcltest::test LappendIfNotAlready-3 {List already contains elements}  -constraints {[expr [CheckAllDependenciesLoaded LappendIfNotAlready]]}  -setup {}  -body {set MyList [list one two three]
 LappendIfNotAlready MyList {one three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
@@ -45,7 +46,7 @@ LappendIfNotAlready MyList {one three}}  -cleanup {}  -result {one two three}  -
 
 proc LappendIfNotAlreadyTest::Test-5 {} {
 
-::tcltest::test LappendIfNotAlready-4 {Append list contains empty list}  -constraints {}  -setup {}  -body {set MyList [list one two three]
+::tcltest::test LappendIfNotAlready-4 {Append list contains empty list}  -constraints {[expr [CheckAllDependenciesLoaded LappendIfNotAlready]]}  -setup {}  -body {set MyList [list one two three]
 LappendIfNotAlready MyList {four {} six}
 }  -cleanup {}  -result {one two three four {} six}  -output {}  -returnCodes {0}  
 

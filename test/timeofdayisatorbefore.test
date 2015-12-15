@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval TimeOfDayIsAtOrBeforeTest {}
 
@@ -7,7 +8,7 @@ namespace eval TimeOfDayIsAtOrBeforeTest {}
 
 proc TimeOfDayIsAtOrBeforeTest::Test-1 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-0 {First is at second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 00:00:00
+::tcltest::test TimeOfDayIsAtOrBefore-0 {First is at second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 00:00:00
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc TimeOfDayIsAtOrBeforeTest::Test-1 {} {
 
 proc TimeOfDayIsAtOrBeforeTest::Test-2 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-1 {First is after second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:01 00:00:00}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test TimeOfDayIsAtOrBefore-1 {First is after second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:01 00:00:00}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -24,7 +25,7 @@ proc TimeOfDayIsAtOrBeforeTest::Test-2 {} {
 
 proc TimeOfDayIsAtOrBeforeTest::Test-3 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-2 {First is before second}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 00:00:01
+::tcltest::test TimeOfDayIsAtOrBefore-2 {First is before second}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 00:00:01
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -33,7 +34,7 @@ proc TimeOfDayIsAtOrBeforeTest::Test-3 {} {
 
 proc TimeOfDayIsAtOrBeforeTest::Test-4 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-3 {First is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrBefore asdf 00:00:00
+::tcltest::test TimeOfDayIsAtOrBefore-3 {First is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {TimeOfDayIsAtOrBefore asdf 00:00:00
 }  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -42,7 +43,7 @@ proc TimeOfDayIsAtOrBeforeTest::Test-4 {} {
 
 proc TimeOfDayIsAtOrBeforeTest::Test-5 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-4 {Second is invalid}  -constraints {}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 asdf
+::tcltest::test TimeOfDayIsAtOrBefore-4 {Second is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {TimeOfDayIsAtOrBefore 00:00:00 asdf
 }  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -51,7 +52,7 @@ proc TimeOfDayIsAtOrBeforeTest::Test-5 {} {
 
 proc TimeOfDayIsAtOrBeforeTest::Test-6 {} {
 
-::tcltest::test TimeOfDayIsAtOrBefore-5 {Use alternate format}  -constraints {}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
+::tcltest::test TimeOfDayIsAtOrBefore-5 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAtOrBefore]]}  -setup {}  -body {SetTimeOfDayFormat {{%I%M %p} -timezone :America/New_York -locale en_US}
 TimeOfDayIsAtOrAfter {0100 PM} {0100 PM}
 }  -cleanup {SetTimeOfDayFormat {%H:%M:%S}
 }  -result {1}  -output {}  -returnCodes {0}  

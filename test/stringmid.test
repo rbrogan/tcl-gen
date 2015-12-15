@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval StringMidTest {}
 
@@ -7,7 +8,7 @@ namespace eval StringMidTest {}
 
 proc StringMidTest::Test-1 {} {
 
-::tcltest::test StringMid-0 {Basic test - no count specified}  -constraints {}  -setup {}  -body {StringMid "one two three" 8}  -cleanup {}  -result {three}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-0 {Basic test - no count specified}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid "one two three" 8}  -cleanup {}  -result {three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc StringMidTest::Test-1 {} {
 
 proc StringMidTest::Test-2 {} {
 
-::tcltest::test StringMid-1 {Basic test - count specified}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 2}  -cleanup {}  -result {bb}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-1 {Basic test - count specified}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid "aaabbb" 3 2}  -cleanup {}  -result {bb}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc StringMidTest::Test-2 {} {
 
 proc StringMidTest::Test-3 {} {
 
-::tcltest::test StringMid-2 {Count greater than string length}  -constraints {}  -setup {}  -body {StringMid asdf 0 10}  -cleanup {}  -result {asdf}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-2 {Count greater than string length}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid asdf 0 10}  -cleanup {}  -result {asdf}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc StringMidTest::Test-3 {} {
 
 proc StringMidTest::Test-4 {} {
 
-::tcltest::test StringMid-3 {Position not in range}  -constraints {}  -setup {}  -body {StringMid asdf 5}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-3 {Position not in range}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid asdf 5}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -39,7 +40,7 @@ proc StringMidTest::Test-4 {} {
 
 proc StringMidTest::Test-5 {} {
 
-::tcltest::test StringMid-4 {Empty string input}  -constraints {}  -setup {}  -body {StringMid "" 0 1}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-4 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid "" 0 1}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -47,7 +48,7 @@ proc StringMidTest::Test-5 {} {
 
 proc StringMidTest::Test-6 {} {
 
-::tcltest::test StringMid-5 {Position below zero}  -constraints {}  -setup {}  -body {StringMid asdf -1 1}  -cleanup {}  -result {a}  -output {}  -returnCodes {0}  
+::tcltest::test StringMid-5 {Position below zero}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid asdf -1 1}  -cleanup {}  -result {a}  -output {}  -returnCodes {0}  
 
 }
 
@@ -55,7 +56,7 @@ proc StringMidTest::Test-6 {} {
 
 proc StringMidTest::Test-7 {} {
 
-::tcltest::test StringMid-6 {Count is non-numeric value}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test StringMid-6 {Count is non-numeric value}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid "aaabbb" 3 asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -63,7 +64,7 @@ proc StringMidTest::Test-7 {} {
 
 proc StringMidTest::Test-8 {} {
 
-::tcltest::test StringMid-7 {Count is non-positive value}  -constraints {}  -setup {}  -body {StringMid "aaabbb" 3 0}  -cleanup {}  -result {Expected positive input value, got input value 0 instead.}  -output {}  -returnCodes {1}  
+::tcltest::test StringMid-7 {Count is non-positive value}  -constraints {[expr [CheckAllDependenciesLoaded StringMid]]}  -setup {}  -body {StringMid "aaabbb" 3 0}  -cleanup {}  -result {Expected positive input value, got input value 0 instead.}  -output {}  -returnCodes {1}  
 
 }
 

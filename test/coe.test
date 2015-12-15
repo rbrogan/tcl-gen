@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CoeTest {}
 
@@ -7,7 +8,7 @@ namespace eval CoeTest {}
 
 proc CoeTest::Test-1 {} {
 
-::tcltest::test Coe-0 {No args}  -constraints {}  -setup {}  -body {Coe
+::tcltest::test Coe-0 {No args}  -constraints {[expr [CheckAllDependenciesLoaded Coe]]}  -setup {}  -body {Coe
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc CoeTest::Test-1 {} {
 
 proc CoeTest::Test-2 {} {
 
-::tcltest::test Coe-1 {Basic test - return concat of two}  -constraints {}  -setup {}  -body {Coe 1 2}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-1 {Basic test - return concat of two}  -constraints {[expr [CheckAllDependenciesLoaded Coe]]}  -setup {}  -body {Coe 1 2}  -cleanup {}  -result {12}  -output {}  -returnCodes {0}  
 
 }
 
@@ -24,7 +25,7 @@ proc CoeTest::Test-2 {} {
 
 proc CoeTest::Test-3 {} {
 
-::tcltest::test Coe-2 {Basic test - return empty}  -constraints {}  -setup {}  -body {Coe 1 ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-2 {Basic test - return empty}  -constraints {[expr [CheckAllDependenciesLoaded Coe]]}  -setup {}  -body {Coe 1 ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -32,7 +33,7 @@ proc CoeTest::Test-3 {} {
 
 proc CoeTest::Test-4 {} {
 
-::tcltest::test Coe-3 {One arg, not empty}  -constraints {}  -setup {}  -body {Coe 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-3 {One arg, not empty}  -constraints {[expr [CheckAllDependenciesLoaded Coe]]}  -setup {}  -body {Coe 1}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -40,7 +41,7 @@ proc CoeTest::Test-4 {} {
 
 proc CoeTest::Test-5 {} {
 
-::tcltest::test Coe-4 {One arg, empty}  -constraints {}  -setup {}  -body {Coe ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test Coe-4 {One arg, empty}  -constraints {[expr [CheckAllDependenciesLoaded Coe]]}  -setup {}  -body {Coe ""}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 

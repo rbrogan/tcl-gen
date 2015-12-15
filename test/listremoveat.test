@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval ListRemoveAtTest {}
 
@@ -7,7 +8,7 @@ namespace eval ListRemoveAtTest {}
 
 proc ListRemoveAtTest::Test-1 {} {
 
-::tcltest::test ListRemoveAt-0 {Basic positive}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-0 {Basic positive}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 1
 }  -cleanup {}  -result {one three}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ ListRemoveAt $MyList 1
 
 proc ListRemoveAtTest::Test-2 {} {
 
-::tcltest::test ListRemoveAt-1 {Index out-of-range}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-1 {Index out-of-range}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 3}  -cleanup {}  -result {Variable Index has invalid value 3.}  -output {}  -returnCodes {1}  
 
 }
@@ -26,7 +27,7 @@ ListRemoveAt $MyList 3}  -cleanup {}  -result {Variable Index has invalid value 
 
 proc ListRemoveAtTest::Test-3 {} {
 
-::tcltest::test ListRemoveAt-2 {Input empty string}  -constraints {}  -setup {}  -body {ListRemoveAt "" 0}  -cleanup {}  -result {Variable ListVariable has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test ListRemoveAt-2 {Input empty string}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {ListRemoveAt "" 0}  -cleanup {}  -result {Variable ListVariable has empty value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -34,7 +35,7 @@ proc ListRemoveAtTest::Test-3 {} {
 
 proc ListRemoveAtTest::Test-4 {} {
 
-::tcltest::test ListRemoveAt-3 {Count is empty}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-3 {Count is empty}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 1 ""
 
 
@@ -46,7 +47,7 @@ ListRemoveAt $MyList 1 ""
 
 proc ListRemoveAtTest::Test-5 {} {
 
-::tcltest::test ListRemoveAt-4 {Index is empty}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-4 {Index is empty}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList ""
 
 }  -cleanup {}  -result {Variable Index has empty value.}  -output {}  -returnCodes {1}  
@@ -57,7 +58,7 @@ ListRemoveAt $MyList ""
 
 proc ListRemoveAtTest::Test-6 {} {
 
-::tcltest::test ListRemoveAt-5 {Index is non-numeric value}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-5 {Index is non-numeric value}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList asdf
 
 }  -cleanup {}  -result {Variable Index has invalid value asdf.}  -output {}  -returnCodes {1}  
@@ -68,7 +69,7 @@ ListRemoveAt $MyList asdf
 
 proc ListRemoveAtTest::Test-7 {} {
 
-::tcltest::test ListRemoveAt-6 {Count is invalid value}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-6 {Count is invalid value}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 1 asdf
 }  -cleanup {}  -result {Variable Count has invalid value asdf.}  -output {}  -returnCodes {1}  
 
@@ -78,7 +79,7 @@ ListRemoveAt $MyList 1 asdf
 
 proc ListRemoveAtTest::Test-8 {} {
 
-::tcltest::test ListRemoveAt-7 {Remove two}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-7 {Remove two}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 1 2
 }  -cleanup {}  -result {one}  -output {}  -returnCodes {0}  
 
@@ -88,7 +89,7 @@ ListRemoveAt $MyList 1 2
 
 proc ListRemoveAtTest::Test-9 {} {
 
-::tcltest::test ListRemoveAt-8 {Remove from start}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-8 {Remove from start}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList 0
 }  -cleanup {}  -result {two three}  -output {}  -returnCodes {0}  
 
@@ -98,7 +99,7 @@ ListRemoveAt $MyList 0
 
 proc ListRemoveAtTest::Test-10 {} {
 
-::tcltest::test ListRemoveAt-9 {Remove from end}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-9 {Remove from end}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt $MyList end
 }  -cleanup {}  -result {one two}  -output {}  -returnCodes {0}  
 
@@ -108,7 +109,7 @@ ListRemoveAt $MyList end
 
 proc ListRemoveAtTest::Test-11 {} {
 
-::tcltest::test ListRemoveAt-10 {At designator used}  -constraints {}  -setup {}  -body {set MyList {one two three}
+::tcltest::test ListRemoveAt-10 {At designator used}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one two three}
 ListRemoveAt @MyList 1
 puts $MyList
 }  -cleanup {}  -result {}  -output {one three
@@ -120,7 +121,7 @@ puts $MyList
 
 proc ListRemoveAtTest::Test-12 {} {
 
-::tcltest::test ListRemoveAt-11 {List has only one element}  -constraints {}  -setup {}  -body {set MyList {one}
+::tcltest::test ListRemoveAt-11 {List has only one element}  -constraints {[expr [CheckAllDependenciesLoaded ListRemoveAt]]}  -setup {}  -body {set MyList {one}
 ListRemoveAt $MyList end
 
 }  -cleanup {}  -result {}  -output {}  -returnCodes {0}  

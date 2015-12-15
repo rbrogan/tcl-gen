@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval PrintVarTest {}
 
@@ -7,7 +8,7 @@ namespace eval PrintVarTest {}
 
 proc PrintVarTest::Test-1 {} {
 
-::tcltest::test PrintVar-0 {Basic positive}  -constraints {}  -setup {}  -body {set x 123
+::tcltest::test PrintVar-0 {Basic positive}  -constraints {[expr [CheckAllDependenciesLoaded PrintVar]]}  -setup {}  -body {set x 123
 PrintVar x}  -cleanup {}  -result {}  -output {x is 123
 }  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ PrintVar x}  -cleanup {}  -result {}  -output {x is 123
 
 proc PrintVarTest::Test-2 {} {
 
-::tcltest::test PrintVar-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVar
+::tcltest::test PrintVar-1 {No such variable}  -constraints {[expr [CheckAllDependenciesLoaded PrintVar]]}  -setup {}  -body {unset -nocomplain NoVar
 PrintVar NoVar}  -cleanup {}  -result {Could not find variable NoVar in caller.}  -output {}  -returnCodes {1}  
 
 }
@@ -26,7 +27,7 @@ PrintVar NoVar}  -cleanup {}  -result {Could not find variable NoVar in caller.}
 
 proc PrintVarTest::Test-3 {} {
 
-::tcltest::test PrintVar-2 {Empty string input}  -constraints {}  -setup {}  -body {PrintVar ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test PrintVar-2 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded PrintVar]]}  -setup {}  -body {PrintVar ""}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
 

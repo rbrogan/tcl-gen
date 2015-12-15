@@ -212,12 +212,12 @@ set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVaria
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
-set ::GenNS::LoadingNS::DependentsList(try) {}
+set ::GenNS::LoadingNS::DependentsList(try) {File2String String2File RestoreIfExists BackupIfExists AppendString2File File2List List2File}
 
 set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX}
-set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty}
+set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty try }
 set ::GenNS::LoadingNS::DependencyList(ArrangeDict) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(BackupIfExists) { IsEmpty}
+set ::GenNS::LoadingNS::DependencyList(BackupIfExists) { IsEmpty try }
 set ::GenNS::LoadingNS::DependencyList(ChangeCasing) { ::textutil::string::cap UpvarExistingOrDie lvarpop}
 set ::GenNS::LoadingNS::DependencyList(ChopLeft) { UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(ChopRight) { UpvarExistingOrDie}
@@ -257,8 +257,8 @@ set ::GenNS::LoadingNS::DependencyList(DiffHhmmss) { Hhmmss2Seconds IsEmpty IsHh
 set ::GenNS::LoadingNS::DependencyList(DivideBy) { IsEmpty IsNonNumeric UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(DoubleChop) { ChopLeft ChopRight UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(EndsWith) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(File2List) { NotEmpty}
-set ::GenNS::LoadingNS::DependencyList(File2String) { NotEmpty}
+set ::GenNS::LoadingNS::DependencyList(File2List) { NotEmpty try }
+set ::GenNS::LoadingNS::DependencyList(File2String) { NotEmpty try }
 set ::GenNS::LoadingNS::DependencyList(FindAndRemove) { UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(Flip) { IsNonNumeric UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(ForeachRecord) { IsEmpty QQ}
@@ -290,6 +290,7 @@ set ::GenNS::LoadingNS::DependencyList(LimitLineLengthInFile) { ::textutil::adju
 set ::GenNS::LoadingNS::DependencyList(LinkTclVariableToRegistryValue) { IsEmpty RegistryExists ToDoubleBackslashes UpdateRegistryValue UpvarX registry}
 set ::GenNS::LoadingNS::DependencyList(LinkVarToDbGlobal) { IsEmpty SetDbGlobal UpdateDbGlobal UpvarX}
 set ::GenNS::LoadingNS::DependencyList(ListRemoveAt) { IsEmpty IsNonNumeric IsNonPositive UpvarExistingOrDie}
+set ::GenNS::LoadingNS::DependencyList(List2File) { try }
 set ::GenNS::LoadingNS::DependencyList(Mash) { UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix}
 set ::GenNS::LoadingNS::DependencyList(MultiSet) { UpvarX}
@@ -306,7 +307,7 @@ set ::GenNS::LoadingNS::DependencyList(RegistryExists) { IsEmpty registry}
 set ::GenNS::LoadingNS::DependencyList(RegistryPrint) { PrintDict RegistryExists RegistryTree2Dict registry}
 set ::GenNS::LoadingNS::DependencyList(RegistryTree2Dict) { IsEmpty RegistryExists registry}
 set ::GenNS::LoadingNS::DependencyList(ReloadPackage) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(RestoreIfExists) { IsEmpty}
+set ::GenNS::LoadingNS::DependencyList(RestoreIfExists) { IsEmpty try }
 set ::GenNS::LoadingNS::DependencyList(RestoreWorkingDirectory) { NotEmpty}
 set ::GenNS::LoadingNS::DependencyList(RetZeroIfEmpty) { IsEmpty}
 set ::GenNS::LoadingNS::DependencyList(RunSqlCreateTable) { IsEmpty QQ}
@@ -330,6 +331,7 @@ set ::GenNS::LoadingNS::DependencyList(SqliteCopyTable) { IsEmpty QQ RunSqlCreat
 set ::GenNS::LoadingNS::DependencyList(SqliteRenameColumn) { IsEmpty QQ RunSqlCreateTable SqliteColumnNameAndTypeList SqliteTableExists}
 set ::GenNS::LoadingNS::DependencyList(SqliteTableExists) { IsEmpty Q1}
 set ::GenNS::LoadingNS::DependencyList(StartsAndEndsWith) { EndsWith StartsWith}
+set ::GenNS::LoadingNS::DependencyList(String2File) { try }
 set ::GenNS::LoadingNS::DependencyList(StringInsert) { IsEmpty IsNegative IsNonNumeric IsPositive Ter UpvarExistingOrDie}
 set ::GenNS::LoadingNS::DependencyList(StringMid) { IsNonNumeric IsNonPositive}
 set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX}

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DoubleChopTest {}
 
@@ -7,7 +8,7 @@ namespace eval DoubleChopTest {}
 
 proc DoubleChopTest::Test-1 {} {
 
-::tcltest::test DoubleChop-0 {Basic test}  -constraints {}  -setup {}  -body {set MyString "{something}"
+::tcltest::test DoubleChop-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString "{something}"
 DoubleChop $MyString
 }  -cleanup {}  -result {something}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ DoubleChop $MyString
 
 proc DoubleChopTest::Test-2 {} {
 
-::tcltest::test DoubleChop-1 {One character}  -constraints {}  -setup {}  -body {set MyString "1"
+::tcltest::test DoubleChop-1 {One character}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString "1"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -26,7 +27,7 @@ DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}
 
 proc DoubleChopTest::Test-3 {} {
 
-::tcltest::test DoubleChop-2 {Empty string}  -constraints {}  -setup {}  -body {set MyString ""
+::tcltest::test DoubleChop-2 {Empty string}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString ""
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -35,7 +36,7 @@ DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}
 
 proc DoubleChopTest::Test-4 {} {
 
-::tcltest::test DoubleChop-3 {Two characters}  -constraints {}  -setup {}  -body {set MyString "11"
+::tcltest::test DoubleChop-3 {Two characters}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString "11"
 DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
@@ -44,7 +45,7 @@ DoubleChop $MyString}  -cleanup {}  -result {}  -output {}  -returnCodes {0}
 
 proc DoubleChopTest::Test-5 {} {
 
-::tcltest::test DoubleChop-4 {Three characters}  -constraints {}  -setup {}  -body {set MyString "ABA"
+::tcltest::test DoubleChop-4 {Three characters}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString "ABA"
 DoubleChop $MyString}  -cleanup {}  -result {B}  -output {}  -returnCodes {0}  
 
 }
@@ -53,7 +54,7 @@ DoubleChop $MyString}  -cleanup {}  -result {B}  -output {}  -returnCodes {0}
 
 proc DoubleChopTest::Test-6 {} {
 
-::tcltest::test DoubleChop-5 {Basic test - use count}  -constraints {}  -setup {}  -body {set MyString "AABBAA"
+::tcltest::test DoubleChop-5 {Basic test - use count}  -constraints {[expr [CheckAllDependenciesLoaded DoubleChop]]}  -setup {}  -body {set MyString "AABBAA"
 DoubleChop $MyString 2
 }  -cleanup {}  -result {BB}  -output {}  -returnCodes {0}  
 

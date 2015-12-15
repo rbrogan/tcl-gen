@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DateIsBeforeTest {}
 
@@ -7,7 +8,7 @@ namespace eval DateIsBeforeTest {}
 
 proc DateIsBeforeTest::Test-1 {} {
 
-::tcltest::test DateIsBefore-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-03}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test DateIsBefore-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-03}}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc DateIsBeforeTest::Test-1 {} {
 
 proc DateIsBeforeTest::Test-2 {} {
 
-::tcltest::test DateIsBefore-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} {2000-01-02}
+::tcltest::test DateIsBefore-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-03} {2000-01-02}
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -24,7 +25,7 @@ proc DateIsBeforeTest::Test-2 {} {
 
 proc DateIsBeforeTest::Test-3 {} {
 
-::tcltest::test DateIsBefore-2 {FirstDate is empty}  -constraints {}  -setup {}  -body {DateIsBefore "" {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsBefore-2 {FirstDate is empty}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore "" {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value .}  -output {}  -returnCodes {1}  
 
 }
 
@@ -32,7 +33,7 @@ proc DateIsBeforeTest::Test-3 {} {
 
 proc DateIsBeforeTest::Test-4 {} {
 
-::tcltest::test DateIsBefore-3 {SecondDate is empty}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsBefore-3 {SecondDate is empty}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-03} ""}  -cleanup {}  -result {Variable SecondDate has invalid value .}  -output {}  -returnCodes {1}  
 
 }
 
@@ -40,7 +41,7 @@ proc DateIsBeforeTest::Test-4 {} {
 
 proc DateIsBeforeTest::Test-5 {} {
 
-::tcltest::test DateIsBefore-4 {FirstDate has invalid format}  -constraints {}  -setup {}  -body {DateIsBefore asdf {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+::tcltest::test DateIsBefore-4 {FirstDate has invalid format}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore asdf {2000-01-02}}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -48,7 +49,7 @@ proc DateIsBeforeTest::Test-5 {} {
 
 proc DateIsBeforeTest::Test-6 {} {
 
-::tcltest::test DateIsBefore-5 {SecondDate has invalid format}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
+::tcltest::test DateIsBefore-5 {SecondDate has invalid format}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -57,7 +58,7 @@ proc DateIsBeforeTest::Test-6 {} {
 
 proc DateIsBeforeTest::Test-7 {} {
 
-::tcltest::test DateIsBefore-6 {First date has invalid values}  -constraints {}  -setup {}  -body {DateIsBefore asdf {2000-01-02}
+::tcltest::test DateIsBefore-6 {First date has invalid values}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore asdf {2000-01-02}
 }  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -66,7 +67,7 @@ proc DateIsBeforeTest::Test-7 {} {
 
 proc DateIsBeforeTest::Test-8 {} {
 
-::tcltest::test DateIsBefore-7 {Second date has invalid values}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
+::tcltest::test DateIsBefore-7 {Second date has invalid values}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-03} asdf
 }  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -75,7 +76,7 @@ proc DateIsBeforeTest::Test-8 {} {
 
 proc DateIsBeforeTest::Test-9 {} {
 
-::tcltest::test DateIsBefore-8 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateIsBefore-8 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateIsBefore {January 02, 2000} {January 03, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -85,7 +86,7 @@ DateIsBefore {January 02, 2000} {January 03, 2000}
 
 proc DateIsBeforeTest::Test-10 {} {
 
-::tcltest::test DateIsBefore-9 {Dates are equal}  -constraints {}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-02}}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test DateIsBefore-9 {Dates are equal}  -constraints {[expr [CheckAllDependenciesLoaded DateIsBefore]]}  -setup {}  -body {DateIsBefore {2000-01-02} {2000-01-02}}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 

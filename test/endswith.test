@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval EndsWithTest {}
 
@@ -7,7 +8,7 @@ namespace eval EndsWithTest {}
 
 proc EndsWithTest::Test-1 {} {
 
-::tcltest::test EndsWith-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {EndsWith 1-2-3 2-3}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test EndsWith-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded EndsWith]]}  -setup {}  -body {EndsWith 1-2-3 2-3}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc EndsWithTest::Test-1 {} {
 
 proc EndsWithTest::Test-2 {} {
 
-::tcltest::test EndsWith-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {EndsWith 4-5-6 7}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test EndsWith-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded EndsWith]]}  -setup {}  -body {EndsWith 4-5-6 7}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc EndsWithTest::Test-2 {} {
 
 proc EndsWithTest::Test-3 {} {
 
-::tcltest::test EndsWith-2 {Empty target string}  -constraints {}  -setup {}  -body {EndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test EndsWith-2 {Empty target string}  -constraints {[expr [CheckAllDependenciesLoaded EndsWith]]}  -setup {}  -body {EndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc EndsWithTest::Test-3 {} {
 
 proc EndsWithTest::Test-4 {} {
 
-::tcltest::test EndsWith-3 {Empty search value}  -constraints {}  -setup {}  -body {EndsWith asdf ""}  -cleanup {}  -result {Got empty string for search value.}  -output {}  -returnCodes {1}  
+::tcltest::test EndsWith-3 {Empty search value}  -constraints {[expr [CheckAllDependenciesLoaded EndsWith]]}  -setup {}  -body {EndsWith asdf ""}  -cleanup {}  -result {Got empty string for search value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -39,7 +40,7 @@ proc EndsWithTest::Test-4 {} {
 
 proc EndsWithTest::Test-5 {} {
 
-::tcltest::test EndsWith-4 {Search string bigger than target string}  -constraints {}  -setup {}  -body {EndsWith asd asdf
+::tcltest::test EndsWith-4 {Search string bigger than target string}  -constraints {[expr [CheckAllDependenciesLoaded EndsWith]]}  -setup {}  -body {EndsWith asd asdf
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }

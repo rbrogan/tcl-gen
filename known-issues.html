@@ -41,6 +41,16 @@
 <tr>
 <td>0002</td><td>Version requirements for libraries are too much.</td><td>Partial Fix Up</td>
 </tr>
+<tr>
+<td>0003</td><td>The try Tcl core command is not listed in the loading-module-data.tcl file. This causes problems with Tcl 8.5 (since it does not have the try command).</td><td>Fix Up</td>
+</tr>
+<tr>
+<td>0004</td><td>Test suite runs tests for commands that are not loaded and reports many failures. It would be better if it would skip them, like how it does for tests that are not supposed to run on a given platform.
+</td><td>Fix Up</td>
+</tr>
+<tr>
+<td>0005</td><td>Test data files for the CopyEverythingInDirectory tests are missing.</td><td>Fix Up</td>
+</tr>
 </table>
 </div>
 <div id = "footer">

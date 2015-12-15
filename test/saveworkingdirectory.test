@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SaveWorkingDirectoryTest {}
 
@@ -7,7 +8,7 @@ namespace eval SaveWorkingDirectoryTest {}
 
 proc SaveWorkingDirectoryTest::Test-1 {} {
 
-::tcltest::test SaveWorkingDirectory-0 {Basic test}  -constraints {}  -setup {file delete -force TestSaveWorkingDirectory}  -body {set OriginalWorkingDirectory [SaveWorkingDirectory]
+::tcltest::test SaveWorkingDirectory-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SaveWorkingDirectory]]}  -setup {file delete -force TestSaveWorkingDirectory}  -body {set OriginalWorkingDirectory [SaveWorkingDirectory]
 file mkdir TestSaveWorkingDirectory
 cd TestSaveWorkingDirectory
 RestoreWorkingDirectory

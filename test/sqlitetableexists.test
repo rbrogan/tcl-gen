@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqliteTableExistsTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqliteTableExistsTest {}
 
 proc SqliteTableExistsTest::Test-1 {} {
 
-::tcltest::test SqliteTableExists-0 {Basic test - return 1}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteTableExists-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded SqliteTableExists]]}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists globals
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ proc SqliteTableExistsTest::Test-1 {} {
 
 proc SqliteTableExistsTest::Test-2 {} {
 
-::tcltest::test SqliteTableExists-1 {Basic test - return 0}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteTableExists-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded SqliteTableExists]]}  -setup {sqlite3 testdb test.db
 }  -body {SqliteTableExists no_such_table
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -27,7 +28,7 @@ proc SqliteTableExistsTest::Test-2 {} {
 
 proc SqliteTableExistsTest::Test-3 {} {
 
-::tcltest::test SqliteTableExists-2 {Table name is empty}  -constraints {}  -setup {}  -body {SqliteTableExists ""
+::tcltest::test SqliteTableExists-2 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteTableExists]]}  -setup {}  -body {SqliteTableExists ""
 }  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }

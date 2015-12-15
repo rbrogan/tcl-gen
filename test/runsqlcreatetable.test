@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RunSqlCreateTableTest {}
 
@@ -7,7 +8,7 @@ namespace eval RunSqlCreateTableTest {}
 
 proc RunSqlCreateTableTest::Test-1 {} {
 
-::tcltest::test RunSqlCreateTable-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test RunSqlCreateTable-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlCreateTable]]}  -setup {sqlite3 testdb test.db
 catch {QQ {DROP TABLE temp_table}}
 }  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text notes text}
 QQ [SqlInsertStatement temp_table {desc 'first' notes '1-2-3'}]
@@ -22,7 +23,7 @@ SqlRecordExists temp_table {desc 'first'}
 
 proc RunSqlCreateTableTest::Test-2 {} {
 
-::tcltest::test RunSqlCreateTable-1 {Table name is empty}  -constraints {}  -setup {}  -body {RunSqlCreateTable "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test RunSqlCreateTable-1 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlCreateTable]]}  -setup {}  -body {RunSqlCreateTable "" ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -30,7 +31,7 @@ proc RunSqlCreateTableTest::Test-2 {} {
 
 proc RunSqlCreateTableTest::Test-3 {} {
 
-::tcltest::test RunSqlCreateTable-2 {Attributes empty}  -constraints {}  -setup {}  -body {RunSqlCreateTable temp_table {}
+::tcltest::test RunSqlCreateTable-2 {Attributes empty}  -constraints {[expr [CheckAllDependenciesLoaded RunSqlCreateTable]]}  -setup {}  -body {RunSqlCreateTable temp_table {}
 }  -cleanup {}  -result {Variable ColumnNameTypeList has empty value.}  -output {}  -returnCodes {1}  
 
 }

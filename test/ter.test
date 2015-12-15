@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval TerTest {}
 
@@ -7,7 +8,7 @@ namespace eval TerTest {}
 
 proc TerTest::Test-1 {} {
 
-::tcltest::test Ter-0 {Basic test}  -constraints {}  -setup {}  -body {Ter 1 {return true} {return false}
+::tcltest::test Ter-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Ter]]}  -setup {}  -body {Ter 1 {return true} {return false}
 }  -cleanup {}  -result {true}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc TerTest::Test-1 {} {
 
 proc TerTest::Test-2 {} {
 
-::tcltest::test Ter-1 {Basic test - evaluates to false}  -constraints {}  -setup {}  -body {Ter 0 {return true} {return false}}  -cleanup {}  -result {false}  -output {}  -returnCodes {0}  
+::tcltest::test Ter-1 {Basic test - evaluates to false}  -constraints {[expr [CheckAllDependenciesLoaded Ter]]}  -setup {}  -body {Ter 0 {return true} {return false}}  -cleanup {}  -result {false}  -output {}  -returnCodes {0}  
 
 }
 

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval RegistryTree2DictTest {}
 
@@ -7,7 +8,7 @@ namespace eval RegistryTree2DictTest {}
 
 proc RegistryTree2DictTest::Test-1 {} {
 
-::tcltest::test RegistryTree2Dict-0 {Basic test}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryTree2Dict-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded RegistryTree2Dict]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} one uno
 registry set {HKEY_CURRENT_USER\Software\GenTest} two dos
 registry set {HKEY_CURRENT_USER\Software\GenTest\three}
@@ -30,7 +31,7 @@ three
 
 proc RegistryTree2DictTest::Test-2 {} {
 
-::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -constraints {win}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
+::tcltest::test RegistryTree2Dict-1 {Target key does not exist}  -constraints {[expr [CheckAllDependenciesLoaded RegistryTree2Dict]]}  -setup {}  -body {RegistryTree2Dict {HKEY_LOCAL_MACHINE\asdfasdf}
 
 }  -cleanup {}  -result {Registry key/value HKEY_LOCAL_MACHINE\asdfasdf not found.}  -output {}  -returnCodes {1}  
 
@@ -40,7 +41,7 @@ proc RegistryTree2DictTest::Test-2 {} {
 
 proc RegistryTree2DictTest::Test-3 {} {
 
-::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -constraints {win}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
+::tcltest::test RegistryTree2Dict-2 {Empty string for target key}  -constraints {[expr [CheckAllDependenciesLoaded RegistryTree2Dict]]}  -setup {}  -body {set MyDict [RegistryTree2Dict {}]
 
 }  -cleanup {}  -result {Variable CurrentRegKey has empty value.}  -output {}  -returnCodes {1}  
 
@@ -50,7 +51,7 @@ proc RegistryTree2DictTest::Test-3 {} {
 
 proc RegistryTree2DictTest::Test-4 {} {
 
-::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test RegistryTree2Dict-3 {Registry key has empty contents}  -constraints {[expr [CheckAllDependenciesLoaded RegistryTree2Dict]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -body {registry set {HKEY_CURRENT_USER\Software\GenTest}
 set MyDict [RegistryTree2Dict {HKEY_CURRENT_USER\Software\GenTest}]
 PrintDict $MyDict
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}}  -result {}  -output {}  -returnCodes {0}  

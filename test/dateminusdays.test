@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval DateMinusDaysTest {}
 
@@ -7,7 +8,7 @@ namespace eval DateMinusDaysTest {}
 
 proc DateMinusDaysTest::Test-1 {} {
 
-::tcltest::test DateMinusDays-0 {Basic test}  -constraints {}  -setup {}  -body {DateMinusDays {2000-01-02} 1
+::tcltest::test DateMinusDays-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DateMinusDays]]}  -setup {}  -body {DateMinusDays {2000-01-02} 1
 }  -cleanup {}  -result {2000-01-01}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc DateMinusDaysTest::Test-1 {} {
 
 proc DateMinusDaysTest::Test-2 {} {
 
-::tcltest::test DateMinusDays-1 {Date is invalid}  -constraints {}  -setup {}  -body {DateMinusDays asdf 1
+::tcltest::test DateMinusDays-1 {Date is invalid}  -constraints {[expr [CheckAllDependenciesLoaded DateMinusDays]]}  -setup {}  -body {DateMinusDays asdf 1
 }  -cleanup {}  -result {Variable DateVariable has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -25,7 +26,7 @@ proc DateMinusDaysTest::Test-2 {} {
 
 proc DateMinusDaysTest::Test-3 {} {
 
-::tcltest::test DateMinusDays-2 {NumDays is non-numeric}  -constraints {}  -setup {}  -body {DateMinusDays {2000-01-02} asdf
+::tcltest::test DateMinusDays-2 {NumDays is non-numeric}  -constraints {[expr [CheckAllDependenciesLoaded DateMinusDays]]}  -setup {}  -body {DateMinusDays {2000-01-02} asdf
 }  -cleanup {}  -result {Variable NumDays has invalid value asdf.}  -output {}  -returnCodes {1}  
 
 }
@@ -34,7 +35,7 @@ proc DateMinusDaysTest::Test-3 {} {
 
 proc DateMinusDaysTest::Test-4 {} {
 
-::tcltest::test DateMinusDays-3 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test DateMinusDays-3 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded DateMinusDays]]}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 DateMinusDays {January 02, 2000} 1
 }  -cleanup {SetDateFormat {%Y-%m-%d}}  -result {January 01, 2000}  -output {}  -returnCodes {0}  
 

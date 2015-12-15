@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval FtpMirrorLocalToRemoteTest {}
 
@@ -24,7 +25,7 @@ proc Test {LocalDirectory ExpectedRemoteDirectory} {
 
 proc FtpMirrorLocalToRemoteTest::Test-1 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-0 {Basic test}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/one-file
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -34,7 +35,7 @@ proc FtpMirrorLocalToRemoteTest::Test-1 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-2 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-1 {Empty directory}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup empty
+::tcltest::test FtpMirrorLocalToRemote-1 {Empty directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup empty
 }  -body {FtpMirrorLocalToRemoteTest::Test empty FtpMirrorLocalToRemote/empty
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -44,7 +45,7 @@ proc FtpMirrorLocalToRemoteTest::Test-2 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-3 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-2 {Has subdirectory}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup has-subdir
+::tcltest::test FtpMirrorLocalToRemote-2 {Has subdirectory}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup has-subdir
 }  -body {FtpMirrorLocalToRemoteTest::Test has-subdir FtpMirrorLocalToRemote/has-subdir
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -54,7 +55,7 @@ proc FtpMirrorLocalToRemoteTest::Test-3 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-4 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-3 {Has unmatched files}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup has-unmatched-files
+::tcltest::test FtpMirrorLocalToRemote-3 {Has unmatched files}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup has-unmatched-files
 }  -body {FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/has-unmatched-files
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -64,7 +65,7 @@ proc FtpMirrorLocalToRemoteTest::Test-4 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-5 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-4 {Two files}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup two-files
+::tcltest::test FtpMirrorLocalToRemote-4 {Two files}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup two-files
 }  -body {FtpMirrorLocalToRemoteTest::Test two-files FtpMirrorLocalToRemote/two-files
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -74,7 +75,7 @@ proc FtpMirrorLocalToRemoteTest::Test-5 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-6 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-5 {Has two levels of subdirectories}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup has-subdir-two-levels
+::tcltest::test FtpMirrorLocalToRemote-5 {Has two levels of subdirectories}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup has-subdir-two-levels
 }  -body {FtpMirrorLocalToRemoteTest::Test has-subdir-two-levels FtpMirrorLocalToRemote/has-subdir-two-levels
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -84,7 +85,7 @@ proc FtpMirrorLocalToRemoteTest::Test-6 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-7 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-6 {Server not found}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-6 {Server not found}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Server 10.10.10.10
 set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
@@ -95,7 +96,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -ou
 
 proc FtpMirrorLocalToRemoteTest::Test-8 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-7 {Username invalid}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-7 {Username invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Username asdfqwersdfg
 set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]
@@ -107,7 +108,7 @@ set Result [Flip $Result]
 
 proc FtpMirrorLocalToRemoteTest::Test-9 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-8 {Password invalid}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-8 {Password invalid}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::Password erfjwepoijaspdi
 set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file $GenTest::Ftp::RemoteRoot/uploadto/temp}]
 set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
@@ -118,7 +119,7 @@ set Result [Flip $Result]}  -cleanup {RestoreWorkingDirectory}  -result {0}  -ou
 
 proc FtpMirrorLocalToRemoteTest::Test-10 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-9 {Bad local directory}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-9 {Bad local directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {FtpMirrorLocalToRemoteTest::Test asdfasdfasd FtpMirrorLocalToRemote/has-unmatched-files
 }  -cleanup {RestoreWorkingDirectory}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -128,7 +129,7 @@ proc FtpMirrorLocalToRemoteTest::Test-10 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-11 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-10 {Bad remote directory}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-10 {Bad remote directory}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set Result [catch {FtpMirrorLocalToRemote $GenTest::Ftp::LocalRoot/uploadfrom/one-file aasertgwsdfasdf}]
 set Result [Flip $Result]
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
@@ -139,7 +140,7 @@ set Result [Flip $Result]
 
 proc FtpMirrorLocalToRemoteTest::Test-12 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-11 {Binary transfer type}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-11 {Binary transfer type}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::FileTransferType binary
 FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/one-file
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
@@ -150,7 +151,7 @@ FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/one-file
 
 proc FtpMirrorLocalToRemoteTest::Test-13 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-13 {Has unmatched subdir}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup has-unmatched-subdir
+::tcltest::test FtpMirrorLocalToRemote-13 {Has unmatched subdir}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup has-unmatched-subdir
 }  -body {FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/has-unmatched-subdir
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -160,7 +161,7 @@ proc FtpMirrorLocalToRemoteTest::Test-13 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-14 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-14 {Various times and sizes}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup different-times
+::tcltest::test FtpMirrorLocalToRemote-14 {Various times and sizes}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup different-times
 }  -body {FtpMirrorLocalToRemoteTest::Test different-times FtpMirrorLocalToRemote/different-times
 }  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
 
@@ -170,7 +171,7 @@ proc FtpMirrorLocalToRemoteTest::Test-14 {} {
 
 proc FtpMirrorLocalToRemoteTest::Test-15 {} {
 
-::tcltest::test FtpMirrorLocalToRemote-15 {Test dry run}  -constraints {}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
+::tcltest::test FtpMirrorLocalToRemote-15 {Test dry run}  -constraints {[expr [CheckAllDependenciesLoaded FtpMirrorLocalToRemote]]}  -setup {FtpMirrorLocalToRemoteTest::Setup one-file
 }  -body {set GenNS::Ftp::DryRun 1
 FtpMirrorLocalToRemoteTest::Test one-file FtpMirrorLocalToRemote/one-file
 }  -cleanup {RestoreWorkingDirectory

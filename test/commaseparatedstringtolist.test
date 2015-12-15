@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval CommaSeparatedStringToListTest {}
 
@@ -7,7 +8,7 @@ namespace eval CommaSeparatedStringToListTest {}
 
 proc CommaSeparatedStringToListTest::Test-1 {} {
 
-::tcltest::test CommaSeparatedStringToList-0 {Basic test - 1}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {one, two, three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-0 {Basic test - 1}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {one, two, three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc CommaSeparatedStringToListTest::Test-1 {} {
 
 proc CommaSeparatedStringToListTest::Test-2 {} {
 
-::tcltest::test CommaSeparatedStringToList-1 {Basic test - 2}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {one ,two ,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-1 {Basic test - 2}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {one ,two ,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc CommaSeparatedStringToListTest::Test-2 {} {
 
 proc CommaSeparatedStringToListTest::Test-3 {} {
 
-::tcltest::test CommaSeparatedStringToList-2 {Basic test - 3}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {one,two,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-2 {Basic test - 3}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {one,two,three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc CommaSeparatedStringToListTest::Test-3 {} {
 
 proc CommaSeparatedStringToListTest::Test-4 {} {
 
-::tcltest::test CommaSeparatedStringToList-3 {Basic test - 4}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {one  ,  two  ,  three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-3 {Basic test - 4}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {one  ,  two  ,  three}}  -cleanup {}  -result {one two three}  -output {}  -returnCodes {0}  
 
 }
 
@@ -39,7 +40,7 @@ proc CommaSeparatedStringToListTest::Test-4 {} {
 
 proc CommaSeparatedStringToListTest::Test-5 {} {
 
-::tcltest::test CommaSeparatedStringToList-4 {Empty list input}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-4 {Empty list input}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
 
 }
 
@@ -47,7 +48,7 @@ proc CommaSeparatedStringToListTest::Test-5 {} {
 
 proc CommaSeparatedStringToListTest::Test-6 {} {
 
-::tcltest::test CommaSeparatedStringToList-5 {One element list}  -constraints {}  -setup {}  -body {CommaSeparatedStringToList {one}}  -cleanup {}  -result {one}  -output {}  -returnCodes {0}  
+::tcltest::test CommaSeparatedStringToList-5 {One element list}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {CommaSeparatedStringToList {one}}  -cleanup {}  -result {one}  -output {}  -returnCodes {0}  
 
 }
 
@@ -55,7 +56,7 @@ proc CommaSeparatedStringToListTest::Test-6 {} {
 
 proc CommaSeparatedStringToListTest::Test-7 {} {
 
-::tcltest::test CommaSeparatedStringToList-6 {Test at}  -constraints {}  -setup {}  -body {set String "one,two, three"
+::tcltest::test CommaSeparatedStringToList-6 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded CommaSeparatedStringToList]]}  -setup {}  -body {set String "one,two, three"
 CommaSeparatedStringToList @String
 puts $String
 }  -cleanup {}  -result {}  -output {one two three

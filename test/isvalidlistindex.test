@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsValidListIndexTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsValidListIndexTest {}
 
 proc IsValidListIndexTest::Test-1 {} {
 
-::tcltest::test IsValidListIndex-0 {Basic test}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 1
+::tcltest::test IsValidListIndex-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex {1 2 3} 1
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -16,7 +17,7 @@ proc IsValidListIndexTest::Test-1 {} {
 
 proc IsValidListIndexTest::Test-2 {} {
 
-::tcltest::test IsValidListIndex-1 {List is empty}  -constraints {}  -setup {}  -body {IsValidListIndex {} 0}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsValidListIndex-1 {List is empty}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex {} 0}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -24,7 +25,7 @@ proc IsValidListIndexTest::Test-2 {} {
 
 proc IsValidListIndexTest::Test-3 {} {
 
-::tcltest::test IsValidListIndex-2 {List is length 1}  -constraints {}  -setup {}  -body {IsValidListIndex 1 0
+::tcltest::test IsValidListIndex-2 {List is length 1}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex 1 0
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
@@ -33,7 +34,7 @@ proc IsValidListIndexTest::Test-3 {} {
 
 proc IsValidListIndexTest::Test-4 {} {
 
-::tcltest::test IsValidListIndex-3 {Index is not an integer}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsValidListIndex-3 {Index is not an integer}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex {1 2 3} 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -41,7 +42,7 @@ proc IsValidListIndexTest::Test-4 {} {
 
 proc IsValidListIndexTest::Test-5 {} {
 
-::tcltest::test IsValidListIndex-4 {Index is negative}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} -1
+::tcltest::test IsValidListIndex-4 {Index is negative}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex {1 2 3} -1
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
@@ -50,7 +51,7 @@ proc IsValidListIndexTest::Test-5 {} {
 
 proc IsValidListIndexTest::Test-6 {} {
 
-::tcltest::test IsValidListIndex-5 {Index is length of list}  -constraints {}  -setup {}  -body {IsValidListIndex {1 2 3} 3
+::tcltest::test IsValidListIndex-5 {Index is length of list}  -constraints {[expr [CheckAllDependenciesLoaded IsValidListIndex]]}  -setup {}  -body {IsValidListIndex {1 2 3} 3
 }  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }

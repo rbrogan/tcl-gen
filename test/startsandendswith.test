@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval StartsAndEndsWithTest {}
 
@@ -7,7 +8,7 @@ namespace eval StartsAndEndsWithTest {}
 
 proc StartsAndEndsWithTest::Test-1 {} {
 
-::tcltest::test StartsAndEndsWith-0 {Basic test}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba a}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test StartsAndEndsWith-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded StartsAndEndsWith]]}  -setup {}  -body {StartsAndEndsWith abba a}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc StartsAndEndsWithTest::Test-1 {} {
 
 proc StartsAndEndsWithTest::Test-2 {} {
 
-::tcltest::test StartsAndEndsWith-1 {TargetString empty}  -constraints {}  -setup {}  -body {StartsAndEndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StartsAndEndsWith-1 {TargetString empty}  -constraints {[expr [CheckAllDependenciesLoaded StartsAndEndsWith]]}  -setup {}  -body {StartsAndEndsWith "" asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc StartsAndEndsWithTest::Test-2 {} {
 
 proc StartsAndEndsWithTest::Test-3 {} {
 
-::tcltest::test StartsAndEndsWith-2 {SearchValue empty}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StartsAndEndsWith-2 {SearchValue empty}  -constraints {[expr [CheckAllDependenciesLoaded StartsAndEndsWith]]}  -setup {}  -body {StartsAndEndsWith abba ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -31,7 +32,7 @@ proc StartsAndEndsWithTest::Test-3 {} {
 
 proc StartsAndEndsWithTest::Test-4 {} {
 
-::tcltest::test StartsAndEndsWith-3 {Basic test - negative}  -constraints {}  -setup {}  -body {StartsAndEndsWith abba b}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test StartsAndEndsWith-3 {Basic test - negative}  -constraints {[expr [CheckAllDependenciesLoaded StartsAndEndsWith]]}  -setup {}  -body {StartsAndEndsWith abba b}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -39,7 +40,7 @@ proc StartsAndEndsWithTest::Test-4 {} {
 
 proc StartsAndEndsWithTest::Test-5 {} {
 
-::tcltest::test StartsAndEndsWith-4 {Basic test - multiple characters}  -constraints {}  -setup {}  -body {StartsAndEndsWith aabbaa aa}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test StartsAndEndsWith-4 {Basic test - multiple characters}  -constraints {[expr [CheckAllDependenciesLoaded StartsAndEndsWith]]}  -setup {}  -body {StartsAndEndsWith aabbaa aa}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 

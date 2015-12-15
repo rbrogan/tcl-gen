@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval LastIdTest {}
 
@@ -7,7 +8,7 @@ namespace eval LastIdTest {}
 
 proc LastIdTest::Test-1 {} {
 
-::tcltest::test LastId-0 {Base case}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
+::tcltest::test LastId-0 {Base case}  -constraints {[expr [CheckAllDependenciesLoaded LastId]]}  -setup {sqlite3 testdb test.db}  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId')"
 set Id [LastId my_table]
 Q1 "SELECT desc FROM my_table WHERE id = $Id"
 }  -cleanup {QQ {DELETE FROM my_table WHERE desc = 'Test LastId'}
@@ -19,7 +20,7 @@ Q1 "SELECT desc FROM my_table WHERE id = $Id"
 
 proc LastIdTest::Test-2 {} {
 
-::tcltest::test LastId-1 {Table empty}  -constraints {}  -setup {sqlite3 testdb "test.db"
+::tcltest::test LastId-1 {Table empty}  -constraints {[expr [CheckAllDependenciesLoaded LastId]]}  -setup {sqlite3 testdb "test.db"
 catch {QQ "DROP TABLE temp_table"}
 
 }  -body {RunSqlCreateTable temp_table {id {integer primary key} desc text}
@@ -32,7 +33,7 @@ LastId temp_table
 
 proc LastIdTest::Test-3 {} {
 
-::tcltest::test LastId-2 {After adding an entry}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test LastId-2 {After adding an entry}  -constraints {[expr [CheckAllDependenciesLoaded LastId]]}  -setup {sqlite3 testdb test.db
 }  -body {QQ "INSERT INTO my_table (desc) VALUES ('Test LastId 1')"
 set Id1 [LastId my_table]
 QQ "INSERT INTO my_table (desc) VALUES ('Test LastId 2')"
@@ -47,7 +48,7 @@ expr $Id2 - $Id1
 
 proc LastIdTest::Test-4 {} {
 
-::tcltest::test LastId-4 {Table name is empty string}  -constraints {}  -setup {}  -body {LastId ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+::tcltest::test LastId-4 {Table name is empty string}  -constraints {[expr [CheckAllDependenciesLoaded LastId]]}  -setup {}  -body {LastId ""}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
 

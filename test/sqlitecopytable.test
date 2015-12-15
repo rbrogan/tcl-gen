@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqliteCopyTableTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqliteCopyTableTest {}
 
 proc SqliteCopyTableTest::Test-1 {} {
 
-::tcltest::test SqliteCopyTable-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteCopyTable-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
@@ -29,7 +30,7 @@ id {integer primary key} desc text
 
 proc SqliteCopyTableTest::Test-2 {} {
 
-::tcltest::test SqliteCopyTable-1 {SourceTableName is empty}  -constraints {}  -setup {}  -body {SqliteCopyTable "" gen_temp_table2
+::tcltest::test SqliteCopyTable-1 {SourceTableName is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {}  -body {SqliteCopyTable "" gen_temp_table2
 }  -cleanup {}  -result {Variable SourceTableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -38,7 +39,7 @@ proc SqliteCopyTableTest::Test-2 {} {
 
 proc SqliteCopyTableTest::Test-3 {} {
 
-::tcltest::test SqliteCopyTable-3 {TargetTableName is empty}  -constraints {}  -setup {}  -body {SqliteCopyTable gen_temp_table ""
+::tcltest::test SqliteCopyTable-3 {TargetTableName is empty}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {}  -body {SqliteCopyTable gen_temp_table ""
 }  -cleanup {}  -result {Variable TargetTableName has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -47,7 +48,7 @@ proc SqliteCopyTableTest::Test-3 {} {
 
 proc SqliteCopyTableTest::Test-4 {} {
 
-::tcltest::test SqliteCopyTable-4 {Target table with given name exists}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteCopyTable-4 {Target table with given name exists}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {sqlite3 testdb test.db
 sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
@@ -64,7 +65,7 @@ QQ {DROP TABLE gen_temp_table2}
 
 proc SqliteCopyTableTest::Test-5 {} {
 
-::tcltest::test SqliteCopyTable-5 {Columns renamed}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteCopyTable-5 {Columns renamed}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}
@@ -84,7 +85,7 @@ three
 
 proc SqliteCopyTableTest::Test-6 {} {
 
-::tcltest::test SqliteCopyTable-6 {ColumnNames has wrong number of elements}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqliteCopyTable-6 {ColumnNames has wrong number of elements}  -constraints {[expr [CheckAllDependenciesLoaded SqliteCopyTable]]}  -setup {sqlite3 testdb test.db
 QQ {CREATE TABLE gen_temp_table (id integer primary key, desc text)}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('one')}
 QQ {INSERT INTO gen_temp_table (desc) VALUES ('two')}

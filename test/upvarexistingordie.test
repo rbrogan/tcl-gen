@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval UpvarExistingOrDieTest {}
 
@@ -7,7 +8,7 @@ namespace eval UpvarExistingOrDieTest {}
 
 proc UpvarExistingOrDieTest::Test-1 {} {
 
-::tcltest::test UpvarExistingOrDie-0 {Illustration}  -constraints {}  -setup {}  -body {proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
+::tcltest::test UpvarExistingOrDie-0 {Illustration}  -constraints {[expr [CheckAllDependenciesLoaded UpvarExistingOrDie]]}  -setup {}  -body {proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
 set abc 123
 MyPrintVar abc
 }  -cleanup {}  -result {}  -output {abc = 123
@@ -19,7 +20,7 @@ MyPrintVar abc
 
 proc UpvarExistingOrDieTest::Test-2 {} {
 
-::tcltest::test UpvarExistingOrDie-1 {No such variable}  -constraints {}  -setup {}  -body {unset -nocomplain NoVariable
+::tcltest::test UpvarExistingOrDie-1 {No such variable}  -constraints {[expr [CheckAllDependenciesLoaded UpvarExistingOrDie]]}  -setup {}  -body {unset -nocomplain NoVariable
 proc MyPrintVar {VarName} {  UpvarExistingOrDie $VarName Var; puts "$VarName = $Var" }
 MyPrintVar NoVariable}  -cleanup {}  -result {Could not find variable NoVariable in caller.}  -output {}  -returnCodes {1}  
 
@@ -29,7 +30,7 @@ MyPrintVar NoVariable}  -cleanup {}  -result {Could not find variable NoVariable
 
 proc UpvarExistingOrDieTest::Test-3 {} {
 
-::tcltest::test UpvarExistingOrDie-2 {Empty string input}  -constraints {}  -setup {}  -body {UpvarExistingOrDie "" abc}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test UpvarExistingOrDie-2 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded UpvarExistingOrDie]]}  -setup {}  -body {UpvarExistingOrDie "" abc}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -37,7 +38,7 @@ proc UpvarExistingOrDieTest::Test-3 {} {
 
 proc UpvarExistingOrDieTest::Test-4 {} {
 
-::tcltest::test UpvarExistingOrDie-3 {Empty string input 2}  -constraints {}  -setup {}  -body {UpvarExistingOrDie abc ""}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
+::tcltest::test UpvarExistingOrDie-3 {Empty string input 2}  -constraints {[expr [CheckAllDependenciesLoaded UpvarExistingOrDie]]}  -setup {}  -body {UpvarExistingOrDie abc ""}  -cleanup {}  -result {Second argument is missing. Got empty string.}  -output {}  -returnCodes {1}  
 
 }
 

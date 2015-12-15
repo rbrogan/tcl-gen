@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval LinkVarToDbGlobalTest {}
 
@@ -18,7 +19,7 @@ proc TestLocalVariable {} {
 
 proc LinkVarToDbGlobalTest::Test-1 {} {
 
-::tcltest::test LinkVarToDbGlobal-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
+::tcltest::test LinkVarToDbGlobal-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded LinkVarToDbGlobal]]}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
 LinkVarToDbGlobal ::MyVar
 puts [GetDbGlobal ::MyVar]
 set ::MyVar 345
@@ -34,7 +35,7 @@ puts [GetDbGlobal ::MyVar]
 
 proc LinkVarToDbGlobalTest::Test-2 {} {
 
-::tcltest::test LinkVarToDbGlobal-1 {Variable does not exist}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {unset -nocomplain ::MyVar
+::tcltest::test LinkVarToDbGlobal-1 {Variable does not exist}  -constraints {[expr [CheckAllDependenciesLoaded LinkVarToDbGlobal]]}  -setup {sqlite3 testdb test.db}  -body {unset -nocomplain ::MyVar
 LinkVarToDbGlobal ::MyVar
 puts [GetDbGlobal ::MyVar]
 set ::MyVar 345
@@ -50,7 +51,7 @@ puts [GetDbGlobal ::MyVar]
 
 proc LinkVarToDbGlobalTest::Test-3 {} {
 
-::tcltest::test LinkVarToDbGlobal-2 {Database global not pre-existing}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
+::tcltest::test LinkVarToDbGlobal-2 {Database global not pre-existing}  -constraints {[expr [CheckAllDependenciesLoaded LinkVarToDbGlobal]]}  -setup {sqlite3 testdb test.db}  -body {set ::MyVar 123
 UnsetDbGlobal ::MyVar
 LinkVarToDbGlobal ::MyVar
 puts [GetDbGlobal ::MyVar]
@@ -67,7 +68,7 @@ puts [GetDbGlobal ::MyVar]
 
 proc LinkVarToDbGlobalTest::Test-4 {} {
 
-::tcltest::test LinkVarToDbGlobal-3 {VarName is empty}  -constraints {}  -setup {}  -body {LinkVarToDbGlobal ""
+::tcltest::test LinkVarToDbGlobal-3 {VarName is empty}  -constraints {[expr [CheckAllDependenciesLoaded LinkVarToDbGlobal]]}  -setup {}  -body {LinkVarToDbGlobal ""
 }  -cleanup {}  -result {Variable VarName has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -76,7 +77,7 @@ proc LinkVarToDbGlobalTest::Test-4 {} {
 
 proc LinkVarToDbGlobalTest::Test-5 {} {
 
-::tcltest::test LinkVarToDbGlobal-4 {VarName and DbGlobalName are different}  -constraints {}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal ::SomeVar 789
+::tcltest::test LinkVarToDbGlobal-4 {VarName and DbGlobalName are different}  -constraints {[expr [CheckAllDependenciesLoaded LinkVarToDbGlobal]]}  -setup {sqlite3 testdb test.db}  -body {SetDbGlobal ::SomeVar 789
 set ::MyVar 123
 LinkVarToDbGlobal ::MyVar ::SomeVar
 puts [GetDbGlobal ::SomeVar]

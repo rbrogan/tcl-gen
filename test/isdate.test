@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsDateTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsDateTest {}
 
 proc IsDateTest::Test-1 {} {
 
-::tcltest::test IsDate-0 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsDate asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsDate-0 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded IsDate]]}  -setup {}  -body {IsDate asdf}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc IsDateTest::Test-1 {} {
 
 proc IsDateTest::Test-2 {} {
 
-::tcltest::test IsDate-1 {Basic test - return 1}  -constraints {}  -setup {SetDateFormat %Y-%m-%d
+::tcltest::test IsDate-1 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded IsDate]]}  -setup {SetDateFormat %Y-%m-%d
 }  -body {IsDate 2000-01-02
 }  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
@@ -25,7 +26,7 @@ proc IsDateTest::Test-2 {} {
 
 proc IsDateTest::Test-3 {} {
 
-::tcltest::test IsDate-3 {String is empty}  -constraints {}  -setup {}  -body {IsDate ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsDate-3 {String is empty}  -constraints {[expr [CheckAllDependenciesLoaded IsDate]]}  -setup {}  -body {IsDate ""}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -33,7 +34,7 @@ proc IsDateTest::Test-3 {} {
 
 proc IsDateTest::Test-4 {} {
 
-::tcltest::test IsDate-4 {Use alternate format}  -constraints {}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
+::tcltest::test IsDate-4 {Use alternate format}  -constraints {[expr [CheckAllDependenciesLoaded IsDate]]}  -setup {}  -body {SetDateFormat {{%B %d, %Y}}
 IsDate {January 02, 2000}
 }  -cleanup {SetDateFormat {%Y-%m-%d}
 }  -result {1}  -output {}  -returnCodes {0}  

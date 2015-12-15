@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval IsNonPositiveTest {}
 
@@ -7,7 +8,7 @@ namespace eval IsNonPositiveTest {}
 
 proc IsNonPositiveTest::Test-1 {} {
 
-::tcltest::test IsNonPositive-0 {Basic test - return 1}  -constraints {}  -setup {}  -body {IsNonPositive 0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+::tcltest::test IsNonPositive-0 {Basic test - return 1}  -constraints {[expr [CheckAllDependenciesLoaded IsNonPositive]]}  -setup {}  -body {IsNonPositive 0}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
 
 }
 
@@ -15,7 +16,7 @@ proc IsNonPositiveTest::Test-1 {} {
 
 proc IsNonPositiveTest::Test-2 {} {
 
-::tcltest::test IsNonPositive-1 {Basic test - return 0}  -constraints {}  -setup {}  -body {IsNonPositive 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+::tcltest::test IsNonPositive-1 {Basic test - return 0}  -constraints {[expr [CheckAllDependenciesLoaded IsNonPositive]]}  -setup {}  -body {IsNonPositive 1.1}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
 
 }
 
@@ -23,7 +24,7 @@ proc IsNonPositiveTest::Test-2 {} {
 
 proc IsNonPositiveTest::Test-3 {} {
 
-::tcltest::test IsNonPositive-2 {Non-numeric input}  -constraints {}  -setup {}  -body {IsNonPositive asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test IsNonPositive-2 {Non-numeric input}  -constraints {[expr [CheckAllDependenciesLoaded IsNonPositive]]}  -setup {}  -body {IsNonPositive asdf}  -cleanup {}  -result {Got input value asdf. Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
 
@@ -31,7 +32,7 @@ proc IsNonPositiveTest::Test-3 {} {
 
 proc IsNonPositiveTest::Test-4 {} {
 
-::tcltest::test IsNonPositive-3 {Empty string input}  -constraints {}  -setup {}  -body {IsNonPositive ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
+::tcltest::test IsNonPositive-3 {Empty string input}  -constraints {[expr [CheckAllDependenciesLoaded IsNonPositive]]}  -setup {}  -body {IsNonPositive ""}  -cleanup {}  -result {Got input value . Expected numeric value.}  -output {}  -returnCodes {1}  
 
 }
 

@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval Dict2RegistryTreeTest {}
 
@@ -7,7 +8,7 @@ namespace eval Dict2RegistryTreeTest {}
 
 proc Dict2RegistryTreeTest::Test-1 {} {
 
-::tcltest::test Dict2RegistryTree-0 {Basic test}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest} --leave-unmatched
@@ -22,7 +23,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-2 {} {
 
-::tcltest::test Dict2RegistryTree-1 {Empty dict}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}
+::tcltest::test Dict2RegistryTree-1 {Empty dict}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\My\GenTest}
 }  -body {set MyDict [dict create]
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest}
@@ -36,7 +37,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-3 {} {
 
-::tcltest::test Dict2RegistryTree-2 {Dict with nested dicts}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-2 {Dict with nested dicts}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create uno one dos two tres three quatro [dict create yi one er two san three]]
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest}
 RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
@@ -55,7 +56,7 @@ quatro
 
 proc Dict2RegistryTreeTest::Test-4 {} {
 
-::tcltest::test Dict2RegistryTree-4 {Registry key does not already exist}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-4 {Registry key does not already exist}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest}
 RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
@@ -69,7 +70,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-5 {} {
 
-::tcltest::test Dict2RegistryTree-5 {Registry key is invalid}  -constraints {win}  -setup {}  -body {set MyDict [dict create test 1-2-3]
+::tcltest::test Dict2RegistryTree-5 {Registry key is invalid}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {}  -body {set MyDict [dict create test 1-2-3]
 Dict2RegistryTree $MyDict {}
 }  -cleanup {}  -result {Variable RegistryRootKey has empty value.}  -output {}  -returnCodes {1}  
 
@@ -79,7 +80,7 @@ Dict2RegistryTree $MyDict {}
 
 proc Dict2RegistryTreeTest::Test-6 {} {
 
-::tcltest::test Dict2RegistryTree-6 {DictValue is invalid}  -constraints {win}  -setup {}  -body {Dict2RegistryTree {not a dict} {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-6 {DictValue is invalid}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {}  -body {Dict2RegistryTree {not a dict} {HKEY_CURRENT_USER\Software\GenTest}
 }  -cleanup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -result {Variable DictValue has invalid value not a dict.}  -output {}  -returnCodes {1}  
 
@@ -89,7 +90,7 @@ proc Dict2RegistryTreeTest::Test-6 {} {
 
 proc Dict2RegistryTreeTest::Test-7 {} {
 
-::tcltest::test Dict2RegistryTree-7 {Registry tree has existing values not in dict and DeleteUnmatched is set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-7 {Registry tree has existing values not in dict and DeleteUnmatched is set}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest} existing aaa
@@ -105,7 +106,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-8 {} {
 
-::tcltest::test Dict2RegistryTree-8 {Registry tree has existing subtree not in dict and DeleteUnmatched is set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-8 {Registry tree has existing subtree not in dict and DeleteUnmatched is set}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3]
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest\111}
@@ -121,7 +122,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-9 {} {
 
-::tcltest::test Dict2RegistryTree-9 {Registry tree has existing values in a subtree that are not in dict and DeleteUnmatched set}  -constraints {win}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
+::tcltest::test Dict2RegistryTree-9 {Registry tree has existing values in a subtree that are not in dict and DeleteUnmatched set}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {registry delete {HKEY_CURRENT_USER\Software\GenTest}
 }  -body {set MyDict [dict create test 1-2-3 sub [dict create aa 11 bb 22]]
 registry set {HKEY_CURRENT_USER\Software\GenTest}
 registry set {HKEY_CURRENT_USER\Software\GenTest\sub}
@@ -141,7 +142,7 @@ RegistryPrint {HKEY_CURRENT_USER\Software\GenTest}
 
 proc Dict2RegistryTreeTest::Test-10 {} {
 
-::tcltest::test Dict2RegistryTree-10 {DeleteUnmatchedOption is invalid}  -constraints {win}  -setup {}  -body {set MyDict [dict create test 1-2-3]
+::tcltest::test Dict2RegistryTree-10 {DeleteUnmatchedOption is invalid}  -constraints {[expr [CheckAllDependenciesLoaded Dict2RegistryTree]]}  -setup {}  -body {set MyDict [dict create test 1-2-3]
 Dict2RegistryTree $MyDict {HKEY_CURRENT_USER\Software\GenTest} asdf
 }  -cleanup {}  -result {Variable DeleteUnmatchedOption has invalid value asdf.}  -output {}  -returnCodes {1}  
 

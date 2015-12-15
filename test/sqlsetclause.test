@@ -1,5 +1,6 @@
 package require tcltest
-package require -exact gen 1.10.0
+package require -exact gen 1.10.2
+source gen-test-common.tcl
 
 namespace eval SqlSetClauseTest {}
 
@@ -7,7 +8,7 @@ namespace eval SqlSetClauseTest {}
 
 proc SqlSetClauseTest::Test-1 {} {
 
-::tcltest::test SqlSetClause-0 {Basic test}  -constraints {}  -setup {sqlite3 testdb test.db
+::tcltest::test SqlSetClause-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SqlSetClause]]}  -setup {sqlite3 testdb test.db
 }  -body {SqlSetClause [dict create intvalue 1 realvalue 1.1]
 }  -cleanup {}  -result {intvalue = 1, realvalue = 1.1}  -output {}  -returnCodes {0}  
 
@@ -17,7 +18,7 @@ proc SqlSetClauseTest::Test-1 {} {
 
 proc SqlSetClauseTest::Test-2 {} {
 
-::tcltest::test SqlSetClause-1 {Empty dict}  -constraints {}  -setup {}  -body {SqlSetClause {}
+::tcltest::test SqlSetClause-1 {Empty dict}  -constraints {[expr [CheckAllDependenciesLoaded SqlSetClause]]}  -setup {}  -body {SqlSetClause {}
 }  -cleanup {}  -result {Variable DictValue has empty value.}  -output {}  -returnCodes {1}  
 
 }
@@ -26,7 +27,7 @@ proc SqlSetClauseTest::Test-2 {} {
 
 proc SqlSetClauseTest::Test-3 {} {
 
-::tcltest::test SqlSetClause-2 {Only one name / value pair}  -constraints {}  -setup {}  -body {SqlSetClause [dict create intvalue 1]
+::tcltest::test SqlSetClause-2 {Only one name / value pair}  -constraints {[expr [CheckAllDependenciesLoaded SqlSetClause]]}  -setup {}  -body {SqlSetClause [dict create intvalue 1]
 }  -cleanup {}  -result {intvalue = 1}  -output {}  -returnCodes {0}  
 
 }
