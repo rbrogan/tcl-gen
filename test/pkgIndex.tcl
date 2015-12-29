@@ -9,3 +9,4 @@
 # full path name of this file's directory.
 
 package ifneeded test-reload-package 1.0 [list source [file join $dir test-reload-package.tcl]]
+package ifneeded test-loading-module-package 0.1 [list source [file join $dir test-loading-module-package.tcl]]

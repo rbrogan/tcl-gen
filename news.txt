@@ -2,6 +2,13 @@ Gen
 
 NEWS
 
+2015.12.28
+
+v1.10.3 Revision
+
+CN_0003
+     Added tests to test suite for Partial Loading feature. Updated loading module and config code to include support for a special test mode to support these tests. (Fix for KI_0006.)
+     Added try command as a dependency for commands that use it. (Fix for KI_0007.)
 2015.12.14
 
 v1.10.2 Revision

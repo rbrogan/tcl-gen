@@ -1,10 +1,10 @@
-set GenNS::Ftp::Server 192.168.5.5
+set GenNS::Ftp::Server not-set
 # This is the IP address of the remote machine you will download from / upload to.
 
-set GenNS::Ftp::Username rbrogan
+set GenNS::Ftp::Username not-set
 # This is the username you use to log on to that machine.
 
-set GenNS::Ftp::Password dfdbjhhjmsqr1325
+set GenNS::Ftp::Password not-set
 # This is the password you use to log on to that machine.
 
 set GenNS::Ftp::OptionsList ""
@@ -23,7 +23,7 @@ set LocalRoot "./ftp-local"
 # By default, we assume you are running tests from the root test directory.
 # If not, you will want to change it, so it can find ftp-local on your machine.
 
-set RemoteRoot "/home/rbrogan/ftp-remote"
+set RemoteRoot "not-set"
 # This is used to switch into the remote directory with the remote files to use.
 # We left this blank so that you can change it and make sure the path is right.
 # Most likely you want it to have a full path, like /home/yourusername/ftp-remote
@@ -60,16 +60,7 @@ proc DiffRemoteDirectories {RemoteDirectory} {
 }
 
 proc RunRemote {RemoteCommand {ShowOutput 0}} {
-     # The following works for Windows using plink which you can get as part of PuTTY.
-     set PathToPlinkExe c:/Users/rbrogan/Noninstalled/putty/plink.exe
-     set PathToPpkFile c:/Users/rbrogan/Noninstalled/putty/alpha.ppk
-     set Password nowcomecome
-     set Command "$PathToPlinkExe -ssh -i $PathToPpkFile $GenNS::Ftp::Server -l $GenNS::Ftp::Username -pw $Password $RemoteCommand"
-     set Result [catch {exec {*}$Command} Output]
-     #if {$ShowOutput != 0} {
-          #puts $Output
-     #}
-     return $Result
+     return ""
 }
 
 }

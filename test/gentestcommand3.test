@@ -1,0 +1,79 @@
+package require tcltest
+package require -exact gen 1.10.3
+source gen-test-common.tcl
+
+namespace eval GenTestCommand3Test {}
+
+
+
+proc GenTestCommand3Test::Test-1 {} {
+
+::tcltest::test GenTestCommand3-0 {Package missing, testing mode enabled}  -constraints {}  -setup {}  -body {set dir [pwd]
+source pkgIndex.tcl
+::GenNS::LoadingNS::DoLoading
+source $::PackageRoot/loading-module-data.tcl
+namespace eval ::GenNS { variable NowTesting 1 }
+namespace eval ::GenNS { variable ReportOnPackagesLoaded 1 }
+namespace eval ::GenNS { variable WarnOnFailureToLoadCommand 1 }
+::GenNS::LoadingNS::DoLoading
+GenTestCommand3
+}  -cleanup {}  -result {Command GenTestCommand3 was not loaded}  -output {
+PACKAGE LOAD REPORT
+-------------------
+Could not find package test-missing-package
+     The following commands were not loaded:
+          GenTestCommand3 -- wants v1.0
+Loaded package sqlite3, v3.8.6
+Loaded package registry, v1.3.0
+Loaded package textutil::string, v0.8
+Loaded package textutil::adjust, v0.7.1
+Loaded package ftp, v2.4.13
+Loaded package test-loading-module-package, v0.1
+     The following commands were not loaded:
+          GenTestCommand2 -- wants v1.0
+Loaded package Tclx, v8.4
+Loaded package Tcl, v8.6.2
+
+
+
+COMMANDS NOT LOADED
+-------------------
+GenTestCommand2
+GenTestCommand3
+
+
+To find out why a command was not loaded,
+simply type in the name of the command into the terminal.
+     package test-missing-package
+          NOT LOADED
+          Need v1.0
+}  -returnCodes {1}  
+
+}
+
+
+
+proc GenTestCommand3Test::Test-2 {} {
+
+::tcltest::test GenTestCommand3-1 {Package missing, testing mode disabled}  -constraints {}  -setup {}  -body {set dir [pwd]
+source pkgIndex.tcl
+source $::PackageRoot/loading-module-data.tcl
+namespace eval ::GenNS { variable NowTesting 0 }
+namespace eval ::GenNS { variable ReportOnPackagesLoaded 0 }
+namespace eval ::GenNS { variable WarnOnFailureToLoadCommand 0 }
+::GenNS::LoadingNS::DoLoading
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     GenTestCommand3Test::Test-1
+     GenTestCommand3Test::Test-2
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          GenTestCommand3Test::Test-[set Element]
+     }
+}
+

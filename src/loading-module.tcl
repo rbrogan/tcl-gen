@@ -113,7 +113,7 @@ proc DoLoading {} {
      # for each command within the package, find all Gen commands dependent on it,
      # remove the package command from the dependency list.
      # If the Gen command has no more outstanding dependencies,
-     # put it on a list of command to be loaded in the next phase.
+     # put it on a list of commands to be loaded in the next phase.
      while {[llength $::GenNS::LoadingNS::PackageReadyList] > 0} {
           # Pop the next package off the ready list
           set CurrentPackage [lindex $::GenNS::LoadingNS::PackageReadyList 0]
@@ -131,16 +131,17 @@ proc DoLoading {} {
           # Package successfully loaded. Find all commands in it that will be used.
           foreach Element $::GenNS::LoadingNS::CommandsInPackage($CurrentPackage) {
                lassign $Element Command MinimumVersion
-               # Get the minimum version needed for the command to be loaded.
-               # Check the minimum package version needed for the command to be loaded.
+               # Check against the minimum package version needed for the command to be loaded.
                if {[package vcompare $PackageVersion $MinimumVersion] == -1} {
-                    # Package version is less than the minimum version for this command.
+                    # Package version is below the minimum version for this command.
                     # So the command is not loaded.
+                    #lappend ::GenNS::LoadingNS::CommandNotLoadedList $Command
                     continue
                }
 
                # Look up commands dependent on it.
                if {![info exists ::GenNS::LoadingNS::DependentsList($Command)]} {
+                    # If not commands listed as dependent on it, skip to the next loaded package.
                     continue
                }
                
@@ -186,6 +187,7 @@ proc DoLoading {} {
           # puts "Command is [subst $Command]"
           if {[catch [subst $Command]]} {
                puts "Failed to source $FileName"
+               #lappend ::GenNS::LoadingNS::CommandNotLoadedList $Command
           } else {
                if {($::GenNS::PutGenCommandsInNamespace == 1) && ($::GenNS::ImportGenCommandsIntoGlobalNamespace == 1)} {
                     namespace eval $NamespaceToUse "namespace export $CurrentSource"
@@ -217,6 +219,9 @@ proc DoLoading {} {
           puts "\nPACKAGE LOAD REPORT"
           puts "-------------------"
           foreach PackageName [array names ::GenNS::LoadingNS::CommandsInPackage] {
+               if {($::GenNS::NowTesting == 0) && ([string first $PackageName "test-loading-module-package"] == 0)} {
+                    continue
+               }          
                PrintStatusForPackage $PackageName
           }
           puts "\n"
@@ -227,6 +232,9 @@ proc DoLoading {} {
           puts "-------------------"
           set Flag 0
           foreach CommandName [array names ::GenNS::LoadingNS::DependencyList] {
+               if {($::GenNS::NowTesting == 0) && ([string first $CommandName "GenTestCommand"] == 0)} {
+                    continue
+               }
                if {[lsearch $::GenNS::LoadingNS::CommandLoadedList $CommandName] == -1} {
                     puts $CommandName
                     set Flag 1

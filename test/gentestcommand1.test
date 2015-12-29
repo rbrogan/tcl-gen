@@ -1,0 +1,60 @@
+package require tcltest
+package require -exact gen 1.10.3
+source gen-test-common.tcl
+
+namespace eval GenTestCommand1Test {}
+
+
+
+proc GenTestCommand1Test::Test-1 {} {
+
+::tcltest::test GenTestCommand1-0 {Basic positive test}  -constraints {}  -setup {}  -body {set dir [pwd]
+source pkgIndex.tcl
+source $::PackageRoot/loading-module-data.tcl
+::GenNS::LoadingNS::DoLoading
+GenTestCommand1
+}  -cleanup {}  -result {}  -output {GenTestCommand1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc GenTestCommand1Test::Test-2 {} {
+
+::tcltest::test GenTestCommand1-1 {Temp}  -constraints {}  -setup {}  -body {set dir [pwd]
+source pkgIndex.tcl
+package require test-loading-module-package
+TestLoadingModuleNS::SampleCommand1
+}  -cleanup {}  -result {}  -output {Sample Command 1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc GenTestCommand1Test::Test-3 {} {
+
+::tcltest::test GenTestCommand1-2 {Temp2}  -constraints {}  -setup {}  -body {set dir [pwd]
+source pkgIndex.tcl
+package require test-loading-module-package
+TestLoadingModuleNS::SampleCommand1
+source c:/users/rbrogan/documents/projects/tcl/gen3/gentestcommand1.tcl
+GenTestCommand1}  -cleanup {}  -result {}  -output {Sample Command 1
+GenTestCommand1
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     GenTestCommand1Test::Test-1
+     GenTestCommand1Test::Test-2
+     GenTestCommand1Test::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          GenTestCommand1Test::Test-[set Element]
+     }
+}
+

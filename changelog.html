@@ -31,6 +31,84 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
+<div class="section-header-left">1.10.3</div><div class="section-header-right">2015.12.28</div>
+</div>
+<div class="section-content">
+<p>
+Changes by functionality<br>
+<ul>
+<li>CN_0003
+<ul>
+<li>Added tests to test suite for Partial Loading feature. Updated loading module and config code to include support for a special test mode to support these tests. (Fix for KI_0006.)</li>
+<li>Added try command as a dependency for commands that use it. (Fix for KI_0007.)</li>
+</ul>
+</li>
+</ul>
+</p>
+<p>
+By files<br>
+<ul>
+<li>/
+<ul>
+<li>changelog.html, changelog.txt
+<ul><li>Updated with latest info.</li></ul>
+</li>
+<li>news.html, news.txt
+<ul>
+<li>Updated with latest info.</li>
+</ul>
+</li>
+<li>known-issues.html
+<ul>
+<li>Add new issues.</li>
+<li>Update with latest fixes.</li>
+</ul>
+</li>
+<li>latest-fixes.html
+<ul>
+<li>Add latest fixes.</li>
+</ul>
+</li>
+</li>
+</ul>
+</li>
+<li>/src
+<ul>
+<li>gen-config.tcl</li>
+<ul><li>Change version number and make sure it has the rev.</li></ul>
+<li>gen.tcl</li>
+<ul><li>Change version number and make sure it has the rev.</li></ul>
+<li>loading-module-data.tcl</li>
+<ul><li>Updated to include the try command as dependency.</li></ul>
+<li>pkgIndex.tcl</li>
+<ul><li>Changed the rev.</li></ul>
+</li>
+<li>/test
+<ul>
+<li>*.test</li>
+<ul>
+<li>Update the rev number.</li>
+</ul>
+<li>gentestcommand1.test</li>
+<li>gentestcommand2.test</li>
+<li>gentestcommand3.test</li>
+<ul><li>New files.</li><li>Used for testing Partial Loading feature.</li></ul>
+<li>pkgIndex.tcl</li>
+<ul><li>Updated to include the package used to test the Partial Loading feature.</li></ul>
+<li>test-loading-module-package.tcl</li>
+<ul>
+<li>New file.</li>
+<li>Used for testing Partial Loading feature..</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+
+</div>
+
+<div class="section-header">
 <div class="section-header-left">1.10.2</div><div class="section-header-right">2015.12.14</div>
 </div>
 <div class="section-content">

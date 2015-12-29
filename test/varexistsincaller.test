@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.10.2
+package require -exact gen 1.10.3
 source gen-test-common.tcl
 
 namespace eval VarExistsInCallerTest {}
