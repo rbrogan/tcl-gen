@@ -33,7 +33,6 @@
 <li><i>DetectCase</i> &mdash; Tell what case (e.g. PascalCase, snake_case) the given string is in. This will also simplify the <code>ChangeCasing</code> command.</li>
 <li><i>Auto Reload</i> &mdash; A terminal mode which checks whether files in a package have been modified, and if so, it will auto-reload the package.</li>
 <li><i>Support for TEPAM / Support for flags: </i>There are a number of features from TEPAM we want, especially support for flags. For many commands it is awkward to go without flags. We also may want TEPAM support for validation / error reporting since for many commands that is taking up a fair amount of code.</li>
-<li><i>Overhaul of Error Conditions: </i>This is mainly because we find that section of the documentation does look very good, but it is the type of problem we must sit down and analyze and figure out what is the best way to go.</li>
 <li><i>Exception Policies: </i>This also sticks out when writing many commands. Should we silently change an index out-of-bounds to be the end index (as some commands do)? Should we raise an error? At this point, the choice feels too arbitrary. We would rather have a basic set of default policies and give the user the ability to override and make them be consistent with their own policies.</li>
 </ul>
 <br>

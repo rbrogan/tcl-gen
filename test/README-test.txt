@@ -227,6 +227,8 @@ ftpcleanremotedirectory.test
      Tests for the command FtpCleanRemoteDirectory.
 ftpdownloaddirectory.test
      Tests for the command FtpDownloadDirectory.
+ftpdownloadfiles.test
+     Tests for the command FtpDownloadFiles.
 ftpdownloadsite.test
      Tests for the command FtpDownloadSite.
 ftpmirrorlocaltoremote.test
@@ -235,6 +237,8 @@ ftpmirrorremotetolocal.test
      Tests for the command FtpMirrorRemoteToLocal.
 ftpuploaddirectory.test
      Tests for the command FtpUploadDirectory.
+ftpuploadfiles.test
+     Tests for the command FtpUploadFiles.
 ftpuploadsite.test
      Tests for the command FtpUploadSite.
 ftpwhichislarger.test

@@ -1,0 +1,42 @@
+package require tcltest
+package require -exact gen 1.11.0
+source gen-test-common.tcl
+
+namespace eval FtpIsDirectoryOnRemoteTest {}
+
+
+
+proc FtpIsDirectoryOnRemoteTest::Test-1 {} {
+
+::tcltest::test FtpIsDirectoryOnRemote-0 {Directory is on remote}  -constraints {[expr [CheckAllDependenciesLoaded FtpIsDirectoryOnRemote]]}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpIsDirectoryOnRemoteTest::Test-2 {} {
+
+::tcltest::test FtpIsDirectoryOnRemote-1 {Directory is not on remote}  -constraints {[expr [CheckAllDependenciesLoaded FtpIsDirectoryOnRemote]]}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpIsDirectoryOnRemoteTest::Test-3 {} {
+
+::tcltest::test FtpIsDirectoryOnRemote-2 {No ftp connection}  -constraints {[expr [CheckAllDependenciesLoaded FtpIsDirectoryOnRemote]]}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FtpIsDirectoryOnRemoteTest::Test-1
+     FtpIsDirectoryOnRemoteTest::Test-2
+     FtpIsDirectoryOnRemoteTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FtpIsDirectoryOnRemoteTest::Test-[set Element]
+     }
+}
+

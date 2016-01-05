@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.10.3
+package require -exact gen 1.11.0
 source gen-test-common.tcl
 
 namespace eval FtpDownloadDirectoryTest {}
@@ -10,7 +10,7 @@ namespace eval FtpDownloadDirectoryTest {
 proc Setup {LocalDirectoryName} {
      source ftp-test-config.tcl
      DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
-     CopyAllFilesIntoDirectory $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp
+     CopyEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/original/$LocalDirectoryName $GenTest::Ftp::LocalRoot/downloadto/temp
      SaveWorkingDirectory
 }
 

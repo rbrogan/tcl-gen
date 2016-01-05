@@ -1,0 +1,97 @@
+package require tcltest
+package require -exact gen 1.11.0
+source gen-test-common.tcl
+
+namespace eval FtpUploadFilesTest {}
+
+
+
+proc FtpUploadFilesTest::Test-1 {} {
+
+::tcltest::test FtpUploadFiles-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadFiles]]}  -setup {source ftp-test-config.tcl
+SaveWorkingDirectory
+$GenTest::Ftp::ResetRemoteDirectoryCommandName one-file
+}  -body {cd ftp-local/uploadfrom/one-file
+FtpUploadFiles file.txt $GenTest::Ftp::RemoteRoot/uploadto/temp
+$GenTest::Ftp::DiffRemoteDirectoriesCommandName FtpUploadFiles/one-file
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadFilesTest::Test-2 {} {
+
+::tcltest::test FtpUploadFiles-1 {Multiple files on list}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadFiles]]}  -setup {source ftp-test-config.tcl
+SaveWorkingDirectory
+$GenTest::Ftp::ResetRemoteDirectoryCommandName one-file
+}  -body {cd ftp-local/uploadfrom/two-files
+FtpUploadFiles [list file-1.txt file-2.txt] $GenTest::Ftp::RemoteRoot/uploadto/temp
+$GenTest::Ftp::DiffRemoteDirectoriesCommandName FtpUploadFiles/two-files
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadFilesTest::Test-3 {} {
+
+::tcltest::test FtpUploadFiles-2 {Empty list}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadFiles]]}  -setup {source ftp-test-config.tcl
+SaveWorkingDirectory
+$GenTest::Ftp::ResetRemoteDirectoryCommandName empty
+}  -body {cd ftp-local/uploadfrom/empty
+FtpUploadFiles {} $GenTest::Ftp::RemoteRoot/uploadto/temp
+$GenTest::Ftp::DiffRemoteDirectoriesCommandName FtpUploadFiles/empty
+}  -cleanup {RestoreWorkingDirectory
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpUploadFilesTest::Test-4 {} {
+
+::tcltest::test FtpUploadFiles-8 {Cannot open connection}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadFiles]]}  -setup {source ftp-test-config.tcl
+set ::GenNS::Ftp::UsernameBackup $::GenNS::Ftp::Username
+}  -body {set ::GenNS::Ftp::Username no-such-user
+FtpUploadFiles my.txt
+}  -cleanup {set ::GenNS::Ftp::Username $::GenNS::Ftp::UsernameBackup
+}  -result {FTP: Could not open connection!}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FtpUploadFilesTest::Test-5 {} {
+
+::tcltest::test FtpUploadFiles-9 {TargetRemoteDirectory is not set}  -constraints {[expr [CheckAllDependenciesLoaded FtpUploadFiles]]}  -setup {source ftp-test-config.tcl
+SaveWorkingDirectory
+$GenTest::Ftp::ResetRemoteDirectoryCommandName one-file}  -body {cd ftp-local/uploadfrom/one-file
+FtpUploadFiles file.txt
+cd ../../..
+FtpDownloadFiles file.txt
+puts [File2String file.txt]
+}  -cleanup {RestoreWorkingDirectory
+}  -result {}  -output {asdf
+
+
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FtpUploadFilesTest::Test-1
+     FtpUploadFilesTest::Test-2
+     FtpUploadFilesTest::Test-3
+     FtpUploadFilesTest::Test-4
+     FtpUploadFilesTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FtpUploadFilesTest::Test-[set Element]
+     }
+}
+

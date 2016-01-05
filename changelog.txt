@@ -2,12 +2,63 @@ Gen
 
 CHANGELOG
 
+2016.01.04
+v1.11.0
+
+Changes by functionality
+
+Monthly release of new commands, with corresponding files in test and doc
+directories.
+
+By files
+
+     /
+          changelog.html, changelog.txt
+               Updated with latest info.
+          news.html, news.txt
+               Updated with latest info.
+          wishlist.html
+               Removed out-of-date item.
+          roadmap.html
+               Update with date and plans for next minor version.
+
+     /doc
+          ftpdownloadfiles-exceptions.html
+          ftpdownloaddirectory.html
+          ftuploadfiles-exceptions.html
+          ftpuploadfiles.html
+               New files for new commands.
+          ftpwhichislarger.html
+               Minor revision.
+               
+     /src
+          ftpdownloadfiles.tcl
+          ftpuploadfiles.tcl
+               New files for new commands
+          gen-config.tcl
+               ?? Added settings for email commands
+          gen.tcl
+               Changed the rev.
+          loading-module-data.tcl
+               Added data for new commands.
+          pkgIndex.tcl
+               Changed the rev.
+               
+     /test
+          *.test
+               Update the rev number.
+          ftpdownloadfiles.test
+          ftpuploadfiles.test
+               New files for new commands.
+               
 2015.12.28
 v1.10.3
 
 Changes by functionality
      CN_0003
-          Added tests to test suite for Partial Loading feature. Updated loading module and config code to include support for a special test mode to support these tests. (Fix for KI_0006.) 
+          Added tests to test suite for Partial Loading feature. Updated loading module
+and config code to include support for a special test mode to support these
+tests. (Fix for KI_0006.)
           Added try command as a dependency for commands that use it. (Fix for KI_0007.)
 
 By files
@@ -34,7 +85,8 @@ By files
                Added these files to support test cases for Partial Loading feature.
           loading-module.tcl
                Added comments.
-               Added special test code to prevent display of messages to user when test code fails intentionally as part of negative tests.
+               Added special test code to prevent display of messages to user when test code
+fails intentionally as part of negative tests.
           loading-module-data.tcl
                Added special packages and commands for test purposes.
                Added try command as dependency for several commands.
@@ -61,8 +113,10 @@ v1.10.2
 
 Changes by functionality
      CN_0002
-          Updated loading-module-data.tcl to include try command in various entries. (Fix for KI_0003.)
-          Added test constraint that all the dependencies of the command must be loaded, and, if not, then the command is skipped. (Fix for KI_0004.)
+          Updated loading-module-data.tcl to include try command in various entries. (Fix
+for KI_0003.)
+          Added test constraint that all the dependencies of the command must be loaded,
+and, if not, then the command is skipped. (Fix for KI_0004.)
           Put in data files for CopyEverythingInDirectory tests. (Fix for KI_0005.)
 
 By files
@@ -90,12 +144,14 @@ By files
           *.test
                Update the rev number.
                Added call to source gen-test-common.tcl.
-               Added test constraint that all the dependencies of the command must be loaded, and if not then the command is skipped.
+               Added test constraint that all the dependencies of the command must be loaded,
+and if not then the command is skipped.
           gen-test-common.tcl
                New file.
-               Contains commands to check if all dependencies of a command are loaded. Also contains command to check if individual commands are loaded.
+               Contains commands to check if all dependencies of a command are loaded. Also
+contains command to check if individual commands are loaded.
           /CopyEverythingInDirectory
-               Added missing files.               
+               Added missing files.
 
 2015.12.07
 v1.10.1
@@ -125,8 +181,8 @@ By files
           loading-module-data.tcl
                Take out references to unreleased commands (CN_0001 / KI_0001).
                Reduce sqlite version requirement (CN_0001 / KI_0002).
-          
-          
+
+               
 2015.11.16
 v1.10.0
 

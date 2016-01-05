@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.10.3
+package require -exact gen 1.11.0
 source gen-test-common.tcl
 
 namespace eval SetDatetimeFormatTest {}

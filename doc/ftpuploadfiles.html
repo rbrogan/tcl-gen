@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpUploadFiles</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpUploadFiles  &mdash;  Open connection, upload files, close connection.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpUploadFiles</b> <i>FileList</i> <i>?TargetRemoteDirectory?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FileList</i></td><td class='argument_right'>List of files to upload.</td></tr><tr class='table_row_a'><td class='argument_left'><i>TargetRemoteDirectory</i></td><td class='argument_right'>Optional. Remote directory to upload to. By default it will upload to the directory it connects to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command makes it easy for you to upload some files with one line of code, provided that you have already configured FTP, as in <a href="about-ftp-use.html">About FTP Use</a>. This may make it more convenient to use FTP within an application.<p>The command will open a connection by using the configuration, switch to the target remote directory, upload each file, and then close the connection.</p><p>If you want to be able to upload to various different directories on the remote machine, you can call the command multiple times, or, better yet, manage the connection yourself and use <code><a href="http://core.tcl.tk/tcllib/doc/tcllib-1-17/embedded/www/tcllib/files/modules/ftp/ftp.html#12">ftp::Put</a></code>.</p><p>In the current version of this command, there are no options with which to set an overwrite policy. The command will simply overwrite any existing files (if it has permissions).</p><p>If any upload fails, an error will be raised and the command will terminate without trying to recover or continue.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpuploadfiles-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # FTP was already configured elsewhere<br>% String2File "my file" my.txt<br>% <b>FtpUploadFiles my.txt</b><br>% file delete my.txt<br>% FtpDownloadFiles my.txt<br>% File2String my.txt<br>my file<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpdownloadfiles.html'>FtpDownloadFiles</a>, <a href = 'ftpuploaddirectory.html'>FtpUploadDirectory</a>, <a href = 'ftpuploadsite.html'>FtpUploadSite</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

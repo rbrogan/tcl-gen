@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FtpDownloadFiles</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FtpDownloadFiles  &mdash;  Open connection, download files, close connection.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FtpDownloadFiles</b> <i>FileList</i> <i>?TargetRemoteDirectory?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FileList</i></td><td class='argument_right'>List of files to download from the remote server.</td></tr><tr class='table_row_a'><td class='argument_left'><i>TargetRemoteDirectory</i></td><td class='argument_right'>Optional. Remote directory to download from.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is for downloading a bunch of files from the configured server, using just one line of code, without you having to also manage the connection yourself. This may make it more convenient to use FTP within an application.<p>The command will open a connection by using the <a href="about-ftp-use.html">configuration data</a>, switch to the target directory, download the files, and close the connection.</p><p>To use this command you must have already configured FTP, as in <a href="about-ftp-use.html">About FTP Use</a>.</p><p>In the current version of this command, there are no options with which to set an overwrite policy. The command will simply overwrite any existing files (if it has permissions).</p><p>If any file on the list cannot be downloaded, an error will be raised. In a future release we may add functionality that allows for setting a policy that directs the command to continue despite files not being found.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="ftpdownloadfiles-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # FTP was already configured elsewhere<br>% String2File "my file" my.txt<br>% FtpUploadFiles my.txt<br>% file delete my.txt<br>% <b>FtpDownloadFiles my.txt</b><br>% File2String my.txt<br>my file<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'ftpdownloaddirectory.html'>FtpDownloadDirectory</a>, <a href = 'ftpdownloadsite.html'>FtpDownloadSite</a>, <a href = 'ftpuploadfiles.html'>FtpUploadFiles</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_file">file</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

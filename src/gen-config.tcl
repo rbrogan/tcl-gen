@@ -1,7 +1,7 @@
  namespace eval GenNS {
      variable NowTesting 0
      variable WarnOnFailureToLoadCommand 0
-     variable ReportOnPackagesLoaded 0
+     variable ReportOnPackagesLoaded 0     
      variable DatabaseName "testdb"
      variable GlobalsTable "globals"
      variable DateFormat %Y-%m-%d     

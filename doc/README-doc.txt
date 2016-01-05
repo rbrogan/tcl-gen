@@ -190,6 +190,8 @@ ftpcleanremotedirectory.html
      Page for the command FtpCleanRemoteDirectory.
 ftpdownloaddirectory.html
      Page for the command FtpDownloadDirectory.
+ftpdownloadfiles.html
+     Page for the command FtpDownloadFiles.
 ftpdownloadsite.html
      Page for the command FtpDownloadSite.
 ftpmirrorlocaltoremote.html
@@ -198,6 +200,8 @@ ftpmirrorremotetolocal.html
      Page for the command FtpMirrorRemoteToLocal.
 ftpuploaddirectory.html
      Page for the command FtpUploadDirectory.
+ftpuploadfiles.html
+     Page for the command FtpUploadFiles.
 ftpuploadsite.html
      Page for the command FtpUploadSite.
 ftpwhichislarger.html

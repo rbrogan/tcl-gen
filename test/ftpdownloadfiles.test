@@ -1,0 +1,105 @@
+package require tcltest
+package require -exact gen 1.11.0
+source gen-test-common.tcl
+
+namespace eval FtpDownloadFilesTest {}
+
+
+
+proc FtpDownloadFilesTest::Test-1 {} {
+
+::tcltest::test FtpDownloadFiles-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadFiles]]}  -setup {source ftp-test-config.tcl
+DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+CopyEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/original/one-file $GenTest::Ftp::LocalRoot/downloadto/temp
+SaveWorkingDirectory
+}  -body {cd $GenTest::Ftp::LocalRoot/downloadto/temp
+FtpDownloadFiles file.txt $GenTest::Ftp::RemoteRoot/downloadfrom/one-file
+set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadFiles/one-file"
+RestoreWorkingDirectory
+set Result [catch {exec {*}$DiffCommand}]
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadFilesTest::Test-2 {} {
+
+::tcltest::test FtpDownloadFiles-1 {Multiple files on list}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadFiles]]}  -setup {source ftp-test-config.tcl
+DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+CopyEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/original/two-files $GenTest::Ftp::LocalRoot/downloadto/temp
+SaveWorkingDirectory
+}  -body {cd $GenTest::Ftp::LocalRoot/downloadto/temp
+FtpDownloadFiles [list file-1.txt file-2.txt] $GenTest::Ftp::RemoteRoot/downloadfrom/two-files
+set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadFiles/two-files"
+RestoreWorkingDirectory
+set Result [catch {exec {*}$DiffCommand}]
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadFilesTest::Test-3 {} {
+
+::tcltest::test FtpDownloadFiles-2 {Empty list}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadFiles]]}  -setup {source ftp-test-config.tcl
+DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+CopyEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/original/empty $GenTest::Ftp::LocalRoot/downloadto/temp
+SaveWorkingDirectory
+}  -body {cd $GenTest::Ftp::LocalRoot/downloadto/temp
+FtpDownloadFiles {} $GenTest::Ftp::RemoteRoot/downloadfrom/empty
+set DiffCommand "$GenTest::Ftp::DiffCommandPrefix $GenTest::Ftp::LocalRoot/downloadto/temp $GenTest::Ftp::LocalRoot/downloadto/expected/FtpDownloadFiles/empty"
+RestoreWorkingDirectory
+set Result [catch {exec {*}$DiffCommand}]
+}  -cleanup {RestoreWorkingDirectory}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FtpDownloadFilesTest::Test-4 {} {
+
+::tcltest::test FtpDownloadFiles-8 {Cannot open connection}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadFiles]]}  -setup {source ftp-test-config.tcl
+set ::GenNS::Ftp::UsernameBackup $::GenNS::Ftp::Username
+}  -body {set ::GenNS::Ftp::Username no-such-user
+FtpDownloadFiles my.txt
+}  -cleanup {}  -result {FTP: Could not open connection!}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FtpDownloadFilesTest::Test-5 {} {
+
+::tcltest::test FtpDownloadFiles-9 {TargetRemoteDirectory is not set}  -constraints {[expr [CheckAllDependenciesLoaded FtpDownloadFiles]]}  -setup {source ftp-test-config.tcl
+DeleteEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/temp
+CopyEverythingInDirectory $GenTest::Ftp::LocalRoot/downloadto/original/one-file $GenTest::Ftp::LocalRoot/downloadto/temp
+SaveWorkingDirectory
+}  -body {cd ftp-local/uploadfrom/one-file
+FtpUploadFiles file.txt
+cd ../../..
+FtpDownloadFiles file.txt
+puts [File2String file.txt]
+}  -cleanup {file delete -force file.txt
+RestoreWorkingDirectory
+}  -result {}  -output {asdf
+
+
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FtpDownloadFilesTest::Test-1
+     FtpDownloadFilesTest::Test-2
+     FtpDownloadFilesTest::Test-3
+     FtpDownloadFilesTest::Test-4
+     FtpDownloadFilesTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FtpDownloadFilesTest::Test-[set Element]
+     }
+}
+
