@@ -36,7 +36,9 @@ proc PrintStatusForPackage {PackageName} {
      # Find the commands in the package.     
      # For each of those commands, find out if any commands dependent on it were not loaded.
      foreach Element $::GenNS::LoadingNS::CommandsInPackage($PackageName) {
-          lassign $Element Command Version
+          #lassign $Element Command Version
+          set Command [lindex $Element 0]
+          set Version [lindex $Element 1]          
           if {![info exists ::GenNS::LoadingNS::DependentsList($Command)]} {
                continue
           }          
@@ -75,7 +77,9 @@ proc PrintDependenciesNotFoundForCommand {CommandName {Indentation "     "}} {
                     set Flag 0
                     foreach PackageName [array names ::GenNS::LoadingNS::CommandsInPackage] {
                          foreach Element $::GenNS::LoadingNS::CommandsInPackage($PackageName) {
-                              lassign $Element Command Version
+                              #lassign $Element Command Version
+                              set Command [lindex $Element 0]
+                              set Version [lindex $Element 1]
                               if {$Command eq $Dependency} {
                                    set Flag 1
                                    set PackageVersionNeeded $Version
@@ -130,7 +134,9 @@ proc DoLoading {} {
           set ::GenNS::LoadingNS::PackageVersionFound($CurrentPackage) $PackageVersion
           # Package successfully loaded. Find all commands in it that will be used.
           foreach Element $::GenNS::LoadingNS::CommandsInPackage($CurrentPackage) {
-               lassign $Element Command MinimumVersion
+               #lassign $Element Command MinimumVersion
+               set Command [lindex $Element 0]
+               set MinimumVersion [lindex $Element 1]
                # Check against the minimum package version needed for the command to be loaded.
                if {[package vcompare $PackageVersion $MinimumVersion] == -1} {
                     # Package version is below the minimum version for this command.

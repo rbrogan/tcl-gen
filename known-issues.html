@@ -31,31 +31,34 @@
 <p>This page lists all the issues we currently know about. (! Note that the <a href="http://www.robertbrogan.com/gen/known-issues.html">online version</a> will be more up-to-date.) If you have an issue and you do not see it listed here, then check the <a href="latest-fixes.html">Latest Fixes page</a> to see if it has been recently resolved. If not, then you may want to use the <a href="http://www.robertbrogan.com/gen/feedback.html">Feedback page</a> or send an email to <code>gen.bugreport@robertbrogan.com</code> to report your issue so it can get fixed.</p>
 <table>
 <tr>
-<th>Issue Number</th>
-<th>Issue Description</th>
-<th>Status</th>
+<th>Number</th><th>Description</th><th>Status</th>
 </tr>
 <tr>
-<td>0001</td><td>When trying to load Gen package, it complains it cannot find certain files from commands not in Gen.</td><td>Fix Up</td>
+<td>1</td><td>When trying to load Gen package, it complains it cannot find certain files from commands not in Gen.</td><td>Fix Up</td>
 </tr>
 <tr>
-<td>0002</td><td>Version requirements for libraries are too much.</td><td>Partial Fix Up</td>
+<td>2</td><td>Version requirements for libraries are too much.</td><td>Partial Fix Up</td>
 </tr>
 <tr>
-<td>0003</td><td>The try Tcl core command is not listed in the loading-module-data.tcl file. This causes problems with Tcl 8.5 (since it does not have the try command).</td><td>Fix Up</td>
+<td>3</td><td>The try Tcl core command is not listed in the loading-module-data.tcl file. This causes problems with Tcl 8.5 (since it does not have the try command).</td><td>Fix Up</td>
 </tr>
 <tr>
-<td>0004</td><td>Test suite runs tests for commands that are not loaded and reports many failures. It would be better if it would skip them, like how it does for tests that are not supposed to run on a given platform.
-</td><td>Fix Up</td>
+<td>4</td><td>Test suite runs tests for commands that are not loaded and reports many failures. It would be better if it would skip them, like how it does for tests that are not supposed to run on a given platform. </td><td>Fix Up</td>
 </tr>
 <tr>
-<td>0005</td><td>Test data files for the CopyEverythingInDirectory tests are missing.</td><td>Fix Up</td>
+<td>5</td><td>Test data files for the CopyEverythingInDirectory tests are missing.</td><td>Fix Up</td>
 </tr>
 <tr>
-<td>0006</td><td>No tests for Partial Loading feature.</td><td>Fix Up</td>
+<td>6</td><td>No tests for Partial Loading feature.</td><td>Fix Up</td>
 </tr>
 <tr>
-<td>0007</td><td>Several commands use try command, but it is not listed as a dependency.</td><td>Fix Up</td>
+<td>7</td><td>Several commands use try command, but it is not listed as a dependency.</td><td>Fix Up</td>
+</tr>
+<tr>
+<td>8</td><td>Test for SubtractFrom fails when running test suite using Tcl 8.4.</td><td>Fix Up</td>
+</tr>
+<tr>
+<td>9</td><td>Several Gen commands do not list Tcl core commands as their dependencies. Causes problems when running test suite with Tcl 8.4.</td><td>Partial Fix Up</td>
 </tr>
 </table>
 </div>

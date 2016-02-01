@@ -2,7 +2,7 @@
 
 set ::GenNS::LoadingNS::PackageReadyList { Tcl Tclx ftp registry sqlite3 test-loading-module-package test-missing-package textutil::adjust textutil::string }
 
-set ::GenNS::LoadingNS::SourceReadyList { AddEpilogue AddPrologue CurrentTimeOfDay DbgOff DbgOn DbgPrint DeleteOnlyFilesInDirectory DividesEvenly EscapedSqlString EvalList FirstOf GuessPackageRootDirectory IsDate IsDatetime IsDict IsDirectoryEmpty IsEmpty IsHhmmss IsMatrix IsTimeOfDay LastOf ListEndIndex NotEmpty Now QuoteIfColumnTypeIsText SaveWorkingDirectory SetDateFormat SetDatetimeFormat SetTimeOfDayFormat SliceLeft SliceRight SqlWhereClause StartsWith StringContains Ter TimeOfDay2Seconds Today Tomorrow UpdateDbGlobal UpdateRegistryValue Yesterday }
+set ::GenNS::LoadingNS::SourceReadyList { AddEpilogue AddPrologue DbgOff DbgOn DbgPrint DeleteOnlyFilesInDirectory DividesEvenly EscapedSqlString EvalList FirstOf GuessPackageRootDirectory IsDirectoryEmpty IsEmpty IsHhmmss IsMatrix LastOf ListEndIndex NotEmpty QuoteIfColumnTypeIsText SaveWorkingDirectory SliceLeft SliceRight StartsWith StringContains Ter UpdateDbGlobal UpdateRegistryValue }
 
 set ::GenNS::LoadingNS::CommandsInPackage(Tcl) { {tell 8.5} {socket 8.5} {subst 8.5} {open 8.5} {eof 8.5} {pwd 8.5} {glob 8.5} {list 8.5} {pid 8.5} {exec 8.5} {auto_load_index 8.5} {time 8.5} {unknown 8.5} {eval 8.5} {lassign 8.5} {lrange 8.5} {fblocked 8.5} {lsearch 8.5} {auto_import 8.5} {gets 8.5} {case 8.5} {lappend 8.5} {proc 8.5} {throw 8.6} {break 8.5} {variable 8.5} {llength 8.5} {auto_execok 8.5} {return 8.5} {linsert 8.5} {error 8.5} {catch 8.5} {clock 8.5} {info 8.5} {split 8.5} {array 8.5} {if 8.5} {fconfigure 8.5} {coroutine 8.6} {concat 8.5} {join 8.5} {lreplace 8.5} {source 8.5} {fcopy 8.5} {global 8.5} {switch 8.5} {auto_qualify 8.5} {update 8.5} {close 8.5} {cd 8.5} {for 8.5} {auto_load 8.5} {file 8.5} {append 8.5} {lreverse 8.5} {format 8.5} {lmap 8.6} {unload 8.5} {read 8.5} {package 8.5} {set 8.5} {namespace 8.5} {binary 8.5} {scan 8.5} {apply 8.5} {trace 8.5} {seek 8.5} {zlib 8.6} {while 8.5} {chan 8.5} {flush 8.5} {after 8.5} {vwait 8.5} {dict 8.5} {uplevel 8.5} {continue 8.5} {try 8.6} {foreach 8.5} {lset 8.5} {rename 8.5} {fileevent 8.5} {yieldto 8.6} {regexp 8.5} {lrepeat 8.5} {upvar 8.5} {tailcall 8.6} {encoding 8.5} {expr 8.5} {unset 8.5} {load 8.5} {regsub 8.5} {history 8.5} {interp 8.5} {exit 8.5} {puts 8.5} {incr 8.5} {lindex 8.5} {lsort 8.5} {tclLog 8.5} {string 8.5} {yield 8.6} }
 
@@ -86,7 +86,7 @@ set ::GenNS::LoadingNS::DependentsList(IsDatetime) {DatetimeIsAfter DatetimeIsAt
 
 set ::GenNS::LoadingNS::DependentsList(IsDict) {Dict2RegistryTree PrintDict}
 
-set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric IsNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe}
+set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe IsNumeric}
 
 set ::GenNS::LoadingNS::DependentsList(IsHhmmss) {DiffHhmmss Hhmmss2Seconds MultiplyHhmmss SumHhmmss}
 
@@ -190,6 +190,10 @@ set ::GenNS::LoadingNS::DependentsList(UpvarX) {AddTo Decr LappendIfNotAlready L
 
 set ::GenNS::LoadingNS::DependentsList(VarExistsInCaller) {UpvarX UpvarExistingOrDie}
 
+set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday}
+
+set ::GenNS::LoadingNS::DependentsList(dict) {PrintDict ArrangeDict Dict2RegistryTree IsDict RegistryTree2Dict RunSqlEnter SetDbGlobal SqliteColumnType SqlInsertStatement SqlSetClause SqlWhereClause}
+
 set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpDownloadFiles FtpUploadFiles}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Close) {FtpDownloadSite FtpMirrorLocalToRemote FtpMirrorRemoteToLocal FtpUploadSite FtpDownloadFiles FtpUploadFiles}
@@ -222,150 +226,166 @@ set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVaria
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
+set ::GenNS::LoadingNS::DependentsList(string) {IsNumeric IsNonNumeric}
+
 set ::GenNS::LoadingNS::DependentsList(try) {FtpDownloadFiles FtpUploadFiles File2List File2String AppendString2File FtpMirrorRemoteToLocal FtpMirrorLocalToRemote FtpDownloadFiles FtpDownloadSite FtpUploadFiles FtpUploadSite List2File Run String2File}
 
-set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX}
-set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty try}
-set ::GenNS::LoadingNS::DependencyList(ArrangeDict) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(BackupIfExists) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(ChangeCasing) { ::textutil::string::cap UpvarExistingOrDie lvarpop}
-set ::GenNS::LoadingNS::DependencyList(ChopLeft) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(ChopRight) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Coe) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(CommaSeparatedStringToList) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(CopyEverythingInDirectory) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAbout) { CurrentTimeOfDayIsBetween IsTimeOfDay}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAfter) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAfter}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAtOrAfter) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAtOrAfter}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAtOrBefore) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAtOrBefore}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsBefore) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsBefore}
-set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsBetween) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsBetween}
-set ::GenNS::LoadingNS::DependencyList(DateIsAfter) { IsDate}
-set ::GenNS::LoadingNS::DependencyList(DateIsBefore) { IsDate}
-set ::GenNS::LoadingNS::DependencyList(DateIsBetween) { IsDate}
-set ::GenNS::LoadingNS::DependencyList(DateIsOn) { IsDate}
-set ::GenNS::LoadingNS::DependencyList(DateIsOnOrAfter) { DateIsBefore}
-set ::GenNS::LoadingNS::DependencyList(DateIsOnOrBefore) { DateIsAfter}
-set ::GenNS::LoadingNS::DependencyList(DateMinus) { DatePlus IsDate}
-set ::GenNS::LoadingNS::DependencyList(DateMinusDays) { IsDate IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(DatePlus) { AddTo IsDate MultiplyBy SubtractFrom}
-set ::GenNS::LoadingNS::DependencyList(DatePlusDays) { IsDate IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsAfter) { IsDatetime}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsAt) { IsDatetime}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsAtOrAfter) { DatetimeIsBefore}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsAtOrBefore) { DatetimeIsAfter}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsBefore) { IsDatetime}
-set ::GenNS::LoadingNS::DependencyList(DatetimeIsBetween) { IsDatetime}
-set ::GenNS::LoadingNS::DependencyList(DatetimeMinus) { DatetimePlus IsDatetime}
-set ::GenNS::LoadingNS::DependencyList(DatetimePlus) { AddTo IsDatetime MultiplyBy SubtractFrom}
-set ::GenNS::LoadingNS::DependencyList(DbaseRegsub) { Coe EscapedSqlString IsEmpty QQ SqlWhereClause}
-set ::GenNS::LoadingNS::DependencyList(Decr) { IsEmpty IsNonNumeric NotEmpty SetZeroIfEmpty Ter UpvarX}
-set ::GenNS::LoadingNS::DependencyList(DecrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists}
-set ::GenNS::LoadingNS::DependencyList(DeleteEverythingInDirectory) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(Dict2RegistryTree) { IsDict IsEmpty RegistryExists registry}
-set ::GenNS::LoadingNS::DependencyList(DiffHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss Seconds2Hhmmss UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(DivideBy) { IsEmpty IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(DoubleChop) { ChopLeft ChopRight UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(EndsWith) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(File2List) { NotEmpty try}
-set ::GenNS::LoadingNS::DependencyList(File2String) { NotEmpty try}
-set ::GenNS::LoadingNS::DependencyList(FindAndRemove) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Flip) { IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(ForeachRecord) { IsEmpty QQ}
-set ::GenNS::LoadingNS::DependencyList(FtpCleanRemoteDirectory) { DbgPrint FtpIsDirectoryOnRemote NotEmpty ftp::Cd ftp::Delete ftp::List ftp::NList ftp::RmDir}
-set ::GenNS::LoadingNS::DependencyList(FtpDownloadDirectory) { DbgPrint FindAndRemove FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Get ftp::List ftp::NList}
-set ::GenNS::LoadingNS::DependencyList(FtpDownloadFiles) { DbgPrint ftp::Cd ftp::Close ftp::Get ftp::Open ftp::Type try try}
-set ::GenNS::LoadingNS::DependencyList(FtpDownloadSite) { FtpDownloadDirectory NotEmpty RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close ftp::Type try}
-set ::GenNS::LoadingNS::DependencyList(FtpIsDirectoryOnRemote) { ftp::FileSize}
-set ::GenNS::LoadingNS::DependencyList(FtpMirrorLocalToRemote) { FtpUploadDirectory RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close try}
-set ::GenNS::LoadingNS::DependencyList(FtpMirrorRemoteToLocal) { FtpDownloadDirectory NotEmpty ftp::Close ftp::Open ftp::Type try}
-set ::GenNS::LoadingNS::DependencyList(FtpUploadDirectory) { DbgPrint FindAndRemove FtpCleanRemoteDirectory FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Delete ftp::List ftp::MkDir ftp::NList ftp::Put ftp::RmDir}
-set ::GenNS::LoadingNS::DependencyList(FtpUploadFiles) { DbgPrint ftp::Cd ftp::Close ftp::Open ftp::Put ftp::Type try try}
-set ::GenNS::LoadingNS::DependencyList(FtpUploadSite) { FtpUploadDirectory NotEmpty ftp::Cd ftp::Close ftp::Open ftp::Type try}
-set ::GenNS::LoadingNS::DependencyList(FtpWhichIsLarger) { IsEmpty ftp::FileSize}
-set ::GenNS::LoadingNS::DependencyList(FtpWhichIsNewer) { IsEmpty ftp::ModTime}
-set ::GenNS::LoadingNS::DependencyList(GenTestCommand1) { TestLoadingModuleNS::SampleCommand1}
-set ::GenNS::LoadingNS::DependencyList(GenTestCommand2) { TestLoadingModuleNS::SampleCommand2}
-set ::GenNS::LoadingNS::DependencyList(GenTestCommand3) { TestLoadingModuleNS::SampleCommand3}
-set ::GenNS::LoadingNS::DependencyList(GetDbGlobal) { IsEmpty Q1 SqlRecordExists}
-set ::GenNS::LoadingNS::DependencyList(Hhmmss2Seconds) { IsEmpty IsHhmmss StartsWith UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(IncrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists}
-set ::GenNS::LoadingNS::DependencyList(IsNegative) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(IsNonNegative) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(IsNonNumeric) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(IsNonPositive) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(IsNonZero) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(IsNumeric) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(IsPositive) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(IsValidListIndex) { IsNegative}
-set ::GenNS::LoadingNS::DependencyList(IsZero) { IsNonNumeric}
-set ::GenNS::LoadingNS::DependencyList(LappendIfNotAlready) { UpvarX}
-set ::GenNS::LoadingNS::DependencyList(LastId) { IsEmpty Q1}
-set ::GenNS::LoadingNS::DependencyList(LimitLineLengthInFile) { ::textutil::adjust::adjust File2List IsEmpty IsNonPositive List2File}
-set ::GenNS::LoadingNS::DependencyList(LinkTclVariableToRegistryValue) { IsEmpty RegistryExists ToDoubleBackslashes UpdateRegistryValue UpvarX registry}
-set ::GenNS::LoadingNS::DependencyList(LinkVarToDbGlobal) { IsEmpty SetDbGlobal UpdateDbGlobal UpvarX}
-set ::GenNS::LoadingNS::DependencyList(List2File) { try}
-set ::GenNS::LoadingNS::DependencyList(ListRemoveAt) { IsEmpty IsNonNumeric IsNonPositive UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Mash) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix}
-set ::GenNS::LoadingNS::DependencyList(MultiSet) { UpvarX}
-set ::GenNS::LoadingNS::DependencyList(MultiplyBy) { IsEmpty IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(MultiplyHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss IsNonNumeric Seconds2Hhmmss UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Prepend) { UpvarX}
-set ::GenNS::LoadingNS::DependencyList(PrintDict) { IsDict Ter}
-set ::GenNS::LoadingNS::DependencyList(PrintMatrix) { IsEmpty IsMatrix IsNonNumeric IsNonPositive NotEmpty}
-set ::GenNS::LoadingNS::DependencyList(PrintVar) { IsEmpty UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Q1) { FirstOf IsEmpty sqlite3}
-set ::GenNS::LoadingNS::DependencyList(QQ) { IsEmpty sqlite3}
-set ::GenNS::LoadingNS::DependencyList(Raise) { IsPositive UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(RegistryExists) { IsEmpty registry}
-set ::GenNS::LoadingNS::DependencyList(RegistryPrint) { PrintDict RegistryExists RegistryTree2Dict registry}
-set ::GenNS::LoadingNS::DependencyList(RegistryTree2Dict) { IsEmpty RegistryExists registry}
-set ::GenNS::LoadingNS::DependencyList(ReloadPackage) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(RestoreIfExists) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(RestoreWorkingDirectory) { NotEmpty}
-set ::GenNS::LoadingNS::DependencyList(RetZeroIfEmpty) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(Run) { try}
-set ::GenNS::LoadingNS::DependencyList(RunSqlCreateTable) { IsEmpty QQ}
-set ::GenNS::LoadingNS::DependencyList(RunSqlEnter) { IsEmpty LastId NotEmpty Q1 QQ RunSqlInsertIfDoesNotExist SqlInsertStatement SqlUpdateStatement SqlWhereClause}
-set ::GenNS::LoadingNS::DependencyList(RunSqlInsertIfDoesNotExist) { IsEmpty LastId Q1 QQ SqlSelectStatement}
-set ::GenNS::LoadingNS::DependencyList(Seconds2Hhmmss) { IsEmpty IsNonNumeric UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(SetDbGlobal) { GetDbGlobal IsEmpty RunSqlEnter}
-set ::GenNS::LoadingNS::DependencyList(SetZeroIfEmpty) { IsEmpty UpvarX}
-set ::GenNS::LoadingNS::DependencyList(SplitAndTrim) { NotEmpty UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(SplitNTimes) { Decr IsNonNumeric IsNonPositive}
-set ::GenNS::LoadingNS::DependencyList(SqlCountStatement) { Coe IsEmpty SqlWhereClause}
-set ::GenNS::LoadingNS::DependencyList(SqlInsertStatement) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(SqlRecordExists) { IsEmpty Q1 SqlCountStatement}
-set ::GenNS::LoadingNS::DependencyList(SqlSelectStatement) { Coe IsEmpty SqlWhereClause}
-set ::GenNS::LoadingNS::DependencyList(SqlSetClause) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(SqlUpdateStatement) { Coe IsEmpty SqlSetClause SqlWhereClause}
-set ::GenNS::LoadingNS::DependencyList(SqliteColumnNameAndTypeList) { IsEmpty Q1 lvarpop}
-set ::GenNS::LoadingNS::DependencyList(SqliteColumnNameList) { IsEmpty Q1}
-set ::GenNS::LoadingNS::DependencyList(SqliteColumnType) { IsEmpty SqliteColumnNameAndTypeList}
-set ::GenNS::LoadingNS::DependencyList(SqliteCopyTable) { IsEmpty QQ RunSqlCreateTable SqliteColumnNameAndTypeList SqliteTableExists}
-set ::GenNS::LoadingNS::DependencyList(SqliteRenameColumn) { IsEmpty QQ RunSqlCreateTable SqliteColumnNameAndTypeList SqliteTableExists}
-set ::GenNS::LoadingNS::DependencyList(SqliteTableExists) { IsEmpty Q1}
-set ::GenNS::LoadingNS::DependencyList(StartsAndEndsWith) { EndsWith StartsWith}
-set ::GenNS::LoadingNS::DependencyList(String2File) { try}
-set ::GenNS::LoadingNS::DependencyList(StringInsert) { IsEmpty IsNegative IsNonNumeric IsPositive Ter UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(StringMid) { IsNonNumeric IsNonPositive}
-set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX}
-set ::GenNS::LoadingNS::DependencyList(SumHhmmss) { AddTo Hhmmss2Seconds IsHhmmss Seconds2Hhmmss}
-set ::GenNS::LoadingNS::DependencyList(SurroundEach) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(Swap) { UpvarX}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAfter) { IsTimeOfDay TimeOfDay2Seconds}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAt) { IsTimeOfDay}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAtOrAfter) { TimeOfDay2Seconds TimeOfDayIsBefore}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAtOrBefore) { TimeOfDay2Seconds TimeOfDayIsAfter}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsBefore) { IsTimeOfDay TimeOfDay2Seconds}
-set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsBetween) { IsTimeOfDay TimeOfDay2Seconds}
-set ::GenNS::LoadingNS::DependencyList(ToBackslashes) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(ToDoubleBackslashes) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(ToForwardSlashes) { UpvarExistingOrDie}
-set ::GenNS::LoadingNS::DependencyList(UnlinkTclVariableFromRegistryValue) { IsEmpty ToDoubleBackslashes registry}
-set ::GenNS::LoadingNS::DependencyList(UnlinkVarFromDbGlobal) { IsEmpty}
-set ::GenNS::LoadingNS::DependencyList(UnsetDbGlobal) { IsEmpty QQ}
-set ::GenNS::LoadingNS::DependencyList(UpvarExistingOrDie) { IsEmpty VarExistsInCaller}
-set ::GenNS::LoadingNS::DependencyList(UpvarX) { IsEmpty NotEmpty VarExistsInCaller}
-set ::GenNS::LoadingNS::DependencyList(VarExistsInCaller) { IsEmpty}
+set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX }
+set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty try }
+set ::GenNS::LoadingNS::DependencyList(ArrangeDict) { UpvarExistingOrDie dict }
+set ::GenNS::LoadingNS::DependencyList(BackupIfExists) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(ChangeCasing) { ::textutil::string::cap UpvarExistingOrDie lvarpop }
+set ::GenNS::LoadingNS::DependencyList(ChopLeft) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(ChopRight) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Coe) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(CommaSeparatedStringToList) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(CopyEverythingInDirectory) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDay) { clock }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAbout) { CurrentTimeOfDayIsBetween IsTimeOfDay clock }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAfter) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAfter }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAtOrAfter) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAtOrAfter }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAtOrBefore) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAtOrBefore }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsBefore) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsBefore }
+set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsBetween) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsBetween }
+set ::GenNS::LoadingNS::DependencyList(DateIsAfter) { IsDate clock }
+set ::GenNS::LoadingNS::DependencyList(DateIsBefore) { IsDate clock }
+set ::GenNS::LoadingNS::DependencyList(DateIsBetween) { IsDate clock }
+set ::GenNS::LoadingNS::DependencyList(DateIsOn) { IsDate }
+set ::GenNS::LoadingNS::DependencyList(DateIsOnOrAfter) { DateIsBefore }
+set ::GenNS::LoadingNS::DependencyList(DateIsOnOrBefore) { DateIsAfter }
+set ::GenNS::LoadingNS::DependencyList(DateMinus) { DatePlus IsDate }
+set ::GenNS::LoadingNS::DependencyList(DateMinusDays) { IsDate IsNonNumeric UpvarExistingOrDie clock }
+set ::GenNS::LoadingNS::DependencyList(DatePlus) { AddTo IsDate MultiplyBy SubtractFrom clock }
+set ::GenNS::LoadingNS::DependencyList(DatePlusDays) { IsDate IsNonNumeric UpvarExistingOrDie clock }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsAfter) { IsDatetime clock }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsAt) { IsDatetime }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsAtOrAfter) { DatetimeIsBefore }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsAtOrBefore) { DatetimeIsAfter }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsBefore) { IsDatetime clock }
+set ::GenNS::LoadingNS::DependencyList(DatetimeIsBetween) { IsDatetime clock }
+set ::GenNS::LoadingNS::DependencyList(DatetimeMinus) { DatetimePlus IsDatetime }
+set ::GenNS::LoadingNS::DependencyList(DatetimePlus) { AddTo IsDatetime MultiplyBy SubtractFrom clock }
+set ::GenNS::LoadingNS::DependencyList(DbaseRegsub) { Coe EscapedSqlString IsEmpty QQ SqlWhereClause }
+set ::GenNS::LoadingNS::DependencyList(Decr) { IsEmpty IsNonNumeric NotEmpty SetZeroIfEmpty Ter UpvarX }
+set ::GenNS::LoadingNS::DependencyList(DecrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists }
+set ::GenNS::LoadingNS::DependencyList(DeleteEverythingInDirectory) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(Dict2RegistryTree) { IsDict IsEmpty RegistryExists dict registry }
+set ::GenNS::LoadingNS::DependencyList(DiffHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss Seconds2Hhmmss UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(DivideBy) { IsEmpty IsNonNumeric UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(DoubleChop) { ChopLeft ChopRight UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(EndsWith) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(File2List) { NotEmpty try }
+set ::GenNS::LoadingNS::DependencyList(File2String) { NotEmpty try }
+set ::GenNS::LoadingNS::DependencyList(FindAndRemove) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Flip) { IsNonNumeric UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(ForeachRecord) { IsEmpty QQ }
+set ::GenNS::LoadingNS::DependencyList(FtpCleanRemoteDirectory) { DbgPrint FtpIsDirectoryOnRemote NotEmpty ftp::Cd ftp::Delete ftp::List ftp::NList ftp::RmDir }
+set ::GenNS::LoadingNS::DependencyList(FtpDownloadDirectory) { DbgPrint FindAndRemove FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Get ftp::List ftp::NList }
+set ::GenNS::LoadingNS::DependencyList(FtpDownloadFiles) { DbgPrint ftp::Cd ftp::Close ftp::Get ftp::Open ftp::Type try try }
+set ::GenNS::LoadingNS::DependencyList(FtpDownloadSite) { FtpDownloadDirectory NotEmpty RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close ftp::Type try }
+set ::GenNS::LoadingNS::DependencyList(FtpIsDirectoryOnRemote) { ftp::FileSize }
+set ::GenNS::LoadingNS::DependencyList(FtpMirrorLocalToRemote) { FtpUploadDirectory RestoreWorkingDirectory SaveWorkingDirectory ftp::Cd ftp::Close try }
+set ::GenNS::LoadingNS::DependencyList(FtpMirrorRemoteToLocal) { FtpDownloadDirectory NotEmpty ftp::Close ftp::Open ftp::Type try }
+set ::GenNS::LoadingNS::DependencyList(FtpUploadDirectory) { DbgPrint FindAndRemove FtpCleanRemoteDirectory FtpIsDirectoryOnRemote FtpWhichIsLarger FtpWhichIsNewer NotEmpty ftp::Cd ftp::Delete ftp::List ftp::MkDir ftp::NList ftp::Put ftp::RmDir }
+set ::GenNS::LoadingNS::DependencyList(FtpUploadFiles) { DbgPrint ftp::Cd ftp::Close ftp::Open ftp::Put ftp::Type try try }
+set ::GenNS::LoadingNS::DependencyList(FtpUploadSite) { FtpUploadDirectory NotEmpty ftp::Cd ftp::Close ftp::Open ftp::Type try }
+set ::GenNS::LoadingNS::DependencyList(FtpWhichIsLarger) { IsEmpty ftp::FileSize }
+set ::GenNS::LoadingNS::DependencyList(FtpWhichIsNewer) { IsEmpty ftp::ModTime }
+set ::GenNS::LoadingNS::DependencyList(GenTestCommand1) { TestLoadingModuleNS::SampleCommand1 }
+set ::GenNS::LoadingNS::DependencyList(GenTestCommand2) { TestLoadingModuleNS::SampleCommand2 }
+set ::GenNS::LoadingNS::DependencyList(GenTestCommand3) { TestLoadingModuleNS::SampleCommand3 }
+set ::GenNS::LoadingNS::DependencyList(GetDbGlobal) { IsEmpty Q1 SqlRecordExists }
+set ::GenNS::LoadingNS::DependencyList(Hhmmss2Seconds) { IsEmpty IsHhmmss StartsWith UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(IncrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists }
+set ::GenNS::LoadingNS::DependencyList(IsDate) { clock }
+set ::GenNS::LoadingNS::DependencyList(IsDatetime) { clock }
+set ::GenNS::LoadingNS::DependencyList(IsDict) { dict }
+set ::GenNS::LoadingNS::DependencyList(IsNegative) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(IsNonNegative) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(IsNonNumeric) { IsEmpty string }
+set ::GenNS::LoadingNS::DependencyList(IsNonPositive) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(IsNonZero) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(IsNumeric) { IsEmpty string }
+set ::GenNS::LoadingNS::DependencyList(IsPositive) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(IsTimeOfDay) { clock }
+set ::GenNS::LoadingNS::DependencyList(IsValidListIndex) { IsNegative }
+set ::GenNS::LoadingNS::DependencyList(IsZero) { IsNonNumeric }
+set ::GenNS::LoadingNS::DependencyList(LappendIfNotAlready) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(LastId) { IsEmpty Q1 }
+set ::GenNS::LoadingNS::DependencyList(LimitLineLengthInFile) { ::textutil::adjust::adjust File2List IsEmpty IsNonPositive List2File }
+set ::GenNS::LoadingNS::DependencyList(LinkTclVariableToRegistryValue) { IsEmpty RegistryExists ToDoubleBackslashes UpdateRegistryValue UpvarX registry }
+set ::GenNS::LoadingNS::DependencyList(LinkVarToDbGlobal) { IsEmpty SetDbGlobal UpdateDbGlobal UpvarX }
+set ::GenNS::LoadingNS::DependencyList(List2File) { try }
+set ::GenNS::LoadingNS::DependencyList(ListRemoveAt) { IsEmpty IsNonNumeric IsNonPositive UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Mash) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix }
+set ::GenNS::LoadingNS::DependencyList(MultiSet) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(MultiplyBy) { IsEmpty IsNonNumeric UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(MultiplyHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss IsNonNumeric Seconds2Hhmmss UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Now) { clock }
+set ::GenNS::LoadingNS::DependencyList(Prepend) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(PrintDict) { IsDict Ter dict }
+set ::GenNS::LoadingNS::DependencyList(PrintMatrix) { IsEmpty IsMatrix IsNonNumeric IsNonPositive NotEmpty }
+set ::GenNS::LoadingNS::DependencyList(PrintVar) { IsEmpty UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Q1) { FirstOf IsEmpty sqlite3 }
+set ::GenNS::LoadingNS::DependencyList(QQ) { IsEmpty sqlite3 }
+set ::GenNS::LoadingNS::DependencyList(Raise) { IsPositive UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(RegistryExists) { IsEmpty registry }
+set ::GenNS::LoadingNS::DependencyList(RegistryPrint) { PrintDict RegistryExists RegistryTree2Dict registry }
+set ::GenNS::LoadingNS::DependencyList(RegistryTree2Dict) { IsEmpty RegistryExists dict registry }
+set ::GenNS::LoadingNS::DependencyList(ReloadPackage) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(RestoreIfExists) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(RestoreWorkingDirectory) { NotEmpty }
+set ::GenNS::LoadingNS::DependencyList(RetZeroIfEmpty) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(Run) { try }
+set ::GenNS::LoadingNS::DependencyList(RunSqlCreateTable) { IsEmpty QQ }
+set ::GenNS::LoadingNS::DependencyList(RunSqlEnter) { IsEmpty LastId NotEmpty Q1 QQ RunSqlInsertIfDoesNotExist SqlInsertStatement SqlUpdateStatement SqlWhereClause dict }
+set ::GenNS::LoadingNS::DependencyList(RunSqlInsertIfDoesNotExist) { IsEmpty LastId Q1 QQ SqlSelectStatement }
+set ::GenNS::LoadingNS::DependencyList(Seconds2Hhmmss) { IsEmpty IsNonNumeric UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(SetDateFormat) { clock }
+set ::GenNS::LoadingNS::DependencyList(SetDatetimeFormat) { clock }
+set ::GenNS::LoadingNS::DependencyList(SetDbGlobal) { GetDbGlobal IsEmpty RunSqlEnter dict }
+set ::GenNS::LoadingNS::DependencyList(SetTimeOfDayFormat) { clock }
+set ::GenNS::LoadingNS::DependencyList(SetZeroIfEmpty) { IsEmpty UpvarX }
+set ::GenNS::LoadingNS::DependencyList(SplitAndTrim) { NotEmpty UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(SplitNTimes) { Decr IsNonNumeric IsNonPositive }
+set ::GenNS::LoadingNS::DependencyList(SqlCountStatement) { Coe IsEmpty SqlWhereClause }
+set ::GenNS::LoadingNS::DependencyList(SqlInsertStatement) { IsEmpty dict }
+set ::GenNS::LoadingNS::DependencyList(SqlRecordExists) { IsEmpty Q1 SqlCountStatement }
+set ::GenNS::LoadingNS::DependencyList(SqlSelectStatement) { Coe IsEmpty SqlWhereClause }
+set ::GenNS::LoadingNS::DependencyList(SqlSetClause) { IsEmpty dict }
+set ::GenNS::LoadingNS::DependencyList(SqlUpdateStatement) { Coe IsEmpty SqlSetClause SqlWhereClause }
+set ::GenNS::LoadingNS::DependencyList(SqlWhereClause) { dict }
+set ::GenNS::LoadingNS::DependencyList(SqliteColumnNameAndTypeList) { IsEmpty Q1 lvarpop }
+set ::GenNS::LoadingNS::DependencyList(SqliteColumnNameList) { IsEmpty Q1 }
+set ::GenNS::LoadingNS::DependencyList(SqliteColumnType) { IsEmpty SqliteColumnNameAndTypeList dict }
+set ::GenNS::LoadingNS::DependencyList(SqliteCopyTable) { IsEmpty QQ RunSqlCreateTable SqliteColumnNameAndTypeList SqliteTableExists }
+set ::GenNS::LoadingNS::DependencyList(SqliteRenameColumn) { IsEmpty QQ RunSqlCreateTable SqliteColumnNameAndTypeList SqliteTableExists }
+set ::GenNS::LoadingNS::DependencyList(SqliteTableExists) { IsEmpty Q1 }
+set ::GenNS::LoadingNS::DependencyList(StartsAndEndsWith) { EndsWith StartsWith }
+set ::GenNS::LoadingNS::DependencyList(String2File) { try }
+set ::GenNS::LoadingNS::DependencyList(StringInsert) { IsEmpty IsNegative IsNonNumeric IsPositive Ter UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(StringMid) { IsNonNumeric IsNonPositive }
+set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX }
+set ::GenNS::LoadingNS::DependencyList(SumHhmmss) { AddTo Hhmmss2Seconds IsHhmmss Seconds2Hhmmss }
+set ::GenNS::LoadingNS::DependencyList(SurroundEach) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Swap) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDay2Seconds) { clock }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAfter) { IsTimeOfDay TimeOfDay2Seconds }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAt) { IsTimeOfDay }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAtOrAfter) { TimeOfDay2Seconds TimeOfDayIsBefore }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAtOrBefore) { TimeOfDay2Seconds TimeOfDayIsAfter }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsBefore) { IsTimeOfDay TimeOfDay2Seconds }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsBetween) { IsTimeOfDay TimeOfDay2Seconds }
+set ::GenNS::LoadingNS::DependencyList(ToBackslashes) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(ToDoubleBackslashes) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(ToForwardSlashes) { UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(Today) { clock }
+set ::GenNS::LoadingNS::DependencyList(Tomorrow) { clock }
+set ::GenNS::LoadingNS::DependencyList(UnlinkTclVariableFromRegistryValue) { IsEmpty ToDoubleBackslashes registry }
+set ::GenNS::LoadingNS::DependencyList(UnlinkVarFromDbGlobal) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(UnsetDbGlobal) { IsEmpty QQ }
+set ::GenNS::LoadingNS::DependencyList(UpvarExistingOrDie) { IsEmpty VarExistsInCaller }
+set ::GenNS::LoadingNS::DependencyList(UpvarX) { IsEmpty NotEmpty VarExistsInCaller }
+set ::GenNS::LoadingNS::DependencyList(VarExistsInCaller) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(Yesterday) { clock }
