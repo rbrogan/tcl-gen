@@ -1,0 +1,81 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval QuoteIfColumnTypeIsTextTest {}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-1 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-0 {Basic test - column type is text}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {sqlite3 testdb test.db
+}  -body {QuoteIfColumnTypeIsText globals desc {I don't know}
+
+}  -cleanup {}  -result {'I don''t know'}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-2 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-1 {Basic test - column type is not text}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {sqlite3 testdb test.db
+}  -body {QuoteIfColumnTypeIsText globals intvalue 123
+}  -cleanup {}  -result {123}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-3 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-2 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {sqlite3 testdb test.db
+}  -body {QuoteIfColumnTypeIsText "" some_column some_value}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-4 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-3 {Column name is empty}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {sqlite3 testdb test.db
+}  -body {QuoteIfColumnTypeIsText globals "" {I don't know}}  -cleanup {}  -result {Variable ColumnName has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-5 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-4 {Value is empty}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {}  -body {QuoteIfColumnTypeIsText globals desc {}
+}  -cleanup {}  -result {Variable Target has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc QuoteIfColumnTypeIsTextTest::Test-6 {} {
+
+::tcltest::test QuoteIfColumnTypeIsText-5 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded QuoteIfColumnTypeIsText]]}  -setup {}  -body {set MyString {I don't know}
+QuoteIfColumnTypeIsText globals desc @MyString
+puts $MyString
+}  -cleanup {}  -result {}  -output {'I don''t know'
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     QuoteIfColumnTypeIsTextTest::Test-1
+     QuoteIfColumnTypeIsTextTest::Test-2
+     QuoteIfColumnTypeIsTextTest::Test-3
+     QuoteIfColumnTypeIsTextTest::Test-4
+     QuoteIfColumnTypeIsTextTest::Test-5
+     QuoteIfColumnTypeIsTextTest::Test-6
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          QuoteIfColumnTypeIsTextTest::Test-[set Element]
+     }
+}
+

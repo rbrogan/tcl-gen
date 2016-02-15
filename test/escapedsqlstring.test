@@ -1,0 +1,66 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval EscapedSqlStringTest {}
+
+
+
+proc EscapedSqlStringTest::Test-1 {} {
+
+::tcltest::test EscapedSqlString-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded EscapedSqlString]]}  -setup {}  -body {EscapedSqlString {x ' y ' z}
+}  -cleanup {}  -result {x '' y '' z}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc EscapedSqlStringTest::Test-2 {} {
+
+::tcltest::test EscapedSqlString-1 {String contains no single quotes}  -constraints {[expr [CheckAllDependenciesLoaded EscapedSqlString]]}  -setup {}  -body {EscapedSqlString {x y z}}  -cleanup {}  -result {x y z}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc EscapedSqlStringTest::Test-3 {} {
+
+::tcltest::test EscapedSqlString-2 {String contains single quotes x 2}  -constraints {[expr [CheckAllDependenciesLoaded EscapedSqlString]]}  -setup {}  -body {EscapedSqlString {x '' y '' z}
+}  -cleanup {}  -result {x '''' y '''' z}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc EscapedSqlStringTest::Test-4 {} {
+
+::tcltest::test EscapedSqlString-3 {String is empty}  -constraints {[expr [CheckAllDependenciesLoaded EscapedSqlString]]}  -setup {}  -body {EscapedSqlString {}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc EscapedSqlStringTest::Test-5 {} {
+
+::tcltest::test EscapedSqlString-4 {Test at}  -constraints {[expr [CheckAllDependenciesLoaded EscapedSqlString]]}  -setup {}  -body {set MyString {x '' y '' z}
+EscapedSqlString @MyString
+puts $MyString
+}  -cleanup {}  -result {}  -output {x '''' y '''' z
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     EscapedSqlStringTest::Test-1
+     EscapedSqlStringTest::Test-2
+     EscapedSqlStringTest::Test-3
+     EscapedSqlStringTest::Test-4
+     EscapedSqlStringTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          EscapedSqlStringTest::Test-[set Element]
+     }
+}
+

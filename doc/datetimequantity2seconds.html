@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DatetimeQuantity2Seconds</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+DatetimeQuantity2Seconds  &mdash;  Convert a datetime quantity into a total number of seconds.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>DatetimeQuantity2Seconds</b> <i>DatetimeQuantity</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Total number of seconds represented by the datetime quantity.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DatetimeQuantity</i></td><td class='argument_right'>A datetime quantity. See More Info for format information.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Currently, the datetime quantity must be of the form ddddThh:mm:ss, where dddd is four digits for the number of days to add or subtract, hh is two digits for the number of hours, and mm and ss are for minutes and seconds.<p>You can make the quantity negative by putting a minus sign in the front. If you do, you will get back a negative number of seconds.</p><p>We may, in a future release, allow changing the format of the datetime quantity.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="datetimequantity2seconds-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>DatetimeQuantity2Seconds 0001T01:01:01</b><br>90061<br></pre></div><div class="code_sample"><pre>% <b>DatetimeQuantity2Seconds -0001T01:01:01</b><br>-90061<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'hhmmss2seconds.html'>Hhmmss2Seconds</a>, <a href = 'isdatetimequantity.html'>IsDatetimeQuantity</a>, <a href = 'seconds2datetimequantity.html'>Seconds2DatetimeQuantity</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

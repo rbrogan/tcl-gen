@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FindNearestSucceedingRecurrence</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+FindNearestSucceedingRecurrence  &mdash;  Find the nearest recurrence datetime after given one.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>FindNearestSucceedingRecurrence</b> <i>TargetDatetime</i> <i>RecurrenceStartDatetime</i> <i>RecurrenceIntervalLength</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Nearest recurrence datetime after given one.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetDatetime</i></td><td class='argument_right'>Datetime to go off of.</td></tr><tr class='table_row_a'><td class='argument_left'><i>RecurrenceStartDatetime</i></td><td class='argument_right'>A datetime that all other recurrences go from.</td></tr><tr class='table_row_b'><td class='argument_left'><i>RecurrenceIntervalLength</i></td><td class='argument_right'>How long between recurrences. See More Info for format.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Say we have something that happens every so often, perhaps once a week. We call that a recurrence. There is a first recurrence datetime and then there is the amount of time between recurrences. We want to find from some given point (perhaps right now), when the next recurrence will be. This command will return that datetime. (See examples for better understanding.)<p>Currently, the RecurrenceIntervalLength quantity must be of the form ddddThh:mm:ss, where dddd is four digits for the number of days to add or subtract, hh is two digits for the number of hours, and mm and ss are for minutes and seconds.</p><p>The recurrence interval must be positive. If you want to go in a forwardwards direction, then use <a href="findnearestprecedingrecurrence.html"><code>FindNearestPrecedingRecurrence</code></a>.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="findnearestsucceedingrecurrence-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>FindNearestSucceedingRecurrence {2000-01-02 03:04:05} {2000-01-01 00:00:00} {0001T00:00:00}</b><br>2000-01-03 00:00:00<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'findnearestprecedingrecurrence.html'>FindNearestPrecedingRecurrence</a>, <a href = 'isdatetimequantity.html'>IsDatetimeQuantity</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_datetime">datetime</a>
+</div>
+</body>
+</html>

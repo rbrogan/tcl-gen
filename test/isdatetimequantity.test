@@ -1,0 +1,55 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval IsDatetimeQuantityTest {}
+
+
+
+proc IsDatetimeQuantityTest::Test-1 {} {
+
+::tcltest::test IsDatetimeQuantity-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded IsDatetimeQuantity]]}  -setup {}  -body {IsDatetimeQuantity 0001T01:01:01
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IsDatetimeQuantityTest::Test-2 {} {
+
+::tcltest::test IsDatetimeQuantity-1 {Negative quantity}  -constraints {[expr [CheckAllDependenciesLoaded IsDatetimeQuantity]]}  -setup {}  -body {IsDatetimeQuantity -0001T01:01:01
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IsDatetimeQuantityTest::Test-3 {} {
+
+::tcltest::test IsDatetimeQuantity-2 {Empty string}  -constraints {[expr [CheckAllDependenciesLoaded IsDatetimeQuantity]]}  -setup {}  -body {IsDatetimeQuantity {}
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IsDatetimeQuantityTest::Test-4 {} {
+
+::tcltest::test IsDatetimeQuantity-3 {Invalid format}  -constraints {[expr [CheckAllDependenciesLoaded IsDatetimeQuantity]]}  -setup {}  -body {IsDatetimeQuantity asdf
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     IsDatetimeQuantityTest::Test-1
+     IsDatetimeQuantityTest::Test-2
+     IsDatetimeQuantityTest::Test-3
+     IsDatetimeQuantityTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          IsDatetimeQuantityTest::Test-[set Element]
+     }
+}
+

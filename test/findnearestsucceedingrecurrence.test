@@ -1,0 +1,86 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval FindNearestSucceedingRecurrenceTest {}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-1 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-02 03:04:05} {2000-01-01 00:00:00} {0001T00:00:00}
+
+}  -cleanup {}  -result {2000-01-03 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-2 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-4 {TargetDatetime and RecurrenceDatetime are the same}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-02 03:04:05} {2000-01-01 00:00:00} {0001T00:00:00}
+}  -cleanup {}  -result {2000-01-03 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-3 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-5 {TargetDatetime falls exactly on a recurrence}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-03 00:00:00} {2000-01-01 00:00:00} {0001T00:00:00}
+}  -cleanup {}  -result {2000-01-03 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-4 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-6 {TargetDatetime comes before start}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-02 00:00:00} {2000-01-03 00:00:00} {0001T00:00:00}
+}  -cleanup {}  -result {2000-01-03 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-5 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-7 {TargetDatetime comes before start and before earliest preceding recurrence}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-01 06:00:00} {2000-01-03 00:00:00} {0001T00:00:00}
+}  -cleanup {}  -result {2000-01-02 00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-6 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-8 {Interval length is zero}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-02 03:04:05} {2000-01-01 00:00:00} {0000T00:00:00}
+}  -cleanup {}  -result {Expected positive input value, got input value 0000T00:00:00 instead.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc FindNearestSucceedingRecurrenceTest::Test-7 {} {
+
+::tcltest::test FindNearestSucceedingRecurrence-9 {Interval length is negative}  -constraints {[expr [CheckAllDependenciesLoaded FindNearestSucceedingRecurrence]]}  -setup {}  -body {FindNearestSucceedingRecurrence {2000-01-02 03:04:05} {2000-01-01 00:00:00} {-0001T00:00:00}
+}  -cleanup {}  -result {Expected positive input value, got input value -0001T00:00:00 instead.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     FindNearestSucceedingRecurrenceTest::Test-1
+     FindNearestSucceedingRecurrenceTest::Test-2
+     FindNearestSucceedingRecurrenceTest::Test-3
+     FindNearestSucceedingRecurrenceTest::Test-4
+     FindNearestSucceedingRecurrenceTest::Test-5
+     FindNearestSucceedingRecurrenceTest::Test-6
+     FindNearestSucceedingRecurrenceTest::Test-7
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          FindNearestSucceedingRecurrenceTest::Test-[set Element]
+     }
+}
+

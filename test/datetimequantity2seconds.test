@@ -1,0 +1,55 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval DatetimeQuantity2SecondsTest {}
+
+
+
+proc DatetimeQuantity2SecondsTest::Test-1 {} {
+
+::tcltest::test DatetimeQuantity2Seconds-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeQuantity2Seconds]]}  -setup {}  -body {DatetimeQuantity2Seconds 0001T01:01:01
+}  -cleanup {}  -result {90061}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc DatetimeQuantity2SecondsTest::Test-2 {} {
+
+::tcltest::test DatetimeQuantity2Seconds-1 {Input string is empty}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeQuantity2Seconds]]}  -setup {}  -body {DatetimeQuantity2Seconds {}
+}  -cleanup {}  -result {Variable DatetimeQuantity has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc DatetimeQuantity2SecondsTest::Test-3 {} {
+
+::tcltest::test DatetimeQuantity2Seconds-2 {Malformed input}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeQuantity2Seconds]]}  -setup {}  -body {DatetimeQuantity2Seconds 01:01:01
+}  -cleanup {}  -result {Variable DatetimeQuantity has invalid value 01:01:01.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc DatetimeQuantity2SecondsTest::Test-4 {} {
+
+::tcltest::test DatetimeQuantity2Seconds-3 {Negative input value}  -constraints {[expr [CheckAllDependenciesLoaded DatetimeQuantity2Seconds]]}  -setup {}  -body {DatetimeQuantity2Seconds -0001T01:01:01
+}  -cleanup {}  -result {-90061}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     DatetimeQuantity2SecondsTest::Test-1
+     DatetimeQuantity2SecondsTest::Test-2
+     DatetimeQuantity2SecondsTest::Test-3
+     DatetimeQuantity2SecondsTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          DatetimeQuantity2SecondsTest::Test-[set Element]
+     }
+}
+

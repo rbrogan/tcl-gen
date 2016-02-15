@@ -2,18 +2,20 @@ Gen
 
 CHANGELOG
 
-2016.02.01
-v1.11.1
+2016.02.15
+v1.12.0
 
 Changes by functionality
 
-The following fixes were included in this version: 
-CN_0004
-     Added dependencies for IsNumeric and IsNonNumeric on the version of the string command that goes with Tcl 8.5. (Fix for KI_0008.)
-CN_0005
-     Added dependency on the version of the clock command that goes with Tcl 8.5 for all Gen commands found to use it. (Partial fix for KI_0009.)
-     Added dependency on the version of the dict command that goes with Tcl 8.5 for all Gen commands found to use it. (Partial fix for KI_0009.)
-     
+Added new commands
+     DatetimeQuantity2Seconds
+     FindNearestPrecedingRecurrence
+     FindNearestSucceedingRecurrence
+     IsDatetimeQuantity
+     Seconds2DatetimeQuantity
+
+Made the tests for internal commands visible. Internal commands are not considered as part of the user portion of Gen.
+
 By files
 
      /
@@ -33,24 +35,80 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
+          datetimequantity2seconds.html
+          datetimequantity2seconds-exceptions.html
+               Documentation for new command.
+          findnearestprecedingrecurrence.html
+          findnearestprecedingrecurrence-exceptions.html
+               Documentation for new command.
+          findnearestsucceedingrecurrence.html
+          findnearestsucceedingrecurrence-exceptions.html
+               Documentation for new command.
+          isdatetimequantity.html
+          isdatetimequantity-exceptions.html
+               Documentation for new command.
+          seconds2datetimequantity.html
+          seconds2datetimequantity-exceptions.html
+               Documentation for new command.
      
      /src
-          deleteonlyfilesindirectory.tcl
-               Unofficial / internal command.
+          datetimequantity2seconds.tcl
+               New command.
+          findnearestprecedingrecurrence.tcl
+               New command.
+          findnearestsucceedingrecurrence.tcl
+               New command.
           gen.tcl
                Updated to include current version number.
-          loading-module.tcl
-               Took out lassign so it could work with Tcl 8.4.
+          isdatetimequantity.tcl
+               New command.
           loading-module-data.tcl
-               Fix for KI_0008. Added dependency for string, Tcl 8.5, for IsNumeric and IsNonNumeric.
-          nextminorversionnumber.tcl
-               Unofficial / internal command.
+               Updated to add support for new commands.
           pkgIndex.tcl
                Updated to include current version number.
+          seconds2datetimequantity.tcl
+               New command.
                
      /test
           *.test
                Update the rev number.
+          datetimequantity2seconds.test
+               Tests for new command.
+          dbgoff.test
+               Tests for internal command.
+          dbgon.test
+               Tests for internal command.
+          dbgprint.test
+               Tests for internal command.
+          deleteonlyfilesindirectory.test
+               Tests for internal command.
+          dividesevenly.test
+               Tests for internal command.
+          escapedsqlstring.test
+               Tests for internal command.
+          findnearestprecedingrecurrence.test
+               Tests for new command.
+          findnearestsucceedingrecurrence.test
+               Tests for new command.
+          gen-test-common.tcl
+               (Should have been previously included.)
+          guesspackagerootdirectory.test
+               Tests for internal command.
+          isdatetimequantity.test
+               Tests for new command.
+          isdirectoryempty.test
+               Tests for internal command.
+          nextminorversionnumber.test
+               Tests for internal command.
+          quaoteifcolumntypeistext.test
+               Tests for internal command.
+          seconds2datetimequantity.test
+               Tests for new command.
           test-loading-module-package.tcl
-               New file.
-
+               (Should have been previously included.)
+          timeofday2seconds.test
+               Tests for internal command.
+          updatedbglobal.test
+               Tests for internal command.
+          updateregistryvalue.test
+               Tests for internal command.

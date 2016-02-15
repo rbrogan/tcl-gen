@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IsDatetimeQuantity</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+IsDatetimeQuantity  &mdash;  Check whether or not the value can be added to a datetime.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>IsDatetimeQuantity</b> <i>DatetimeQuantity</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> Value passed in can be added to a datetime.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> Value passed in cannot be added to a datetime.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DatetimeQuantity</i></td><td class='argument_right'>Value to check. See More Info for what is a valid format.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Currently, the datetime quantity must be of the form ddddThh:mm:ss, where dd is four digits for the number of days to add or subtract, hh is two digits for the number of hours, and mm and ss are for minutes and seconds.<p>You can make the quantity negative by putting a minus sign in the front.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="isdatetimequantity-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>IsDatetimeQuantity 0001T01:01:01<br>1</b><br><br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'isdate.html'>IsDate</a>, <a href = 'isdatetime.html'>IsDatetime</a>, <a href = 'ishhmmss.html'>IsHhmmss</a>, <a href = 'istimeofday.html'>IsTimeOfDay</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_datetime">datetime</a>, <a href="keyword-index.html#C_validation">validation</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="doc.css">
 </head>
 <body>
-<h1>Date and Time - v1.11.1</h1>
+<h1>Date and Time - v1.12.0</h1>
 <p>You may use the nav bar to the left to select pages.</p>
 <p>Below is a listing of all commands and a brief description for each.</p>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="currenttimeofday.html" class="command_link">CurrentTimeOfDay</a></p></div>
@@ -57,14 +57,22 @@
 <div class="command_desc"><p class="quasi_table_right">Find the datetime that comes some time before the given one.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="datetimeplus.html" class="command_link">DatetimePlus</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Find the datetime that comes some time after the given one.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="diffhhmmss.html" class="command_link">DiffHhmmss</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="datetimequantity2seconds.html" class="command_link">DatetimeQuantity2Seconds</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Convert a datetime quantity into a total number of seconds.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="diffhhmmss.html" class="command_link">DiffHhmmss</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Do subtraction of time quantities in hh:mm:ss form.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="hhmmss2seconds.html" class="command_link">Hhmmss2Seconds</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="findnearestprecedingrecurrence.html" class="command_link">FindNearestPrecedingRecurrence</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the nearest recurrence that comes before target.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="findnearestsucceedingrecurrence.html" class="command_link">FindNearestSucceedingRecurrence</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Find the nearest recurrence datetime after given one.</p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="hhmmss2seconds.html" class="command_link">Hhmmss2Seconds</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Take an input of the form hh:mm:ss and convert to seconds.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="isdate.html" class="command_link">IsDate</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="isdate.html" class="command_link">IsDate</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether given string is in format of a date.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="isdatetime.html" class="command_link">IsDatetime</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="isdatetime.html" class="command_link">IsDatetime</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether given string matches the set datetime format.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="isdatetimequantity.html" class="command_link">IsDatetimeQuantity</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Check whether or not the value can be added to a datetime.</p></div>
 <div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="ishhmmss.html" class="command_link">IsHhmmss</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether the string passed in is of the form hh:mm:ss.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="istimeofday.html" class="command_link">IsTimeOfDay</a></p></div>
@@ -73,33 +81,35 @@
 <div class="command_desc"><p class="quasi_table_right">Multiply a time quantity in hh:mm:ss form by some factor.</p></div>
 <div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="now.html" class="command_link">Now</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Get the current datetime as formatted string.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="seconds2hhmmss.html" class="command_link">Seconds2Hhmmss</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="seconds2datetimequantity.html" class="command_link">Seconds2DatetimeQuantity</a></p></div>
+<div class="command_desc"><p class="quasi_table_right">Convert some number of seconds into a datetime quantity.</p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="seconds2hhmmss.html" class="command_link">Seconds2Hhmmss</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Convert a number of seconds to a string with form hh:mm:ss.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="setdateformat.html" class="command_link">SetDateFormat</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="setdateformat.html" class="command_link">SetDateFormat</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Set the format dates will be in (e.g. YYYY-MM-DD).</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="setdatetimeformat.html" class="command_link">SetDatetimeFormat</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="setdatetimeformat.html" class="command_link">SetDatetimeFormat</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Set format that datetimes will be in.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="settimeofdayformat.html" class="command_link">SetTimeOfDayFormat</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="settimeofdayformat.html" class="command_link">SetTimeOfDayFormat</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Set format that the time-of-day will be presented in.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="sumhhmmss.html" class="command_link">SumHhmmss</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="sumhhmmss.html" class="command_link">SumHhmmss</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Sum up a list of times.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisafter.html" class="command_link">TimeOfDayIsAfter</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisafter.html" class="command_link">TimeOfDayIsAfter</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether the given time-of-day is after the second.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisat.html" class="command_link">TimeOfDayIsAt</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisat.html" class="command_link">TimeOfDayIsAt</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether the given time-of-day is at the second.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisatorafter.html" class="command_link">TimeOfDayIsAtOrAfter</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisatorafter.html" class="command_link">TimeOfDayIsAtOrAfter</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether given time-of-day is at or after the second.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisatorbefore.html" class="command_link">TimeOfDayIsAtOrBefore</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisatorbefore.html" class="command_link">TimeOfDayIsAtOrBefore</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether given time-of-day is at or before the second.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisbefore.html" class="command_link">TimeOfDayIsBefore</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisbefore.html" class="command_link">TimeOfDayIsBefore</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether the first time-of-day is before the second.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="timeofdayisbetween.html" class="command_link">TimeOfDayIsBetween</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="timeofdayisbetween.html" class="command_link">TimeOfDayIsBetween</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Check whether given time-of-day is between the others.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="today.html" class="command_link">Today</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="today.html" class="command_link">Today</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Get the current date.</p></div>
-<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="tomorrow.html" class="command_link">Tomorrow</a></p></div>
+<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="tomorrow.html" class="command_link">Tomorrow</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Get tomorrow's date.</p></div>
-<div style="background-color: #F1FAFE" class="alternating_color_b"><p class="quasi_table_left"><a href="yesterday.html" class="command_link">Yesterday</a></p></div>
+<div style="background-color: #F0F4F6" class="alternating_color_a"><p class="quasi_table_left"><a href="yesterday.html" class="command_link">Yesterday</a></p></div>
 <div class="command_desc"><p class="quasi_table_right">Get yesterday's date.</p></div>
 
 

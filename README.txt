@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.11.0
+1.12.0
 % set Number 1
 1
 % AddTo Number 2
@@ -319,7 +319,7 @@ release is coming out.
 
 ---18| RECENT CHANGES
 
-Version 1.11.0. Changed how the Partial Loading feature works. If you try to use
+Version 1.12.0. Changed how the Partial Loading feature works. If you try to use
 a command which does not have both the package and version it needs, it will
 print out a message telling you what is missing. Also, introduced experimental
 feature (disabled by default) with which you can put Gen commands into their own

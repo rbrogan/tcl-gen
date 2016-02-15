@@ -1,0 +1,15 @@
+package require tcltest
+package require -exact gen 1.12.0
+source gen-test-common.tcl
+
+namespace eval DividesEvenlyTest {}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          DividesEvenlyTest::Test-[set Element]
+     }
+}
+

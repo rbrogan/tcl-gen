@@ -191,6 +191,8 @@ datetimeminus.test
      Tests for the command DatetimeMinus.
 datetimeplus.test
      Tests for the command DatetimePlus.
+datetimequantity2seconds.test
+     Tests for the command DatetimeQuantity2Seconds.
 dbaseregsub.test
      Tests for the command DbaseRegsub.
 decr.test
@@ -217,6 +219,10 @@ file2string.test
      Tests for the command File2String.
 findandremove.test
      Tests for the command FindAndRemove.
+findnearestprecedingrecurrence.test
+     Tests for the command FindNearestPrecedingRecurrence.
+findnearestsucceedingrecurrence.test
+     Tests for the command FindNearestSucceedingRecurrence.
 firstof.test
      Tests for the command FirstOf.
 flip.test
@@ -255,6 +261,8 @@ isdate.test
      Tests for the command IsDate.
 isdatetime.test
      Tests for the command IsDatetime.
+isdatetimequantity.test
+     Tests for the command IsDatetimeQuantity.
 isdict.test
      Tests for the command IsDict.
 isempty.test
@@ -353,6 +361,8 @@ runsqlinsertifdoesnotexist.test
      Tests for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.test
      Tests for the command SaveWorkingDirectory.
+seconds2datetimequantity.test
+     Tests for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.test
      Tests for the command Seconds2Hhmmss.
 setdateformat.test

@@ -154,6 +154,8 @@ datetimeminus.html
      Page for the command DatetimeMinus.
 datetimeplus.html
      Page for the command DatetimePlus.
+datetimequantity2seconds.html
+     Page for the command DatetimeQuantity2Seconds.
 dbaseregsub.html
      Page for the command DbaseRegsub.
 decr.html
@@ -180,6 +182,10 @@ file2string.html
      Page for the command File2String.
 findandremove.html
      Page for the command FindAndRemove.
+findnearestprecedingrecurrence.html
+     Page for the command FindNearestPrecedingRecurrence.
+findnearestsucceedingrecurrence.html
+     Page for the command FindNearestSucceedingRecurrence.
 firstof.html
      Page for the command FirstOf.
 flip.html
@@ -218,6 +224,8 @@ isdate.html
      Page for the command IsDate.
 isdatetime.html
      Page for the command IsDatetime.
+isdatetimequantity.html
+     Page for the command IsDatetimeQuantity.
 isdict.html
      Page for the command IsDict.
 isempty.html
@@ -316,6 +324,8 @@ runsqlinsertifdoesnotexist.html
      Page for the command RunSqlInsertIfDoesNotExist.
 saveworkingdirectory.html
      Page for the command SaveWorkingDirectory.
+seconds2datetimequantity.html
+     Page for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.html
      Page for the command Seconds2Hhmmss.
 setdateformat.html

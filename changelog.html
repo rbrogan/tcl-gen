@@ -31,21 +31,22 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.11.1</div><div class="section-header-right">2016.02.01</div>
+<div class="section-header-left">1.12.0</div><div class="section-header-right">2016.02.15</div>
 </div>
 <div class="section-content">
 <p>
 Changes by functionality<br>
 <ul>
-<li>CN_0004
+<li>Added new commands
 <ul>
-<li>Added dependencies for IsNumeric and IsNonNumeric on the version of the string command that goes with Tcl 8.5. (Fix for KI_0008.)</li>
+<li>DatetimeQuantity2Seconds</li>
+<li>FindNearestPrecedingRecurrence</li>
+<li>FindNearestSucceedingRecurrence</li>
+<li>IsDatetimeQuantity</li>
+<li>Seconds2DatetimeQuantity</li>
 </ul>
 </li>
-<li>CN_0005
-<ul>
-<li>Added dependency on the version of the clock command that goes with Tcl 8.5 for all Gen commands found to use it. (Partial fix for KI_0009.)</li>
-<li>Added dependency on the version of the dict command that goes with Tcl 8.5 for all Gen commands found to use it. (Partial fix for KI_0009.)</li>
+<li>Made the tests for internal commands visible. Internal commands are not considered as part of the user portion of Gen.</li>
 </ul>
 </li>
 </ul>
@@ -84,31 +85,51 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
+          <li>datetimequantity2seconds.html<br>datetimequantity2seconds-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          </li>
+          <li>findnearestprecedingrecurrence.html<br>findnearestprecedingrecurrence-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          </li>
+          <li>findnearestsucceedingrecurrence.html<br>findnearestsucceedingrecurrence-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          </li>
+          <li>isdatetimequantity.html<br>isdatetimequantity-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          </li>
+          <li>seconds2datetimequantity.html<br>
+          <ul><li>Documentation for new command.</li></ul>
+          </li>          
      </ul>
 </li>
 <li>/src
 <ul>
-<li>deleteonlyfilesindirectory.tcl
-<ul><li>Unofficial / internal command.</li></ul>
+<li>datetimequantity2seconds.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>findnearestprecedingrecurrence.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>findnearestsucceedingrecurrence.tcl
+<ul><li>New command.</li></ul>
 </li>
 <li>gen.tcl
 <ul>
      <li>Updated to include current version number.</li>
 </ul>
 </li>
-<li>loading-module.tcl
-<ul><li>Took out lassign so it could work with Tcl 8.4.</li></ul>
+<li>isdatetimequantity.tcl
+<ul><li>New command.</li></ul>
 </li>
 <li>loading-module-data.tcl
-<ul><li>Fix for KI_0008. Added dependency for string, Tcl 8.5, for IsNumeric and IsNonNumeric.</li>
-<li>Partial fix for KI_0009. Added dependency for clock, Tcl 8.5, for IsTimeOfDay.</li>
+<ul><li>Updated to add support for new commands.</li>
 </ul>
-</li>
-<li>nextminorversionnumber.tcl
-<ul><li>Unofficial / internal command.</li></ul>
 </li>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
+</li>
+<li>seconds2datetimequantity.tcl
+<ul><li>New command.</li></ul>
 </li>
 </ul>
 </li>
@@ -119,9 +140,104 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
+<li>datetimequantity2seconds.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>dbgoff.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>dbgon.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>dbgprint.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>deleteonlyfilesindirectory.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>dividesevenly.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>escapedsqlstring.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>findnearestprecedingrecurrence.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>findnearestsucceedingrecurrence.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>gen-test-common.tcl
+<ul>
+     <li>(Should have been previously included.)</li>
+</ul>
+</li>
+<li>guesspackagerootdirectory.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>isdatetimequantity.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>isdirectoryempty.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>nextminorversionnumber.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>quaoteifcolumntypeistext.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>seconds2datetimequantity.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
 <li>test-loading-module-package.tcl
 <ul>
-     <li>New file.</li>
+     <li>(Should have been previously included.)</li>
+</ul>
+</li>
+<li>timeofday2seconds.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>updatedbglobal.test
+<ul>
+     <li>Tests for internal command.</li>
+</ul>
+</li>
+<li>updateregistryvalue.test
+<ul>
+     <li>Tests for internal command.</li>
 </ul>
 </li>
 </ul>
