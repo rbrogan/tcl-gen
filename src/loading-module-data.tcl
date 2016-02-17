@@ -232,6 +232,8 @@ set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
 set ::GenNS::LoadingNS::DependentsList(string) {IsNumeric IsNonNumeric}
 
+set ::GenNS::LoadingNS::DependentsList(switch) {Matrix2HtmlTable}
+
 set ::GenNS::LoadingNS::DependentsList(try) {FtpDownloadFiles FtpUploadFiles File2List File2String AppendString2File FtpMirrorRemoteToLocal FtpMirrorLocalToRemote FtpDownloadFiles FtpDownloadSite FtpUploadFiles FtpUploadSite List2File Run String2File}
 
 set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX }
@@ -326,7 +328,7 @@ set ::GenNS::LoadingNS::DependencyList(LinkVarToDbGlobal) { IsEmpty SetDbGlobal 
 set ::GenNS::LoadingNS::DependencyList(List2File) { try }
 set ::GenNS::LoadingNS::DependencyList(ListRemoveAt) { IsEmpty IsNonNumeric IsNonPositive UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(Mash) { UpvarExistingOrDie }
-set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix }
+set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix switch }
 set ::GenNS::LoadingNS::DependencyList(MultiSet) { UpvarX }
 set ::GenNS::LoadingNS::DependencyList(MultiplyBy) { IsEmpty IsNonNumeric UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(MultiplyHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss IsNonNumeric Seconds2Hhmmss UpvarExistingOrDie }
