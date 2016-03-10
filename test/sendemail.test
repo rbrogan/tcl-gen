@@ -1,0 +1,27 @@
+package require tcltest
+package require -exact gen 1.12.1
+source gen-test-common.tcl
+
+namespace eval SendEmailTest {}
+
+
+
+proc SendEmailTest::Test-1 {} {
+
+::tcltest::test SendEmail-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SendEmail]]}  -setup {}  -body {SendEmail test-receive@robertbrogan.com test {test 1-2-3}
+# Add call to a get command to help verify
+#puts $Message
+#{test {test 1-2-3}}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     SendEmailTest::Test-1
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          SendEmailTest::Test-[set Element]
+     }
+}
+

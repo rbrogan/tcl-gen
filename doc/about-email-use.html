@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Email Use</title>
+</head>
+<body>
+<h1>About Email Use</h1>
+<p>Gen email commands are utility / convenience commands that are built on top of the tcllib <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/mime/mime.html">mime</a> and <a href="https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/modules/mime/smtp.html">smtp</a> packages.</p>
+<h2>Getting Set Up</h2>
+<p>
+To configure Gen for using certain email-related commands, you need to (A) add the following configuration code to your software, before you start using email commands, or (B) open <code>src/gen-config.tcl</code> or create your own <code>src/gen-user-config.tcl</code> and configure by hand the following (though beware of overwriting <code>src/gen-config.tcl</code> when you update your version of Gen):
+<ol>
+<li><code>set GenNS::SendEmail::<b>Servers</b></code> [Required. A list of SMTP servers. The default is localhost.]</li>
+<li><code>set GenNS::SendEmail::<b>Port</b></code> [Optional. A list of SMTP ports. The default is 25.]</li>
+<li><code>set GenNS::SendEmail::<b>Username</b></code> [Required. Username to use to authenticate with your mail server.]</li>
+<li><code>set GenNS::SendEmail::<b>Password</b></code> [Required. Password to authenticate with your mail server.]</li>
+<li><code>set GenNS::SendEmail::<b>FromAddress</b></code> [Required. Email address to use for the "From:" header.]</li>
+<li><code>set GenNS::SendEmail::<b>UseTls</b></code> [Optional. Boolean value. Controls whether or not the TLS extension is used. Requires the tls package be installed to be used.]</li>
+<li><code>set GenNS::SendEmail::<b>Queue</b></code> [Optional. Boolean value. Indicates that the SMTP server should be asked to queue the message for later processing.]</li>
+<li><code>set GenNS::SendEmail::<b>AtLeastOne</b></code> [Optional. Boolean value. Indicates that the SMTP server must find at least one recipient acceptable for the message to be sent.]</li>
+</ol>
+<br>
+</p>
+</body>
+</html>
