@@ -2,26 +2,14 @@ Gen
 
 NEWS
 
-2016.02.15
-1.12.0 revision
+2016.03.21
+1.13.0 revision
 
-For this release, we have a another handful of datetime commands to add to the
-arsenal.
+For this revision we have a few simple email convenience commands for use in
+automated sending and checking of (plaintext) email.
 
-DatetimeQuantity2Seconds
-     Convert a datetime quantity into a total number of seconds.
-
-FindNearestPrecedingRecurrence
-     Find the nearest recurrence that comes before target.
-
-FindNearestSucceedingRecurrence
-     Find the nearest recurrence datetime after given one.
-
-IsDatetimeQuantity
-     Check whether or not the value can be added to a datetime.
-
-Seconds2DatetimeQuantity
-     Convert some number of seconds into a datetime quantity.
+SendEmail
+     Send an email to given address, with given subject and body.
 
 
 

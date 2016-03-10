@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.12.0</div><div class="section-header-right">2016.02.15</div>
+<div class="section-header-left">1.13.0</div><div class="section-header-right">2016.03.21</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,14 +39,9 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>DatetimeQuantity2Seconds</li>
-<li>FindNearestPrecedingRecurrence</li>
-<li>FindNearestSucceedingRecurrence</li>
-<li>IsDatetimeQuantity</li>
-<li>Seconds2DatetimeQuantity</li>
+<li>SendEmail</li>
 </ul>
 </li>
-<li>Made the tests for internal commands visible. Internal commands are not considered as part of the user portion of Gen.</li>
 </ul>
 </li>
 </ul>
@@ -66,16 +61,13 @@ By files<br>
      </ul>
      </li>
      <li>known-issues.html
-     <ul><li>Updated with latest info. Presentation format changed.</li></ul>
+     <ul><li>Updated with latest info.</li></ul>
      </li>
      <li>latest-fixes.html
-     <ul><li>Updated with latest info. Presentation format changed.</li></ul>
-     </li>
-     <li>wishlist.html
-     <ul><li>Presentation format changed.</li></ul>
+     <ul><li>Updated with latest info.</li></ul>
      </li>
      <li>roadmap.html
-     <ul><li>Presentation format changed.</li></ul>
+     <ul><li>Updated with latest info.</li></ul>
      </li>
      </ul>
      </li>
@@ -85,41 +77,17 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>datetimequantity2seconds.html<br>datetimequantity2seconds-exceptions.html
+          <li>sendemail.html<br>sendemail-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>findnearestprecedingrecurrence.html<br>findnearestprecedingrecurrence-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>
-          </li>
-          <li>findnearestsucceedingrecurrence.html<br>findnearestsucceedingrecurrence-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>
-          </li>
-          <li>isdatetimequantity.html<br>isdatetimequantity-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>
-          </li>
-          <li>seconds2datetimequantity.html<br>
-          <ul><li>Documentation for new command.</li></ul>
-          </li>          
      </ul>
 </li>
 <li>/src
 <ul>
-<li>datetimequantity2seconds.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>findnearestprecedingrecurrence.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>findnearestsucceedingrecurrence.tcl
-<ul><li>New command.</li></ul>
-</li>
 <li>gen.tcl
 <ul>
      <li>Updated to include current version number.</li>
 </ul>
-</li>
-<li>isdatetimequantity.tcl
-<ul><li>New command.</li></ul>
 </li>
 <li>loading-module-data.tcl
 <ul><li>Updated to add support for new commands.</li>
@@ -128,7 +96,7 @@ By files<br>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
-<li>seconds2datetimequantity.tcl
+<li>sendemail.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -140,104 +108,14 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>datetimequantity2seconds.test
+<li>email-test-config.tcl
+<ul>
+     <li>Configure email tests for use with the user's environment.</li>
+</ul>
+</li>
+<li>sendemail.test
 <ul>
      <li>Tests for new command.</li>
-</ul>
-</li>
-<li>dbgoff.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>dbgon.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>dbgprint.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>deleteonlyfilesindirectory.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>dividesevenly.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>escapedsqlstring.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>findnearestprecedingrecurrence.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>findnearestsucceedingrecurrence.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>gen-test-common.tcl
-<ul>
-     <li>(Should have been previously included.)</li>
-</ul>
-</li>
-<li>guesspackagerootdirectory.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>isdatetimequantity.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>isdirectoryempty.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>nextminorversionnumber.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>quaoteifcolumntypeistext.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>seconds2datetimequantity.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>test-loading-module-package.tcl
-<ul>
-     <li>(Should have been previously included.)</li>
-</ul>
-</li>
-<li>timeofday2seconds.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>updatedbglobal.test
-<ul>
-     <li>Tests for internal command.</li>
-</ul>
-</li>
-<li>updateregistryvalue.test
-<ul>
-     <li>Tests for internal command.</li>
 </ul>
 </li>
 </ul>

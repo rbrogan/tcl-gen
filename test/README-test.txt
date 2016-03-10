@@ -365,6 +365,8 @@ seconds2datetimequantity.test
      Tests for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.test
      Tests for the command Seconds2Hhmmss.
+sendemail.test
+     Tests for the command SendEmail.
 setdateformat.test
      Tests for the command SetDateFormat.
 setdatetimeformat.test

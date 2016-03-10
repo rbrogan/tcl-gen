@@ -2,19 +2,13 @@ Gen
 
 CHANGELOG
 
-2016.02.15
-v1.12.0
+2016.03.21
+v1.13.0
 
 Changes by functionality
 
 Added new commands
-     DatetimeQuantity2Seconds
-     FindNearestPrecedingRecurrence
-     FindNearestSucceedingRecurrence
-     IsDatetimeQuantity
-     Seconds2DatetimeQuantity
-
-Made the tests for internal commands visible. Internal commands are not considered as part of the user portion of Gen.
+     SendEmail
 
 By files
 
@@ -22,93 +16,35 @@ By files
           changelog.html, changelog.txt
                Updated with latest info.
           known-issues.html
-               Updated with latest info. Presentation format changed.
+               Updated with latest info.
           latest-fixes.html
-               Updated with latest info. Presentation format changed.
+               Updated with latest info.
           news.html, news.txt
-               Updated with latest info. Presentation format changed.
-          wishlist.html
-               Presentation format changed.
+               Updated with latest info.
           roadmap.html
-               Presentation format changed.
+               Updated with latest info.
 
      /doc
           *-index.html
                Updated to include current version number.
-          datetimequantity2seconds.html
-          datetimequantity2seconds-exceptions.html
-               Documentation for new command.
-          findnearestprecedingrecurrence.html
-          findnearestprecedingrecurrence-exceptions.html
-               Documentation for new command.
-          findnearestsucceedingrecurrence.html
-          findnearestsucceedingrecurrence-exceptions.html
-               Documentation for new command.
-          isdatetimequantity.html
-          isdatetimequantity-exceptions.html
-               Documentation for new command.
-          seconds2datetimequantity.html
-          seconds2datetimequantity-exceptions.html
+          sendemail.html
+          sendemail-exceptions.html
                Documentation for new command.
      
      /src
-          datetimequantity2seconds.tcl
-               New command.
-          findnearestprecedingrecurrence.tcl
-               New command.
-          findnearestsucceedingrecurrence.tcl
-               New command.
           gen.tcl
                Updated to include current version number.
-          isdatetimequantity.tcl
-               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
           pkgIndex.tcl
                Updated to include current version number.
-          seconds2datetimequantity.tcl
+          sendemail.tcl
                New command.
                
      /test
           *.test
                Update the rev number.
-          datetimequantity2seconds.test
+          email-test-config.tcl
+               Configure email tests for use with the user's environment.
+          sendemail.test
                Tests for new command.
-          dbgoff.test
-               Tests for internal command.
-          dbgon.test
-               Tests for internal command.
-          dbgprint.test
-               Tests for internal command.
-          deleteonlyfilesindirectory.test
-               Tests for internal command.
-          dividesevenly.test
-               Tests for internal command.
-          escapedsqlstring.test
-               Tests for internal command.
-          findnearestprecedingrecurrence.test
-               Tests for new command.
-          findnearestsucceedingrecurrence.test
-               Tests for new command.
-          gen-test-common.tcl
-               (Should have been previously included.)
-          guesspackagerootdirectory.test
-               Tests for internal command.
-          isdatetimequantity.test
-               Tests for new command.
-          isdirectoryempty.test
-               Tests for internal command.
-          nextminorversionnumber.test
-               Tests for internal command.
-          quaoteifcolumntypeistext.test
-               Tests for internal command.
-          seconds2datetimequantity.test
-               Tests for new command.
-          test-loading-module-package.tcl
-               (Should have been previously included.)
-          timeofday2seconds.test
-               Tests for internal command.
-          updatedbglobal.test
-               Tests for internal command.
-          updateregistryvalue.test
-               Tests for internal command.

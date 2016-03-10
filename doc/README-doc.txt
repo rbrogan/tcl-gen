@@ -328,6 +328,8 @@ seconds2datetimequantity.html
      Page for the command Seconds2DatetimeQuantity.
 seconds2hhmmss.html
      Page for the command Seconds2Hhmmss.
+sendemail.html
+     Page for the command SendEmail.
 setdateformat.html
      Page for the command SetDateFormat.
 setdatetimeformat.html
