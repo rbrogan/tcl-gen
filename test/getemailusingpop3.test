@@ -1,0 +1,57 @@
+package require tcltest
+package require -exact gen 1.13.0
+source gen-test-common.tcl
+
+namespace eval GetEmailUsingPop3Test {}
+
+
+
+proc GetEmailUsingPop3Test::Test-1 {} {
+
+::tcltest::test GetEmailUsingPop3-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded GetEmailUsingPop3]]}  -setup {source email-test-config.tcl
+set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -body {SendEmail $::GenTest::Email::ReceiveEmailAddress test1 {test 1-2-3}
+SendEmail $::GenTest::Email::ReceiveEmailAddress test2 {test 4-5-6}
+SendEmail $::GenTest::Email::ReceiveEmailAddress test3 {test 7-8-9}
+set MyEmailDict [GetEmailUsingPop3 $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+puts [dict size $MyEmailDict]
+puts [dict get $MyEmailDict 1 Subject]
+puts [dict get $MyEmailDict 1 Body]
+}  -cleanup {set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -result {}  -output {3
+test1
+test 1-2-3
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc GetEmailUsingPop3Test::Test-2 {} {
+
+::tcltest::test GetEmailUsingPop3-1 {No messages on server}  -constraints {[expr [CheckAllDependenciesLoaded GetEmailUsingPop3]]}  -setup {source email-test-config.tcl
+set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -body {set MyEmailDict [GetEmailUsingPop3 $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+dict size $MyEmailDict
+}  -cleanup {source email-test-config.tcl
+set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     GetEmailUsingPop3Test::Test-1
+     GetEmailUsingPop3Test::Test-2
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          GetEmailUsingPop3Test::Test-[set Element]
+     }
+}
+

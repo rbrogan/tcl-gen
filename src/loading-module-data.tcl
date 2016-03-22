@@ -1,6 +1,6 @@
 
 
-set ::GenNS::LoadingNS::PackageReadyList { Tcl Tclx ftp mime registry smtp sqlite3 test-loading-module-package test-missing-package textutil::adjust textutil::string }
+set ::GenNS::LoadingNS::PackageReadyList { Tcl Tclx ftp imap4 mime pop3 registry smtp sqlite3 test-loading-module-package test-missing-package textutil::adjust textutil::string }
 
 set ::GenNS::LoadingNS::SourceReadyList { AddEpilogue AddPrologue DbgOff DbgOn DbgPrint DeleteOnlyFilesInDirectory DividesEvenly EscapedSqlString EvalList FirstOf GuessPackageRootDirectory IsDirectoryEmpty IsEmpty IsHhmmss IsMatrix LastOf ListEndIndex NotEmpty QuoteIfColumnTypeIsText SaveWorkingDirectory Seconds2DatetimeQuantity SliceLeft SliceRight StartsWith StringContains Ter UpdateDbGlobal UpdateRegistryValue }
 
@@ -10,11 +10,15 @@ set ::GenNS::LoadingNS::CommandsInPackage(Tclx) { {lvarpop 8.4} }
 
 set ::GenNS::LoadingNS::CommandsInPackage(ftp) { {ftp::Cd 2.4.13} {ftp::List 2.4.13} {ftp::NList 2.4.13} {ftp::RmDir 2.4.13} {ftp::Delete 2.4.13} {ftp::Get 2.4.13} {ftp::Type 2.4.13} {ftp::Close 2.4.13} {ftp::MkDir 2.4.13} {ftp::Put 2.4.13} {ftp::FileSize 2.4.13} {ftp::ModTime 2.4.13} {ftp::Open 2.4.13} }
 
-set ::GenNS::LoadingNS::CommandsInPackage(mime) { {mime::initialize 1.6} {mime::finalize 1.6} }
+set ::GenNS::LoadingNS::CommandsInPackage(imap4) { {::imap4::open 0.5.2} {::imap4::login 0.5.2} {::imap4::select 0.5.2} {::imap4::fetch 0.5.2} {::imap4::cleanup 0.5.2} }
+
+set ::GenNS::LoadingNS::CommandsInPackage(mime) { {::mime::initialize 1.6} {::mime::finalize 1.6} {::mime::getheader 1.6} }
+
+set ::GenNS::LoadingNS::CommandsInPackage(pop3) { {::pop3::open 1.9} {::pop3::retrieve 1.9} {::pop3::delete 1.9} {::pop3::close 1.9} }
 
 set ::GenNS::LoadingNS::CommandsInPackage(registry) { {registry 1.3.0} }
 
-set ::GenNS::LoadingNS::CommandsInPackage(smtp) { {smtp::sendmessage 1.4.5} }
+set ::GenNS::LoadingNS::CommandsInPackage(smtp) { {::smtp::sendmessage 1.4.5} }
 
 set ::GenNS::LoadingNS::CommandsInPackage(sqlite3) { {sqlite3 3.5.9} }
 
@@ -25,6 +29,32 @@ set ::GenNS::LoadingNS::CommandsInPackage(test-missing-package) { {TestLoadingMo
 set ::GenNS::LoadingNS::CommandsInPackage(textutil::adjust) { {::textutil::adjust::adjust 0.7.1} }
 
 set ::GenNS::LoadingNS::CommandsInPackage(textutil::string) { {::textutil::string::cap 0.8} }
+
+set ::GenNS::LoadingNS::DependentsList(::imap4::cleanup) {GetEmailUsingImap4}
+
+set ::GenNS::LoadingNS::DependentsList(::imap4::fetch) {GetEmailUsingImap4}
+
+set ::GenNS::LoadingNS::DependentsList(::imap4::login) {GetEmailUsingImap4}
+
+set ::GenNS::LoadingNS::DependentsList(::imap4::open) {GetEmailUsingImap4}
+
+set ::GenNS::LoadingNS::DependentsList(::imap4::select) {GetEmailUsingImap4}
+
+set ::GenNS::LoadingNS::DependentsList(::mime::finalize) {SendEmail GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::mime::getheader) {GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::mime::initialize) {SendEmail GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::pop3::close) {GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::pop3::delete) {GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::pop3::open) {GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::pop3::retrieve) {GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(::smtp::sendmessage) {SendEmail}
 
 set ::GenNS::LoadingNS::DependentsList(::textutil::adjust::adjust) {LimitLineLengthInFile}
 
@@ -198,7 +228,7 @@ set ::GenNS::LoadingNS::DependentsList(VarExistsInCaller) {UpvarX UpvarExistingO
 
 set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence}
 
-set ::GenNS::LoadingNS::DependentsList(dict) {PrintDict ArrangeDict Dict2RegistryTree IsDict RegistryTree2Dict RunSqlEnter SetDbGlobal SqliteColumnType SqlInsertStatement SqlSetClause SqlWhereClause}
+set ::GenNS::LoadingNS::DependentsList(dict) {PrintDict ArrangeDict Dict2RegistryTree IsDict RegistryTree2Dict RunSqlEnter SetDbGlobal SqliteColumnType SqlInsertStatement SqlSetClause SqlWhereClause GetEmailUsingPop3}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpDownloadFiles FtpUploadFiles}
 
@@ -228,15 +258,9 @@ set ::GenNS::LoadingNS::DependentsList(ftp::Type) {FtpDownloadSite FtpMirrorRemo
 
 set ::GenNS::LoadingNS::DependentsList(lvarpop) {ChangeCasing SqliteColumnNameAndTypeList}
 
-set ::GenNS::LoadingNS::DependentsList(mime::finalize) {SendEmail}
-
-set ::GenNS::LoadingNS::DependentsList(mime::initialize) {SendEmail}
-
 set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVariableToRegistryValue RegistryExists RegistryPrint RegistryTree2Dict UnlinkTclVariableFromRegistryValue}
 
 set ::GenNS::LoadingNS::DependentsList(scan) {IsDatetimeQuantity}
-
-set ::GenNS::LoadingNS::DependentsList(smtp::sendmessage) {SendEmail}
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
@@ -314,6 +338,8 @@ set ::GenNS::LoadingNS::DependencyList(GenTestCommand1) { TestLoadingModuleNS::S
 set ::GenNS::LoadingNS::DependencyList(GenTestCommand2) { TestLoadingModuleNS::SampleCommand2 }
 set ::GenNS::LoadingNS::DependencyList(GenTestCommand3) { TestLoadingModuleNS::SampleCommand3 }
 set ::GenNS::LoadingNS::DependencyList(GetDbGlobal) { IsEmpty Q1 SqlRecordExists }
+set ::GenNS::LoadingNS::DependencyList(GetEmailUsingImap4) { ::imap4::cleanup ::imap4::fetch ::imap4::login ::imap4::open ::imap4::select }
+set ::GenNS::LoadingNS::DependencyList(GetEmailUsingPop3) { ::mime::finalize ::mime::getheader ::mime::initialize ::pop3::close ::pop3::delete ::pop3::open ::pop3::retrieve dict }
 set ::GenNS::LoadingNS::DependencyList(Hhmmss2Seconds) { IsEmpty IsHhmmss StartsWith UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(IncrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists }
 set ::GenNS::LoadingNS::DependencyList(IsDate) { clock }
@@ -362,7 +388,7 @@ set ::GenNS::LoadingNS::DependencyList(RunSqlCreateTable) { IsEmpty QQ }
 set ::GenNS::LoadingNS::DependencyList(RunSqlEnter) { IsEmpty LastId NotEmpty Q1 QQ RunSqlInsertIfDoesNotExist SqlInsertStatement SqlUpdateStatement SqlWhereClause dict }
 set ::GenNS::LoadingNS::DependencyList(RunSqlInsertIfDoesNotExist) { IsEmpty LastId Q1 QQ SqlSelectStatement }
 set ::GenNS::LoadingNS::DependencyList(Seconds2Hhmmss) { IsEmpty IsNonNumeric UpvarExistingOrDie }
-set ::GenNS::LoadingNS::DependencyList(SendEmail) { mime::finalize mime::initialize smtp::sendmessage }
+set ::GenNS::LoadingNS::DependencyList(SendEmail) { ::mime::finalize ::mime::initialize ::smtp::sendmessage }
 set ::GenNS::LoadingNS::DependencyList(SetDateFormat) { clock }
 set ::GenNS::LoadingNS::DependencyList(SetDatetimeFormat) { clock }
 set ::GenNS::LoadingNS::DependencyList(SetDbGlobal) { GetDbGlobal IsEmpty RunSqlEnter dict }

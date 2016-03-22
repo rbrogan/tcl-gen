@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.12.1
+package require -exact gen 1.13.0
 source gen-test-common.tcl
 
 namespace eval SendEmailTest {}
@@ -8,10 +8,20 @@ namespace eval SendEmailTest {}
 
 proc SendEmailTest::Test-1 {} {
 
-::tcltest::test SendEmail-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SendEmail]]}  -setup {}  -body {SendEmail test-receive@robertbrogan.com test {test 1-2-3}
-# Add call to a get command to help verify
-#puts $Message
-#{test {test 1-2-3}}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+::tcltest::test SendEmail-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded SendEmail]]}  -setup {source email-test-config.tcl
+set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -body {SendEmail $::GenTest::Email::ReceiveEmailAddress test {test 1-2-3}
+set EmailDict [GetEmailUsingPop3 $GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAddress $::GenTest::Email::ReceiveEmailPassword]
+puts [dict get $EmailDict 1 Subject]
+puts [dict get $EmailDict 1 Body]
+}  -cleanup {source email-test-config.tcl
+set Socket [::pop3::open $::GenTest::Email::EmailServerAddress $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+::pop3::delete $Socket 1 end
+::pop3::close $Socket}  -result {}  -output {test
+test 1-2-3
+
+}  -returnCodes {0}  
 
 }
 

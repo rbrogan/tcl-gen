@@ -22,15 +22,18 @@
           variable DryRun 0
      }
      namespace eval SendEmail {
-          variable Host {::GenNS::SendEmail::Host is not set!}
+          variable Servers {::GenNS::SendEmail::Host is not set!}
           variable Port {::GenNS::SendEmail::Port is not set!}
           variable FromAddress {::GenNS::SendEmail::FromAddress is not set!}
           variable Username {::GenNS::SendEmail::Username is not set!}
           variable Password {::GenNS::SendEmail::Password is not set!}
           variable UseTls false
-          variable Debug false
           variable Queue false
           variable AtLeastOne true
+     }
+     namespace eval GetEmailUsingImap4 {
+          variable Hostname robertbrogan.com
+          variable Port 143
      }     
 }
 

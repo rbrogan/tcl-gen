@@ -90,14 +90,18 @@ proc PrintDependenciesNotFoundForCommand {CommandName {Indentation "     "}} {
                               break
                          }
                     }
-                    set PackageVersionFound $::GenNS::LoadingNS::PackageVersionFound($PackageName)
-                    puts "[set Indentation]package [set PackageName]"
-                    if {$PackageVersionFound == -1} {
-                         puts "     [set Indentation]NOT LOADED"
+                    if {$Flag != 0} {
+                         set PackageVersionFound $::GenNS::LoadingNS::PackageVersionFound($PackageName)
+                         puts "[set Indentation]package [set PackageName]"
+                         if {$PackageVersionFound == -1} {
+                              puts "     [set Indentation]NOT LOADED"
+                         } else {
+                              puts "     [set Indentation]Have v[set PackageVersionFound]"
+                         }
+                         puts "     [set Indentation]Need v[set PackageVersionNeeded]"                    
                     } else {
-                         puts "     [set Indentation]Have v[set PackageVersionFound]"
+                         puts "For command $CommandName cannot find $Dependency anywhere."
                     }
-                    puts "     [set Indentation]Need v[set PackageVersionNeeded]"
                }
           }
      }

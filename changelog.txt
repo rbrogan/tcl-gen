@@ -8,6 +8,8 @@ v1.13.0
 Changes by functionality
 
 Added new commands
+     GetEmailUsingImap4
+     GetEmailUsingPop3
      SendEmail
 
 By files
@@ -17,9 +19,12 @@ By files
                Updated with latest info.
           known-issues.html
                Updated with latest info.
+               Made ids use four digits.
           latest-fixes.html
                Updated with latest info.
           news.html, news.txt
+               Updated with latest info.
+          README.html, README.txt
                Updated with latest info.
           roadmap.html
                Updated with latest info.
@@ -27,6 +32,16 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
+          about-email-use.html
+               Documentation for setting up configuration for email commands.
+          getemailusingimap4.html
+          getemailusingimap4-exceptions.html
+               Documentation for new command.
+          getemailusingpop3.html
+          getemailusingpop3-exceptions.html
+               Documentation for new command.
+          menu.html
+               Added "Other" category as menu item.
           sendemail.html
           sendemail-exceptions.html
                Documentation for new command.
@@ -34,6 +49,9 @@ By files
      /src
           gen.tcl
                Updated to include current version number.
+          getemailusingimap4.tcl
+          getemailusingpop3.tcl
+               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
           pkgIndex.tcl
@@ -44,6 +62,10 @@ By files
      /test
           *.test
                Update the rev number.
+          getemailusingimap4.test
+               Tests for new command.
+          getemailusingpop3.test
+               Tests for new command.
           email-test-config.tcl
                Configure email tests for use with the user's environment.
           sendemail.test

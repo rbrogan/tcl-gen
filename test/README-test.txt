@@ -253,6 +253,10 @@ ftpwhichisnewer.test
      Tests for the command FtpWhichIsNewer.
 getdbglobal.test
      Tests for the command GetDbGlobal.
+getemailusingimap4.test
+     Tests for the command GetEmailUsingImap4.
+getemailusingpop3.test
+     Tests for the command GetEmailUsingPop3.
 hhmmss2seconds.test
      Tests for the command Hhmmss2Seconds.
 incrdbglobal.test

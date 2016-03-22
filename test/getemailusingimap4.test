@@ -1,0 +1,82 @@
+package require tcltest
+package require -exact gen 1.13.0
+source gen-test-common.tcl
+
+namespace eval GetEmailUsingImap4Test {}
+
+
+
+proc GetEmailUsingImap4Test::Test-1 {} {
+
+::tcltest::test GetEmailUsingImap4-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded GetEmailUsingImap4]]}  -setup {source email-test-config.tcl
+set Channel [::imap4::open $::GenTest::Email::EmailServerAddress]
+::imap4::login $Channel $::GenTest::Email::ReceiveEmailAddress $::GenTest::Email::ReceiveEmailPassword
+::imap4::select $Channel INBOX
+::imap4::search $Channel ALL
+set MessageIds [::imap4::mboxinfo $Channel found]
+if {[llength $MessageIds] > 0} {
+     ::imap4::store $Channel : +FLAGS "Deleted"
+     ::imap4::expunge $Channel
+}
+::imap4::cleanup $Channel
+}  -body {SendEmail $::GenTest::Email::ReceiveEmailAddress test1 {test 1-2-3}
+SendEmail $::GenTest::Email::ReceiveEmailAddress test2 {test 4-5-6}
+SendEmail $::GenTest::Email::ReceiveEmailAddress test3 {test 7-8-9}
+set MyEmailDict [GetEmailUsingImap4 $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+string length "|[dict size $MyEmailDict]|[dict get $MyEmailDict 1 Subject]|[dict get $MyEmailDict 1 Body]|"
+
+}  -cleanup {set Channel [::imap4::open $::GenTest::Email::EmailServerAddress]
+::imap4::login $Channel $::GenTest::Email::ReceiveEmailAddress $::GenTest::Email::ReceiveEmailPassword
+::imap4::select $Channel INBOX
+::imap4::search $Channel ALL
+set MessageIds [::imap4::mboxinfo $Channel found]
+if {[llength $MessageIds] > 0} {
+     ::imap4::store $Channel : +FLAGS "Deleted"
+     ::imap4::expunge $Channel
+}
+::imap4::cleanup $Channel}  -result {23}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc GetEmailUsingImap4Test::Test-2 {} {
+
+::tcltest::test GetEmailUsingImap4-1 {No messages on server}  -constraints {[expr [CheckAllDependenciesLoaded GetEmailUsingImap4]]}  -setup {source email-test-config.tcl
+set Channel [::imap4::open $::GenTest::Email::EmailServerAddress]
+::imap4::login $Channel $::GenTest::Email::ReceiveEmailAddress $::GenTest::Email::ReceiveEmailPassword
+::imap4::select $Channel INBOX
+::imap4::search $Channel ALL
+set MessageIds [::imap4::mboxinfo $Channel found]
+if {[llength $MessageIds] > 0} {
+     ::imap4::store $Channel : +FLAGS "Deleted"
+     ::imap4::expunge $Channel
+}
+::imap4::cleanup $Channel
+}  -body {set MyEmailDict [GetEmailUsingImap4 $::GenTest::Email::ReceiveEmailAccount $::GenTest::Email::ReceiveEmailPassword]
+dict size $MyEmailDict
+}  -cleanup {set Channel [::imap4::open $::GenTest::Email::EmailServerAddress]
+::imap4::login $Channel $::GenTest::Email::ReceiveEmailAddress $::GenTest::Email::ReceiveEmailPassword
+::imap4::select $Channel INBOX
+::imap4::search $Channel ALL
+set MessageIds [::imap4::mboxinfo $Channel found]
+if {[llength $MessageIds] > 0} {
+     ::imap4::store $Channel : +FLAGS "Deleted"
+     ::imap4::expunge $Channel
+}
+::imap4::cleanup $Channel
+}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     GetEmailUsingImap4Test::Test-1
+     GetEmailUsingImap4Test::Test-2
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          GetEmailUsingImap4Test::Test-[set Element]
+     }
+}
+

@@ -216,6 +216,10 @@ ftpwhichisnewer.html
      Page for the command FtpWhichIsNewer.
 getdbglobal.html
      Page for the command GetDbGlobal.
+getemailusingimap4.html
+     Page for the command GetEmailUsingImap4.
+getemailusingpop3.html
+     Page for the command GetEmailUsingPop3.
 hhmmss2seconds.html
      Page for the command Hhmmss2Seconds.
 incrdbglobal.html

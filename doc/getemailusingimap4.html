@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GetEmailUsingImap4</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+GetEmailUsingImap4  &mdash;  Log onto server with IMAP4, get messages, close connection.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>GetEmailUsingImap4</b> <i>EmailAddress</i> <i>Password</i> <i>?DeleteMode?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Dict containing email messages.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>EmailAddress</i></td><td class='argument_right'>Email address to get messages for.</td></tr><tr class='table_row_a'><td class='argument_left'><i>Password</i></td><td class='argument_right'>Password to login to the account associated with the email address.</td></tr><tr class='table_row_b'><td class='argument_left'><i>DeleteMode</i></td><td class='argument_right'>Optional. Set this to "DeleteAll" to make it delete all the emails that it receives from the server. Defaults to "DeleteNone".</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>For complete information on how to configure Gen to use email, see <a href="about-email-use.html">About Email Use</a>.<p>This command will return to you a dict. At the top level, there will be a key per message number (starting from 1). Subsequent keys are: <b>From</b>, <b>To</b>, <b>Subject</b>, <b>Date</b>, and <b>Body</b>. See Examples for details.</p><p>If you want to know how many email messages you have in the dict, you can use <code>[dict size $MyEmailDict]</code>.</p><p>Currently, you must elect to always download all messages and leave them on the server or delete them all.</p><p>Currently, SSL/TLS use has not been tested.</p><p>Note that this command will not try to process or recover from any errors thrown from the <code>imap4</code> package. If you do get an error, double check that you are using the correct values for your arguments and the config variables. In particular, pay attention to which port number you use and your account name.  If you do get an error, double check that you are using the correct values for your arguments.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="getemailusingimap4-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% SendEmail receiver@email-server.com test1 {test 1-2-3}<br>% SendEmail receiver@email-server.com test2 {test 4-5-6}<br>% SendEmail receiver@email-server.com test3 {test 7-8-9}<br>% <b>set MyEmail [GetEmailUsingImap4 receiver@email-server.com Password]</b><br>% dict for {Key Message} $MyEmail { dict for {Key Value} $Message {puts "$Key: $Value"} }<br>From: sender@email-server.com<br>To: receiver@email-server.com<br>Subject: test1<br>Date: Sat Jan 01 00:00:00 EST 2000<br>Body: test 1-2-3<br><br>From: sender@email-server.com<br>To: receiver@email-server.com<br>Subject: test2<br>Date: Sat Jan 01 00:00:10 EST 2000<br>Body: test 4-5-6<br><br>From: sender@email-server.com<br>To: receiver@email-server.com<br>Subject: test3<br>Date: Sat Jan 01 00:00:20 EST 2000<br>Body: test 7-8-9</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'getemailusingpop3.html'>GetEmailUsingPop3</a>, <a href = 'sendemail.html'>SendEmail</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_email">email</a>, <a href="keyword-index.html#C_network">network</a>
+</div>
+</body>
+</html>

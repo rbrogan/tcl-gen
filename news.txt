@@ -8,6 +8,12 @@ NEWS
 For this revision we have a few simple email convenience commands for use in
 automated sending and checking of (plaintext) email.
 
+GetEmailUsingImap4
+     Log onto server with IMAP4, get messages, close connection.
+
+GetEmailUsingPop3
+     Log onto server with POP3, get messages, close connection.
+
 SendEmail
      Send an email to given address, with given subject and body.
 
