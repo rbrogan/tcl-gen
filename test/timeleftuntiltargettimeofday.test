@@ -1,0 +1,71 @@
+package require tcltest
+package require -exact gen 1.14.0
+source gen-test-common.tcl
+
+namespace eval TimeLeftUntilTargetTimeOfDayTest {}
+
+
+
+proc TimeLeftUntilTargetTimeOfDayTest::Test-1 {} {
+
+::tcltest::test TimeLeftUntilTargetTimeOfDay-0 {Target time is same as current time}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetTimeOfDay]]}  -setup {rename ::CurrentTimeOfDay ::SavedCurrentTimeOfDay
+proc ::CurrentTimeOfDay {} { return "12:00:00" }
+}  -body {TimeLeftUntilTargetTimeOfDay 12:00:00
+}  -cleanup {rename ::CurrentTimeOfDay {}
+rename ::SavedCurrentTimeOfDay ::CurrentTimeOfDay}  -result {0H 0M 0S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeLeftUntilTargetTimeOfDayTest::Test-2 {} {
+
+::tcltest::test TimeLeftUntilTargetTimeOfDay-1 {Target time is after current time}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetTimeOfDay]]}  -setup {rename ::CurrentTimeOfDay ::SavedCurrentTimeOfDay
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {TimeLeftUntilTargetTimeOfDay 13:01:01}  -cleanup {rename ::CurrentTimeOfDay {}
+rename ::SavedCurrentTimeOfDay ::CurrentTimeOfDay
+}  -result {1H 1M 1S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeLeftUntilTargetTimeOfDayTest::Test-3 {} {
+
+::tcltest::test TimeLeftUntilTargetTimeOfDay-2 {Target time is before current time}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetTimeOfDay]]}  -setup {rename ::CurrentTimeOfDay ::SavedCurrentTimeOfDay
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {TimeLeftUntilTargetTimeOfDay 10:58:59
+}  -cleanup {rename ::CurrentTimeOfDay {}
+rename ::SavedCurrentTimeOfDay ::CurrentTimeOfDay
+}  -result {-1H 1M 1S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeLeftUntilTargetTimeOfDayTest::Test-4 {} {
+
+::tcltest::test TimeLeftUntilTargetTimeOfDay-3 {Target time is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetTimeOfDay]]}  -setup {}  -body {TimeLeftUntilTargetTimeOfDay asdf}  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeLeftUntilTargetTimeOfDayTest::Test-5 {} {
+
+::tcltest::test TimeLeftUntilTargetTimeOfDay-4 {Target time is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetTimeOfDay]]}  -setup {}  -body {TimeLeftUntilTargetTimeOfDay {}}  -cleanup {}  -result {Variable TargetTimeOfDay has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeLeftUntilTargetTimeOfDayTest::Test-1
+     TimeLeftUntilTargetTimeOfDayTest::Test-2
+     TimeLeftUntilTargetTimeOfDayTest::Test-3
+     TimeLeftUntilTargetTimeOfDayTest::Test-4
+     TimeLeftUntilTargetTimeOfDayTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeLeftUntilTargetTimeOfDayTest::Test-[set Element]
+     }
+}
+

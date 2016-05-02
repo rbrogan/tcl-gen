@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.13.0</div><div class="section-header-right">2016.03.21</div>
+<div class="section-header-left">1.14.0</div><div class="section-header-right">2016.05.02</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,9 +39,10 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>GetEmailUsingImap4</li>
-<li>GetEmailUsingPop3</li>
-<li>SendEmail</li>
+<li>CurrentDayOfTheWeek</li>
+<li>TimeBetweenTimesOfDay</li>
+<li>TimeLeftUntilTargetTimeOfDay</li>
+<li>TimeOfDayIsAbout</li>
 </ul>
 </li>
 </ul>
@@ -62,9 +63,6 @@ By files<br>
      <li>Updated with latest info.</li>
      </ul>
      </li>
-     <li>known-issues.html
-     <ul><li>Updated with latest info.</li></ul>
-     </li>
      <li>latest-fixes.html
      <ul><li>Updated with latest info.</li></ul>
      </li>
@@ -82,32 +80,27 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>
-          <ul><li>about-email-use.html</li></ul>
-          </li>
-          <li>getemailusingimap4.html<br>getemailusingimap4-exceptions.html
+          <li>currentdayoftheweek.html<br>currentdayoftheweek-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>getemailusingpop3.html<br>getemailusingpop3-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>
+          <li>currenttimeofdayisabout.html
+          <ul><li>Added to See Also section.</li></ul>
           </li>
           <li>menu.html
           <ul><li>Added "Other" category as menu item.</li></ul>
           </li>
-          <li>sendemail.html<br>sendemail-exceptions.html
+          <li>timebetweentimesofday.html<br>timebetweentimesofday-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
+          <li>timeleftuntiltargettimeofday.html<br>timeleftuntiltargettimeofday-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          <li>timeofdayisabout.html<br>timeofdayisabout-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>          
           </li>
      </ul>
 </li>
 <li>/src
 <ul>
-<li>*-index.html
-<ul><li>Updated to include current version number.</li></ul>
-</li>
-<li>getemailusingimap4.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>getemailusingpop3.tcl
+<li>currentdayoftheweek.tcl
 <ul><li>New command.</li></ul>
 </li>
 <li>gen.tcl
@@ -122,7 +115,13 @@ By files<br>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
-<li>sendemail.tcl
+<li>timebetweentimesofday.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>timeleftuntiltargettimeofday.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>timeofdayisabout.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -134,22 +133,32 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>getemailusingimap4.test
+<li>currentdayoftheweek.test
 <ul>
 <li>Tests for new command.</li>
 </ul>
 </li>
-<li>getemailusingpop3.test
+<li>gentestcommand2.test
+<ul>
+<li>Updated to include additional packages in expected output.</li>
+</ul>
+</li>
+<li>gentestcommand3.test
+<ul>
+<li>Updated to include additional packages in expected output.</li>
+</ul>
+</li>
+<li>timebetweentimesofday.test
 <ul>
 <li>Tests for new command.</li>
 </ul>
 </li>
-<li>email-test-config.tcl
+<li>timeleftuntiltargettimeofday.test
 <ul>
-     <li>Configure email tests for use with the user's environment.</li>
+     <li>Tests for new command.</li>
 </ul>
 </li>
-<li>sendemail.test
+<li>timeofdayisabout.test
 <ul>
      <li>Tests for new command.</li>
 </ul>

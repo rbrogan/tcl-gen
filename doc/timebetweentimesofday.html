@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeBetweenTimesOfDay</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeBetweenTimesOfDay  &mdash;  Return how much time there is between the two given times.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeBetweenTimesOfDay</b> <i>FirstTimeOfDay</i> <i>SecondTimeOfDay</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string of the form xH yM zS (for hours, minutes, seconds).</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstTimeOfDay</i></td><td class='argument_right'>The first time-of-day to measure between.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondTimeOfDay</i></td><td class='argument_right'>The second time-of-day to measure between.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that the amount of time returned is an absolute value. It makes no difference whether the first time-of-day or the second comes earlier.<p>For information about how to configure the format, see <a href='about-date-and-time-commands.html'>About Date and Time Commands</a>.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timebetweentimesofday-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>TimeBetweenTimesOfDay 12:00:00 13:00:00</b><br>1H 0M 0S<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'timeleftuntiltargettimeofday.html'>TimeLeftUntilTargetTimeOfDay</a>, <a href = 'timeofdayisabout.html'>TimeOfDayIsAbout</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_clock">clock</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

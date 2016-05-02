@@ -2,24 +2,23 @@ Gen
 
 CHANGELOG
 
-2016.03.21
-v1.13.0
+2016.05.02
+v1.14.0
 
 Changes by functionality
 
 Added new commands
-     GetEmailUsingImap4
-     GetEmailUsingPop3
-     SendEmail
+     CurrentDayOfTheWeek
+     TimeBetweenTimesOfDay
+     TimeLeftUntilTargetTimeOfDay
+     TimeOfDayIsAbout
+
 
 By files
 
      /
           changelog.html, changelog.txt
                Updated with latest info.
-          known-issues.html
-               Updated with latest info.
-               Made ids use four digits.
           latest-fixes.html
                Updated with latest info.
           news.html, news.txt
@@ -32,41 +31,48 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
-          about-email-use.html
-               Documentation for setting up configuration for email commands.
-          getemailusingimap4.html
-          getemailusingimap4-exceptions.html
+          currentdayoftheweek.html
+          currentdayoftheweek-exceptions.html
                Documentation for new command.
-          getemailusingpop3.html
-          getemailusingpop3-exceptions.html
+          currenttimeofdayisabout.html
+               Added to See Also section.
+          timebetweentimesofday.html
+          timebetweentimesofday-exceptions.html
                Documentation for new command.
-          menu.html
-               Added "Other" category as menu item.
-          sendemail.html
-          sendemail-exceptions.html
+          timeleftuntiltargettimeofday.html
+          timeleftuntiltargettimeofday-exceptions.html
                Documentation for new command.
-     
+          timeofdayisabout.html
+          timeofdayisabout-exceptions.html
+               Documentation for new command.
+               
      /src
+          currentdayoftheweek.tcl
+               New command.
           gen.tcl
                Updated to include current version number.
-          getemailusingimap4.tcl
-          getemailusingpop3.tcl
-               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
           pkgIndex.tcl
                Updated to include current version number.
-          sendemail.tcl
+          timebetweentimesofday.tcl
                New command.
+          timeleftuntiltargettimeofday.tcl
+               New command.
+          timeofdayisabout.tcl
+               New command.               
                
      /test
           *.test
                Update the rev number.
-          getemailusingimap4.test
+          currentdayoftheweek.test
                Tests for new command.
-          getemailusingpop3.test
+          gentestcommand2.test
+               Updated include additional packages in expected output.
+          gentestcommand3.test
+               Updated include additional packages in expected output.
+          timebetweentimesofday.test
                Tests for new command.
-          email-test-config.tcl
-               Configure email tests for use with the user's environment.
-          sendemail.test
+          timeleftuntiltargettimeofday.test
+          timeofdayisabout.test
                Tests for new command.

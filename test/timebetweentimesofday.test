@@ -1,0 +1,121 @@
+package require tcltest
+package require -exact gen 1.14.0
+source gen-test-common.tcl
+
+namespace eval TimeBetweenTimesOfDayTest {}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-1 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-0 {Times of day are the same}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 12:00:00
+}  -cleanup {}  -result {0H 0M 0S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-2 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-1 {Over an hour difference}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 13:01:01
+}  -cleanup {}  -result {1H 1M 1S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-3 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-2 {Exactly an hour difference}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 13:00:00}  -cleanup {}  -result {1H 0M 0S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-4 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-3 {Under an hour, more than a minute difference2}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 12:59:59}  -cleanup {}  -result {0H 59M 59S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-5 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-4 {Exactly a minute difference}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 12:01:00
+}  -cleanup {}  -result {0H 1M 0S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-6 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-5 {Under a minute, more than a second difference}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 12:00:59}  -cleanup {}  -result {0H 0M 59S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-7 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-6 {Exactly a second difference}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 12:00:01
+}  -cleanup {}  -result {0H 0M 1S}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-8 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-7 {First time-of-day is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay asdf 12:00:00
+}  -cleanup {}  -result {Variable FirstTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-9 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-8 {Second time-of-day is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 asdf
+}  -cleanup {}  -result {Variable SecondTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-10 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-9 {First time-of-day is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay "" 12:00:00
+}  -cleanup {}  -result {Variable FirstTimeOfDay has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenTimesOfDayTest::Test-11 {} {
+
+::tcltest::test TimeBetweenTimesOfDay-10 {Second time-of-day is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenTimesOfDay]]}  -setup {}  -body {TimeBetweenTimesOfDay 12:00:00 ""}  -cleanup {}  -result {Variable SecondTimeOfDay has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeBetweenTimesOfDayTest::Test-1
+     TimeBetweenTimesOfDayTest::Test-2
+     TimeBetweenTimesOfDayTest::Test-3
+     TimeBetweenTimesOfDayTest::Test-4
+     TimeBetweenTimesOfDayTest::Test-5
+     TimeBetweenTimesOfDayTest::Test-6
+     TimeBetweenTimesOfDayTest::Test-7
+     TimeBetweenTimesOfDayTest::Test-8
+     TimeBetweenTimesOfDayTest::Test-9
+     TimeBetweenTimesOfDayTest::Test-10
+     TimeBetweenTimesOfDayTest::Test-11
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeBetweenTimesOfDayTest::Test-[set Element]
+     }
+}
+

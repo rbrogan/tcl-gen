@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeLeftUntilTargetTimeOfDay</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeLeftUntilTargetTimeOfDay  &mdash;  Get how much time remains between now and the target time.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeLeftUntilTargetTimeOfDay</b> <i>TargetTimeOfDay</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The time left until the target time of day, in the form xH yM zS (for hours, minutes, and seconds, respectively). If the target time is already past, then the return value is prefixed with a minus sign.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetTimeOfDay</i></td><td class='argument_right'>Time of day to measure the distance to.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Time is returned in the format "xH yM zS", where x is the number of hours, y is the number of minutes, and z is the number of seconds.<p>For information about how to configure the format, see <a href='about-date-and-time-commands.html'>About Date and Time Commands</a>.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timeleftuntiltargettimeofday-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose that it is now 11:00:00<br>% <b>TimeLeftUntilTargetTimeOfDay 12:00:00</b><br>1H 0M 0S</pre></div><div class="code_sample"><pre>% # Suppose that it is now 12:00:00<br>% TimeLeftUntilTargetTimeOfDay 11:00:00<br>-1H 0M 0S</pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'timebetweentimesofday.html'>TimeBetweenTimesOfDay</a>, <a href = 'timeofdayisabout.html'>TimeOfDayIsAbout</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_clock">clock</a>, <a href="keyword-index.html#C_time">time</a>
+</div>
+</body>
+</html>

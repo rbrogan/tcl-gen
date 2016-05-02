@@ -3,19 +3,22 @@ Gen
 NEWS
 
 2016.03.21
-1.13.0 revision
+1.14.0 revision
 
-For this revision we have a few simple email convenience commands for use in
-automated sending and checking of (plaintext) email.
+In this revision we continue to round out our assortment of date and time
+commands.
 
-GetEmailUsingImap4
-     Log onto server with IMAP4, get messages, close connection.
+CurrentDayOfTheWeek
+     Get the current day of the week (e.g. Sunday, Monday, etc.)
 
-GetEmailUsingPop3
-     Log onto server with POP3, get messages, close connection.
+TimeBetweenTimesOfDay
+     Return how much time there is between the two given times.
 
-SendEmail
-     Send an email to given address, with given subject and body.
+TimeLeftUntilTargetTimeOfDay
+     Get how much time remains between now and the target time.
+
+TimeOfDayIsAbout
+     Check if target time of day is within an interval.
 
 
 

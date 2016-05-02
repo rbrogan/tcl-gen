@@ -1,0 +1,361 @@
+package require tcltest
+package require -exact gen 1.14.0
+source gen-test-common.tcl
+
+namespace eval TimeOfDayIsAboutTest {}
+
+
+
+proc TimeOfDayIsAboutTest::Test-1 {} {
+
+::tcltest::test TimeOfDayIsAbout-0 {Falls within interval}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 12:00:00 "0H 0M 1S"]
+puts [TimeOfDayIsAbout 12:00:00 12:00:00 "0H 1M 0S"]
+puts [TimeOfDayIsAbout 12:00:00 12:00:00 "1H 0M 0S"]
+}  -cleanup {}  -result {}  -output {1
+1
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-2 {} {
+
+::tcltest::test TimeOfDayIsAbout-1 {Falls at left end of interval}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 11:59:59 12:00:00 "0H 0M 1S"]
+puts [TimeOfDayIsAbout 11:59:00 12:00:00 "0H 1M 0S"]
+puts [TimeOfDayIsAbout 11:00:00 12:00:00 "1H 0M 0S"]
+}  -cleanup {}  -result {}  -output {1
+1
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-3 {} {
+
+::tcltest::test TimeOfDayIsAbout-2 {Falls to the left of interval}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 11:59:58 12:00:00 "0H 0M 1S"]
+puts [TimeOfDayIsAbout 11:58:59 12:00:00 "0H 1M 0S"]
+puts [TimeOfDayIsAbout 10:59:59 12:00:00 "1H 0M 0S"]}  -cleanup {}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-4 {} {
+
+::tcltest::test TimeOfDayIsAbout-3 {Falls at right end of interval}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:01 12:00:00 "0H 0M 1S"]
+puts [TimeOfDayIsAbout 12:01:00 12:00:00 "0H 1M 0S"]
+puts [TimeOfDayIsAbout 13:00:00 12:00:00 "1H 0M 0S"]}  -cleanup {}  -result {}  -output {1
+1
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-5 {} {
+
+::tcltest::test TimeOfDayIsAbout-4 {Falls to the right of interval}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:02 12:00:00 "0H 0M 1S"]
+puts [TimeOfDayIsAbout 12:01:01 12:00:00 "0H 1M 0S"]
+puts [TimeOfDayIsAbout 13:00:01 12:00:00 "1H 0M 0S"]}  -cleanup {}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-6 {} {
+
+::tcltest::test TimeOfDayIsAbout-5 {TargetTimeOfDay is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout asdf 12:00:00 "0H 1M 0S"
+}  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-7 {} {
+
+::tcltest::test TimeOfDayIsAbout-6 {IntervalMidpoint is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout 12:00:00 asdf "0H 1M 0S"}  -cleanup {}  -result {Variable IntervalMidpoint has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-8 {} {
+
+::tcltest::test TimeOfDayIsAbout-7 {IntervalWidth is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout 12:00:00 12:00:00 asdf}  -cleanup {}  -result {Variable IntervalWidth has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-9 {} {
+
+::tcltest::test TimeOfDayIsAbout-8 {Use BothInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 10:59:59 {1H 0M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:00 {1H 0M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:01 {1H 0M 0S} BothInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:59:59 {1H 0M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:00 {1H 0M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:01 {1H 0M 0S} BothInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:58:59 {0H 1M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:00 {0H 1M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:01 {0H 1M 0S} BothInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:00:59 {0H 1M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:00 {0H 1M 0S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:01 {0H 1M 0S} BothInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:59:59 {0H 0M 1S} BothInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:00:01 {0H 0M 1S} BothInclusive]
+}  -cleanup {}  -result {}  -output {0
+1
+1
+1
+1
+0
+0
+1
+1
+1
+1
+0
+1
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-10 {} {
+
+::tcltest::test TimeOfDayIsAbout-9 {Use LeftInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 10:59:59 {1H 0M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:00 {1H 0M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:01 {1H 0M 0S} LeftInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:59:59 {1H 0M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:00 {1H 0M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:01 {1H 0M 0S} LeftInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:58:59 {0H 1M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:00 {0H 1M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:01 {0H 1M 0S} LeftInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:00:59 {0H 1M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:00 {0H 1M 0S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:01 {0H 1M 0S} LeftInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:59:59 {0H 0M 1S} LeftInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:00:01 {0H 0M 1S} LeftInclusive]
+}  -cleanup {}  -result {}  -output {0
+0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-11 {} {
+
+::tcltest::test TimeOfDayIsAbout-10 {Use LeftExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 10:59:59 {1H 0M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:00 {1H 0M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:01 {1H 0M 0S} LeftExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:59:59 {1H 0M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:00 {1H 0M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:01 {1H 0M 0S} LeftExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:58:59 {0H 1M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:00 {0H 1M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:01 {0H 1M 0S} LeftExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:00:59 {0H 1M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:00 {0H 1M 0S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:01 {0H 1M 0S} LeftExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:59:59 {0H 0M 1S} LeftExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:00:01 {0H 0M 1S} LeftExclusive]
+}  -cleanup {}  -result {}  -output {0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-12 {} {
+
+::tcltest::test TimeOfDayIsAbout-11 {Use RightExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 10:59:59 {1H 0M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:00 {1H 0M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:01 {1H 0M 0S} RightExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:59:59 {1H 0M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:00 {1H 0M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:01 {1H 0M 0S} RightExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:58:59 {0H 1M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:00 {0H 1M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:01 {0H 1M 0S} RightExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:00:59 {0H 1M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:00 {0H 1M 0S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:01 {0H 1M 0S} RightExclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:59:59 {0H 0M 1S} RightExclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:00:01 {0H 0M 1S} RightExclusive]
+}  -cleanup {}  -result {}  -output {0
+0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-13 {} {
+
+::tcltest::test TimeOfDayIsAbout-12 {Use RightInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 10:59:59 {1H 0M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:00 {1H 0M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:00:01 {1H 0M 0S} RightInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:59:59 {1H 0M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:00 {1H 0M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 13:00:01 {1H 0M 0S} RightInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:58:59 {0H 1M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:00 {0H 1M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 11:59:01 {0H 1M 0S} RightInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 12:00:59 {0H 1M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:00 {0H 1M 0S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:01:01 {0H 1M 0S} RightInclusive]
+
+puts [TimeOfDayIsAbout 12:00:00 11:59:59 {0H 0M 1S} RightInclusive]
+puts [TimeOfDayIsAbout 12:00:00 12:00:01 {0H 0M 1S} RightInclusive]
+}  -cleanup {}  -result {}  -output {0
+1
+1
+1
+0
+0
+0
+1
+1
+1
+0
+0
+1
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-14 {} {
+
+::tcltest::test TimeOfDayIsAbout-13 {Interval is a second long}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {puts [TimeOfDayIsAbout 12:00:00 12:00:00 "0H 0M 0S"]
+puts [TimeOfDayIsAbout 11:59:59 12:00:00 "0H 0M 0S"]
+puts [TimeOfDayIsAbout 12:00:01 12:00:00 "0H 0M 0S"]}  -cleanup {}  -result {}  -output {1
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-15 {} {
+
+::tcltest::test TimeOfDayIsAbout-14 {TargetTimeOfDay is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout "" 12:00:00 "0H 0M 1S"}  -cleanup {}  -result {Variable TargetTimeOfDay has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-16 {} {
+
+::tcltest::test TimeOfDayIsAbout-15 {IntervalMidpoint is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout 12:00:00 "" "0H 1M 0S"}  -cleanup {}  -result {Variable IntervalMidpoint has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeOfDayIsAboutTest::Test-17 {} {
+
+::tcltest::test TimeOfDayIsAbout-16 {IntervalWidth is empty}  -constraints {[expr [CheckAllDependenciesLoaded TimeOfDayIsAbout]]}  -setup {}  -body {TimeOfDayIsAbout 12:00:00 12:00:00 ""}  -cleanup {}  -result {Variable IntervalWidth has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeOfDayIsAboutTest::Test-1
+     TimeOfDayIsAboutTest::Test-2
+     TimeOfDayIsAboutTest::Test-3
+     TimeOfDayIsAboutTest::Test-4
+     TimeOfDayIsAboutTest::Test-5
+     TimeOfDayIsAboutTest::Test-6
+     TimeOfDayIsAboutTest::Test-7
+     TimeOfDayIsAboutTest::Test-8
+     TimeOfDayIsAboutTest::Test-9
+     TimeOfDayIsAboutTest::Test-10
+     TimeOfDayIsAboutTest::Test-11
+     TimeOfDayIsAboutTest::Test-12
+     TimeOfDayIsAboutTest::Test-13
+     TimeOfDayIsAboutTest::Test-14
+     TimeOfDayIsAboutTest::Test-15
+     TimeOfDayIsAboutTest::Test-16
+     TimeOfDayIsAboutTest::Test-17
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeOfDayIsAboutTest::Test-[set Element]
+     }
+}
+

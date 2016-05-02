@@ -141,6 +141,8 @@ commaseparatedstringtolist.test
      Tests for the command CommaSeparatedStringToList.
 copyeverythingindirectory.test
      Tests for the command CopyEverythingInDirectory.
+currentdayoftheweek.test
+     Tests for the command CurrentDayOfTheWeek.
 currenttimeofday.test
      Tests for the command CurrentTimeOfDay.
 currenttimeofdayisabout.test
@@ -437,6 +439,12 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+timebetweentimesofday.test
+     Tests for the command TimeBetweenTimesOfDay.
+timeleftuntiltargettimeofday.test
+     Tests for the command TimeLeftUntilTargetTimeOfDay.
+timeofdayisabout.test
+     Tests for the command TimeOfDayIsAbout.
 timeofdayisafter.test
      Tests for the command TimeOfDayIsAfter.
 timeofdayisat.test

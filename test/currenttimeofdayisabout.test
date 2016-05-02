@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.13.0
+package require -exact gen 1.14.0
 source gen-test-common.tcl
 
 namespace eval CurrentTimeOfDayIsAboutTest {}
@@ -58,6 +58,74 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S}]
 
 proc CurrentTimeOfDayIsAboutTest::Test-2 {} {
 
+::tcltest::test CurrentTimeOfDayIsAbout-1 {Current time-of-day falls at left end of interval}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {rename ::CurrentTimeOfDay ::CurrentTimeOfDay_bak
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {puts [CurrentTimeOfDayIsAbout 11:00:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:59 {0H 0M 1S}]
+}  -cleanup {rename ::CurrentTimeOfDay ""
+rename ::CurrentTimeOfDay_bak ::CurrentTimeOfDay
+}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-2 {Current time-of-day falls to the left of interval}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {rename ::CurrentTimeOfDay ::CurrentTimeOfDay_bak
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {puts [CurrentTimeOfDayIsAbout 10:59:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:58:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 11:59:58 {0H 0M 1S}]
+}  -cleanup {rename ::CurrentTimeOfDay ""
+rename ::CurrentTimeOfDay_bak ::CurrentTimeOfDay
+}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-4 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-3 {Current time-of-day falls at right end of interval}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {rename ::CurrentTimeOfDay ::CurrentTimeOfDay_bak
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {puts [CurrentTimeOfDayIsAbout 13:00:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:01:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S}]
+}  -cleanup {rename ::CurrentTimeOfDay ""
+rename ::CurrentTimeOfDay_bak ::CurrentTimeOfDay
+}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-5 {} {
+
+::tcltest::test CurrentTimeOfDayIsAbout-4 {Current time-of-day falls to the right of interval}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {rename ::CurrentTimeOfDay ::CurrentTimeOfDay_bak
+proc ::CurrentTimeOfDay {} { return "12:00:00" }}  -body {puts [CurrentTimeOfDayIsAbout 13:01:00 {1H 0M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:02:00 {0H 1M 0S}]
+puts [CurrentTimeOfDayIsAbout 12:00:02 {0H 0M 1S}]
+}  -cleanup {rename ::CurrentTimeOfDay ""
+rename ::CurrentTimeOfDay_bak ::CurrentTimeOfDay
+}  -result {}  -output {0
+0
+0
+}  -returnCodes {0}  
+
+}
+
+
+
+proc CurrentTimeOfDayIsAboutTest::Test-6 {} {
+
 ::tcltest::test CurrentTimeOfDayIsAbout-5 {TargetTime is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {}  -body {CurrentTimeOfDayIsAbout asdf {1H 1M 1S}
 }  -cleanup {}  -result {Variable TargetTimeOfDay has invalid value asdf.}  -output {}  -returnCodes {1}  
 
@@ -65,7 +133,7 @@ proc CurrentTimeOfDayIsAboutTest::Test-2 {} {
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-7 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-6 {WithinInterval is invalid}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {}  -body {CurrentTimeOfDayIsAbout 12:00:00 asdf
 }  -cleanup {}  -result {Variable WithinInterval has invalid value asdf.}  -output {}  -returnCodes {1}  
@@ -74,7 +142,7 @@ proc CurrentTimeOfDayIsAboutTest::Test-3 {} {
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-4 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-8 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-7 {Use BothInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} BothInclusive]
@@ -116,7 +184,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} BothInclusive]
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-5 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-9 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-8 {Use LeftInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftInclusive]
@@ -158,7 +226,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftInclusive]
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-6 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-10 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-9 {Use LeftExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} LeftExclusive]
@@ -200,7 +268,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} LeftExclusive]
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-7 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-11 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-10 {Use RightExclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightExclusive]
@@ -242,7 +310,7 @@ puts [CurrentTimeOfDayIsAbout 12:00:01 {0H 0M 1S} RightExclusive]
 
 
 
-proc CurrentTimeOfDayIsAboutTest::Test-8 {} {
+proc CurrentTimeOfDayIsAboutTest::Test-12 {} {
 
 ::tcltest::test CurrentTimeOfDayIsAbout-11 {Use RightInclusive option}  -constraints {[expr [CheckAllDependenciesLoaded CurrentTimeOfDayIsAbout]]}  -setup {::CurrentTimeOfDayIsAboutTest::SetupClock 12:00:00
 }  -body {puts [CurrentTimeOfDayIsAbout 10:59:59 {1H 0M 0S} RightInclusive]
@@ -293,6 +361,10 @@ if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      CurrentTimeOfDayIsAboutTest::Test-6
      CurrentTimeOfDayIsAboutTest::Test-7
      CurrentTimeOfDayIsAboutTest::Test-8
+     CurrentTimeOfDayIsAboutTest::Test-9
+     CurrentTimeOfDayIsAboutTest::Test-10
+     CurrentTimeOfDayIsAboutTest::Test-11
+     CurrentTimeOfDayIsAboutTest::Test-12
 } else {
      foreach Element [lrange $::argv 1 end] {
           CurrentTimeOfDayIsAboutTest::Test-[set Element]

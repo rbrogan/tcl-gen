@@ -114,7 +114,7 @@ set ::GenNS::LoadingNS::DependentsList(FtpWhichIsNewer) {FtpDownloadDirectory Ft
 
 set ::GenNS::LoadingNS::DependentsList(GetDbGlobal) {SetDbGlobal}
 
-set ::GenNS::LoadingNS::DependentsList(Hhmmss2Seconds) {DiffHhmmss MultiplyHhmmss SumHhmmss}
+set ::GenNS::LoadingNS::DependentsList(Hhmmss2Seconds) {DiffHhmmss MultiplyHhmmss SumHhmmss TimeBetweenTimesOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(IsDate) {DateIsAfter DateIsBefore DateIsBetween DateIsOn DateMinusDays DatePlusDays DateMinus DatePlus}
 
@@ -122,7 +122,7 @@ set ::GenNS::LoadingNS::DependentsList(IsDatetime) {DatetimeIsAfter DatetimeIsAt
 
 set ::GenNS::LoadingNS::DependentsList(IsDict) {Dict2RegistryTree PrintDict}
 
-set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe IsNumeric IsDatetimeQuantity}
+set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe IsNumeric IsDatetimeQuantity TimeLeftUntilTargetTimeOfDay TimeOfDayIsAbout TimeBetweenTimesOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(IsHhmmss) {DiffHhmmss Hhmmss2Seconds MultiplyHhmmss SumHhmmss}
 
@@ -136,7 +136,7 @@ set ::GenNS::LoadingNS::DependentsList(IsNonPositive) {LimitLineLengthInFile Lis
 
 set ::GenNS::LoadingNS::DependentsList(IsPositive) {Raise StringInsert}
 
-set ::GenNS::LoadingNS::DependentsList(IsTimeOfDay) {TimeOfDayIsAfter TimeOfDayIsAt TimeOfDayIsBefore TimeOfDayIsBetween CurrentTimeOfDayIsAbout CurrentTimeOfDayIsAfter CurrentTimeOfDayIsBefore CurrentTimeOfDayIsBetween CurrentTimeOfDayIsAtOrAfter CurrentTimeOfDayIsAtOrBefore}
+set ::GenNS::LoadingNS::DependentsList(IsTimeOfDay) {TimeOfDayIsAfter TimeOfDayIsAt TimeOfDayIsBefore TimeOfDayIsBetween CurrentTimeOfDayIsAbout CurrentTimeOfDayIsAfter CurrentTimeOfDayIsBefore CurrentTimeOfDayIsBetween CurrentTimeOfDayIsAtOrAfter CurrentTimeOfDayIsAtOrBefore TimeLeftUntilTargetTimeOfDay TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(LastId) {RunSqlEnter RunSqlInsertIfDoesNotExist}
 
@@ -145,6 +145,10 @@ set ::GenNS::LoadingNS::DependentsList(List2File) {LimitLineLengthInFile}
 set ::GenNS::LoadingNS::DependentsList(MultiplyBy) {DatetimePlus DatePlus}
 
 set ::GenNS::LoadingNS::DependentsList(NotEmpty) {File2String UpvarX Decr File2List FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadDirectory FtpUploadSite PrintMatrix RestoreWorkingDirectory RunSqlEnter SplitAndTrim}
+
+set ::GenNS::LoadingNS::DependentsList(Now) {TimeLeftUntilTargetTimeOfDay}
+
+set ::GenNS::LoadingNS::DependentsList(Prepend) {TimeLeftUntilTargetTimeOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(PrintDict) {RegistryPrint}
 
@@ -202,9 +206,11 @@ set ::GenNS::LoadingNS::DependentsList(TestLoadingModuleNS::SampleCommand2) {Gen
 
 set ::GenNS::LoadingNS::DependentsList(TestLoadingModuleNS::SampleCommand3) {GenTestCommand3}
 
+set ::GenNS::LoadingNS::DependentsList(TimeBetweenTimesOfDay) {TimeLeftUntilTargetTimeOfDay}
+
 set ::GenNS::LoadingNS::DependentsList(TimeOfDay2Seconds) {TimeOfDayIsBetween TimeOfDayIsAfter TimeOfDayIsBefore TimeOfDayIsAtOrBefore TimeOfDayIsAtOrAfter}
 
-set ::GenNS::LoadingNS::DependentsList(TimeOfDayIsAfter) {TimeOfDayIsAtOrBefore CurrentTimeOfDayIsAfter}
+set ::GenNS::LoadingNS::DependentsList(TimeOfDayIsAfter) {TimeOfDayIsAtOrBefore CurrentTimeOfDayIsAfter TimeLeftUntilTargetTimeOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(TimeOfDayIsAtOrAfter) {CurrentTimeOfDayIsAtOrAfter}
 
@@ -226,9 +232,17 @@ set ::GenNS::LoadingNS::DependentsList(UpvarX) {AddTo Decr LappendIfNotAlready L
 
 set ::GenNS::LoadingNS::DependentsList(VarExistsInCaller) {UpvarX UpvarExistingOrDie}
 
-set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence}
+set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence TimeOfDayIsAbout CurrentDayOfTheWeek}
 
 set ::GenNS::LoadingNS::DependentsList(dict) {PrintDict ArrangeDict Dict2RegistryTree IsDict RegistryTree2Dict RunSqlEnter SetDbGlobal SqliteColumnType SqlInsertStatement SqlSetClause SqlWhereClause GetEmailUsingPop3}
+
+set ::GenNS::LoadingNS::DependentsList(error) {TimeOfDayIsAbout}
+
+set ::GenNS::LoadingNS::DependentsList(eval) {TimeOfDayIsAbout}
+
+set ::GenNS::LoadingNS::DependentsList(expr) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
+
+set ::GenNS::LoadingNS::DependentsList(format) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpDownloadFiles FtpUploadFiles}
 
@@ -260,7 +274,7 @@ set ::GenNS::LoadingNS::DependentsList(lvarpop) {ChangeCasing SqliteColumnNameAn
 
 set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVariableToRegistryValue RegistryExists RegistryPrint RegistryTree2Dict UnlinkTclVariableFromRegistryValue}
 
-set ::GenNS::LoadingNS::DependentsList(scan) {IsDatetimeQuantity}
+set ::GenNS::LoadingNS::DependentsList(scan) {IsDatetimeQuantity TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
@@ -280,6 +294,7 @@ set ::GenNS::LoadingNS::DependencyList(ChopRight) { UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(Coe) { IsEmpty }
 set ::GenNS::LoadingNS::DependencyList(CommaSeparatedStringToList) { UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(CopyEverythingInDirectory) { IsEmpty }
+set ::GenNS::LoadingNS::DependencyList(CurrentDayOfTheWeek) { clock }
 set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDay) { clock }
 set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAbout) { CurrentTimeOfDayIsBetween IsTimeOfDay clock }
 set ::GenNS::LoadingNS::DependencyList(CurrentTimeOfDayIsAfter) { CurrentTimeOfDay IsTimeOfDay TimeOfDayIsAfter }
@@ -417,7 +432,10 @@ set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZ
 set ::GenNS::LoadingNS::DependencyList(SumHhmmss) { AddTo Hhmmss2Seconds IsHhmmss Seconds2Hhmmss }
 set ::GenNS::LoadingNS::DependencyList(SurroundEach) { UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(Swap) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(TimeBetweenTimesOfDay) { Hhmmss2Seconds IsEmpty expr format }
+set ::GenNS::LoadingNS::DependencyList(TimeLeftUntilTargetTimeOfDay) { IsEmpty IsTimeOfDay Now Prepend TimeBetweenTimesOfDay TimeOfDayIsAfter }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDay2Seconds) { clock }
+set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAbout) { IsEmpty IsTimeOfDay clock error eval expr format scan }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAfter) { IsTimeOfDay TimeOfDay2Seconds }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAt) { IsTimeOfDay }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAtOrAfter) { TimeOfDay2Seconds TimeOfDayIsBefore }

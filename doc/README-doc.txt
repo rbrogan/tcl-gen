@@ -104,6 +104,8 @@ commaseparatedstringtolist.html
      Page for the command CommaSeparatedStringToList.
 copyeverythingindirectory.html
      Page for the command CopyEverythingInDirectory.
+currentdayoftheweek.html
+     Page for the command CurrentDayOfTheWeek.
 currenttimeofday.html
      Page for the command CurrentTimeOfDay.
 currenttimeofdayisabout.html
@@ -400,6 +402,12 @@ swap.html
      Page for the command Swap.
 ter.html
      Page for the command Ter.
+timebetweentimesofday.html
+     Page for the command TimeBetweenTimesOfDay.
+timeleftuntiltargettimeofday.html
+     Page for the command TimeLeftUntilTargetTimeOfDay.
+timeofdayisabout.html
+     Page for the command TimeOfDayIsAbout.
 timeofdayisafter.html
      Page for the command TimeOfDayIsAfter.
 timeofdayisat.html

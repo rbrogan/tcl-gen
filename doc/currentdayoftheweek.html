@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CurrentDayOfTheWeek</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+CurrentDayOfTheWeek  &mdash;  Get the current day of the week (e.g. Sunday, Monday, etc.)
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>CurrentDayOfTheWeek</b> <i>?Format?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The current day of the week.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Format</i></td><td class='argument_right'>Optional. Format to use for the return value. See More Info for details. Defaults to %A, which is Sunday, Monday, etc.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>See the <code><a href="https://www.tcl.tk/man/tcl8.6/TclCmd/clock.htm#M26">clock</a></code> command for more details on the possible formats.<p>The options are, in brief:<br>
+%a : Mon, Tue, etc.<br>
+%A: Monday, Tuesday, etc. (This is the default.)<br>
+%u: Numbers: 1 = Monday, 2 = Tuesday, ..., 7 = Sunday<br>
+%w: Numbers: 0 = Sunday, 1 = Monday, ..., 6 = Saturday<br></p></div>
+<br>
+For information regarding exceptions / errors, see <a href="currentdayoftheweek-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose today is Sunday<br>% <b>CurrentDayOfTheWeek</b><br>Sunday<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'currenttimeofday.html'>CurrentTimeOfDay</a>, <a href = 'today.html'>Today</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_date">date</a>
+</div>
+</body>
+</html>
