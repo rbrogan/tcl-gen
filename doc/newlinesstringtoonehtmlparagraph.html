@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NewlinesStringToOneHtmlParagraph</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+NewlinesStringToOneHtmlParagraph  &mdash;  Convert newlines into HTML line breaks, put into paragraph.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>NewlinesStringToOneHtmlParagraph</b> <i>String</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The HTML paragraph.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>String</i></td><td class='argument_right'>The string to convert.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this will (1) remove any trailing newlines, (2) convert any newlines to HTML line breaks (viz. <br> tags), and (3) wrap the string with HTML paragraph tags.</div>
+<br>
+For information regarding exceptions / errors, see <a href="newlinesstringtoonehtmlparagraph-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>NewlinesStringToOneHtmlParagraph {Line one\nLine two\nLine three\n\n}</b><br><p>Line one<br>Line two<br>Line three</p><br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_html">html</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_text">text</a>
+</div>
+</body>
+</html>

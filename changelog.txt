@@ -2,16 +2,17 @@ Gen
 
 CHANGELOG
 
-2016.05.02
-v1.14.0
+2016.06.13
+v1.15.0
 
 Changes by functionality
 
 Added new commands
-     CurrentDayOfTheWeek
-     TimeBetweenTimesOfDay
-     TimeLeftUntilTargetTimeOfDay
-     TimeOfDayIsAbout
+     IncludeExcludeListFilter
+     NewlinesStringToOneHtmlParagraph
+     PrintVars
+     ShowTable
+     StringMatchesAny
 
 
 By files
@@ -31,48 +32,57 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
-          currentdayoftheweek.html
-          currentdayoftheweek-exceptions.html
+          includeexcludelistfilter-exceptions.html
+          includeexcludelistfilter.html
                Documentation for new command.
-          currenttimeofdayisabout.html
-               Added to See Also section.
-          timebetweentimesofday.html
-          timebetweentimesofday-exceptions.html
+          printvars-exceptions.html
+          printvars.html
                Documentation for new command.
-          timeleftuntiltargettimeofday.html
-          timeleftuntiltargettimeofday-exceptions.html
+          showtable-exceptions.html
+          showtable.html
                Documentation for new command.
-          timeofdayisabout.html
-          timeofdayisabout-exceptions.html
+          splitstringbycharactercount-exceptions.html
+          splitstringbycharactercount.html
+               Documentation for new command.
+          stringmatchesany-exceptions.html
+          stringmatchesany.html
                Documentation for new command.
                
      /src
-          currentdayoftheweek.tcl
-               New command.
           gen.tcl
                Updated to include current version number.
+          includeexcludelistfilter.tcl
+               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
+          newlinesstringtoonehtmlparagraph.tcl
+               New command.
           pkgIndex.tcl
                Updated to include current version number.
-          timebetweentimesofday.tcl
+          printmatrix.tcl
+               CN_0008: Reworked code to handle an empty string passed in as if it were an empty matrix.
+               CN_0008: Added error detection for case where HeaderList is empty but ColumnMaxWidthList is not.
+          printvars.tcl
                New command.
-          timeleftuntiltargettimeofday.tcl
+          showtable.tcl
                New command.
-          timeofdayisabout.tcl
-               New command.               
-               
+          splitstringbycharactercount.tcl
+               New command.
+          stringmatchesany.tcl
+               New command.
+
      /test
           *.test
                Update the rev number.
-          currentdayoftheweek.test
+          includeexcludelistfilter.test
                Tests for new command.
-          gentestcommand2.test
-               Updated include additional packages in expected output.
-          gentestcommand3.test
-               Updated include additional packages in expected output.
-          timebetweentimesofday.test
+          printmatrix.test
+               Added tests for additional functionality.
+          printvars.test
+               Tests for new command.               
+          showtable.test
+               Tests for new command.          
+          splitstringbycharactercount.test
                Tests for new command.
-          timeleftuntiltargettimeofday.test
-          timeofdayisabout.test
+          stringmatchesany.test
                Tests for new command.

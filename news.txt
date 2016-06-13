@@ -2,23 +2,31 @@ Gen
 
 NEWS
 
-2016.03.21
-1.14.0 revision
+2016.06.13
+1.15.0 revision
 
-In this revision we continue to round out our assortment of date and time
-commands.
+For this release we have five commands, which I, personally, have wanted to
+have for some time. They are convenience commands which you would avoid writing
+because they seem too simple and yet just when you need them, they are a touch
+troublesome to have to switch gears and work out.
 
-CurrentDayOfTheWeek
-     Get the current day of the week (e.g. Sunday, Monday, etc.)
+IncludeExcludeListFilter
+     Return list with all to be included, none to be excluded.
 
-TimeBetweenTimesOfDay
-     Return how much time there is between the two given times.
+IncludeExcludeListFilter
+     Return list with all to be included, none to be excluded.
 
-TimeLeftUntilTargetTimeOfDay
-     Get how much time remains between now and the target time.
+NewlinesStringToOneHtmlParagraph
+     Convert newlines into HTML line breaks, put into paragraph.
 
-TimeOfDayIsAbout
-     Check if target time of day is within an interval.
+PrintVars
+     Print out the value of each of the variables passed in.
+
+ShowTable
+     Print the contents of a table.
+
+StringMatchesAny
+     Like string match except you can use multiple patterns.
 
 
 

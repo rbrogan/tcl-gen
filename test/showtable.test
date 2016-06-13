@@ -1,0 +1,87 @@
+package require tcltest
+package require -exact gen 1.15.0
+source gen-test-common.tcl
+
+namespace eval ShowTableTest {}
+
+
+
+proc ShowTableTest::Test-1 {} {
+
+::tcltest::test ShowTable-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db
+}  -body {ShowTable my_table {id desc notes}
+}  -cleanup {}  -result {}  -output {id | desc | notes
+ 1 |  uno |   one
+ 2 |  dos |   two
+ 3 | tres | three
+}  -returnCodes {0}  
+
+}
+
+
+
+proc ShowTableTest::Test-2 {} {
+
+::tcltest::test ShowTable-1 {Table name is empty}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db}  -body {ShowTable ""
+}  -cleanup {}  -result {Variable TableName has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc ShowTableTest::Test-3 {} {
+
+::tcltest::test ShowTable-2 {Do not use pass in column names}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db}  -body {ShowTable my_table
+}  -cleanup {}  -result {}  -output {id | desc | notes
+ 1 |  uno |   one
+ 2 |  dos |   two
+ 3 | tres | three
+}  -returnCodes {0}  
+
+}
+
+
+
+proc ShowTableTest::Test-4 {} {
+
+::tcltest::test ShowTable-3 {Table is empty}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db}  -body {ShowTable empty_table}  -cleanup {}  -result {}  -output {id | desc
+}  -returnCodes {0}  
+
+}
+
+
+
+proc ShowTableTest::Test-5 {} {
+
+::tcltest::test ShowTable-4 {Table has only one column}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {}  -body {ShowTable one_column_table
+}  -cleanup {}  -result {}  -output {id
+ 1
+ 2
+ 3
+}  -returnCodes {0}  
+
+}
+
+
+
+proc ShowTableTest::Test-6 {} {
+
+::tcltest::test ShowTable-5 {Include in column names column which does not exist in table}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db}  -body {ShowTable my_table {id desc notes extra}}  -cleanup {}  -result {no such column: extra}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     ShowTableTest::Test-1
+     ShowTableTest::Test-2
+     ShowTableTest::Test-3
+     ShowTableTest::Test-4
+     ShowTableTest::Test-5
+     ShowTableTest::Test-6
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          ShowTableTest::Test-[set Element]
+     }
+}
+

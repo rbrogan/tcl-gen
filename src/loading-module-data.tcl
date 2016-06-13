@@ -122,7 +122,7 @@ set ::GenNS::LoadingNS::DependentsList(IsDatetime) {DatetimeIsAfter DatetimeIsAt
 
 set ::GenNS::LoadingNS::DependentsList(IsDict) {Dict2RegistryTree PrintDict}
 
-set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe IsNumeric IsDatetimeQuantity TimeLeftUntilTargetTimeOfDay TimeOfDayIsAbout TimeBetweenTimesOfDay}
+set ::GenNS::LoadingNS::DependentsList(IsEmpty) {BackupIfExists LimitLineLengthInFile RestoreIfExists AddTo UpvarX AppendString2File UpvarExistingOrDie CopyEverythingInDirectory DbaseRegsub Decr DecrDbGlobal DeleteEverythingInDirectory Dict2RegistryTree DiffHhmmss DivideBy EndsWith ForeachRecord FtpWhichIsLarger FtpWhichIsNewer GetDbGlobal Hhmmss2Seconds IncrDbGlobal IsNonNumeric LastId LinkTclVariableToRegistryValue LinkVarToDbGlobal ListRemoveAt MultiplyBy MultiplyHhmmss PrintMatrix PrintVar Q1 QQ RegistryExists RegistryTree2Dict ReloadPackage RetZeroIfEmpty RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist Seconds2Hhmmss SetDbGlobal SetZeroIfEmpty SqlCountStatement SqlInsertStatement SqlRecordExists SqlSelectStatement SqlSetClause SqlUpdateStatement SqliteColumnNameAndTypeList SqliteColumnNameList SqliteColumnType SqliteCopyTable SqliteRenameColumn SqliteTableExists StringInsert SubtractFrom UnlinkTclVariableFromRegistryValue UnlinkVarFromDbGlobal UnsetDbGlobal VarExistsInCaller Coe IsNumeric IsDatetimeQuantity TimeLeftUntilTargetTimeOfDay TimeOfDayIsAbout TimeBetweenTimesOfDay ShowTable}
 
 set ::GenNS::LoadingNS::DependentsList(IsHhmmss) {DiffHhmmss Hhmmss2Seconds MultiplyHhmmss SumHhmmss}
 
@@ -152,9 +152,13 @@ set ::GenNS::LoadingNS::DependentsList(Prepend) {TimeLeftUntilTargetTimeOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(PrintDict) {RegistryPrint}
 
+set ::GenNS::LoadingNS::DependentsList(PrintMatrix) {ShowTable}
+
 set ::GenNS::LoadingNS::DependentsList(Q1) {DecrDbGlobal GetDbGlobal IncrDbGlobal LastId RunSqlEnter RunSqlInsertIfDoesNotExist SqlRecordExists SqliteColumnNameAndTypeList SqliteColumnNameList SqliteTableExists}
 
 set ::GenNS::LoadingNS::DependentsList(QQ) {DbaseRegsub ForeachRecord RunSqlCreateTable RunSqlEnter RunSqlInsertIfDoesNotExist SqliteCopyTable SqliteRenameColumn UnsetDbGlobal}
+
+set ::GenNS::LoadingNS::DependentsList(Raise) {ShowTable}
 
 set ::GenNS::LoadingNS::DependentsList(RegistryExists) {Dict2RegistryTree LinkTclVariableToRegistryValue RegistryPrint RegistryTree2Dict}
 
@@ -192,9 +196,13 @@ set ::GenNS::LoadingNS::DependentsList(SqlWhereClause) {DbaseRegsub RunSqlEnter 
 
 set ::GenNS::LoadingNS::DependentsList(SqliteColumnNameAndTypeList) {SqliteColumnType SqliteCopyTable SqliteRenameColumn}
 
+set ::GenNS::LoadingNS::DependentsList(SqliteColumnNameList) {ShowTable}
+
 set ::GenNS::LoadingNS::DependentsList(SqliteTableExists) {SqliteCopyTable SqliteRenameColumn}
 
 set ::GenNS::LoadingNS::DependentsList(StartsWith) {Hhmmss2Seconds StartsAndEndsWith DatetimeQuantity2Seconds IsDatetimeQuantity}
+
+set ::GenNS::LoadingNS::DependentsList(StringMatchesAny) {IncludeExcludeListFilter}
 
 set ::GenNS::LoadingNS::DependentsList(SubtractFrom) {DatetimePlus DatePlus}
 
@@ -242,6 +250,8 @@ set ::GenNS::LoadingNS::DependentsList(eval) {TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(expr) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
 
+set ::GenNS::LoadingNS::DependentsList(foreach) {IncludeExcludeListFilter}
+
 set ::GenNS::LoadingNS::DependentsList(format) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpDownloadFiles FtpUploadFiles}
@@ -270,19 +280,31 @@ set ::GenNS::LoadingNS::DependentsList(ftp::RmDir) {FtpCleanRemoteDirectory FtpU
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Type) {FtpDownloadSite FtpMirrorRemoteToLocal FtpUploadSite FtpDownloadFiles FtpUploadFiles}
 
+set ::GenNS::LoadingNS::DependentsList(join) {ShowTable}
+
+set ::GenNS::LoadingNS::DependentsList(lappend) {SplitStringByCharacterCount IncludeExcludeListFilter}
+
+set ::GenNS::LoadingNS::DependentsList(llength) {ShowTable}
+
 set ::GenNS::LoadingNS::DependentsList(lvarpop) {ChangeCasing SqliteColumnNameAndTypeList}
 
 set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVariableToRegistryValue RegistryExists RegistryPrint RegistryTree2Dict UnlinkTclVariableFromRegistryValue}
+
+set ::GenNS::LoadingNS::DependentsList(regsub) {SplitStringByCharacterCount NewlinesStringToOneHtmlParagraph}
+
+set ::GenNS::LoadingNS::DependentsList(return) {SplitStringByCharacterCount}
 
 set ::GenNS::LoadingNS::DependentsList(scan) {IsDatetimeQuantity TimeOfDayIsAbout}
 
 set ::GenNS::LoadingNS::DependentsList(sqlite3) {Q1 QQ}
 
-set ::GenNS::LoadingNS::DependentsList(string) {IsNumeric IsNonNumeric}
+set ::GenNS::LoadingNS::DependentsList(string) {IsNumeric IsNonNumeric SplitStringByCharacterCount StringMatchesAny NewlinesStringToOneHtmlParagraph}
 
 set ::GenNS::LoadingNS::DependentsList(switch) {Matrix2HtmlTable}
 
 set ::GenNS::LoadingNS::DependentsList(try) {FtpDownloadFiles FtpUploadFiles File2List File2String AppendString2File FtpMirrorRemoteToLocal FtpMirrorLocalToRemote FtpDownloadFiles FtpDownloadSite FtpUploadFiles FtpUploadSite List2File Run String2File}
+
+set ::GenNS::LoadingNS::DependentsList(while) {SplitStringByCharacterCount}
 
 set ::GenNS::LoadingNS::DependencyList(AddTo) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX }
 set ::GenNS::LoadingNS::DependencyList(AppendString2File) { IsEmpty try }
@@ -356,6 +378,7 @@ set ::GenNS::LoadingNS::DependencyList(GetDbGlobal) { IsEmpty Q1 SqlRecordExists
 set ::GenNS::LoadingNS::DependencyList(GetEmailUsingImap4) { ::imap4::cleanup ::imap4::fetch ::imap4::login ::imap4::open ::imap4::select }
 set ::GenNS::LoadingNS::DependencyList(GetEmailUsingPop3) { ::mime::finalize ::mime::getheader ::mime::initialize ::pop3::close ::pop3::delete ::pop3::open ::pop3::retrieve dict }
 set ::GenNS::LoadingNS::DependencyList(Hhmmss2Seconds) { IsEmpty IsHhmmss StartsWith UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(IncludeExcludeListFilter) { StringMatchesAny foreach lappend }
 set ::GenNS::LoadingNS::DependencyList(IncrDbGlobal) { IsEmpty IsNonNumeric Q1 SetDbGlobal SqlRecordExists }
 set ::GenNS::LoadingNS::DependencyList(IsDate) { clock }
 set ::GenNS::LoadingNS::DependencyList(IsDatetime) { clock }
@@ -383,6 +406,7 @@ set ::GenNS::LoadingNS::DependencyList(Matrix2HtmlTable) { IsMatrix switch }
 set ::GenNS::LoadingNS::DependencyList(MultiSet) { UpvarX }
 set ::GenNS::LoadingNS::DependencyList(MultiplyBy) { IsEmpty IsNonNumeric UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(MultiplyHhmmss) { Hhmmss2Seconds IsEmpty IsHhmmss IsNonNumeric Seconds2Hhmmss UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(NewlinesStringToOneHtmlParagraph) { regsub string }
 set ::GenNS::LoadingNS::DependencyList(Now) { clock }
 set ::GenNS::LoadingNS::DependencyList(Prepend) { UpvarX }
 set ::GenNS::LoadingNS::DependencyList(PrintDict) { IsDict Ter dict }
@@ -409,8 +433,10 @@ set ::GenNS::LoadingNS::DependencyList(SetDatetimeFormat) { clock }
 set ::GenNS::LoadingNS::DependencyList(SetDbGlobal) { GetDbGlobal IsEmpty RunSqlEnter dict }
 set ::GenNS::LoadingNS::DependencyList(SetTimeOfDayFormat) { clock }
 set ::GenNS::LoadingNS::DependencyList(SetZeroIfEmpty) { IsEmpty UpvarX }
+set ::GenNS::LoadingNS::DependencyList(ShowTable) { IsEmpty PrintMatrix Raise SqliteColumnNameList join llength }
 set ::GenNS::LoadingNS::DependencyList(SplitAndTrim) { NotEmpty UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(SplitNTimes) { Decr IsNonNumeric IsNonPositive }
+set ::GenNS::LoadingNS::DependencyList(SplitStringByCharacterCount) { lappend regsub return string while }
 set ::GenNS::LoadingNS::DependencyList(SqlCountStatement) { Coe IsEmpty SqlWhereClause }
 set ::GenNS::LoadingNS::DependencyList(SqlInsertStatement) { IsEmpty dict }
 set ::GenNS::LoadingNS::DependencyList(SqlRecordExists) { IsEmpty Q1 SqlCountStatement }
@@ -427,6 +453,7 @@ set ::GenNS::LoadingNS::DependencyList(SqliteTableExists) { IsEmpty Q1 }
 set ::GenNS::LoadingNS::DependencyList(StartsAndEndsWith) { EndsWith StartsWith }
 set ::GenNS::LoadingNS::DependencyList(String2File) { try }
 set ::GenNS::LoadingNS::DependencyList(StringInsert) { IsEmpty IsNegative IsNonNumeric IsPositive Ter UpvarExistingOrDie }
+set ::GenNS::LoadingNS::DependencyList(StringMatchesAny) { string }
 set ::GenNS::LoadingNS::DependencyList(StringMid) { IsNonNumeric IsNonPositive }
 set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZeroIfEmpty UpvarX }
 set ::GenNS::LoadingNS::DependencyList(SumHhmmss) { AddTo Hhmmss2Seconds IsHhmmss Seconds2Hhmmss }

@@ -224,6 +224,8 @@ getemailusingpop3.html
      Page for the command GetEmailUsingPop3.
 hhmmss2seconds.html
      Page for the command Hhmmss2Seconds.
+includeexcludelistfilter.html
+     Page for the command IncludeExcludeListFilter.
 incrdbglobal.html
      Page for the command IncrDbGlobal.
 isdate.html
@@ -288,6 +290,8 @@ multiplyby.html
      Page for the command MultiplyBy.
 multiplyhhmmss.html
      Page for the command MultiplyHhmmss.
+newlinesstringtoonehtmlparagraph.html
+     Page for the command NewlinesStringToOneHtmlParagraph.
 notempty.html
      Page for the command NotEmpty.
 now.html
@@ -300,6 +304,8 @@ printmatrix.html
      Page for the command PrintMatrix.
 printvar.html
      Page for the command PrintVar.
+printvars.html
+     Page for the command PrintVars.
 q1.html
      Page for the command Q1.
 qq.html
@@ -346,6 +352,8 @@ settimeofdayformat.html
      Page for the command SetTimeOfDayFormat.
 setzeroifempty.html
      Page for the command SetZeroIfEmpty.
+showtable.html
+     Page for the command ShowTable.
 sliceleft.html
      Page for the command SliceLeft.
 sliceright.html
@@ -354,6 +362,8 @@ splitandtrim.html
      Page for the command SplitAndTrim.
 splitntimes.html
      Page for the command SplitNTimes.
+splitstringbycharactercount.html
+     Page for the command SplitStringByCharacterCount.
 sqlcountstatement.html
      Page for the command SqlCountStatement.
 sqlinsertstatement.html
@@ -390,6 +400,8 @@ stringcontains.html
      Page for the command StringContains.
 stringinsert.html
      Page for the command StringInsert.
+stringmatchesany.html
+     Page for the command StringMatchesAny.
 stringmid.html
      Page for the command StringMid.
 subtractfrom.html

@@ -1,16 +1,36 @@
 proc PrintMatrix {Matrix {HeaderList ""} {ColumnMaxWidthList ""}} {
 
-     if {![IsMatrix $Matrix]} {
-          error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Matrix $Matrix] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
-     }
-
-     set NumColumns [llength [lindex $Matrix 0]]
-
-     if {[NotEmpty $HeaderList]} {
-          if {[llength $HeaderList] != $NumColumns} {
-               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) HeaderList $HeaderList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+     if {[IsEmpty $Matrix]} {
+          # Exit early code
+          if {[IsEmpty $HeaderList]} {
+               if {[IsEmpty $ColumnMaxWidthList]} {
+                    return
+               } else {
+                    error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ColumnMaxWidthList $ColumnMaxWidthList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)         
+               }
           }
-          set Matrix [linsert $Matrix 0 $HeaderList]
+          # We do have headers at this point
+          # Set the number of columns
+          set NumColumns [llength $HeaderList]
+          # Set the matrix to be the header list
+          set Matrix [list $HeaderList]
+     } else {
+          if {![IsMatrix $Matrix]} {
+               error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) Matrix $Matrix] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+          }
+
+          set NumColumns [llength [lindex $Matrix 0]]
+
+          if {[NotEmpty $HeaderList]} {
+               if {[llength $HeaderList] != $NumColumns} {
+                    error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) HeaderList $HeaderList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+               }
+               set Matrix [linsert $Matrix 0 $HeaderList]
+          } else {
+               if {[NotEmpty $ColumnMaxWidthList]} {
+                    error [format $::ErrorMessage(VARIABLE_CONTENTS_INVALID) ColumnMaxWidthList $ColumnMaxWidthList] $::errorInfo $::ErrorCode(VARIABLE_CONTENTS_INVALID)
+               }
+          }
      }
 
      if {[IsEmpty $ColumnMaxWidthList]} {

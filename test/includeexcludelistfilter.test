@@ -1,0 +1,63 @@
+package require tcltest
+package require -exact gen 1.15.0
+source gen-test-common.tcl
+
+namespace eval IncludeExcludeListFilterTest {}
+
+
+
+proc IncludeExcludeListFilterTest::Test-1 {} {
+
+::tcltest::test IncludeExcludeListFilter-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded IncludeExcludeListFilter]]}  -setup {}  -body {IncludeExcludeListFilter {my.db never.db one.txt special.txt} {*.txt} {special.txt never.db}}  -cleanup {}  -result {one.txt}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IncludeExcludeListFilterTest::Test-2 {} {
+
+::tcltest::test IncludeExcludeListFilter-1 {Use @}  -constraints {[expr [CheckAllDependenciesLoaded IncludeExcludeListFilter]]}  -setup {}  -body {set MyList {my.db never.db one.txt special.txt}
+IncludeExcludeListFilter @MyList {*.txt} {special.txt never.db}
+puts $MyList}  -cleanup {}  -result {}  -output {one.txt
+}  -returnCodes {0}  
+
+}
+
+
+
+proc IncludeExcludeListFilterTest::Test-3 {} {
+
+::tcltest::test IncludeExcludeListFilter-2 {Include pattern list is empty}  -constraints {[expr [CheckAllDependenciesLoaded IncludeExcludeListFilter]]}  -setup {}  -body {IncludeExcludeListFilter {my.db never.db one.txt special.txt} {} {special.txt never.db}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IncludeExcludeListFilterTest::Test-4 {} {
+
+::tcltest::test IncludeExcludeListFilter-3 {Exclude pattern list is empty}  -constraints {[expr [CheckAllDependenciesLoaded IncludeExcludeListFilter]]}  -setup {}  -body {IncludeExcludeListFilter {my.db never.db one.txt special.txt} {*.txt} {}}  -cleanup {}  -result {one.txt special.txt}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc IncludeExcludeListFilterTest::Test-5 {} {
+
+::tcltest::test IncludeExcludeListFilter-4 {ListVariable is empty}  -constraints {[expr [CheckAllDependenciesLoaded IncludeExcludeListFilter]]}  -setup {}  -body {IncludeExcludeListFilter {} {*.txt} {special.txt never.db}}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     IncludeExcludeListFilterTest::Test-1
+     IncludeExcludeListFilterTest::Test-2
+     IncludeExcludeListFilterTest::Test-3
+     IncludeExcludeListFilterTest::Test-4
+     IncludeExcludeListFilterTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          IncludeExcludeListFilterTest::Test-[set Element]
+     }
+}
+

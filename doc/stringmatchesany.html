@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StringMatchesAny</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+StringMatchesAny  &mdash;  Like string match except you can use multiple patterns.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>StringMatchesAny</b> <i>PatternList</i> <i>String</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+<table class='argument_table'><tr><td class='argument_left'><i>1</i></td><td class='argument_right'> The string matches at least one of the elements of the pattern list.</td></tr>
+<tr><td class='argument_left'><i>0</i></td><td class='argument_right'> The string does not match any of the elements of the pattern list.</td></tr>
+</table></div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>PatternList</i></td><td class='argument_right'>A list of patterns. Each pattern should be useable with the original <code>string match</code> command.</td></tr><tr class='table_row_a'><td class='argument_left'><i>String</i></td><td class='argument_right'>String to check against the patterns.</td></tr></table></div>
+<br>
+For information regarding exceptions / errors, see <a href="stringmatchesany-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>StringMatchesAny {one tw*} two</b><br>1<br>% StringMatchesAny {one tw*} three<br>0<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M39'></a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_check">check</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_validation">validation</a>, <a href="keyword-index.html#C_verification">verification</a>
+</div>
+</body>
+</html>

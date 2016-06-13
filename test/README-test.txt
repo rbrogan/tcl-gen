@@ -261,6 +261,8 @@ getemailusingpop3.test
      Tests for the command GetEmailUsingPop3.
 hhmmss2seconds.test
      Tests for the command Hhmmss2Seconds.
+includeexcludelistfilter.test
+     Tests for the command IncludeExcludeListFilter.
 incrdbglobal.test
      Tests for the command IncrDbGlobal.
 isdate.test
@@ -325,6 +327,8 @@ multiplyby.test
      Tests for the command MultiplyBy.
 multiplyhhmmss.test
      Tests for the command MultiplyHhmmss.
+newlinesstringtoonehtmlparagraph.test
+     Tests for the command NewlinesStringToOneHtmlParagraph.
 notempty.test
      Tests for the command NotEmpty.
 now.test
@@ -337,6 +341,8 @@ printmatrix.test
      Tests for the command PrintMatrix.
 printvar.test
      Tests for the command PrintVar.
+printvars.test
+     Tests for the command PrintVars.
 q1.test
      Tests for the command Q1.
 qq.test
@@ -383,6 +389,8 @@ settimeofdayformat.test
      Tests for the command SetTimeOfDayFormat.
 setzeroifempty.test
      Tests for the command SetZeroIfEmpty.
+showtable.test
+     Tests for the command ShowTable.
 sliceleft.test
      Tests for the command SliceLeft.
 sliceright.test
@@ -391,6 +399,8 @@ splitandtrim.test
      Tests for the command SplitAndTrim.
 splitntimes.test
      Tests for the command SplitNTimes.
+splitstringbycharactercount.test
+     Tests for the command SplitStringByCharacterCount.
 sqlcountstatement.test
      Tests for the command SqlCountStatement.
 sqlinsertstatement.test
@@ -427,6 +437,8 @@ stringcontains.test
      Tests for the command StringContains.
 stringinsert.test
      Tests for the command StringInsert.
+stringmatchesany.test
+     Tests for the command StringMatchesAny.
 stringmid.test
      Tests for the command StringMid.
 subtractfrom.test

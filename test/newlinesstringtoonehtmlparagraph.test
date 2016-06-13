@@ -1,0 +1,42 @@
+package require tcltest
+package require -exact gen 1.15.0
+source gen-test-common.tcl
+
+namespace eval NewlinesStringToOneHtmlParagraphTest {}
+
+
+
+proc NewlinesStringToOneHtmlParagraphTest::Test-1 {} {
+
+::tcltest::test NewlinesStringToOneHtmlParagraph-0 {Regular newlines}  -constraints {[expr [CheckAllDependenciesLoaded NewlinesStringToOneHtmlParagraph]]}  -setup {}  -body {NewlinesStringToOneHtmlParagraph {Line one\nLine two\nLine three\n\n}}  -cleanup {}  -result {<p>Line one<br>Line two<br>Line three</p>}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NewlinesStringToOneHtmlParagraphTest::Test-2 {} {
+
+::tcltest::test NewlinesStringToOneHtmlParagraph-1 {Newline and carriage return}  -constraints {[expr [CheckAllDependenciesLoaded NewlinesStringToOneHtmlParagraph]]}  -setup {}  -body {NewlinesStringToOneHtmlParagraph {Line one\r\nLine two\r\nLine three\r\n\r\n}}  -cleanup {}  -result {<p>Line one<br>Line two<br>Line three</p>}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NewlinesStringToOneHtmlParagraphTest::Test-3 {} {
+
+::tcltest::test NewlinesStringToOneHtmlParagraph-2 {Empty string}  -constraints {[expr [CheckAllDependenciesLoaded NewlinesStringToOneHtmlParagraph]]}  -setup {}  -body {NewlinesStringToOneHtmlParagraph ""}  -cleanup {}  -result {<p></p>}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     NewlinesStringToOneHtmlParagraphTest::Test-1
+     NewlinesStringToOneHtmlParagraphTest::Test-2
+     NewlinesStringToOneHtmlParagraphTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          NewlinesStringToOneHtmlParagraphTest::Test-[set Element]
+     }
+}
+

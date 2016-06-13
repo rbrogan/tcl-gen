@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.14.0</div><div class="section-header-right">2016.05.02</div>
+<div class="section-header-left">1.15.0</div><div class="section-header-right">2016.06.13</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,10 +39,11 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>CurrentDayOfTheWeek</li>
-<li>TimeBetweenTimesOfDay</li>
-<li>TimeLeftUntilTargetTimeOfDay</li>
-<li>TimeOfDayIsAbout</li>
+<li>IncludeExcludeListFilter</li>
+<li>NewlinesStringToOneHtmlParagraph</li>
+<li>PrintVars</li>
+<li>ShowTable</li>
+<li>StringMatchesAny</li>
 </ul>
 </li>
 </ul>
@@ -80,48 +81,56 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>currentdayoftheweek.html<br>currentdayoftheweek-exceptions.html
+          <li>includeexcludelistfilter.html<br>includeexcludelistfilter-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>currenttimeofdayisabout.html
-          <ul><li>Added to See Also section.</li></ul>
-          </li>
-          <li>menu.html
-          <ul><li>Added "Other" category as menu item.</li></ul>
-          </li>
-          <li>timebetweentimesofday.html<br>timebetweentimesofday-exceptions.html
+          <li>printvars.html<br>printvars-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
-          <li>timeleftuntiltargettimeofday.html<br>timeleftuntiltargettimeofday-exceptions.html
+          </li>
+          <li>showtable.html<br>showtable-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
-          <li>timeofdayisabout.html<br>timeofdayisabout-exceptions.html
+          </li>
+          <li>splitstringbycharactercount.html<br>splitstringbycharactercount-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>          
+          </li>
+          <li>stringmatchesany.html<br>stringmatchesany-exceptions.html
           <ul><li>Documentation for new command.</li></ul>          
           </li>
      </ul>
 </li>
 <li>/src
 <ul>
-<li>currentdayoftheweek.tcl
-<ul><li>New command.</li></ul>
-</li>
 <li>gen.tcl
 <ul>
      <li>Updated to include current version number.</li>
 </ul>
 </li>
+<li>includeexcludelistfilter.tcl
+<ul><li>New command.</li></ul>
+</li>
 <li>loading-module-data.tcl
 <ul><li>Updated to add support for new commands.</li>
 </ul>
 </li>
+<li>newlinesstringtoonehtmlparagraph.tcl
+<ul><li>New command.</li></ul>
+</li>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
-<li>timebetweentimesofday.tcl
+<li>printmatrix.tcl
+<ul><li>CN_0008: Reworked code to handle an empty string passed in as if it were an empty matrix.<br>CN_0008: Added error detection for case where HeaderList is empty but ColumnMaxWidthList is not.</li></ul>
+</li>
+<li>printvars.tcl
 <ul><li>New command.</li></ul>
 </li>
-<li>timeleftuntiltargettimeofday.tcl
+<li>showtable.tcl
 <ul><li>New command.</li></ul>
 </li>
-<li>timeofdayisabout.tcl
+<li>splitstringbycharactercount.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>stringmatchesany.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -133,32 +142,32 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>currentdayoftheweek.test
+<li>includeexcludelistfilter.test
 <ul>
 <li>Tests for new command.</li>
 </ul>
 </li>
-<li>gentestcommand2.test
+<li>printmatrix.test
 <ul>
-<li>Updated to include additional packages in expected output.</li>
+<li>Added tests for additional functionality.</li>
 </ul>
 </li>
-<li>gentestcommand3.test
-<ul>
-<li>Updated to include additional packages in expected output.</li>
-</ul>
-</li>
-<li>timebetweentimesofday.test
+<li>printvars.test
 <ul>
 <li>Tests for new command.</li>
 </ul>
 </li>
-<li>timeleftuntiltargettimeofday.test
+<li>showtable.test
 <ul>
      <li>Tests for new command.</li>
 </ul>
 </li>
-<li>timeofdayisabout.test
+<li>splitstringbycharactercount.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>stringmatchesany.test
 <ul>
      <li>Tests for new command.</li>
 </ul>

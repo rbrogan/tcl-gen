@@ -8,4 +8,4 @@
 # script is sourced, the variable $dir must contain the
 # full path name of this file's directory.
 
-package ifneeded gen 1.14.0 [list source [file join $dir gen-config.tcl]]\n[list source [file join $dir gen.tcl]]
+package ifneeded gen 1.15.0 [list source [file join $dir gen-config.tcl]]\n[list source [file join $dir gen.tcl]]

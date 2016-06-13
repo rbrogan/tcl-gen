@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ShowTable</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+ShowTable  &mdash;  Print the contents of a table.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>ShowTable</b> <i>TableName</i> <i>?ColumnNames?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+None.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TableName</i></td><td class='argument_right'>Name of table to show.</td></tr><tr class='table_row_a'><td class='argument_left'><i>ColumnNames</i></td><td class='argument_right'>Optional. Names of columns to show. If not set, will use the names found in the master table.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that this command will currently only work if you have a sqlite database connection set up.<p>If you have an empty table then it will still print the headers.</p><p>Currently, there is no option for suppressing table headers.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="showtable-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% CreateSqliteTable my_table {desc notes}<br>% RunSqlEnter my_table {desc first notes 1-2-3}<br>% RunSqlEnter my_table {desc second notes 4-5-6}<br>% ShowTable my_table<br>desc   | notes<br>first  | 1-2-3<br>second | 4-5-6<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'printlist.html'>PrintList</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_database">database</a>, <a href="keyword-index.html#C_print">print</a>, <a href="keyword-index.html#C_sql">sql</a>
+</div>
+</body>
+</html>

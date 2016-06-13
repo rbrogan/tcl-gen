@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IncludeExcludeListFilter</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+IncludeExcludeListFilter  &mdash;  Return list with all to be included, none to be excluded.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>IncludeExcludeListFilter</b> <i>ListVariable</i> <i>IncludePatternList</i> <i>ExcludePatternList</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+List where each element matches a pattern in the include pattern list, but not any pattern in the exclude pattern list.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>ListVariable</i></td><td class='argument_right'>Can be either a value or @VarName (will upvar and read/write).</td></tr><tr class='table_row_a'><td class='argument_left'><i>IncludePatternList</i></td><td class='argument_right'>A list where each element can be used as an argument to <code>string match</code>. Only those elements of the input list which match at least one of the patterns may be included in the return list.</td></tr><tr class='table_row_b'><td class='argument_left'><i>ExcludePatternList</i></td><td class='argument_right'>A list where each element can be used as an argument to <code>string match</code>. Anything that matches will definitely not be included in the returned list.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command does the following for each element of the target list: (1) It checks to see if it matches any of the elements of the inclusion list, and if not, then it skips to the next. (2) It checks to see if it matches any of the elements of the exclusion list, and if so, then it skips to the next. (3) It adds the element to the return list.<p>So, what you end up with is a list where every element matches some pattern in the include list and none of the patterns in the exclude list. This may be useful for processing the files in a directory, for instance.</p><p>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="includeexcludelistfilter-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% set MyList {zero. dat one.txt two.txt special.txt}<br>% # Want elements that are text files, but not special.txt.<br>% <b>IncludeExcludeListFilter $MyList {*.txt} {special.txt}</b><br>one.txt two.txt<br></pre></div>
+<div class="section_header" hidden>
+SEE ALSO
+</div>
+<div class="section_content" hidden>
+
+</div>
+<div class="section_header" hidden>
+KEYWORDS
+</div>
+<div class="section_content" hidden>
+
+</div>
+</body>
+</html>

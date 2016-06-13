@@ -1,0 +1,44 @@
+package require tcltest
+package require -exact gen 1.15.0
+source gen-test-common.tcl
+
+namespace eval StringMatchesAnyTest {}
+
+
+
+proc StringMatchesAnyTest::Test-1 {} {
+
+::tcltest::test StringMatchesAny-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded StringMatchesAny]]}  -setup {}  -body {StringMatchesAny {one tw*} two}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc StringMatchesAnyTest::Test-2 {} {
+
+::tcltest::test StringMatchesAny-1 {PatternList is empty}  -constraints {[expr [CheckAllDependenciesLoaded StringMatchesAny]]}  -setup {}  -body {StringMatchesAny {} two
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc StringMatchesAnyTest::Test-3 {} {
+
+::tcltest::test StringMatchesAny-2 {String does not match any patterns}  -constraints {[expr [CheckAllDependenciesLoaded StringMatchesAny]]}  -setup {}  -body {StringMatchesAny {one tw*} three
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     StringMatchesAnyTest::Test-1
+     StringMatchesAnyTest::Test-2
+     StringMatchesAnyTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          StringMatchesAnyTest::Test-[set Element]
+     }
+}
+

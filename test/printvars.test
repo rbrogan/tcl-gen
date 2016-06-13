@@ -1,0 +1,72 @@
+package require tcltest
+package require -exact gen 1.15.0
+source gen-test-common.tcl
+
+namespace eval PrintVarsTest {}
+
+
+
+proc PrintVarsTest::Test-1 {} {
+
+::tcltest::test PrintVars-0 {One variable}  -constraints {[expr [CheckAllDependenciesLoaded PrintVars]]}  -setup {}  -body {set one 123
+PrintVars one
+}  -cleanup {}  -result {}  -output {one is 123
+}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintVarsTest::Test-2 {} {
+
+::tcltest::test PrintVars-1 {No variables}  -constraints {[expr [CheckAllDependenciesLoaded PrintVars]]}  -setup {}  -body {PrintVars
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintVarsTest::Test-3 {} {
+
+::tcltest::test PrintVars-2 {Three variables}  -constraints {[expr [CheckAllDependenciesLoaded PrintVars]]}  -setup {}  -body {lassign {1 2 3} one two three
+PrintVars {one two three}}  -cleanup {}  -result {}  -output {one is 1
+two is 2
+three is 3
+}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintVarsTest::Test-4 {} {
+
+::tcltest::test PrintVars-3 {Variable does not exist}  -constraints {[expr [CheckAllDependenciesLoaded PrintVars]]}  -setup {}  -body {unset -nocomplain asdf
+PrintVars asdf
+}  -cleanup {}  -result {}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc PrintVarsTest::Test-5 {} {
+
+::tcltest::test PrintVars-4 {List contains an empty element}  -constraints {[expr [CheckAllDependenciesLoaded PrintVars]]}  -setup {}  -body {set one 123
+PrintVars {one {}}
+}  -cleanup {}  -result {Variable name is missing. Got empty string.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     PrintVarsTest::Test-1
+     PrintVarsTest::Test-2
+     PrintVarsTest::Test-3
+     PrintVarsTest::Test-4
+     PrintVarsTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          PrintVarsTest::Test-[set Element]
+     }
+}
+

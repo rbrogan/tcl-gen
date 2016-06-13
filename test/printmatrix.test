@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.14.0
+package require -exact gen 1.15.0
 source gen-test-common.tcl
 
 namespace eval PrintMatrixTest {}
@@ -141,6 +141,44 @@ PrintMatrix $MyMatrix
 
 
 
+proc PrintMatrixTest::Test-12 {} {
+
+::tcltest::test PrintMatrix-11 {Empty string for matrix}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {PrintMatrix {}
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintMatrixTest::Test-13 {} {
+
+::tcltest::test PrintMatrix-12 {Empty string for matrix and header list included}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {PrintMatrix {} {id desc}
+}  -cleanup {}  -result {}  -output {id | desc
+}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintMatrixTest::Test-14 {} {
+
+::tcltest::test PrintMatrix-13 {Empty string for matrix and header list with max column width list entered}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {PrintMatrix {} {id desc} {4 4}
+}  -cleanup {}  -result {}  -output {  id | desc
+}  -returnCodes {0}  
+
+}
+
+
+
+proc PrintMatrixTest::Test-15 {} {
+
+::tcltest::test PrintMatrix-15 {ColumnMaxWidthList used, but HeaderList is empty}  -constraints {[expr [CheckAllDependenciesLoaded PrintMatrix]]}  -setup {}  -body {PrintMatrix {{1 2} {3 4}} {} {4 4}
+}  -cleanup {}  -result {Variable ColumnMaxWidthList has invalid value 4 4.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
 if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      PrintMatrixTest::Test-1
      PrintMatrixTest::Test-2
@@ -153,6 +191,10 @@ if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
      PrintMatrixTest::Test-9
      PrintMatrixTest::Test-10
      PrintMatrixTest::Test-11
+     PrintMatrixTest::Test-12
+     PrintMatrixTest::Test-13
+     PrintMatrixTest::Test-14
+     PrintMatrixTest::Test-15
 } else {
      foreach Element [lrange $::argv 1 end] {
           PrintMatrixTest::Test-[set Element]
