@@ -6,9 +6,9 @@ NEWS
 1.15.0 revision
 
 For this release we have five commands, which I, personally, have wanted to
-have for some time. They are convenience commands which you would avoid writing
-because they seem too simple and yet just when you need them, they are a touch
-troublesome to have to switch gears and work out.
+have for some time. They are convenience commands, which you would like to
+avoid writing because they seem too simple, and yet just when you need them,
+they are a touch troublesome to have to switch gears and work out for yourself.
 
 IncludeExcludeListFilter
      Return list with all to be included, none to be excluded.
