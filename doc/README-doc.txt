@@ -224,6 +224,10 @@ getemailusingpop3.html
      Page for the command GetEmailUsingPop3.
 hhmmss2seconds.html
      Page for the command Hhmmss2Seconds.
+htmllisttreefromdict.html
+     Page for the command HtmlListTreeFromDict.
+htmlparagraphsfromdoublenewlinesstring.html
+     Page for the command HtmlParagraphsFromDoubleNewlinesString.
 includeexcludelistfilter.html
      Page for the command IncludeExcludeListFilter.
 incrdbglobal.html
@@ -310,6 +314,8 @@ q1.html
      Page for the command Q1.
 qq.html
      Page for the command QQ.
+quasitablefromkeyvaluelist.html
+     Page for the command QuasiTableFromKeyValueList.
 raise.html
      Page for the command Raise.
 registryexists.html
@@ -404,6 +410,8 @@ stringmatchesany.html
      Page for the command StringMatchesAny.
 stringmid.html
      Page for the command StringMid.
+striphtmltags.html
+     Page for the command StripHtmlTags.
 subtractfrom.html
      Page for the command SubtractFrom.
 sumhhmmss.html

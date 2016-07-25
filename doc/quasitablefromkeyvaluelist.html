@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QuasiTableFromKeyValueList</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+QuasiTableFromKeyValueList  &mdash;  Create a table with divs derived from a key-value list.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>QuasiTableFromKeyValueList</b> <i>List</i> <i>?KeyDivClassName?</i> <i>?ValueDivClassName?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A table with divs derived from a key-value list.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>List</i></td><td class='argument_right'>The key-value list to convert into a table.</td></tr><tr class='table_row_a'><td class='argument_left'><i>KeyDivClassName</i></td><td class='argument_right'>Optional. Name to use for the value of the class attribute in the div tag for the key. Defaults to "KeyDiv".</td></tr><tr class='table_row_b'><td class='argument_left'><i>ValueDivClassName</i></td><td class='argument_right'>Optional. Name to use for the value of the class attribute in the div tag for the value. Defaults to "ValueDiv".</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>For example --<p><code>QuasiTableFromKeyValueList {key1 value1 key2 value2 key3 value3} section_header section_content</code></p><p>-- will create a table that looks like this:</p><p><div class="section_header">key1</div>
+<div class="section_content">value1</div></p><p><div class="section_header">key2</div>
+<div class="section_content">value2</div></p><p><div class="section_header">key3</div>
+<div class="section_content">value3</div></p><p>As you can see, it is a header/key followed by content/value.</p><p>Note that, in order to get styling, you will want to set the div classes by setting <code>KeyDivClassName</code> and <code>ValueDivClassName</code> and then provide your own CSS (alternatively, you can leave them blank).</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="quasitablefromkeyvaluelist-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>QuasiTableFromKeyValueList {key1 value1 key2 value2}</b><br>&lt;div class="KeyDiv"&gt;key1&lt;/div&gt;<br>&lt;div class="ValueDiv"&gt;value1&lt;/div&gt;<br><br>&lt;div class="KeyDiv"&gt;key2&lt;/div&gt;<br>&lt;div class="ValueDiv"&gt;value2&lt;/div&gt;<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'matrix2htmltable.html'>Matrix2HtmlTable</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_html">html</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

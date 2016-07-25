@@ -1,0 +1,60 @@
+package require tcltest
+package require -exact gen 1.16.0
+source gen-test-common.tcl
+
+namespace eval QuasiTableFromKeyValueListTest {}
+
+
+
+proc QuasiTableFromKeyValueListTest::Test-1 {} {
+
+::tcltest::test QuasiTableFromKeyValueList-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded QuasiTableFromKeyValueList]]}  -setup {}  -body {puts [QuasiTableFromKeyValueList {key1 value1 key2 value2}]
+}  -cleanup {}  -result {}  -output {<div class="KeyDiv">key1</div>
+<div class="ValueDiv">value1</div>
+
+<div class="KeyDiv">key2</div>
+<div class="ValueDiv">value2</div>
+
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc QuasiTableFromKeyValueListTest::Test-2 {} {
+
+::tcltest::test QuasiTableFromKeyValueList-1 {Empty input}  -constraints {[expr [CheckAllDependenciesLoaded QuasiTableFromKeyValueList]]}  -setup {}  -body {puts [QuasiTableFromKeyValueList {}]
+}  -cleanup {}  -result {}  -output {
+}  -returnCodes {0}  
+
+}
+
+
+
+proc QuasiTableFromKeyValueListTest::Test-3 {} {
+
+::tcltest::test QuasiTableFromKeyValueList-2 {Give key and value div names}  -constraints {[expr [CheckAllDependenciesLoaded QuasiTableFromKeyValueList]]}  -setup {}  -body {puts [QuasiTableFromKeyValueList {key1 value1 key2 value2} MyKeyDiv MyValueDiv]
+}  -cleanup {}  -result {}  -output {<div class="MyKeyDiv">key1</div>
+<div class="MyValueDiv">value1</div>
+
+<div class="MyKeyDiv">key2</div>
+<div class="MyValueDiv">value2</div>
+
+
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     QuasiTableFromKeyValueListTest::Test-1
+     QuasiTableFromKeyValueListTest::Test-2
+     QuasiTableFromKeyValueListTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          QuasiTableFromKeyValueListTest::Test-[set Element]
+     }
+}
+

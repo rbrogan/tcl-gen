@@ -94,7 +94,7 @@ If you would like to confirm the library is installed and working then try the
 following from a Tcl shell.
 
 % package require gen
-1.15.0
+1.16.0
 % set Number 1
 1
 % AddTo Number 2
@@ -319,7 +319,7 @@ release is coming out.
 
 ---18| RECENT CHANGES
 
-Version 1.15.0. You can find a change summary in news.txt / news.html and
+Version 1.16.0. You can find a change summary in news.txt / news.html and
 details in changelog.txt / changelog.html.
 
 ---19| LICENSE

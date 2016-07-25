@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HtmlParagraphsFromDoubleNewlinesString</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+HtmlParagraphsFromDoubleNewlinesString  &mdash;  Convert a string into a series of HTML paragraphs.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>HtmlParagraphsFromDoubleNewlinesString</b> <i>StringVariable</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+A string containing a series of HTML paragraphs, one for each substring paragraph that is delimited by double newlines.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>String with paragraphs delimited by newlines, to be converted into a series of HTML paragraphs.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Note that arguments of the form XxxVariable can take either a normal value or the name of a variable to read/write, prefixed by @.  See <a href="at.html">About Using @</a> for details.
+</div>
+<br>
+For information regarding exceptions / errors, see <a href="htmlparagraphsfromdoublenewlinesstring-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>HtmlParagraphsFromDoubleNewlinesString {First paragraph\n\nSecond paragraph\n\nThird paragraph}</b><br>&lt;p&gt;First paragraph&lt;/p&gt;<br>&lt;p&gt;Second paragraph&lt;/p&gt;<br>&lt;p&gt;Third paragraph&lt;/p&gt;<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'newlinesstringtoonehtmlparagraph.html'>NewlinesStringToOneHtmlParagraph</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_html">html</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

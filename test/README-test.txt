@@ -261,6 +261,10 @@ getemailusingpop3.test
      Tests for the command GetEmailUsingPop3.
 hhmmss2seconds.test
      Tests for the command Hhmmss2Seconds.
+htmllisttreefromdict.test
+     Tests for the command HtmlListTreeFromDict.
+htmlparagraphsfromdoublenewlinesstring.test
+     Tests for the command HtmlParagraphsFromDoubleNewlinesString.
 includeexcludelistfilter.test
      Tests for the command IncludeExcludeListFilter.
 incrdbglobal.test
@@ -347,6 +351,8 @@ q1.test
      Tests for the command Q1.
 qq.test
      Tests for the command QQ.
+quasitablefromkeyvaluelist.test
+     Tests for the command QuasiTableFromKeyValueList.
 raise.test
      Tests for the command Raise.
 registryexists.test
@@ -441,6 +447,8 @@ stringmatchesany.test
      Tests for the command StringMatchesAny.
 stringmid.test
      Tests for the command StringMid.
+striphtmltags.test
+     Tests for the command StripHtmlTags.
 subtractfrom.test
      Tests for the command SubtractFrom.
 sumhhmmss.test

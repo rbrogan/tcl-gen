@@ -1,0 +1,211 @@
+package require tcltest
+package require -exact gen 1.16.0
+source gen-test-common.tcl
+
+namespace eval HtmlListTreeFromDictTest {}
+
+
+
+proc HtmlListTreeFromDictTest::Test-1 {} {
+
+::tcltest::test HtmlListTreeFromDict-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {one {two {three}} aaa bbb}]
+}  -cleanup {}  -result {}  -output {<ul>
+     <li>one
+          <ul>
+               <li>two: three</li>
+          </ul>
+     </li>
+     <li>aaa: bbb</li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-2 {} {
+
+::tcltest::test HtmlListTreeFromDict-1 {No elements}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {}]
+}  -cleanup {}  -result {}  -output {<ul>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-3 {} {
+
+::tcltest::test HtmlListTreeFromDict-2 {One element}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {aaa bbb}]
+}  -cleanup {}  -result {}  -output {<ul>
+     <li>aaa: bbb</li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-4 {} {
+
+::tcltest::test HtmlListTreeFromDict-3 {Only top level}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {aaa bbb ccc ddd eee fff}]
+}  -cleanup {}  -result {}  -output {<ul>
+     <li>aaa: bbb</li>
+     <li>ccc: ddd</li>
+     <li>eee: fff</li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-5 {} {
+
+::tcltest::test HtmlListTreeFromDict-4 {Recurse down one level}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {aaa bbb ccc {ddd eee} fff {ggg hhh iii jjj}}]
+}  -cleanup {}  -result {}  -output {<ul>
+     <li>aaa: bbb</li>
+     <li>ccc
+          <ul>
+               <li>ddd: eee</li>
+          </ul>
+     </li>
+     <li>fff
+          <ul>
+               <li>ggg: hhh</li>
+               <li>iii: jjj</li>
+          </ul>
+     </li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-6 {} {
+
+::tcltest::test HtmlListTreeFromDict-5 {Two levels}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {aaa bbb ccc {ddd {eee 111}} fff {ggg {hhh 222} iii {jjj 333}}}]
+}  -cleanup {}  -result {}  -output {<ul>
+     <li>aaa: bbb</li>
+     <li>ccc
+          <ul>
+               <li>ddd
+                    <ul>
+                         <li>eee: 111</li>
+                    </ul>
+               </li>
+          </ul>
+     </li>
+     <li>fff
+          <ul>
+               <li>ggg
+                    <ul>
+                         <li>hhh: 222</li>
+                    </ul>
+               </li>
+               <li>iii
+                    <ul>
+                         <li>jjj: 333</li>
+                    </ul>
+               </li>
+          </ul>
+     </li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-7 {} {
+
+::tcltest::test HtmlListTreeFromDict-6 {DictValue is invalid}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict one]
+}  -cleanup {}  -result {Variable DictValue has invalid value one.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-8 {} {
+
+::tcltest::test HtmlListTreeFromDict-7 {IndentationSpaces is set}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {111 {222 {333 444}}} 2]
+}  -cleanup {}  -result {}  -output {<ul>
+  <li>111
+    <ul>
+      <li>222
+        <ul>
+          <li>333: 444</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-9 {} {
+
+::tcltest::test HtmlListTreeFromDict-8 {IndentationSpaces is invalid}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {one two} asdf]
+}  -cleanup {}  -result {Variable IndentationSpaces has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-10 {} {
+
+::tcltest::test HtmlListTreeFromDict-9 {IndentationLevel is invalid}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {one two} 5 asdf]
+}  -cleanup {}  -result {Variable IndentationLevel has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-11 {} {
+
+::tcltest::test HtmlListTreeFromDict-10 {IndentationSpaces is empty}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {one two} {}]
+}  -cleanup {}  -result {Variable IndentationSpaces has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc HtmlListTreeFromDictTest::Test-12 {} {
+
+::tcltest::test HtmlListTreeFromDict-11 {IndentationLevel is empty}  -constraints {[expr [CheckAllDependenciesLoaded HtmlListTreeFromDict]]}  -setup {}  -body {puts [HtmlListTreeFromDict {one two} 5 {}]
+}  -cleanup {}  -result {Variable IndentationLevel has empty value.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     HtmlListTreeFromDictTest::Test-1
+     HtmlListTreeFromDictTest::Test-2
+     HtmlListTreeFromDictTest::Test-3
+     HtmlListTreeFromDictTest::Test-4
+     HtmlListTreeFromDictTest::Test-5
+     HtmlListTreeFromDictTest::Test-6
+     HtmlListTreeFromDictTest::Test-7
+     HtmlListTreeFromDictTest::Test-8
+     HtmlListTreeFromDictTest::Test-9
+     HtmlListTreeFromDictTest::Test-10
+     HtmlListTreeFromDictTest::Test-11
+     HtmlListTreeFromDictTest::Test-12
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          HtmlListTreeFromDictTest::Test-[set Element]
+     }
+}
+

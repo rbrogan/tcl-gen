@@ -1,0 +1,48 @@
+package require tcltest
+package require -exact gen 1.16.0
+source gen-test-common.tcl
+
+namespace eval HtmlParagraphsFromDoubleNewlinesStringTest {}
+
+
+
+proc HtmlParagraphsFromDoubleNewlinesStringTest::Test-1 {} {
+
+::tcltest::test HtmlParagraphsFromDoubleNewlinesString-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded HtmlParagraphsFromDoubleNewlinesString]]}  -setup {}  -body {puts [HtmlParagraphsFromDoubleNewlinesString {First paragraph\n\nSecond paragraph\n\nThird paragraph}]
+}  -cleanup {}  -result {}  -output {<p>First paragraph</p><p>Second paragraph</p><p>Third paragraph</p>
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlParagraphsFromDoubleNewlinesStringTest::Test-2 {} {
+
+::tcltest::test HtmlParagraphsFromDoubleNewlinesString-1 {Empty input}  -constraints {[expr [CheckAllDependenciesLoaded HtmlParagraphsFromDoubleNewlinesString]]}  -setup {}  -body {puts [HtmlParagraphsFromDoubleNewlinesString ""]
+}  -cleanup {}  -result {}  -output {<p></p>
+}  -returnCodes {0}  
+
+}
+
+
+
+proc HtmlParagraphsFromDoubleNewlinesStringTest::Test-3 {} {
+
+::tcltest::test HtmlParagraphsFromDoubleNewlinesString-2 {One character input}  -constraints {[expr [CheckAllDependenciesLoaded HtmlParagraphsFromDoubleNewlinesString]]}  -setup {}  -body {puts [HtmlParagraphsFromDoubleNewlinesString "x"]
+}  -cleanup {}  -result {}  -output {<p>x</p>
+}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     HtmlParagraphsFromDoubleNewlinesStringTest::Test-1
+     HtmlParagraphsFromDoubleNewlinesStringTest::Test-2
+     HtmlParagraphsFromDoubleNewlinesStringTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          HtmlParagraphsFromDoubleNewlinesStringTest::Test-[set Element]
+     }
+}
+

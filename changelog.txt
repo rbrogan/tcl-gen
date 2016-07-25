@@ -2,17 +2,16 @@ Gen
 
 CHANGELOG
 
-2016.06.13
-v1.15.0
+2016.07.25
+v1.16.0
 
 Changes by functionality
 
 Added new commands
-     IncludeExcludeListFilter
-     NewlinesStringToOneHtmlParagraph
-     PrintVars
-     ShowTable
-     StringMatchesAny
+     HtmlListTreeFromDict
+     HtmlParagraphsFromDoubleNewlinesString
+     QuasiTableFromKeyValueList
+     StripHtmlTags
 
 
 By files
@@ -32,57 +31,48 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
-          includeexcludelistfilter-exceptions.html
-          includeexcludelistfilter.html
+          htmllisttreefromdict-exceptions.html
+          htmllisttreefromdict.html
                Documentation for new command.
-          printvars-exceptions.html
-          printvars.html
+          htmlparagraphsfromdoublenewlinesstring-exceptions.html
+          htmlparagraphsfromdoublenewlinesstring.html
                Documentation for new command.
-          showtable-exceptions.html
-          showtable.html
+          newlinesstringtoonehtmlparagraph.html
+               Include link to new command.
+          quasitablefromkeyvaluelist-exceptions.html
+          quasitablefromkeyvaluelist.html
                Documentation for new command.
-          splitstringbycharactercount-exceptions.html
-          splitstringbycharactercount.html
-               Documentation for new command.
-          stringmatchesany-exceptions.html
-          stringmatchesany.html
+          striphtmltags-exceptions.html
+          striphtmltags.html
                Documentation for new command.
                
      /src
           gen.tcl
                Updated to include current version number.
-          includeexcludelistfilter.tcl
+          htmllisttreefromdict.tcl
                New command.
           loading-module-data.tcl
                Updated to add support for new commands.
-          newlinesstringtoonehtmlparagraph.tcl
+          htmlparagraphsfromdoublenewlinesstring.tcl
                New command.
           pkgIndex.tcl
                Updated to include current version number.
-          printmatrix.tcl
-               CN_0008: Reworked code to handle an empty string passed in as if it were an empty matrix.
-               CN_0008: Added error detection for case where HeaderList is empty but ColumnMaxWidthList is not.
-          printvars.tcl
+          quasitablefromkeyvaluelist.tcl
                New command.
-          showtable.tcl
-               New command.
-          splitstringbycharactercount.tcl
-               New command.
-          stringmatchesany.tcl
+          striphtmltags.tcl
                New command.
 
      /test
           *.test
                Update the rev number.
-          includeexcludelistfilter.test
+          htmllisttreefromdict.test
                Tests for new command.
-          printmatrix.test
-               Added tests for additional functionality.
-          printvars.test
-               Tests for new command.               
+          htmlparagraphsfromdoublenewlinesstring.test
+               Tests for new command.
+          quasitablefromkeyvaluelist.test
+               Tests for new command.
           showtable.test
-               Tests for new command.          
-          splitstringbycharactercount.test
+               Fixed test to match output.
+          striphtmltags.test
                Tests for new command.
-          stringmatchesany.test
-               Tests for new command.
+

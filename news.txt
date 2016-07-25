@@ -2,31 +2,22 @@ Gen
 
 NEWS
 
-2016.06.13
-1.15.0 revision
+2016.07.25
+1.16.0 revision
 
-For this release we have five commands, which I, personally, have wanted to
-have for some time. They are convenience commands, which you would like to
-avoid writing because they seem too simple, and yet just when you need them,
-they are a touch troublesome to have to switch gears and work out for yourself.
+For this release we have several commands for working with HTML.
 
-IncludeExcludeListFilter
-     Return list with all to be included, none to be excluded.
+HtmlListTreeFromDict
+     Return HTML list tree representing the dict.
 
-IncludeExcludeListFilter
-     Return list with all to be included, none to be excluded.
+HtmlParagraphsFromDoubleNewlinesString
+     Convert a string into a series of HTML paragraphs.
 
-NewlinesStringToOneHtmlParagraph
-     Convert newlines into HTML line breaks, put into paragraph.
+QuasiTableFromKeyValueList
+     Create a "table" with divs derived from a key-value list.
 
-PrintVars
-     Print out the value of each of the variables passed in.
-
-ShowTable
-     Print the contents of a table.
-
-StringMatchesAny
-     Like string match except you can use multiple patterns.
+StripHtmlTags
+     Strip HTML/XML tags from a string.
 
 
 

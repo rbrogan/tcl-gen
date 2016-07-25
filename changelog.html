@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.15.0</div><div class="section-header-right">2016.06.13</div>
+<div class="section-header-left">1.16.0</div><div class="section-header-right">2016.07.25</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,13 +39,10 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>IncludeExcludeListFilter</li>
-<li>NewlinesStringToOneHtmlParagraph</li>
-<li>PrintVars</li>
-<li>ShowTable</li>
-<li>StringMatchesAny</li>
-</ul>
-</li>
+<li>HtmlListTreeFromDict</li>
+<li>HtmlParagraphsFromDoubleNewlinesString</li>
+<li>QuasiTableFromKeyValueList</li>
+<li>StripHtmlTags</li>
 </ul>
 </li>
 </ul>
@@ -81,19 +78,19 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>includeexcludelistfilter.html<br>includeexcludelistfilter-exceptions.html
+          <li>htmllisttreefromdict.html<br>htmllisttreefromdict-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>printvars.html<br>printvars-exceptions.html
+          <li>htmlparagraphsfromdoublenewlinesstring.html<br>htmlparagraphsfromdoublenewlinesstring-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>showtable.html<br>showtable-exceptions.html
+          <li>newlinesstringtoonehtmlparagraph.html
+          <ul><li>Update to include link to new command.</li></ul>
+          </li>          
+          <li>quasitablefromkeyvaluelist.html<br>quasitablefromkeyvaluelist-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>splitstringbycharactercount.html<br>splitstringbycharactercount-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>          
-          </li>
-          <li>stringmatchesany.html<br>stringmatchesany-exceptions.html
+          <li>striphtmltags.html<br>striphtmltags-exceptions.html
           <ul><li>Documentation for new command.</li></ul>          
           </li>
      </ul>
@@ -105,32 +102,23 @@ By files<br>
      <li>Updated to include current version number.</li>
 </ul>
 </li>
-<li>includeexcludelistfilter.tcl
+<li>htmllisttreefromdict.tcl
 <ul><li>New command.</li></ul>
 </li>
 <li>loading-module-data.tcl
 <ul><li>Updated to add support for new commands.</li>
 </ul>
 </li>
-<li>newlinesstringtoonehtmlparagraph.tcl
+<li>htmlparagraphsfromdoublenewlinesstring.tcl
 <ul><li>New command.</li></ul>
 </li>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
-<li>printmatrix.tcl
-<ul><li>CN_0008: Reworked code to handle an empty string passed in as if it were an empty matrix.<br>CN_0008: Added error detection for case where HeaderList is empty but ColumnMaxWidthList is not.</li></ul>
-</li>
-<li>printvars.tcl
+<li>quasitablefromkeyvaluelist.tcl
 <ul><li>New command.</li></ul>
 </li>
-<li>showtable.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>splitstringbycharactercount.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>stringmatchesany.tcl
+<li>striphtmltags.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -142,32 +130,27 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>includeexcludelistfilter.test
+<li>htmllisttreefromdict.test
 <ul>
-<li>Tests for new command.</li>
+     <li>Tests for new command.</li>
 </ul>
 </li>
-<li>printmatrix.test
+<li>htmlparagraphsfromdoublenewlinesstring.test
 <ul>
-<li>Added tests for additional functionality.</li>
+     <li>Tests for new command.</li>
 </ul>
 </li>
-<li>printvars.test
+<li>quasitablefromkeyvaluelist.test
 <ul>
-<li>Tests for new command.</li>
+     <li>Tests for new command.</li>
 </ul>
 </li>
 <li>showtable.test
 <ul>
-     <li>Tests for new command.</li>
+     <li>Fixed test to match output.</li>
 </ul>
 </li>
-<li>splitstringbycharactercount.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>stringmatchesany.test
+<li>striphtmltags.test
 <ul>
      <li>Tests for new command.</li>
 </ul>

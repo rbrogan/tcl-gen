@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HtmlListTreeFromDict</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+HtmlListTreeFromDict  &mdash;  Return HTML list tree representing the dict.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>HtmlListTreeFromDict</b> <i>DictValue</i> <i>?IndentationSpaces?</i> <i>?IndentationLevel?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+HTML list tree representing the dict. See example for details.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>DictValue</i></td><td class='argument_right'>Dict to transform into an HTML list tree.</td></tr><tr class='table_row_a'><td class='argument_left'><i>IndentationSpaces</i></td><td class='argument_right'>Optional. Number of spaces to indent for each level. This is for markup only and will not be seen by the person reading the HTML. Defaults to 5.</td></tr><tr class='table_row_b'><td class='argument_left'><i>IndentationLevel</i></td><td class='argument_right'>Optional. Intended for internal use. Defaults to 0.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This program produces an unordered list as output. A future release may contain an option to use ordered lists.<p>For any value that is not a dict, itself, it will go within the same list element as the key. For any value which is itself a dict, the code will recurse and that dict will get its own list.</p><p>The following is a sample:</p><p><ul>
+     <li>one
+          <ul>
+               <li>two: three</li>
+          </ul>
+     </li>
+     <li>aaa: bbb</li>
+</ul></p><p>Note that IndentationLevel is intended for internal use only. The code is recursive and it is expected that it starts out at level 0. You may elect to try to set IndentationLevel yourself, but you will have to take the output and surround it in list tags.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="htmllisttreefromdict-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>HtmlListTreeFromDict {one {two {three}} aaa bbb}</b><br>&lt;ul&gt;<br>     &lt;li&gt;one<br>          &lt;ul&gt;<br>               &lt;li&gt;two: three&gt;/li&gt;<br>          &lt;/ul&gt;<br>     &lt;/li&gt;<br>     &lt;li&gt;aaa: bbb&gt;/li&gt;<br>&lt;/ul&gt;<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'printdict.html'>PrintDict</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_html">html</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

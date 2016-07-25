@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StripHtmlTags</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+StripHtmlTags  &mdash;  Strip HTML/XML tags from a string.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>StripHtmlTags</b> <i>StringVariable</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+String with the tags removed.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>StringVariable</i></td><td class='argument_right'>A string value or variable name prefixed by @.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>This command is useful for when you have documentation with tags in it that you would also like to print as plaintext.<p>An start tag is &lt; followed by one or more characters, followed by &gt;.</p><p>A end tag is &lt;, followed by forward slash, followed by one or more characters, followed by &gt;.</p><p>An empty tag is &lt;, followed by one or more characters, optionally followed by &gt;.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="striphtmltags-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>StripHtmlTags {You can find the documentation at &lt;a ref="somepage.html"&gt;somepage.html&lt;/a&gt;.}</b><br>You can find the documentation at somepage.html.<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'http://www.tcl.tk/man/tcl8.6/TclCmd/regsub.htm'>regsub</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_conversion">conversion</a>, <a href="keyword-index.html#C_html">html</a>, <a href="keyword-index.html#C_string">string</a>, <a href="keyword-index.html#C_transform">transform</a>
+</div>
+</body>
+</html>

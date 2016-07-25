@@ -1,0 +1,45 @@
+package require tcltest
+package require -exact gen 1.16.0
+source gen-test-common.tcl
+
+namespace eval StripHtmlTagsTest {}
+
+
+
+proc StripHtmlTagsTest::Test-1 {} {
+
+::tcltest::test StripHtmlTags-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded StripHtmlTags]]}  -setup {}  -body {StripHtmlTags "<h1>This is a heading.</h1>"
+}  -cleanup {}  -result {This is a heading.}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc StripHtmlTagsTest::Test-2 {} {
+
+::tcltest::test StripHtmlTags-1 {Strip empty tag}  -constraints {[expr [CheckAllDependenciesLoaded StripHtmlTags]]}  -setup {}  -body {StripHtmlTags "line one.line two.line three."
+}  -cleanup {}  -result {line one.line two.line three.}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc StripHtmlTagsTest::Test-3 {} {
+
+::tcltest::test StripHtmlTags-2 {Empty string}  -constraints {[expr [CheckAllDependenciesLoaded StripHtmlTags]]}  -setup {}  -body {StripHtmlTags ""
+}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     StripHtmlTagsTest::Test-1
+     StripHtmlTagsTest::Test-2
+     StripHtmlTagsTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          StripHtmlTagsTest::Test-[set Element]
+     }
+}
+
