@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeLeftUntilTargetDate</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeLeftUntilTargetDate  &mdash;  Return time left from current date until target.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeLeftUntilTargetDate</b> <i>TargetDate</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Time left from current date until target.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetDate</i></td><td class='argument_right'>Target date you want to measure the number of days left until.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Return value will be number of days from current date to target date.<p>If the target date is already past then the returned value will be prefixed with a minus sign.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timeleftuntiltargetdate-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% Today<br>2000-01-01<br>% <b>TimeLeftUntilTargetDate 2000-01-02</b><br>1<br><br></pre></div><div class="code_sample"><pre>% Today<br>2000-01-02<br>% TimeLeftUntilTargetDate 2000-01-01<br>-1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'timeleftuntiltargetdatetime.html'>TimeLeftUntilTargetDatetime</a>, <a href = 'today.html'>Today</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_date">date</a>
+</div>
+</body>
+</html>

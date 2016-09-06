@@ -20,5 +20,5 @@ proc Seconds2DatetimeQuantity SecondsValue {
      set SecondsValue [expr $SecondsValue % (60 * 60)]
      set Minutes [expr $SecondsValue / 60]
      set Seconds [expr $SecondsValue % 60]
-     return [format "[set SignPrefix]%02dT%02d:%02d:%02d" $Days $Hours $Minutes $Seconds]
+     return [format "[set SignPrefix]%04dT%02d:%02d:%02d" $Days $Hours $Minutes $Seconds]
 }

@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.16.0
+package require -exact gen 1.17.0
 source gen-test-common.tcl
 
 namespace eval ShowTableTest {}
@@ -10,10 +10,11 @@ proc ShowTableTest::Test-1 {} {
 
 ::tcltest::test ShowTable-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db
 }  -body {ShowTable my_table {id desc notes}
-}  -cleanup {}  -result {}  -output {id | desc | notes
- 1 |  uno |   one
- 2 |  dos |   two
- 3 | tres | three
+}  -cleanup {}  -result {}  -output {id |  desc | notes
+ 1 |   uno |   one
+ 2 |   dos |   two
+ 3 |  tres | three
+ 4 | first | 1-2-3
 }  -returnCodes {0}  
 
 }
@@ -32,10 +33,11 @@ proc ShowTableTest::Test-2 {} {
 proc ShowTableTest::Test-3 {} {
 
 ::tcltest::test ShowTable-2 {Do not use pass in column names}  -constraints {[expr [CheckAllDependenciesLoaded ShowTable]]}  -setup {sqlite3 testdb test.db}  -body {ShowTable my_table
-}  -cleanup {}  -result {}  -output {id | desc | notes
- 1 |  uno |   one
- 2 |  dos |   two
- 3 | tres | three
+}  -cleanup {}  -result {}  -output {id |  desc | notes
+ 1 |   uno |   one
+ 2 |   dos |   two
+ 3 |  tres | three
+ 4 | first | 1-2-3
 }  -returnCodes {0}  
 
 }

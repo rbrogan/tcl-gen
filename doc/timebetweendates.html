@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeBetweenDates</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeBetweenDates  &mdash;  Return the absolute number of days between dates given.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeBetweenDates</b> <i>FirstDate</i> <i>SecondDate</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Time elapsed between two dates.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDate</i></td><td class='argument_right'>First date to find the time between.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDate</i></td><td class='argument_right'>Second date time find the time between.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Returns time in number of days.<p>Note that the return value will always be non-negative, no matter whether the first or second date comes first.</p><p>Note that while this returns an absolute value result, the caller can also use <code>DateIsAfter</code> to determine whether the first date is before or after the second. May want to do this to differentiate between when a date has already gone past versus when it is still to come.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timebetweendates-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>TimeBetweenDates 2000-01-01 2000-01-02</b><br>1<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'timebetweendatetimes.html'>TimeBetweenDatetimes</a>, <a href = 'timeleftuntiltargetdate.html'>TimeLeftUntilTargetDate</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_date">date</a>
+</div>
+</body>
+</html>

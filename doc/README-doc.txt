@@ -422,8 +422,16 @@ swap.html
      Page for the command Swap.
 ter.html
      Page for the command Ter.
+timebetweendates.html
+     Page for the command TimeBetweenDates.
+timebetweendatetimes.html
+     Page for the command TimeBetweenDatetimes.
 timebetweentimesofday.html
      Page for the command TimeBetweenTimesOfDay.
+timeleftuntiltargetdate.html
+     Page for the command TimeLeftUntilTargetDate.
+timeleftuntiltargetdatetime.html
+     Page for the command TimeLeftUntilTargetDatetime.
 timeleftuntiltargettimeofday.html
      Page for the command TimeLeftUntilTargetTimeOfDay.
 timeofdayisabout.html

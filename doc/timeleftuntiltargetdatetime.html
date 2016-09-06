@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeLeftUntilTargetDatetime</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeLeftUntilTargetDatetime  &mdash;  Return time left from current datetime to target.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeLeftUntilTargetDatetime</b> <i>TargetDatetime</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Time left from current datetime to target.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>TargetDatetime</i></td><td class='argument_right'>Target datetime you want to measure the time left until.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Return value is in the form ddddThh:mm:ss, where dddd is the number of total days, hh is hours, mm is minutes, and ss is seconds. (See example.)<p>If the target datetime is already past then the returned value will be prefixed with a minus sign.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timeleftuntiltargetdatetime-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% Now<br>2000-01-01 00:00:00<br>% <b>TimeLeftUntilTargetDatetime 2000-01-02 02:03:04</b><br>0001T02:03:04<br></pre></div><div class="code_sample"><pre>% Now<br>2000-01-02 02:03:04<br>% TimeLeftUntilTargetDatetime 2000-01-01 00:00:00<br>-0001T02:03:04<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'now.html'>Now</a>, <a href = 'timebetweendatetimes.html'>TimeBetweenDatetimes</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_datetime">datetime</a>
+</div>
+</body>
+</html>

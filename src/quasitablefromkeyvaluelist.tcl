@@ -1,8 +1,8 @@
-proc QuasiTableFromKeyValueList {List {KeyDivName "KeyDiv"} {ValueDivName "ValueDiv"}} {
+proc QuasiTableFromKeyValueList {List {KeyDivClassName "KeyDiv"} {ValueDivClassName "ValueDiv"}} {
 
      set OutString ""
      foreach {Key Value} $List {
-          append OutString "<div class=\"$KeyDivName\">$Key</div>\n<div class=\"$ValueDivName\">$Value</div>\n\n"
+          append OutString "<div class=\"$KeyDivClassName\">$Key</div>\n<div class=\"$ValueDivClassName\">$Value</div>\n\n"
      }
      return $OutString
 }

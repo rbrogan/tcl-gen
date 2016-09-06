@@ -459,8 +459,16 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+timebetweendates.test
+     Tests for the command TimeBetweenDates.
+timebetweendatetimes.test
+     Tests for the command TimeBetweenDatetimes.
 timebetweentimesofday.test
      Tests for the command TimeBetweenTimesOfDay.
+timeleftuntiltargetdate.test
+     Tests for the command TimeLeftUntilTargetDate.
+timeleftuntiltargetdatetime.test
+     Tests for the command TimeLeftUntilTargetDatetime.
 timeleftuntiltargettimeofday.test
      Tests for the command TimeLeftUntilTargetTimeOfDay.
 timeofdayisabout.test

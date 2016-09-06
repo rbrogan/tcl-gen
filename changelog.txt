@@ -2,17 +2,20 @@ Gen
 
 CHANGELOG
 
-2016.07.25
-v1.16.0
+2016.09.05
+v1.17.0
 
 Changes by functionality
 
 Added new commands
-     HtmlListTreeFromDict
-     HtmlParagraphsFromDoubleNewlinesString
-     QuasiTableFromKeyValueList
-     StripHtmlTags
-
+     TimeBetweenDates
+          Return the absolute number of days between dates given.
+     TimeBetweenDatetimes
+          Return the absolute value of time between datetimes given.
+     TimeLeftUntilTargetDate
+          Return time left from current date until target.
+     TimeLeftUntilTargetDatetime
+          Return time left from current datetime to target.
 
 By files
 
@@ -32,47 +35,54 @@ By files
           *-index.html
                Updated to include current version number.
           htmllisttreefromdict-exceptions.html
-          htmllisttreefromdict.html
+               Removed extraneous entry.
+          timebetweendates.html
+          timebetweendates-exceptions.html
+               Documentation for new command.          
+          timebetweendatetimes.html
+          timebetweendatetimes-exceptions.html
+               Documentation for new command.          
+          timeleftuntiltargetdate.html
+          timeleftuntiltargetdate-exceptions.html
+               Documentation for new command.          
+          timeleftuntiltargetdatetime.html
+          timeleftuntiltargetdatetime-exceptions.html
                Documentation for new command.
-          htmlparagraphsfromdoublenewlinesstring-exceptions.html
-          htmlparagraphsfromdoublenewlinesstring.html
-               Documentation for new command.
-          newlinesstringtoonehtmlparagraph.html
-               Include link to new command.
-          quasitablefromkeyvaluelist-exceptions.html
-          quasitablefromkeyvaluelist.html
-               Documentation for new command.
-          striphtmltags-exceptions.html
-          striphtmltags.html
-               Documentation for new command.
-               
+          
      /src
           gen.tcl
                Updated to include current version number.
-          htmllisttreefromdict.tcl
-               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
-          htmlparagraphsfromdoublenewlinesstring.tcl
-               New command.
           pkgIndex.tcl
                Updated to include current version number.
           quasitablefromkeyvaluelist.tcl
+               Changeded argument names. No changes to functionality.
+          seconds2datequantity.tcl
+               Internal use.
+          seconds2datetimequantity.tcl
+               Fix for CN_0010. Changed number of digits in the day portion from two to four.
+          timebetweendates.tcl
                New command.
-          striphtmltags.tcl
+          timebetweendatetimes.tcl
+               New command.
+          timeleftuntiltargetdate.tcl
+               New command.
+          timeleftuntiltargetdatetime.tcl
                New command.
 
      /test
           *.test
                Update the rev number.
-          htmllisttreefromdict.test
-               Tests for new command.
-          htmlparagraphsfromdoublenewlinesstring.test
-               Tests for new command.
-          quasitablefromkeyvaluelist.test
-               Tests for new command.
+          seconds2datequantity.test
+               Tests for internal command.
           showtable.test
-               Fixed test to match output.
-          striphtmltags.test
+               Minor fix for output.
+          timebetweendates.tcl
                Tests for new command.
-
+          timebetweendatetimes.tcl
+               Tests for new command.
+          timeleftuntiltargetdate.tcl
+               Tests for new command.
+          timeleftuntiltargetdatetime.tcl
+               Tests for new command.

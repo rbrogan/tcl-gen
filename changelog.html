@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.16.0</div><div class="section-header-right">2016.07.25</div>
+<div class="section-header-left">1.17.0</div><div class="section-header-right">2016.09.05</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,10 +39,12 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>HtmlListTreeFromDict</li>
-<li>HtmlParagraphsFromDoubleNewlinesString</li>
-<li>QuasiTableFromKeyValueList</li>
-<li>StripHtmlTags</li>
+<li>TimeBetweenDates</li>
+<li>TimeBetweenDatetimes</li>
+<li>TimeLeftUntilTargetDate</li>
+<li>TimeLeftUntilTargetDatetime</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -78,19 +80,19 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>htmllisttreefromdict.html<br>htmllisttreefromdict-exceptions.html
+          <li>htmllisttreefromdict-exceptions.html
+          <ul><li>Removed extraneous entry.</li></ul>
+          </li>
+          <li>timebetweendates.html<br>timebetweendates-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>htmlparagraphsfromdoublenewlinesstring.html<br>htmlparagraphsfromdoublenewlinesstring-exceptions.html
+          <li>timebetweendatetimes.html<br>timebetweendatetimes-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>newlinesstringtoonehtmlparagraph.html
-          <ul><li>Update to include link to new command.</li></ul>
-          </li>          
-          <li>quasitablefromkeyvaluelist.html<br>quasitablefromkeyvaluelist-exceptions.html
-          <ul><li>Documentation for new command.</li></ul>
+          <li>timeleftuntiltargetdate.html<br>timeleftuntiltargetdate-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>          
           </li>
-          <li>striphtmltags.html<br>striphtmltags-exceptions.html
+          <li>timeleftuntiltargetdatetime.html<br>timeleftuntiltargetdatetime-exceptions.html
           <ul><li>Documentation for new command.</li></ul>          
           </li>
      </ul>
@@ -102,23 +104,32 @@ By files<br>
      <li>Updated to include current version number.</li>
 </ul>
 </li>
-<li>htmllisttreefromdict.tcl
-<ul><li>New command.</li></ul>
-</li>
 <li>loading-module-data.tcl
 <ul><li>Updated to add support for new commands.</li>
 </ul>
-</li>
-<li>htmlparagraphsfromdoublenewlinesstring.tcl
-<ul><li>New command.</li></ul>
 </li>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
 <li>quasitablefromkeyvaluelist.tcl
+<ul><li>Changeded argument names. No changes to functionality.</li></ul>
+</li>
+<li>seconds2datequantity.tcl
+<ul><li>Internal use.</li></ul>
+</li>
+<li>seconds2datetimequantity.tcl
+<ul><li>Fix for CN_0010. Changed number of digits in the day portion from two to four.</li></ul>
+</li>
+<li>timebetweendates.tcl
 <ul><li>New command.</li></ul>
 </li>
-<li>striphtmltags.tcl
+<li>timebetweendatetimes.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>timeleftuntiltargetdate.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>timeleftuntiltargetdatetime.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -130,27 +141,32 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>htmllisttreefromdict.test
+<li>seconds2datequantity.test
 <ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>htmlparagraphsfromdoublenewlinesstring.test
-<ul>
-     <li>Tests for new command.</li>
-</ul>
-</li>
-<li>quasitablefromkeyvaluelist.test
-<ul>
-     <li>Tests for new command.</li>
+<li>Tests for internal command.</li>
 </ul>
 </li>
 <li>showtable.test
 <ul>
-     <li>Fixed test to match output.</li>
+<li>Minor fix for output.</li>
 </ul>
 </li>
-<li>striphtmltags.test
+<li>timebetweendates.test
+<ul>
+<li>Tests for new command.</li>
+</ul>
+</li>
+<li>timebetweendatetimes.test
+<ul>
+<li>Tests for new command.</li>
+</ul>
+</li>
+<li>timeleftuntiltargetdate.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>timeleftuntiltargetdatetime.test
 <ul>
      <li>Tests for new command.</li>
 </ul>

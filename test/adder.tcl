@@ -1,0 +1,1 @@
+puts "[expr [lindex $::argv 0] + [lindex $::argv 1]]"

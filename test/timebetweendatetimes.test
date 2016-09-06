@@ -1,0 +1,64 @@
+package require tcltest
+package require -exact gen 1.17.0
+source gen-test-common.tcl
+
+namespace eval TimeBetweenDatetimesTest {}
+
+
+
+proc TimeBetweenDatetimesTest::Test-1 {} {
+
+::tcltest::test TimeBetweenDatetimes-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDatetimes]]}  -setup {}  -body {TimeBetweenDatetimes [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"] [eval "clock format [expr [clock seconds] + 60*60*24] -format $GenNS::DatetimeFormat"]
+}  -cleanup {}  -result {0001T00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenDatetimesTest::Test-2 {} {
+
+::tcltest::test TimeBetweenDatetimes-1 {First datetime is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDatetimes]]}  -setup {}  -body {TimeBetweenDatetimes asdf [eval "clock format [expr [clock seconds] + 60*60*24] -format $GenNS::DatetimeFormat"]
+}  -cleanup {}  -result {Variable FirstDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenDatetimesTest::Test-3 {} {
+
+::tcltest::test TimeBetweenDatetimes-2 {Second datetime is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDatetimes]]}  -setup {}  -body {TimeBetweenDatetimes [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"] asdf
+}  -cleanup {}  -result {Variable SecondDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenDatetimesTest::Test-4 {} {
+
+::tcltest::test TimeBetweenDatetimes-3 {First datetime comes after second}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDatetimes]]}  -setup {}  -body {TimeBetweenDatetimes [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"] [eval "clock format [expr [clock seconds] - 60*60*24] -format $GenNS::DatetimeFormat"]}  -cleanup {}  -result {0001T00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenDatetimesTest::Test-5 {} {
+
+::tcltest::test TimeBetweenDatetimes-4 {First and second datetime exactly the same}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDatetimes]]}  -setup {}  -body {TimeBetweenDatetimes [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"] [eval "clock format [clock seconds] -format $GenNS::DatetimeFormat"]
+}  -cleanup {}  -result {0000T00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeBetweenDatetimesTest::Test-1
+     TimeBetweenDatetimesTest::Test-2
+     TimeBetweenDatetimesTest::Test-3
+     TimeBetweenDatetimesTest::Test-4
+     TimeBetweenDatetimesTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeBetweenDatetimesTest::Test-[set Element]
+     }
+}
+

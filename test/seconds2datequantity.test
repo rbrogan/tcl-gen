@@ -1,0 +1,24 @@
+package require tcltest
+package require -exact gen 1.17.0
+source gen-test-common.tcl
+
+namespace eval Seconds2DateQuantityTest {}
+
+
+
+proc Seconds2DateQuantityTest::Test-1 {} {
+
+::tcltest::test Seconds2DateQuantity-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded Seconds2DateQuantity]]}  -setup {}  -body {}  -cleanup {}  -result {}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     Seconds2DateQuantityTest::Test-1
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          Seconds2DateQuantityTest::Test-[set Element]
+     }
+}
+

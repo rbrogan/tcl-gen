@@ -2,22 +2,23 @@ Gen
 
 NEWS
 
-2016.07.25
-1.16.0 revision
+2016.09.05
+1.17.0 revision
 
-For this release we have several commands for working with HTML.
+For this release we have a handful of Date and Time commands which may be
+useful for scheduling applications (among others).
 
-HtmlListTreeFromDict
-     Return HTML list tree representing the dict.
+TimeBetweenDates
+     Return the absolute number of days between dates given.
 
-HtmlParagraphsFromDoubleNewlinesString
-     Convert a string into a series of HTML paragraphs.
+TimeBetweenDatetimes
+     Return the absolute value of time between datetimes given.
 
-QuasiTableFromKeyValueList
-     Create a "table" with divs derived from a key-value list.
+TimeLeftUntilTargetDate
+     Return time left from current date until target.
 
-StripHtmlTags
-     Strip HTML/XML tags from a string.
+TimeLeftUntilTargetDatetime
+     Return time left from current datetime to target.
 
 
 

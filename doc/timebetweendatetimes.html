@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TimeBetweenDatetimes</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+TimeBetweenDatetimes  &mdash;  Return the absolute value of time between datetimes given.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>TimeBetweenDatetimes</b> <i>FirstDatetime</i> <i>SecondDatetime</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+Number of days, hours, minutes, and seconds in the form ddddThh:mm:ss.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>FirstDatetime</i></td><td class='argument_right'>The first of the two datetimes to find the amount of time between.</td></tr><tr class='table_row_a'><td class='argument_left'><i>SecondDatetime</i></td><td class='argument_right'>The second of the two datetimes to find the amount of time between.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Return value is in the form ddddThh:mm:ss, where dddd is the number of total days, hh is hours, mm is minutes, and ss is seconds. (See example.)<p>Note that the return value will always be non-negative, no matter whether the first or second datetime comes first.</p><p>Note that while this does return an absolute value result, the caller can also use <code>DatetimeIsAfter</code> to determine whether the first datetime is before or after the second. May want to do this to differentiate between when time has already gone past versus when it is still to come.
+</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="timebetweendatetimes-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% <b>TimeBetweenDatetimes [Yesterday] [Today]</b><br>0001T00:00:00<br></pre></div><div class="code_sample"><pre>% TimeBetweenDatetimes [Today] [Yesterday]<br>0001T00:00:00<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'timebetweendates.html'>TimeBetweenDates</a>, <a href = 'timeleftuntiltargetdatetime.html'>TimeLeftUntilTargetDatetime</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_arithmetic">arithmetic</a>, <a href="keyword-index.html#C_datetime">datetime</a>
+</div>
+</body>
+</html>

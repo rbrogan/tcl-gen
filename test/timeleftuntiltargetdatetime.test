@@ -1,0 +1,81 @@
+package require tcltest
+package require -exact gen 1.17.0
+source gen-test-common.tcl
+
+namespace eval TimeLeftUntilTargetDatetimeTest {}
+
+
+namespace eval TimeLeftUntilTargetDatetimeTest {
+
+proc SetupDatetime {DatetimeTime} {
+     set ::TimeLeftUntilTargetDatetimeTest::MySeconds [eval [subst {clock scan "$DatetimeTime" -format $::GenNS::DatetimeFormat}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::TimeLeftUntilTargetDatetimeTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreDatetime {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc TimeLeftUntilTargetDatetimeTest::Test-1 {} {
+
+::tcltest::test TimeLeftUntilTargetDatetime-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetDatetime]]}  -setup {::TimeLeftUntilTargetDatetimeTest::SetupDatetime "2000-01-01 00:00:00"
+}  -body {TimeLeftUntilTargetDatetime "2000-01-02 02:03:04"
+}  -cleanup {::TimeLeftUntilTargetDatetimeTest::RestoreDatetime
+}  -result {0001T02:03:04}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeLeftUntilTargetDatetimeTest::Test-2 {} {
+
+::tcltest::test TimeLeftUntilTargetDatetime-1 {Invalid datetime}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetDatetime]]}  -setup {}  -body {TimeLeftUntilTargetDatetime asdf
+}  -cleanup {}  -result {Variable TargetDatetime has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeLeftUntilTargetDatetimeTest::Test-3 {} {
+
+::tcltest::test TimeLeftUntilTargetDatetime-2 {Datetime comes before target datetime}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetDatetime]]}  -setup {::TimeLeftUntilTargetDatetimeTest::SetupDatetime "2000-01-02 02:03:04"
+}  -body {TimeLeftUntilTargetDatetime "2000-01-01 00:00:00"
+}  -cleanup {::TimeLeftUntilTargetDatetimeTest::RestoreDatetime
+}  -result {-0001T02:03:04}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeLeftUntilTargetDatetimeTest::Test-4 {} {
+
+::tcltest::test TimeLeftUntilTargetDatetime-3 {Current datetime and target datetime are the same}  -constraints {[expr [CheckAllDependenciesLoaded TimeLeftUntilTargetDatetime]]}  -setup {::TimeLeftUntilTargetDatetimeTest::SetupDatetime "2000-01-01 00:00:00"
+}  -body {TimeLeftUntilTargetDatetime "2000-01-01 00:00:00"
+}  -cleanup {::TimeLeftUntilTargetDatetimeTest::RestoreDatetime
+}  -result {0000T00:00:00}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeLeftUntilTargetDatetimeTest::Test-1
+     TimeLeftUntilTargetDatetimeTest::Test-2
+     TimeLeftUntilTargetDatetimeTest::Test-3
+     TimeLeftUntilTargetDatetimeTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeLeftUntilTargetDatetimeTest::Test-[set Element]
+     }
+}
+

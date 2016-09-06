@@ -1,0 +1,66 @@
+package require tcltest
+package require -exact gen 1.17.0
+source gen-test-common.tcl
+
+namespace eval TimeBetweenDatesTest {}
+
+
+
+proc TimeBetweenDatesTest::Test-1 {} {
+
+::tcltest::test TimeBetweenDates-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDates]]}  -setup {}  -body {TimeBetweenDates [eval "clock format [clock seconds] -format $GenNS::DateFormat"] [eval "clock format [expr [clock seconds] + 60*60*24] -format $GenNS::DateFormat"]
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenDatesTest::Test-2 {} {
+
+::tcltest::test TimeBetweenDates-1 {First date is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDates]]}  -setup {}  -body {TimeBetweenDates asdf [eval "clock format [expr [clock seconds] + 60*60*24] -format $GenNS::DateFormat"]
+}  -cleanup {}  -result {Variable FirstDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenDatesTest::Test-3 {} {
+
+::tcltest::test TimeBetweenDates-2 {Second date is invalid}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDates]]}  -setup {}  -body {TimeBetweenDates [eval "clock format [clock seconds] -format $GenNS::DateFormat"] asdf
+}  -cleanup {}  -result {Variable SecondDate has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+proc TimeBetweenDatesTest::Test-4 {} {
+
+::tcltest::test TimeBetweenDates-3 {First date comes after second}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDates]]}  -setup {}  -body {TimeBetweenDates [eval "clock format [expr [clock seconds] + 60*60*24] -format $GenNS::DateFormat"] [eval "clock format [clock seconds] -format $GenNS::DateFormat"]
+}  -cleanup {}  -result {1}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc TimeBetweenDatesTest::Test-5 {} {
+
+::tcltest::test TimeBetweenDates-4 {First and second date exactly the same}  -constraints {[expr [CheckAllDependenciesLoaded TimeBetweenDates]]}  -setup {}  -body {TimeBetweenDates [eval "clock format [clock seconds] -format $GenNS::DateFormat"] [eval "clock format [clock seconds] -format $GenNS::DateFormat"]
+
+}  -cleanup {}  -result {0}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     TimeBetweenDatesTest::Test-1
+     TimeBetweenDatesTest::Test-2
+     TimeBetweenDatesTest::Test-3
+     TimeBetweenDatesTest::Test-4
+     TimeBetweenDatesTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          TimeBetweenDatesTest::Test-[set Element]
+     }
+}
+

@@ -1,6 +1,6 @@
-package provide gen 1.16.0
+package provide gen 1.17.0
 
-set PackageRoot [file dirname [lindex [package ifneeded gen 1.16.0]  1]]
+set PackageRoot [file dirname [lindex [package ifneeded gen 1.17.0]  1]]
 
 source $PackageRoot/gen-error.tcl
 
@@ -9,7 +9,7 @@ source $PackageRoot/gen-config.tcl
 catch {source $PackageRoot/gen-user-config.tcl}
 
 proc GenCurrentVersion {} {
-     puts 1.16.0
+     puts 1.17.0
 }
 
 source $PackageRoot/loading-module.tcl

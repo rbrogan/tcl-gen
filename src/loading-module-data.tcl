@@ -2,7 +2,7 @@
 
 set ::GenNS::LoadingNS::PackageReadyList { Tcl Tclx ftp imap4 mime pop3 registry smtp sqlite3 test-loading-module-package test-missing-package textutil::adjust textutil::string }
 
-set ::GenNS::LoadingNS::SourceReadyList { AddEpilogue AddPrologue DbgOff DbgOn DbgPrint DeleteOnlyFilesInDirectory DividesEvenly EscapedSqlString EvalList FirstOf GuessPackageRootDirectory IsDirectoryEmpty IsEmpty IsHhmmss IsMatrix LastOf ListEndIndex NotEmpty QuoteIfColumnTypeIsText SaveWorkingDirectory Seconds2DatetimeQuantity SliceLeft SliceRight StartsWith StringContains Ter UpdateDbGlobal UpdateRegistryValue }
+set ::GenNS::LoadingNS::SourceReadyList { AddEpilogue AddPrologue DbgOff DbgOn DbgPrint DeleteOnlyFilesInDirectory DividesEvenly EscapedSqlString EvalList FirstOf GuessPackageRootDirectory IsDirectoryEmpty IsEmpty IsHhmmss IsMatrix LastOf ListEndIndex NotEmpty QuoteIfColumnTypeIsText SaveWorkingDirectory Seconds2DateQuantity Seconds2DatetimeQuantity SliceLeft SliceRight StartsWith StringContains Ter UpdateDbGlobal UpdateRegistryValue }
 
 set ::GenNS::LoadingNS::CommandsInPackage(Tcl) { {tell 8.5} {socket 8.5} {subst 8.5} {open 8.5} {eof 8.5} {pwd 8.5} {glob 8.5} {list 8.5} {pid 8.5} {exec 8.5} {auto_load_index 8.5} {time 8.5} {unknown 8.5} {eval 8.5} {lassign 8.5} {lrange 8.5} {fblocked 8.5} {lsearch 8.5} {auto_import 8.5} {gets 8.5} {case 8.5} {lappend 8.5} {proc 8.5} {throw 8.6} {break 8.5} {variable 8.5} {llength 8.5} {auto_execok 8.5} {return 8.5} {linsert 8.5} {error 8.5} {catch 8.5} {clock 8.5} {info 8.5} {split 8.5} {array 8.5} {if 8.5} {fconfigure 8.5} {coroutine 8.6} {concat 8.5} {join 8.5} {lreplace 8.5} {source 8.5} {fcopy 8.5} {global 8.5} {switch 8.5} {auto_qualify 8.5} {update 8.5} {close 8.5} {cd 8.5} {for 8.5} {auto_load 8.5} {file 8.5} {append 8.5} {lreverse 8.5} {format 8.5} {lmap 8.6} {unload 8.5} {read 8.5} {package 8.5} {set 8.5} {namespace 8.5} {binary 8.5} {scan 8.5} {apply 8.5} {trace 8.5} {seek 8.5} {zlib 8.6} {while 8.5} {chan 8.5} {flush 8.5} {after 8.5} {vwait 8.5} {dict 8.5} {uplevel 8.5} {continue 8.5} {try 8.6} {foreach 8.5} {lset 8.5} {rename 8.5} {fileevent 8.5} {yieldto 8.6} {regexp 8.5} {lrepeat 8.5} {upvar 8.5} {tailcall 8.6} {encoding 8.5} {expr 8.5} {unset 8.5} {load 8.5} {regsub 8.5} {history 8.5} {interp 8.5} {exit 8.5} {puts 8.5} {incr 8.5} {lindex 8.5} {lsort 8.5} {tclLog 8.5} {string 8.5} {yield 8.6} }
 
@@ -74,13 +74,13 @@ set ::GenNS::LoadingNS::DependentsList(CurrentTimeOfDayIsBetween) {CurrentTimeOf
 
 set ::GenNS::LoadingNS::DependentsList(DateIsAfter) {DateIsOnOrBefore}
 
-set ::GenNS::LoadingNS::DependentsList(DateIsBefore) {DateIsOnOrAfter}
+set ::GenNS::LoadingNS::DependentsList(DateIsBefore) {DateIsOnOrAfter TimeLeftUntilTargetDate TimeLeftUntilTargetDate}
 
 set ::GenNS::LoadingNS::DependentsList(DatePlus) {DateMinus}
 
 set ::GenNS::LoadingNS::DependentsList(DatetimeIsAfter) {DatetimeIsAtOrBefore}
 
-set ::GenNS::LoadingNS::DependentsList(DatetimeIsBefore) {DatetimeIsAtOrAfter}
+set ::GenNS::LoadingNS::DependentsList(DatetimeIsBefore) {DatetimeIsAtOrAfter TimeLeftUntilTargetDatetime}
 
 set ::GenNS::LoadingNS::DependentsList(DatetimePlus) {DatetimeMinus}
 
@@ -116,9 +116,9 @@ set ::GenNS::LoadingNS::DependentsList(GetDbGlobal) {SetDbGlobal}
 
 set ::GenNS::LoadingNS::DependentsList(Hhmmss2Seconds) {DiffHhmmss MultiplyHhmmss SumHhmmss TimeBetweenTimesOfDay}
 
-set ::GenNS::LoadingNS::DependentsList(IsDate) {DateIsAfter DateIsBefore DateIsBetween DateIsOn DateMinusDays DatePlusDays DateMinus DatePlus}
+set ::GenNS::LoadingNS::DependentsList(IsDate) {DateIsAfter DateIsBefore DateIsBetween DateIsOn DateMinusDays DatePlusDays DateMinus DatePlus TimeBetweenDates TimeLeftUntilTargetDate}
 
-set ::GenNS::LoadingNS::DependentsList(IsDatetime) {DatetimeIsAfter DatetimeIsAt DatetimeIsBefore DatetimeIsBetween DatetimeMinus DatetimePlus FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence}
+set ::GenNS::LoadingNS::DependentsList(IsDatetime) {DatetimeIsAfter DatetimeIsAt DatetimeIsBefore DatetimeIsBetween DatetimeMinus DatetimePlus FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence TimeBetweenDatetimes TimeLeftUntilTargetDatetime}
 
 set ::GenNS::LoadingNS::DependentsList(IsDict) {Dict2RegistryTree PrintDict HtmlListTreeFromDict}
 
@@ -174,6 +174,10 @@ set ::GenNS::LoadingNS::DependentsList(RunSqlInsertIfDoesNotExist) {RunSqlEnter}
 
 set ::GenNS::LoadingNS::DependentsList(SaveWorkingDirectory) {FtpDownloadSite FtpMirrorLocalToRemote}
 
+set ::GenNS::LoadingNS::DependentsList(Seconds2DateQuantity) {TimeBetweenDates}
+
+set ::GenNS::LoadingNS::DependentsList(Seconds2DatetimeQuantity) {TimeBetweenDatetimes}
+
 set ::GenNS::LoadingNS::DependentsList(Seconds2Hhmmss) {DiffHhmmss MultiplyHhmmss SumHhmmss}
 
 set ::GenNS::LoadingNS::DependentsList(SetDbGlobal) {DecrDbGlobal IncrDbGlobal LinkVarToDbGlobal}
@@ -214,6 +218,8 @@ set ::GenNS::LoadingNS::DependentsList(TestLoadingModuleNS::SampleCommand2) {Gen
 
 set ::GenNS::LoadingNS::DependentsList(TestLoadingModuleNS::SampleCommand3) {GenTestCommand3}
 
+set ::GenNS::LoadingNS::DependentsList(TimeBetweenDatetimes) {TimeLeftUntilTargetDatetime}
+
 set ::GenNS::LoadingNS::DependentsList(TimeBetweenTimesOfDay) {TimeLeftUntilTargetTimeOfDay}
 
 set ::GenNS::LoadingNS::DependentsList(TimeOfDay2Seconds) {TimeOfDayIsBetween TimeOfDayIsAfter TimeOfDayIsBefore TimeOfDayIsAtOrBefore TimeOfDayIsAtOrAfter}
@@ -242,19 +248,19 @@ set ::GenNS::LoadingNS::DependentsList(VarExistsInCaller) {UpvarX UpvarExistingO
 
 set ::GenNS::LoadingNS::DependentsList(append) {QuasiTableFromKeyValueList HtmlListTreeFromDict}
 
-set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence TimeOfDayIsAbout CurrentDayOfTheWeek}
+set ::GenNS::LoadingNS::DependentsList(clock) {IsTimeOfDay CurrentTimeOfDay CurrentTimeOfDayIsAbout DateIsAfter DateIsBefore DateIsBetween DateMinusDays DatePlus DatePlusDays DatetimeIsAfter DatetimeIsBefore DatetimeIsBetween DatetimePlus IsDate IsDatetime Now SetDateFormat SetDatetimeFormat SetTimeOfDayFormat TimeOfDay2Seconds Today Tomorrow Yesterday FindNearestPrecedingRecurrence FindNearestSucceedingRecurrence TimeOfDayIsAbout CurrentDayOfTheWeek TimeBetweenDates TimeLeftUntilTargetDate TimeLeftUntilTargetDatetime}
 
 set ::GenNS::LoadingNS::DependentsList(dict) {PrintDict ArrangeDict Dict2RegistryTree IsDict RegistryTree2Dict RunSqlEnter SetDbGlobal SqliteColumnType SqlInsertStatement SqlSetClause SqlWhereClause GetEmailUsingPop3 HtmlListTreeFromDict}
 
-set ::GenNS::LoadingNS::DependentsList(error) {TimeOfDayIsAbout}
+set ::GenNS::LoadingNS::DependentsList(error) {TimeOfDayIsAbout TimeBetweenDates TimeBetweenDatetimes TimeLeftUntilTargetDate TimeLeftUntilTargetDatetime}
 
-set ::GenNS::LoadingNS::DependentsList(eval) {TimeOfDayIsAbout}
+set ::GenNS::LoadingNS::DependentsList(eval) {TimeOfDayIsAbout TimeBetweenDates TimeBetweenDatetimes TimeLeftUntilTargetDatetime}
 
-set ::GenNS::LoadingNS::DependentsList(expr) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
+set ::GenNS::LoadingNS::DependentsList(expr) {TimeBetweenTimesOfDay TimeOfDayIsAbout TimeBetweenDates TimeBetweenDatetimes}
 
 set ::GenNS::LoadingNS::DependentsList(foreach) {IncludeExcludeListFilter HtmlParagraphsFromDoubleNewlinesString QuasiTableFromKeyValueList}
 
-set ::GenNS::LoadingNS::DependentsList(format) {TimeBetweenTimesOfDay TimeOfDayIsAbout}
+set ::GenNS::LoadingNS::DependentsList(format) {TimeBetweenTimesOfDay TimeOfDayIsAbout TimeBetweenDates TimeBetweenDatetimes TimeLeftUntilTargetDate TimeLeftUntilTargetDatetime}
 
 set ::GenNS::LoadingNS::DependentsList(ftp::Cd) {FtpCleanRemoteDirectory FtpDownloadDirectory FtpDownloadSite FtpMirrorLocalToRemote FtpUploadDirectory FtpUploadSite FtpDownloadFiles FtpUploadFiles}
 
@@ -294,7 +300,7 @@ set ::GenNS::LoadingNS::DependentsList(registry) {Dict2RegistryTree LinkTclVaria
 
 set ::GenNS::LoadingNS::DependentsList(regsub) {SplitStringByCharacterCount NewlinesStringToOneHtmlParagraph HtmlParagraphsFromDoubleNewlinesString StripHtmlTags}
 
-set ::GenNS::LoadingNS::DependentsList(return) {SplitStringByCharacterCount}
+set ::GenNS::LoadingNS::DependentsList(return) {SplitStringByCharacterCount TimeLeftUntilTargetDate}
 
 set ::GenNS::LoadingNS::DependentsList(scan) {IsDatetimeQuantity TimeOfDayIsAbout}
 
@@ -467,7 +473,11 @@ set ::GenNS::LoadingNS::DependencyList(SubtractFrom) { IsEmpty IsNonNumeric SetZ
 set ::GenNS::LoadingNS::DependencyList(SumHhmmss) { AddTo Hhmmss2Seconds IsHhmmss Seconds2Hhmmss }
 set ::GenNS::LoadingNS::DependencyList(SurroundEach) { UpvarExistingOrDie }
 set ::GenNS::LoadingNS::DependencyList(Swap) { UpvarX }
+set ::GenNS::LoadingNS::DependencyList(TimeBetweenDates) { IsDate Seconds2DateQuantity clock error eval expr format }
+set ::GenNS::LoadingNS::DependencyList(TimeBetweenDatetimes) { IsDatetime Seconds2DatetimeQuantity error eval expr format }
 set ::GenNS::LoadingNS::DependencyList(TimeBetweenTimesOfDay) { Hhmmss2Seconds IsEmpty expr format }
+set ::GenNS::LoadingNS::DependencyList(TimeLeftUntilTargetDate) { DateIsBefore DateIsBefore IsDate clock error format return }
+set ::GenNS::LoadingNS::DependencyList(TimeLeftUntilTargetDatetime) { DatetimeIsBefore IsDatetime TimeBetweenDatetimes clock error eval format }
 set ::GenNS::LoadingNS::DependencyList(TimeLeftUntilTargetTimeOfDay) { IsEmpty IsTimeOfDay Now Prepend TimeBetweenTimesOfDay TimeOfDayIsAfter }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDay2Seconds) { clock }
 set ::GenNS::LoadingNS::DependencyList(TimeOfDayIsAbout) { IsEmpty IsTimeOfDay clock error eval expr format scan }
