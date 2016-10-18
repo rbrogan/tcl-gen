@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LastMonth</title>
+<link rel="stylesheet" type="text/css" href="doc.css">
+<body>
+<div class="section_header">
+NAME
+</div>
+<div class="section_content">
+LastMonth  &mdash;  Get the last month.
+</div>
+<div class="section_header">
+SYNOPSIS
+</div>
+<div class="section_content">
+<b>LastMonth</b> <i>?Format?</i>
+</div>
+<div class="section_header">
+DESCRIPTION
+</div>
+<div class="section_content">
+<div class='subsection_header'>Return Value</div>
+<div class='subsection_content'>
+The month before this one. See More Info for format info.</div><div class='subsection_header'>Arguments</div><div class='subsection_content'><table class='argument_table'><tr class='table_row_b'><td class='argument_left'><i>Format</i></td><td class='argument_right'>Optional. Defaults to return a two digit month. See More Info for details.</td></tr></table></div><div class = 'subsection_header'>More Info</div><div class= 'subsection_content'>Some relevant format options:<br>
+%b: Abbreviated name. <b>Jan</b> for January.<br>
+%B: Full name. <b>January</b> for January.<br>
+%m: Two digits, <b>01</b> for January.<p>Check the documentation of the clock command for more information on the alternate formats.</p></div>
+<br>
+For information regarding exceptions / errors, see <a href="lastmonth-exceptions.html">here</a>.
+</div>
+<div class="section_header">
+EXAMPLES
+</div>
+<div class="section_content">
+<div class="code_sample"><pre>% # Suppose the current month is January<br>% <b>LastMonth</b><br>12<br>% LastMonth %B<br>December<br></pre></div>
+<div class="section_header" >
+SEE ALSO
+</div>
+<div class="section_content" >
+<a href = 'lastyear.html'>LastYear</a>, <a href = 'nextmonth.html'>NextMonth</a>, <a href = 'thismonth.html'>ThisMonth</a>, <a href = 'yesterday.html'>Yesterday</a>
+</div>
+<div class="section_header" >
+KEYWORDS
+</div>
+<div class="section_content" >
+<a href="keyword-index.html#C_date">date</a>, <a href="keyword-index.html#C_datetime">datetime</a>
+</div>
+</body>
+</html>

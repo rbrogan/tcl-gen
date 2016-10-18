@@ -1,5 +1,5 @@
 package require tcltest
-package require -exact gen 1.17.0
+package require -exact gen 1.18.0
 source gen-test-common.tcl
 
 namespace eval EscapedSqlStringTest {}

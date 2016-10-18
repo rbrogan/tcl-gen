@@ -270,8 +270,12 @@ lappendifnotalready.html
      Page for the command LappendIfNotAlready.
 lastid.html
      Page for the command LastId.
+lastmonth.html
+     Page for the command LastMonth.
 lastof.html
      Page for the command LastOf.
+lastyear.html
+     Page for the command LastYear.
 limitlinelengthinfile.html
      Page for the command LimitLineLengthInFile.
 linktclvariabletoregistryvalue.html
@@ -296,6 +300,10 @@ multiplyhhmmss.html
      Page for the command MultiplyHhmmss.
 newlinesstringtoonehtmlparagraph.html
      Page for the command NewlinesStringToOneHtmlParagraph.
+nextmonth.html
+     Page for the command NextMonth.
+nextyear.html
+     Page for the command NextYear.
 notempty.html
      Page for the command NotEmpty.
 now.html
@@ -422,6 +430,10 @@ swap.html
      Page for the command Swap.
 ter.html
      Page for the command Ter.
+thismonth.html
+     Page for the command ThisMonth.
+thisyear.html
+     Page for the command ThisYear.
 timebetweendates.html
      Page for the command TimeBetweenDates.
 timebetweendatetimes.html

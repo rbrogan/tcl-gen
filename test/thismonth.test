@@ -1,0 +1,77 @@
+package require tcltest
+package require -exact gen 1.18.0
+source gen-test-common.tcl
+
+namespace eval ThisMonthTest {}
+
+
+namespace eval ThisMonthTest {
+
+proc SetupClock {ClockTime} {
+     set ::ThisMonthTest::MySeconds [eval [subst {clock scan "$ClockTime" -format %Y-%m}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::ThisMonthTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc ThisMonthTest::Test-1 {} {
+
+::tcltest::test ThisMonth-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded ThisMonth]]}  -setup {::ThisMonthTest::SetupClock {2000-01}
+}  -body {ThisMonth}  -cleanup {}  -result {01}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc ThisMonthTest::Test-2 {} {
+
+::tcltest::test ThisMonth-1 {Use abbreviated name}  -constraints {[expr [CheckAllDependenciesLoaded ThisMonth]]}  -setup {::NextMonthTest::SetupClock {2000-01}
+}  -body {ThisMonth %b
+}  -cleanup {}  -result {Jan}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc ThisMonthTest::Test-3 {} {
+
+::tcltest::test ThisMonth-2 {Use full name}  -constraints {[expr [CheckAllDependenciesLoaded ThisMonth]]}  -setup {::NextMonthTest::SetupClock {2000-01}
+}  -body {ThisMonth %B
+}  -cleanup {}  -result {January}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc ThisMonthTest::Test-4 {} {
+
+::tcltest::test ThisMonth-3 {Format is invalid}  -constraints {[expr [CheckAllDependenciesLoaded ThisMonth]]}  -setup {}  -body {ThisMonth asdf
+}  -cleanup {}  -result {Variable Format has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     ThisMonthTest::Test-1
+     ThisMonthTest::Test-2
+     ThisMonthTest::Test-3
+     ThisMonthTest::Test-4
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          ThisMonthTest::Test-[set Element]
+     }
+}
+

@@ -2,23 +2,29 @@ Gen
 
 NEWS
 
-2016.09.05
-1.17.0 revision
+2016.10.17
+1.18.0 revision
 
 For this release we have a handful of Date and Time commands which may be
 useful for scheduling applications (among others).
 
-TimeBetweenDates
-     Return the absolute number of days between dates given.
+LastMonth
+     Get the last month.
 
-TimeBetweenDatetimes
-     Return the absolute value of time between datetimes given.
+LastYear
+     Get the year before this one.
 
-TimeLeftUntilTargetDate
-     Return time left from current date until target.
+NextMonth
+     Get the next month.
 
-TimeLeftUntilTargetDatetime
-     Return time left from current datetime to target.
+NextYear
+     Get the year after this one.
+
+ThisMonth
+     Get the current month.
+
+ThisYear
+     Get the current year.
 
 
 

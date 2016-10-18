@@ -2,20 +2,20 @@ Gen
 
 CHANGELOG
 
-2016.09.05
-v1.17.0
+2016.10.17
+v1.18.0
 
 Changes by functionality
 
 Added new commands
-     TimeBetweenDates
-          Return the absolute number of days between dates given.
-     TimeBetweenDatetimes
-          Return the absolute value of time between datetimes given.
-     TimeLeftUntilTargetDate
-          Return time left from current date until target.
-     TimeLeftUntilTargetDatetime
-          Return time left from current datetime to target.
+     LastMonth
+     LastYear
+     NextMonth
+     NextYear
+     ThisMonth
+     ThisYear
+
+
 
 By files
 
@@ -34,55 +34,61 @@ By files
      /doc
           *-index.html
                Updated to include current version number.
-          htmllisttreefromdict-exceptions.html
-               Removed extraneous entry.
-          timebetweendates.html
-          timebetweendates-exceptions.html
-               Documentation for new command.          
-          timebetweendatetimes.html
-          timebetweendatetimes-exceptions.html
-               Documentation for new command.          
-          timeleftuntiltargetdate.html
-          timeleftuntiltargetdate-exceptions.html
-               Documentation for new command.          
-          timeleftuntiltargetdatetime.html
-          timeleftuntiltargetdatetime-exceptions.html
+          lastmonth-exceptions.html
+          lastmonth.html
                Documentation for new command.
-          
+          lastyear-exceptions.html
+          lastyear.html
+               Documentation for new command.
+          nextmonth-exceptions.html
+          nextmonth.html
+               Documentation for new command.
+          nextyear-exceptions.html
+          nextyear.html
+               Documentation for new command.
+          thismonth-exceptions.html
+          thismonth.html
+               Documentation for new command.
+          thisyear-exceptions.html
+          thisyear.html
+               Documentation for new command.
+               
      /src
           gen.tcl
                Updated to include current version number.
+          lastmonth.tcl
+               New command.
+          lastyear.tcl
+               New command.
           loading-module-data.tcl
                Updated to add support for new commands.
+          nextmonth.tcl
+               New command.
+          nextyear.tcl
+               New command.               
           pkgIndex.tcl
                Updated to include current version number.
-          quasitablefromkeyvaluelist.tcl
-               Changeded argument names. No changes to functionality.
-          seconds2datequantity.tcl
-               Internal use.
-          seconds2datetimequantity.tcl
-               Fix for CN_0010. Changed number of digits in the day portion from two to four.
-          timebetweendates.tcl
+          thismonth.tcl
                New command.
-          timebetweendatetimes.tcl
-               New command.
-          timeleftuntiltargetdate.tcl
-               New command.
-          timeleftuntiltargetdatetime.tcl
-               New command.
+          thisyear.tcl
+               New command.                              
 
      /test
           *.test
                Update the rev number.
-          seconds2datequantity.test
-               Tests for internal command.
-          showtable.test
-               Minor fix for output.
-          timebetweendates.tcl
+          email-test-config.test
+               Configuration variables for email tests.
+          foreach.test
+               Updated expected output to match database contents.                             
+          lastmonth.test
                Tests for new command.
-          timebetweendatetimes.tcl
+          lastyear.test
                Tests for new command.
-          timeleftuntiltargetdate.tcl
+          nextmonth.test
                Tests for new command.
-          timeleftuntiltargetdatetime.tcl
+          nextyear.test
+               Tests for new command.
+          thismonth.test
+               Tests for new command.
+          thisyear.test
                Tests for new command.

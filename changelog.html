@@ -31,7 +31,7 @@
 <p><i>Want to receive notifications about changes to Gen?</i> You can subscribe to the announcements mailing list by sending an email to <code>gen-announce-subscribe@robertbrogan.com</code>. (No need for anything in subject or message body.) You will get an email every time we have a new release.</p>
 
 <div class="section-header">
-<div class="section-header-left">1.17.0</div><div class="section-header-right">2016.09.05</div>
+<div class="section-header-left">1.16.0</div><div class="section-header-right">2016.07.25</div>
 </div>
 <div class="section-content">
 <p>
@@ -39,10 +39,12 @@ Changes by functionality<br>
 <ul>
 <li>Added new commands
 <ul>
-<li>TimeBetweenDates</li>
-<li>TimeBetweenDatetimes</li>
-<li>TimeLeftUntilTargetDate</li>
-<li>TimeLeftUntilTargetDatetime</li>
+<li>LastMonth</li>
+<li>LastYear</li>
+<li>NextMonth</li>
+<li>NextYear</li>
+<li>ThisMonth</li>
+<li>ThisYear</li>
 </ul>
 </li>
 </ul>
@@ -80,21 +82,24 @@ By files<br>
           <li>*-index.html
           <ul><li>Updated to include current version number.</li></ul>
           </li>
-          <li>htmllisttreefromdict-exceptions.html
-          <ul><li>Removed extraneous entry.</li></ul>
-          </li>
-          <li>timebetweendates.html<br>timebetweendates-exceptions.html
+          <li>lastmonth.html<br>lastmonth-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>timebetweendatetimes.html<br>timebetweendatetimes-exceptions.html
+          <li>lastyear.html<br>lastyear-exceptions.html
           <ul><li>Documentation for new command.</li></ul>
           </li>
-          <li>timeleftuntiltargetdate.html<br>timeleftuntiltargetdate-exceptions.html
+          <li>nextmonth.html<br>nextmonth-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>
+          </li>
+          <li>nextyear.html<br>nextyear-exceptions.html
           <ul><li>Documentation for new command.</li></ul>          
           </li>
-          <li>timeleftuntiltargetdatetime.html<br>timeleftuntiltargetdatetime-exceptions.html
+          <li>thismonth.html<br>thismonth-exceptions.html
           <ul><li>Documentation for new command.</li></ul>          
           </li>
+          <li>thisyear.html<br>thisyear-exceptions.html
+          <ul><li>Documentation for new command.</li></ul>          
+          </li>          
      </ul>
 </li>
 <li>/src
@@ -104,32 +109,29 @@ By files<br>
      <li>Updated to include current version number.</li>
 </ul>
 </li>
+<li>lastmonth.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>lastyear.tcl
+<ul><li>New command.</li></ul>
+</li>
 <li>loading-module-data.tcl
 <ul><li>Updated to add support for new commands.</li>
 </ul>
 </li>
+<li>nextmonth.tcl
+<ul><li>New command.</li></ul>
+</li>
+<li>nextyear.tcl
+<ul><li>New command.</li></ul>
+</li>
 <li>pkgIndex.tcl
 <ul><li>Updated to include current version number.</li></ul>
 </li>
-<li>quasitablefromkeyvaluelist.tcl
-<ul><li>Changeded argument names. No changes to functionality.</li></ul>
-</li>
-<li>seconds2datequantity.tcl
-<ul><li>Internal use.</li></ul>
-</li>
-<li>seconds2datetimequantity.tcl
-<ul><li>Fix for CN_0010. Changed number of digits in the day portion from two to four.</li></ul>
-</li>
-<li>timebetweendates.tcl
+<li>thismonth.tcl
 <ul><li>New command.</li></ul>
 </li>
-<li>timebetweendatetimes.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>timeleftuntiltargetdate.tcl
-<ul><li>New command.</li></ul>
-</li>
-<li>timeleftuntiltargetdatetime.tcl
+<li>thisyear.tcl
 <ul><li>New command.</li></ul>
 </li>
 </ul>
@@ -141,32 +143,42 @@ By files<br>
 <li>Update the rev number.</li>
 </ul>
 </li>
-<li>seconds2datequantity.test
+<li>email-test-config.test
 <ul>
-<li>Tests for internal command.</li>
+<li>Configuration variables for email tests.</li>
 </ul>
 </li>
-<li>showtable.test
+<li>foreach.test
 <ul>
-<li>Minor fix for output.</li>
+<li>Updated expected output to match database contents.</li>
 </ul>
 </li>
-<li>timebetweendates.test
-<ul>
-<li>Tests for new command.</li>
-</ul>
-</li>
-<li>timebetweendatetimes.test
+<li>lastmonth.test
 <ul>
 <li>Tests for new command.</li>
 </ul>
 </li>
-<li>timeleftuntiltargetdate.test
+<li>lastyear.test
+<ul>
+<li>Tests for new command.</li>
+</ul>
+</li>
+<li>nextmonth.test
 <ul>
      <li>Tests for new command.</li>
 </ul>
 </li>
-<li>timeleftuntiltargetdatetime.test
+<li>nextyear.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>thismonth.test
+<ul>
+     <li>Tests for new command.</li>
+</ul>
+</li>
+<li>thisyear.test
 <ul>
      <li>Tests for new command.</li>
 </ul>

@@ -1,0 +1,87 @@
+package require tcltest
+package require -exact gen 1.18.0
+source gen-test-common.tcl
+
+namespace eval NextMonthTest {}
+
+
+namespace eval NextMonthTest {
+
+proc SetupClock {ClockTime} {
+     set ::NextMonthTest::MySeconds [eval [subst {clock scan "$ClockTime" -format %Y-%m}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::NextMonthTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc NextMonthTest::Test-1 {} {
+
+::tcltest::test NextMonth-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded NextMonth]]}  -setup {::NextMonthTest::SetupClock {2000-01}
+}  -body {NextMonth
+}  -cleanup {}  -result {02}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextMonthTest::Test-2 {} {
+
+::tcltest::test NextMonth-1 {Use abbreviated name}  -constraints {[expr [CheckAllDependenciesLoaded NextMonth]]}  -setup {::NextMonthTest::SetupClock {2000-01}
+}  -body {NextMonth %b
+}  -cleanup {}  -result {Feb}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextMonthTest::Test-3 {} {
+
+::tcltest::test NextMonth-2 {Use full name}  -constraints {[expr [CheckAllDependenciesLoaded NextMonth]]}  -setup {::NextMonthTest::SetupClock {2000-01}
+}  -body {NextMonth %B}  -cleanup {}  -result {February}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextMonthTest::Test-4 {} {
+
+::tcltest::test NextMonth-3 {Current month is December}  -constraints {[expr [CheckAllDependenciesLoaded NextMonth]]}  -setup {::NextMonthTest::SetupClock {1999-12}
+}  -body {NextMonth}  -cleanup {}  -result {01}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextMonthTest::Test-5 {} {
+
+::tcltest::test NextMonth-4 {Format is invalid}  -constraints {[expr [CheckAllDependenciesLoaded NextMonth]]}  -setup {}  -body {NextMonth asdf
+}  -cleanup {}  -result {Variable Format has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     NextMonthTest::Test-1
+     NextMonthTest::Test-2
+     NextMonthTest::Test-3
+     NextMonthTest::Test-4
+     NextMonthTest::Test-5
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          NextMonthTest::Test-[set Element]
+     }
+}
+

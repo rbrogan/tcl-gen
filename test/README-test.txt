@@ -307,8 +307,12 @@ lappendifnotalready.test
      Tests for the command LappendIfNotAlready.
 lastid.test
      Tests for the command LastId.
+lastmonth.test
+     Tests for the command LastMonth.
 lastof.test
      Tests for the command LastOf.
+lastyear.test
+     Tests for the command LastYear.
 limitlinelengthinfile.test
      Tests for the command LimitLineLengthInFile.
 linktclvariabletoregistryvalue.test
@@ -333,6 +337,10 @@ multiplyhhmmss.test
      Tests for the command MultiplyHhmmss.
 newlinesstringtoonehtmlparagraph.test
      Tests for the command NewlinesStringToOneHtmlParagraph.
+nextmonth.test
+     Tests for the command NextMonth.
+nextyear.test
+     Tests for the command NextYear.
 notempty.test
      Tests for the command NotEmpty.
 now.test
@@ -459,6 +467,10 @@ swap.test
      Tests for the command Swap.
 ter.test
      Tests for the command Ter.
+thismonth.test
+     Tests for the command ThisMonth.
+thisyear.test
+     Tests for the command ThisYear.
 timebetweendates.test
      Tests for the command TimeBetweenDates.
 timebetweendatetimes.test

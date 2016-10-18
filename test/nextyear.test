@@ -1,0 +1,66 @@
+package require tcltest
+package require -exact gen 1.18.0
+source gen-test-common.tcl
+
+namespace eval NextYearTest {}
+
+
+namespace eval NextYearTest {
+
+proc SetupClock {ClockTime} {
+     set ::NextYearTest::MySeconds [eval [subst {clock scan "$ClockTime" -format %Y}]]
+     rename ::clock ::clock_original
+     proc ::clock {args} {
+          if {[lindex $args 0] eq "seconds"} {
+               return $::NextYearTest::MySeconds
+          } else {
+               return [::clock_original {*}$args]
+          }
+     }
+}
+
+proc RestoreClock {} {
+     rename ::clock ""
+     rename ::clock_original ::clock
+}
+
+}
+
+proc NextYearTest::Test-1 {} {
+
+::tcltest::test NextYear-0 {Basic test}  -constraints {[expr [CheckAllDependenciesLoaded NextYear]]}  -setup {::NextYearTest::SetupClock 2000
+}  -body {NextYear
+}  -cleanup {}  -result {2001}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextYearTest::Test-2 {} {
+
+::tcltest::test NextYear-1 {Use two digit format}  -constraints {[expr [CheckAllDependenciesLoaded NextYear]]}  -setup {::NextYearTest::SetupClock 2000}  -body {NextYear %y
+}  -cleanup {}  -result {01}  -output {}  -returnCodes {0}  
+
+}
+
+
+
+proc NextYearTest::Test-3 {} {
+
+::tcltest::test NextYear-2 {Format is invalid}  -constraints {[expr [CheckAllDependenciesLoaded NextYear]]}  -setup {}  -body {NextYear asdf
+}  -cleanup {}  -result {Variable Format has invalid value asdf.}  -output {}  -returnCodes {1}  
+
+}
+
+
+
+if {([llength $::argv] == 0) || ([lindex $::argv 0] ne "target")} {
+     NextYearTest::Test-1
+     NextYearTest::Test-2
+     NextYearTest::Test-3
+} else {
+     foreach Element [lrange $::argv 1 end] {
+          NextYearTest::Test-[set Element]
+     }
+}
+
